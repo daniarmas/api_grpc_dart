@@ -24,7 +24,7 @@ class Server {
       final server = grpc.Server([
         BusinessService(),
       ]);
-      await server.serve(port: environment.PORT);
+      await server.serve(port: environment.port);
       print('🚀 Server listening at port ${server.port}...');
     }).catchError((onError) {
       throw Exception(onError);

@@ -1,6 +1,7 @@
 import 'package:api_grpc_dart/src/grpc/main.pbgrpc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:grpc/src/server/call.dart';
+import 'package:grpc/grpc.dart';
+
 import 'package:postgres/postgres.dart';
 
 class BusinessService extends BusinessServiceBase {
