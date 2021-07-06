@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+// import "google/protobuf/timestamp.proto";
+// import "google/protobuf/empty.proto";
+// import "google/protobuf/any.proto";
+
+service BusinessService {
+  rpc ListBusiness (ListBusinessRequest) returns (ListBusinessResponse) {}
+}
+
+
+message ListBusinessRequest {
+  optional string category_fk = 1;
+  optional int32 limit = 2;
+  repeated string not_ids = 3;
+  optional bool this_month = 4;
+  optional double latitude = 5;
+  optional double longitude = 6;
+}
+
+message ListBusinessResponse {
+  repeated Business business = 1;
+}
+
+message Business {
+  string id = 1;
+  string name = 2;
+  // string description = 3;
+  // BusinessCategory category = 4;
+  // string address = 5;
+  // string phone = 6;
+  // string email = 7;
+  // string photo = 8;
+  // string photo_url = 9;
+  // double distance = 10;
+  // bool to_pick_up = 11;
+  // bool home_delivery = 12;
+  // // BusinessSchedule schedule = 13;
+  // int32 lead_day_time = 14;
+  // int32 lead_hours_time = 15;
+  // int32 lead_minutes_time = 16;
+  // bool is_open = 17;
+  // LatLng coordinates = 18;
+  // double valuation = 19;
+  // double delivery_price = 20;
+  // google.protobuf.Timestamp created_at = 21;
+}
+
+// message BusinessSchedule {
+//   string id = 1;
+//   google.protobuf.Timestamp opening_time_sunday = 2;
+//   google.protobuf.Timestamp closing_time_sunday = 3;
+//   google.protobuf.Timestamp opening_time_monday = 4;
+//   google.protobuf.Timestamp closing_time_monday = 5;
+//   google.protobuf.Timestamp opening_time_tuesday = 6;
+//   google.protobuf.Timestamp closing_time_tuesday = 7;
+//   google.protobuf.Timestamp opening_time_wednesday = 8;
+//   google.protobuf.Timestamp closing_time_wednesday = 9;
+//   google.protobuf.Timestamp opening_time_thursday = 10;
+//   google.protobuf.Timestamp closing_time_thursday = 11;
+//   google.protobuf.Timestamp opening_time_friday = 12;
+//   google.protobuf.Timestamp closing_time_friday = 13;
+//   google.protobuf.Timestamp opening_time_saturday = 14;
+//   google.protobuf.Timestamp closing_time_saturday = 15;
+//   google.protobuf.Timestamp opening_time_delivery_sunday = 16;
+//   google.protobuf.Timestamp closing_time_delivery_sunday = 17;
+//   google.protobuf.Timestamp opening_time_delivery_monday = 18;
+//   google.protobuf.Timestamp closing_time_delivery_monday = 19;
+//   google.protobuf.Timestamp opening_time_delivery_tuesday = 20;
+//   google.protobuf.Timestamp closing_time_deliveryTuesday = 21;
+//   google.protobuf.Timestamp opening_time_delivery_wednesday = 22;
+//   google.protobuf.Timestamp closing_time_delivery_wednesday = 23;
+//   google.protobuf.Timestamp opening_time_delivery_thursday = 24;
+//   google.protobuf.Timestamp closing_time_delivery_thursday = 25;
+//   google.protobuf.Timestamp opening_time_delivery_friday = 26;
+//   google.protobuf.Timestamp closing_time_delivery_friday = 27;
+//   google.protobuf.Timestamp opening_time_delivery_saturday = 28;
+//   google.protobuf.Timestamp closing_time_delivery_saturday = 29;
+// }
+
+message LatLng {
+  // The latitude in degrees. It must be in the range [-90.0, +90.0].
+  double latitude = 1;
+
+  // The longitude in degrees. It must be in the range [-180.0, +180.0].
+  double longitude = 2;
+}
+
+message RepeatedBusiness {
+  repeated Business business = 1;
+}
+
+message BusinessCategory {
+  string id = 1;
+  string name = 2;
+}
