@@ -93,5 +93,6 @@ linter:
 
 analyzer:
   exclude:
-    - lib/src/google
-    - lib/src/grpc
+    - lib/src/data/grpc/google
+    - lib/src/data/grpc
+    - "**/*.mocks.dart"
