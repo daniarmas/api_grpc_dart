@@ -1,4 +1,4 @@
-import 'package:api_grpc_dart/src/domain/services/business.service.dart';
+import 'package:api_grpc_dart/domain/services/business.service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart' as grpc;
 import 'package:postgres/postgres.dart';
