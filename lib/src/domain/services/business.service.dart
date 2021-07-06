@@ -1,4 +1,4 @@
-import 'package:api_grpc_dart/src/grpc/main.pbgrpc.dart';
+import 'package:api_grpc_dart/src/data/grpc/main.pbgrpc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 
