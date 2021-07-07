@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../protos/main.pb.dart';
-import '../error/failures.dart';
+import '../error/failure.dart';
 
 // ignore: one_member_abstracts
 abstract class UseCase<Type, Params> {
