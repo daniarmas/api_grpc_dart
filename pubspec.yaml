@@ -16,6 +16,8 @@ dependencies:
   equatable: ^2.0.3
 
 dev_dependencies:
+  # dart run build_runner build
+  build_runner: ^2.0.5
   dotenv: ^3.0.0
   lints: ^1.0.1
   mockito: ^5.0.10
