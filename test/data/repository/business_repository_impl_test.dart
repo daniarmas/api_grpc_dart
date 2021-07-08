@@ -1,3 +1,5 @@
+import 'package:api_grpc_dart/core/error/exception.dart';
+import 'package:api_grpc_dart/core/error/failure.dart';
 import 'package:api_grpc_dart/data/datasources/list_business_local_data_source.dart';
 import 'package:api_grpc_dart/data/repositories/business_repository_impl.dart';
 import 'package:api_grpc_dart/protos/main.pb.dart';
@@ -24,7 +26,8 @@ void main() {
   });
 
   group('should return local data listBusiness from database', () {
-    test('should return local data listBusiness from database', () async {
+    test('should return data when the call to local data source is successful.',
+        () async {
       when(mockListBusinessLocalDataSource.listBusiness())
           .thenAnswer((_) async => listOfBusiness);
       // act
@@ -32,6 +35,17 @@ void main() {
       // assert
       verify(mockListBusinessLocalDataSource.listBusiness());
       expect(result, Right(listOfBusiness));
+    });
+    test(
+        'should return server failure when the call to local data source is unsuccessful.',
+        () async {
+      when(mockListBusinessLocalDataSource.listBusiness())
+          .thenThrow(ServerException());
+      // act
+      final result = await businessRepositoryImpl.listBusiness();
+      // assert
+      verify(mockListBusinessLocalDataSource.listBusiness());
+      expect(result, Left(ServerFailure()));
     });
   });
 }
