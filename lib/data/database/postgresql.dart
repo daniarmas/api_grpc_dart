@@ -11,6 +11,7 @@ class PostgresqlDatabase implements Database {
       username: _environment.databaseUsername,
       password: _environment.databasePassword);
 
+  @override
   Future<bool> connect() async {
     try {
       await _connection.open().then((value) async {
