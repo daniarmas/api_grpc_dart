@@ -6,7 +6,7 @@ import '../error/failure.dart';
 
 // ignore: one_member_abstracts
 abstract class UseCase<Type, Params> {
-  Future<Either<Failure, List<Business>>> call(Params params);
+  Future<Either<Failure, Iterable<Business>>> call(Params params);
 }
 
 class NoParams extends Equatable {

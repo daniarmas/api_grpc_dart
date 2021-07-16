@@ -11,7 +11,7 @@ class ListBusinessUseCase implements UseCase<Business, NoParams> {
   ListBusinessUseCase(this.businessRepository);
 
   @override
-  Future<Either<Failure, List<Business>>> call(NoParams params) async {
-    return await businessRepository.listBusiness();
+  Future<Either<Failure, Iterable<Business>>> call(NoParams params) async {
+    return businessRepository.listBusiness();
   }
 }

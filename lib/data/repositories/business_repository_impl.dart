@@ -9,12 +9,12 @@ import '../../protos/main.pb.dart';
 class BusinessRepositoryImpl implements BusinessRepository {
   final ListBusinessLocalDataSource localDataSource;
 
-  BusinessRepositoryImpl(this.localDataSource);
+  BusinessRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<Either<Failure, List<Business>>> listBusiness() async {
+  Future<Either<Failure, Iterable<Business>>> listBusiness() async {
     try {
-      return Right(await localDataSource.listBusiness());
+      return await localDataSource.listBusiness();
     } on ServerException {
       return Left(ServerFailure());
     }

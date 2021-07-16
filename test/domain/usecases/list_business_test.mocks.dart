@@ -32,10 +32,10 @@ class MockBusinessRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Business>>> listBusiness() =>
+  _i4.Future<_i2.Either<_i5.Failure, Iterable<_i6.Business>>> listBusiness() =>
       (super.noSuchMethod(Invocation.method(#listBusiness, []),
               returnValue:
-                  Future<_i2.Either<_i5.Failure, List<_i6.Business>>>.value(
-                      _FakeEither<_i5.Failure, List<_i6.Business>>()))
-          as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Business>>>);
+                  Future<_i2.Either<_i5.Failure, Iterable<_i6.Business>>>.value(
+                      _FakeEither<_i5.Failure, Iterable<_i6.Business>>()))
+          as _i4.Future<_i2.Either<_i5.Failure, Iterable<_i6.Business>>>);
 }

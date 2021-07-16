@@ -21,15 +21,15 @@ void main() {
 
   setUp(() {
     mockListBusinessLocalDataSource = MockListBusinessLocalDataSource();
-    businessRepositoryImpl =
-        BusinessRepositoryImpl(mockListBusinessLocalDataSource);
+    businessRepositoryImpl = BusinessRepositoryImpl(
+        localDataSource: mockListBusinessLocalDataSource);
   });
 
   group('should return local data listBusiness from database', () {
     test('should return data when the call to local data source is successful.',
         () async {
       when(mockListBusinessLocalDataSource.listBusiness())
-          .thenAnswer((_) async => listOfBusiness);
+          .thenAnswer((_) async => Right(listOfBusiness));
       // act
       final result = await businessRepositoryImpl.listBusiness();
       // assert
