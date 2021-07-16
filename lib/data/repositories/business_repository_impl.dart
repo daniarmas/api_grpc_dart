@@ -1,10 +1,10 @@
-import 'package:api_grpc_dart/core/error/exception.dart';
-import 'package:api_grpc_dart/data/datasources/list_business_local_data_source.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../core/error/exception.dart';
 import '../../core/error/failure.dart';
 import '../../domain/repositories/business_repository.dart';
 import '../../protos/main.pb.dart';
+import '../datasources/list_business_local_data_source.dart';
 
 class BusinessRepositoryImpl implements BusinessRepository {
   final ListBusinessLocalDataSource localDataSource;
