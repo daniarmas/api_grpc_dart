@@ -12,9 +12,12 @@ final serviceLocator = GetIt.instance;
 void initInjectionContainer() {
   load();
   serviceLocator.registerSingleton<Environment>(Environment(
-    port: int.parse(env['PORT'] ?? '9000'),
-    postgresdbUri: env['POSTGRESDB_URI'] ??
-        'postgres://postgres:postgres@192.168.0.2:54322/database',
+    port: int.parse(env['PORT']!),
+    databaseHost: env['DATABASE_HOST']!,
+    databasePort: int.parse(env['DATABASE_PORT']!),
+    databaseDatabase: env['DATABASE_DATABASE']!,
+    databaseUsername: env['DATABASE_USERNAME']!,
+    databasePassword: env['DATABASE_PASSWORD']!,
   ));
   serviceLocator.registerSingleton<PostgresqlDatabase>(PostgresqlDatabase());
   serviceLocator.registerSingleton<ListBusinessLocalDataSource>(

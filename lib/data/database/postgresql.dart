@@ -1,12 +1,17 @@
-import 'package:api_grpc_dart/data/database/database.dart';
+import 'package:get_it/get_it.dart';
 import 'package:postgres/postgres.dart';
 
-class PostgresqlDatabase implements Database {
-  static final _connection = PostgreSQLConnection(
-      '192.168.0.2', 54322, 'database',
-      username: 'postgres', password: 'postgres');
+import '../../environment.dart';
+import 'database.dart';
 
-  Future<bool> setUp() async {
+class PostgresqlDatabase implements Database {
+  static final _environment = GetIt.I<Environment>();
+  static final _connection = PostgreSQLConnection(_environment.databaseHost,
+      _environment.databasePort, _environment.databaseDatabase,
+      username: _environment.databaseUsername,
+      password: _environment.databasePassword);
+
+  Future<bool> connect() async {
     try {
       await _connection.open().then((value) async {
         print('🚀 Database Server is on...');

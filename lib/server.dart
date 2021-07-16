@@ -9,7 +9,7 @@ class Server {
   static Future<void> init() async {
     final environment = GetIt.I<Environment>();
     final postgresqlDatabase = GetIt.I<PostgresqlDatabase>();
-    await postgresqlDatabase.setUp().then((value) async {
+    await postgresqlDatabase.connect().then((value) async {
       if (value) {
         final server = grpc.Server([
           BusinessService(),
