@@ -13,8 +13,8 @@ abstract class ListBusinessLocalDataSource {
 class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
   @override
   Future<Either<Failure, Iterable<Business>>> listBusiness() async {
-    var connection = GetIt.I<PostgresqlDatabase>();
-    final result = await connection.list(table: 'Business');
+    var database = GetIt.I<PostgresqlDatabase>();
+    final result = await database.list(table: 'Business');
     return Right(
         result.map((e) => Business()..mergeFromProto3Json(e['Business'])));
   }

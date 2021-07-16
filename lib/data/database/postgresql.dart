@@ -37,7 +37,7 @@ class PostgresqlDatabase implements Database {
   @override
   Future<Iterable<dynamic>> list({required String table}) async {
     return _connection.mappedResultsQuery(
-        'SELECT "Business"."id", "Business"."name" FROM "Business"');
+        'SELECT "$table"."id", "Business"."name" FROM "$table"');
   }
 
   @override
