@@ -6,7 +6,7 @@ import 'domain/services/business_service.dart';
 import 'environment.dart';
 
 class Server {
-  static final serviceLocator = GetIt.instance;
+  static final GetIt serviceLocator = GetIt.instance;
   static final Environment _environment = serviceLocator();
   static final Database _database = serviceLocator();
 
