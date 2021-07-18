@@ -165,6 +165,8 @@ class Business extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Business', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
+    ..aOM<LatLng>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', subBuilder: LatLng.create)
+    ..pc<Polygon>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'polygon', $pb.PbFieldType.PM, subBuilder: Polygon.create)
     ..hasRequiredFields = false
   ;
 
@@ -172,6 +174,8 @@ class Business extends $pb.GeneratedMessage {
   factory Business({
     $core.String? id,
     $core.String? name,
+    LatLng? coordinates,
+    $core.Iterable<Polygon>? polygon,
   }) {
     final _result = create();
     if (id != null) {
@@ -179,6 +183,12 @@ class Business extends $pb.GeneratedMessage {
     }
     if (name != null) {
       _result.name = name;
+    }
+    if (coordinates != null) {
+      _result.coordinates = coordinates;
+    }
+    if (polygon != null) {
+      _result.polygon.addAll(polygon);
     }
     return _result;
   }
@@ -220,6 +230,61 @@ class Business extends $pb.GeneratedMessage {
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
   void clearName() => clearField(2);
+
+  @$pb.TagNumber(3)
+  LatLng get coordinates => $_getN(2);
+  @$pb.TagNumber(3)
+  set coordinates(LatLng v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasCoordinates() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearCoordinates() => clearField(3);
+  @$pb.TagNumber(3)
+  LatLng ensureCoordinates() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  $core.List<Polygon> get polygon => $_getList(3);
+}
+
+class Polygon extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Polygon', createEmptyInstance: create)
+    ..p<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', $pb.PbFieldType.PD)
+    ..hasRequiredFields = false
+  ;
+
+  Polygon._() : super();
+  factory Polygon({
+    $core.Iterable<$core.double>? coordinates,
+  }) {
+    final _result = create();
+    if (coordinates != null) {
+      _result.coordinates.addAll(coordinates);
+    }
+    return _result;
+  }
+  factory Polygon.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Polygon.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Polygon clone() => Polygon()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Polygon copyWith(void Function(Polygon) updates) => super.copyWith((message) => updates(message as Polygon)) as Polygon; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Polygon create() => Polygon._();
+  Polygon createEmptyInstance() => create();
+  static $pb.PbList<Polygon> createRepeated() => $pb.PbList<Polygon>();
+  @$core.pragma('dart2js:noInline')
+  static Polygon getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Polygon>(create);
+  static Polygon? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.double> get coordinates => $_getList(0);
 }
 
 class LatLng extends $pb.GeneratedMessage {

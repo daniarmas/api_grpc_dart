@@ -1,7 +1,7 @@
 import 'package:api_grpc_dart/core/usecases/usecase.dart';
 import 'package:api_grpc_dart/domain/repositories/business_repository.dart';
 import 'package:api_grpc_dart/domain/usecases/list_business.dart';
-import 'package:api_grpc_dart/protos/main.pb.dart';
+import 'package:api_grpc_dart/grpc/protos/main.pb.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

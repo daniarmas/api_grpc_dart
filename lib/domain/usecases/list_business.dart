@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../core/error/failure.dart';
 import '../../core/usecases/usecase.dart';
-import '../../protos/main.pb.dart';
+import '../../protos/protos/main.pb.dart';
 import '../repositories/business_repository.dart';
 
 class ListBusinessUseCase implements UseCase<Business, NoParams> {

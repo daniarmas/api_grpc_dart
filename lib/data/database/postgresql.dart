@@ -41,9 +41,10 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  Future<Iterable<dynamic>> list({required String table}) async {
+  Future<List<dynamic>> list({required String table}) async {
+    // 'SELECT ST_X("Business"."coordinates") AS latitude, ST_Y("Business"."coordinates") AS longitude, ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon FROM "Business";'
     return _connection.mappedResultsQuery(
-        'SELECT "$table"."id", "Business"."name" FROM "$table"');
+        'SELECT "Business".id, "Business".name, ST_X("Business"."coordinates") AS longitude, ST_Y("Business"."coordinates") AS latitude, ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon FROM "Business";');
   }
 
   @override

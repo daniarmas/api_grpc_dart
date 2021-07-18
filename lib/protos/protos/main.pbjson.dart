@@ -46,11 +46,23 @@ const Business$json = const {
   '2': const [
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
+    const {'1': 'coordinates', '3': 3, '4': 1, '5': 11, '6': '.LatLng', '10': 'coordinates'},
+    const {'1': 'polygon', '3': 4, '4': 3, '5': 11, '6': '.Polygon', '10': 'polygon'},
   ],
 };
 
 /// Descriptor for `Business`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List businessDescriptor = $convert.base64Decode('CghCdXNpbmVzcxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZQ==');
+final $typed_data.Uint8List businessDescriptor = $convert.base64Decode('CghCdXNpbmVzcxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIpCgtjb29yZGluYXRlcxgDIAEoCzIHLkxhdExuZ1ILY29vcmRpbmF0ZXMSIgoHcG9seWdvbhgEIAMoCzIILlBvbHlnb25SB3BvbHlnb24=');
+@$core.Deprecated('Use polygonDescriptor instead')
+const Polygon$json = const {
+  '1': 'Polygon',
+  '2': const [
+    const {'1': 'coordinates', '3': 1, '4': 3, '5': 1, '10': 'coordinates'},
+  ],
+};
+
+/// Descriptor for `Polygon`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List polygonDescriptor = $convert.base64Decode('CgdQb2x5Z29uEiAKC2Nvb3JkaW5hdGVzGAEgAygBUgtjb29yZGluYXRlcw==');
 @$core.Deprecated('Use latLngDescriptor instead')
 const LatLng$json = const {
   '1': 'LatLng',

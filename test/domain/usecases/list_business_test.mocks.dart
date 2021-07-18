@@ -7,7 +7,7 @@ import 'dart:async' as _i4;
 import 'package:api_grpc_dart/core/error/failure.dart' as _i5;
 import 'package:api_grpc_dart/domain/repositories/business_repository.dart'
     as _i3;
-import 'package:api_grpc_dart/protos/main.pb.dart' as _i6;
+import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i6;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 

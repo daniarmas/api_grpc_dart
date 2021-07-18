@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 
-import '../../protos/main.pbgrpc.dart';
+import '../../protos/protos/main.pbgrpc.dart';
 import '../repositories/business_repository.dart';
 
 class BusinessService extends BusinessServiceBase {

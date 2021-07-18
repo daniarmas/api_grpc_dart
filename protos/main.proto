@@ -25,25 +25,32 @@ message ListBusinessResponse {
 message Business {
   string id = 1;
   string name = 2;
-  // string description = 3;
+  string description = 3;
   // BusinessCategory category = 4;
-  // string address = 5;
-  // string phone = 6;
-  // string email = 7;
-  // string photo = 8;
+  string address = 5;
+  string phone = 6;
+  string email = 7;
+  string photo = 8;
   // string photo_url = 9;
   // double distance = 10;
   // bool to_pick_up = 11;
   // bool home_delivery = 12;
-  // // BusinessSchedule schedule = 13;
+  // BusinessSchedule schedule = 13;
   // int32 lead_day_time = 14;
   // int32 lead_hours_time = 15;
   // int32 lead_minutes_time = 16;
   // bool is_open = 17;
   // LatLng coordinates = 18;
-  // double valuation = 19;
-  // double delivery_price = 20;
-  // google.protobuf.Timestamp created_at = 21;
+  LatLng coordinates = 19;
+  repeated Polygon polygon = 20;
+  // double valuation = 20;
+  // double delivery_price = 21;
+  // google.protobuf.Timestamp created_at = 22;
+  // google.protobuf.Timestamp updated_at = 23;
+}
+
+message Polygon {
+  repeated double coordinates = 1;
 }
 
 // message BusinessSchedule {

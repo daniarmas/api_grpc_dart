@@ -2,7 +2,7 @@ import 'package:api_grpc_dart/core/error/exception.dart';
 import 'package:api_grpc_dart/core/error/failure.dart';
 import 'package:api_grpc_dart/data/datasources/list_business_local_data_source.dart';
 import 'package:api_grpc_dart/data/repositories/business_repository_impl.dart';
-import 'package:api_grpc_dart/protos/main.pb.dart';
+import 'package:api_grpc_dart/grpc/protos/main.pb.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:mockito/annotations.dart';
