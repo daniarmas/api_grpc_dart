@@ -26,7 +26,7 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
       'ST_X("Business"."coordinates") AS longitude',
       'ST_Y("Business"."coordinates") AS latitude',
       'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon'
-    ], where: [
+    ], whereAnd: [
       WhereAttribute(key: 'name', value: 'Kadis Varadero'),
       WhereAttribute(key: 'phone', value: '45567899')
     ], limit: 10);

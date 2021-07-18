@@ -4,7 +4,7 @@ abstract class Database {
       {required String table,
       List<String>? attributes,
       int? limit,
-      List<WhereAttribute>? where});
+      List<WhereAttribute>? whereAnd});
   dynamic get();
   dynamic create(dynamic object);
   dynamic update(dynamic object);
