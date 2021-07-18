@@ -4,11 +4,11 @@ import 'package:grpc/grpc.dart' as grpc;
 import 'data/database/database.dart';
 import 'domain/services/business_service.dart';
 import 'environment.dart';
+import 'injection_container.dart' as sl;
 
 class Server {
-  static final GetIt serviceLocator = GetIt.instance;
-  static final Environment _environment = serviceLocator();
-  static final Database _database = serviceLocator();
+  static final Environment _environment = sl.serviceLocator();
+  static final Database _database = sl.serviceLocator();
 
   static Future<void> init() async {
     await _database.connect().then((value) async {

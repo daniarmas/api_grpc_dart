@@ -1,11 +1,11 @@
-import 'package:get_it/get_it.dart';
 import 'package:postgres/postgres.dart';
 
 import '../../environment.dart';
+import '../../injection_container.dart' as sl;
 import 'database.dart';
 
 class PostgresqlDatabase implements Database {
-  static final _environment = GetIt.I<Environment>();
+  static final Environment _environment = sl.serviceLocator();
   static final _connection = PostgreSQLConnection(_environment.databaseHost,
       _environment.databasePort, _environment.databaseDatabase,
       username: _environment.databaseUsername,
