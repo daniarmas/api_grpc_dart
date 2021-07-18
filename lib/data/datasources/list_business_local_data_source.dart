@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:get_it/get_it.dart';
 
 import '../../core/error/failure.dart';
+import '../../injection_container.dart' as sl;
 import '../../protos/protos/main.pb.dart';
 import '../database/database.dart';
 
@@ -11,10 +11,11 @@ abstract class ListBusinessLocalDataSource {
 }
 
 class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
+  final Database _database = sl.serviceLocator();
+
   @override
   Future<Either<Failure, Iterable<Business>>> listBusiness() async {
-    var database = GetIt.I<Database>();
-    final result = await database.list(table: 'Business', attributes: [
+    final result = await _database.list(table: 'Business', attributes: [
       '"Business".id',
       '"Business".name',
       'ST_X("Business"."coordinates") AS longitude',

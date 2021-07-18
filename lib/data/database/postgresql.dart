@@ -42,7 +42,12 @@ class PostgresqlDatabase implements Database {
 
   @override
   Future<List<dynamic>> list(
-      {required String table, List<String>? attributes}) async {
+      {required String table,
+      List<String>? attributes,
+      int? limit,
+      List<WhereAttribute>? where}) async {
+    String whereString = '';
+    String query = '';
     String attributesString = '';
     if (attributes != null && attributes.isNotEmpty) {
       for (int i = 0; i < attributes.length; i++) {
@@ -55,8 +60,40 @@ class PostgresqlDatabase implements Database {
     } else {
       attributesString = '*';
     }
-    return _connection
-        .mappedResultsQuery('SELECT $attributesString FROM "$table";');
+    query = 'SELECT $attributesString FROM "$table";';
+    if (limit != null) {
+      query = 'SELECT $attributesString FROM "$table" LIMIT $limit;';
+    }
+    if (where != null && where.isNotEmpty) {
+      for (int i = 0; i < where.length; i++) {
+        if (i == where.length - 1) {
+          whereString += '"$table".${where[i].key} = \'${where[i].value}\' ';
+        } else {
+          whereString += '"$table".${where[i].key} = \'${where[i].value}\', ';
+        }
+      }
+      query = que(
+          lim: null,
+          where: whereString,
+          table: table,
+          attributesString: attributes);
+    }
+    return _connection.mappedResultsQuery(query);
+  }
+
+  String que({
+    required String table,
+    List<String>? attributesString,
+    int? lim,
+    String? where,
+  }) {
+    String whereString = where != null ? 'WHERE $where' : '';
+    String limit = lim != null ? 'LIMIT $lim;' : '';
+
+    return 'SELECT $attributesString '
+        'FROM "$table" '
+        '$whereString'
+        '$limit';
   }
 
   @override
