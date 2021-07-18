@@ -1,7 +1,7 @@
 import 'package:api_grpc_dart/server.dart';
 import 'package:api_grpc_dart/injection_container.dart';
 
-void main(List<String> arguments) async {
+void main(List<String> arguments) {
   initInjectionContainer();
-  await Server.init();
+  Server.init();
 }

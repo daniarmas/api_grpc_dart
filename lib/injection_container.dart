@@ -26,5 +26,3 @@ void initInjectionContainer() {
   serviceLocator.registerSingleton<BusinessRepository>(
       BusinessRepositoryImpl(localDataSource: serviceLocator()));
 }
-
-void initFeatures() {}
