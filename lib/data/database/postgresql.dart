@@ -51,6 +51,12 @@ class PostgresqlDatabase implements Database {
     return _connection.mappedResultsQuery(query);
   }
 
+  @override
+  dynamic update(dynamic object) {
+    // TODO: implement update
+    throw UnimplementedError();
+  }
+
   String constructSqlQuery({
     required String table,
     List<String>? attributes,
@@ -66,7 +72,8 @@ class PostgresqlDatabase implements Database {
         if (i == where.length - 1) {
           whereString += '"$table".${where[i].key} = \'${where[i].value}\' ';
         } else {
-          whereString += '"$table".${where[i].key} = \'${where[i].value}\' AND ';
+          whereString +=
+              '"$table".${where[i].key} = \'${where[i].value}\' AND ';
         }
       }
       whereResult = 'WHERE $whereString';
@@ -85,11 +92,5 @@ class PostgresqlDatabase implements Database {
         'FROM "$table" '
         '$whereResult'
         '$limitResult';
-  }
-
-  @override
-  dynamic update(dynamic object) {
-    // TODO: implement update
-    throw UnimplementedError();
   }
 }
