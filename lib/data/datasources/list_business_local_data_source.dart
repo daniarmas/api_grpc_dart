@@ -14,7 +14,13 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
   @override
   Future<Either<Failure, Iterable<Business>>> listBusiness() async {
     var database = GetIt.I<Database>();
-    final result = await database.list(table: 'Business');
+    final result = await database.list(table: 'Business', attributes: [
+      '"Business".id',
+      '"Business".name',
+      'ST_X("Business"."coordinates") AS longitude',
+      'ST_Y("Business"."coordinates") AS latitude',
+      'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon'
+    ]);
     List<Polygon> list = [];
     result[0]['']['polygon'].forEach((element) {
       element.forEach((elem) {

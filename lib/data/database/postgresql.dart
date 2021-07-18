@@ -41,10 +41,22 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  Future<List<dynamic>> list({required String table}) async {
-    // 'SELECT ST_X("Business"."coordinates") AS latitude, ST_Y("Business"."coordinates") AS longitude, ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon FROM "Business";'
-    return _connection.mappedResultsQuery(
-        'SELECT "Business".id, "Business".name, ST_X("Business"."coordinates") AS longitude, ST_Y("Business"."coordinates") AS latitude, ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon FROM "Business";');
+  Future<List<dynamic>> list(
+      {required String table, List<String>? attributes}) async {
+    String attributesString = '';
+    if (attributes != null && attributes.isNotEmpty) {
+      for (int i = 0; i < attributes.length; i++) {
+        if (i == attributes.length - 1) {
+          attributesString += '${attributes[i]} ';
+        } else {
+          attributesString += '${attributes[i]}, ';
+        }
+      }
+    } else {
+      attributesString = '*';
+    }
+    return _connection
+        .mappedResultsQuery('SELECT $attributesString FROM "$table";');
   }
 
   @override
