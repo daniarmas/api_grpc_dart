@@ -48,7 +48,6 @@ class PostgresqlDatabase implements Database {
       List<WhereAttribute>? where}) async {
     String query = constructSqlQuery(
         limit: limit, where: where, table: table, attributes: attributes);
-    print(query);
     return _connection.mappedResultsQuery(query);
   }
 

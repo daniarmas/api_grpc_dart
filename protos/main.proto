@@ -11,11 +11,10 @@ service BusinessService {
 
 message ListBusinessRequest {
   optional string category_fk = 1;
-  optional int32 limit = 2;
-  repeated string not_ids = 3;
-  optional bool this_month = 4;
-  optional double latitude = 5;
-  optional double longitude = 6;
+  repeated string not_ids = 2;
+  optional bool this_month = 3;
+  optional double latitude = 4;
+  optional double longitude = 5;
 }
 
 message ListBusinessResponse {

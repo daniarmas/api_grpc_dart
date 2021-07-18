@@ -12,18 +12,16 @@ import 'package:protobuf/protobuf.dart' as $pb;
 class ListBusinessRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListBusinessRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'categoryFk')
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'limit', $pb.PbFieldType.O3)
-    ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'notIds')
-    ..aOB(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thisMonth')
-    ..a<$core.double>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'latitude', $pb.PbFieldType.OD)
-    ..a<$core.double>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longitude', $pb.PbFieldType.OD)
+    ..pPS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'notIds')
+    ..aOB(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thisMonth')
+    ..a<$core.double>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'latitude', $pb.PbFieldType.OD)
+    ..a<$core.double>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longitude', $pb.PbFieldType.OD)
     ..hasRequiredFields = false
   ;
 
   ListBusinessRequest._() : super();
   factory ListBusinessRequest({
     $core.String? categoryFk,
-    $core.int? limit,
     $core.Iterable<$core.String>? notIds,
     $core.bool? thisMonth,
     $core.double? latitude,
@@ -32,9 +30,6 @@ class ListBusinessRequest extends $pb.GeneratedMessage {
     final _result = create();
     if (categoryFk != null) {
       _result.categoryFk = categoryFk;
-    }
-    if (limit != null) {
-      _result.limit = limit;
     }
     if (notIds != null) {
       _result.notIds.addAll(notIds);
@@ -81,43 +76,34 @@ class ListBusinessRequest extends $pb.GeneratedMessage {
   void clearCategoryFk() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.int get limit => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set limit($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasLimit() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearLimit() => clearField(2);
+  $core.List<$core.String> get notIds => $_getList(1);
 
   @$pb.TagNumber(3)
-  $core.List<$core.String> get notIds => $_getList(2);
+  $core.bool get thisMonth => $_getBF(2);
+  @$pb.TagNumber(3)
+  set thisMonth($core.bool v) { $_setBool(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasThisMonth() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearThisMonth() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.bool get thisMonth => $_getBF(3);
+  $core.double get latitude => $_getN(3);
   @$pb.TagNumber(4)
-  set thisMonth($core.bool v) { $_setBool(3, v); }
+  set latitude($core.double v) { $_setDouble(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasThisMonth() => $_has(3);
+  $core.bool hasLatitude() => $_has(3);
   @$pb.TagNumber(4)
-  void clearThisMonth() => clearField(4);
+  void clearLatitude() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.double get latitude => $_getN(4);
+  $core.double get longitude => $_getN(4);
   @$pb.TagNumber(5)
-  set latitude($core.double v) { $_setDouble(4, v); }
+  set longitude($core.double v) { $_setDouble(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasLatitude() => $_has(4);
+  $core.bool hasLongitude() => $_has(4);
   @$pb.TagNumber(5)
-  void clearLatitude() => clearField(5);
-
-  @$pb.TagNumber(6)
-  $core.double get longitude => $_getN(5);
-  @$pb.TagNumber(6)
-  set longitude($core.double v) { $_setDouble(5, v); }
-  @$pb.TagNumber(6)
-  $core.bool hasLongitude() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearLongitude() => clearField(6);
+  void clearLongitude() => clearField(5);
 }
 
 class ListBusinessResponse extends $pb.GeneratedMessage {

@@ -29,7 +29,7 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
     ], where: [
       WhereAttribute(key: 'name', value: 'Kadis Varadero'),
       WhereAttribute(key: 'phone', value: '45567899')
-    ]);
+    ], limit: 10);
     return Right(result.map((e) {
       return Business(
           id: e['Business']['id'],

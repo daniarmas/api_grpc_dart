@@ -13,15 +13,13 @@ const ListBusinessRequest$json = const {
   '1': 'ListBusinessRequest',
   '2': const [
     const {'1': 'category_fk', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'categoryFk', '17': true},
-    const {'1': 'limit', '3': 2, '4': 1, '5': 5, '9': 1, '10': 'limit', '17': true},
-    const {'1': 'not_ids', '3': 3, '4': 3, '5': 9, '10': 'notIds'},
-    const {'1': 'this_month', '3': 4, '4': 1, '5': 8, '9': 2, '10': 'thisMonth', '17': true},
-    const {'1': 'latitude', '3': 5, '4': 1, '5': 1, '9': 3, '10': 'latitude', '17': true},
-    const {'1': 'longitude', '3': 6, '4': 1, '5': 1, '9': 4, '10': 'longitude', '17': true},
+    const {'1': 'not_ids', '3': 2, '4': 3, '5': 9, '10': 'notIds'},
+    const {'1': 'this_month', '3': 3, '4': 1, '5': 8, '9': 1, '10': 'thisMonth', '17': true},
+    const {'1': 'latitude', '3': 4, '4': 1, '5': 1, '9': 2, '10': 'latitude', '17': true},
+    const {'1': 'longitude', '3': 5, '4': 1, '5': 1, '9': 3, '10': 'longitude', '17': true},
   ],
   '8': const [
     const {'1': '_category_fk'},
-    const {'1': '_limit'},
     const {'1': '_this_month'},
     const {'1': '_latitude'},
     const {'1': '_longitude'},
@@ -29,7 +27,7 @@ const ListBusinessRequest$json = const {
 };
 
 /// Descriptor for `ListBusinessRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List listBusinessRequestDescriptor = $convert.base64Decode('ChNMaXN0QnVzaW5lc3NSZXF1ZXN0EiQKC2NhdGVnb3J5X2ZrGAEgASgJSABSCmNhdGVnb3J5RmuIAQESGQoFbGltaXQYAiABKAVIAVIFbGltaXSIAQESFwoHbm90X2lkcxgDIAMoCVIGbm90SWRzEiIKCnRoaXNfbW9udGgYBCABKAhIAlIJdGhpc01vbnRoiAEBEh8KCGxhdGl0dWRlGAUgASgBSANSCGxhdGl0dWRliAEBEiEKCWxvbmdpdHVkZRgGIAEoAUgEUglsb25naXR1ZGWIAQFCDgoMX2NhdGVnb3J5X2ZrQggKBl9saW1pdEINCgtfdGhpc19tb250aEILCglfbGF0aXR1ZGVCDAoKX2xvbmdpdHVkZQ==');
+final $typed_data.Uint8List listBusinessRequestDescriptor = $convert.base64Decode('ChNMaXN0QnVzaW5lc3NSZXF1ZXN0EiQKC2NhdGVnb3J5X2ZrGAEgASgJSABSCmNhdGVnb3J5RmuIAQESFwoHbm90X2lkcxgCIAMoCVIGbm90SWRzEiIKCnRoaXNfbW9udGgYAyABKAhIAVIJdGhpc01vbnRoiAEBEh8KCGxhdGl0dWRlGAQgASgBSAJSCGxhdGl0dWRliAEBEiEKCWxvbmdpdHVkZRgFIAEoAUgDUglsb25naXR1ZGWIAQFCDgoMX2NhdGVnb3J5X2ZrQg0KC190aGlzX21vbnRoQgsKCV9sYXRpdHVkZUIMCgpfbG9uZ2l0dWRl');
 @$core.Deprecated('Use listBusinessResponseDescriptor instead')
 const ListBusinessResponse$json = const {
   '1': 'ListBusinessResponse',
