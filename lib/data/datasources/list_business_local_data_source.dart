@@ -18,23 +18,40 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
     final result = await _database.list(table: 'Business', attributes: [
       '"Business".id',
       '"Business".name',
+      '"Business".description',
+      '"Business".address',
+      '"Business".phone',
+      '"Business".email',
+      '"Business".photo',
       'ST_X("Business"."coordinates") AS longitude',
       'ST_Y("Business"."coordinates") AS latitude',
       'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon'
+    ], where: [
+      WhereAttribute(key: 'name', value: 'Kadis Varadero'),
+      WhereAttribute(key: 'phone', value: '45567899')
     ]);
-    List<Polygon> list = [];
-    result[0]['']['polygon'].forEach((element) {
-      element.forEach((elem) {
-        list.add(Polygon(coordinates: [elem[0], elem[1]]));
-      });
-    });
     return Right(result.map((e) {
       return Business(
           id: e['Business']['id'],
           name: e['Business']['name'],
-          polygon: list,
+          description: e['Business']['description'],
+          address: e['Business']['address'],
+          phone: e['Business']['phone'],
+          email: e['Business']['email'],
+          photo: e['Business']['photo'],
+          polygon: parsePolygon(result[0]['']['polygon']),
           coordinates: LatLng(
               latitude: e['']['latitude'], longitude: e['']['longitude']));
     }));
+  }
+
+  List<Polygon> parsePolygon(List<dynamic> parameter) {
+    List<Polygon> list = [];
+    for (var item in parameter) {
+      item.forEach((elem) {
+        list.add(Polygon(coordinates: [elem[0], elem[1]]));
+      });
+    }
+    return list;
   }
 }

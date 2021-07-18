@@ -46,54 +46,46 @@ class PostgresqlDatabase implements Database {
       List<String>? attributes,
       int? limit,
       List<WhereAttribute>? where}) async {
-    String whereString = '';
-    String query = '';
-    String attributesString = '';
-    if (attributes != null && attributes.isNotEmpty) {
-      for (int i = 0; i < attributes.length; i++) {
-        if (i == attributes.length - 1) {
-          attributesString += '${attributes[i]} ';
-        } else {
-          attributesString += '${attributes[i]}, ';
-        }
-      }
-    } else {
-      attributesString = '*';
-    }
-    query = 'SELECT $attributesString FROM "$table";';
-    if (limit != null) {
-      query = 'SELECT $attributesString FROM "$table" LIMIT $limit;';
-    }
+    String query = constructSqlQuery(
+        limit: limit, where: where, table: table, attributes: attributes);
+    print(query);
+    return _connection.mappedResultsQuery(query);
+  }
+
+  String constructSqlQuery({
+    required String table,
+    List<String>? attributes,
+    int? limit,
+    List<WhereAttribute>? where,
+  }) {
+    String whereResult = '';
+    String attributesResult = '*';
+    String limitResult = limit != null ? 'LIMIT $limit;' : '';
     if (where != null && where.isNotEmpty) {
+      String whereString = '';
       for (int i = 0; i < where.length; i++) {
         if (i == where.length - 1) {
           whereString += '"$table".${where[i].key} = \'${where[i].value}\' ';
         } else {
-          whereString += '"$table".${where[i].key} = \'${where[i].value}\', ';
+          whereString += '"$table".${where[i].key} = \'${where[i].value}\' AND ';
         }
       }
-      query = que(
-          lim: null,
-          where: whereString,
-          table: table,
-          attributesString: attributes);
+      whereResult = 'WHERE $whereString';
     }
-    return _connection.mappedResultsQuery(query);
-  }
-
-  String que({
-    required String table,
-    List<String>? attributesString,
-    int? lim,
-    String? where,
-  }) {
-    String whereString = where != null ? 'WHERE $where' : '';
-    String limit = lim != null ? 'LIMIT $lim;' : '';
-
-    return 'SELECT $attributesString '
+    if (attributes != null && attributes.isNotEmpty) {
+      attributesResult = '';
+      for (int i = 0; i < attributes.length; i++) {
+        if (i == attributes.length - 1) {
+          attributesResult += '${attributes[i]} ';
+        } else {
+          attributesResult += '${attributes[i]}, ';
+        }
+      }
+    }
+    return 'SELECT $attributesResult '
         'FROM "$table" '
-        '$whereString'
-        '$limit';
+        '$whereResult'
+        '$limitResult';
   }
 
   @override
