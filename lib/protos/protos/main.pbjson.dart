@@ -15,19 +15,16 @@ const ListBusinessRequest$json = const {
     const {'1': 'category_fk', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'categoryFk', '17': true},
     const {'1': 'not_ids', '3': 2, '4': 3, '5': 9, '10': 'notIds'},
     const {'1': 'this_month', '3': 3, '4': 1, '5': 8, '9': 1, '10': 'thisMonth', '17': true},
-    const {'1': 'latitude', '3': 4, '4': 1, '5': 1, '9': 2, '10': 'latitude', '17': true},
-    const {'1': 'longitude', '3': 5, '4': 1, '5': 1, '9': 3, '10': 'longitude', '17': true},
+    const {'1': 'coordinates', '3': 4, '4': 1, '5': 11, '6': '.LatLng', '10': 'coordinates'},
   ],
   '8': const [
     const {'1': '_category_fk'},
     const {'1': '_this_month'},
-    const {'1': '_latitude'},
-    const {'1': '_longitude'},
   ],
 };
 
 /// Descriptor for `ListBusinessRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List listBusinessRequestDescriptor = $convert.base64Decode('ChNMaXN0QnVzaW5lc3NSZXF1ZXN0EiQKC2NhdGVnb3J5X2ZrGAEgASgJSABSCmNhdGVnb3J5RmuIAQESFwoHbm90X2lkcxgCIAMoCVIGbm90SWRzEiIKCnRoaXNfbW9udGgYAyABKAhIAVIJdGhpc01vbnRoiAEBEh8KCGxhdGl0dWRlGAQgASgBSAJSCGxhdGl0dWRliAEBEiEKCWxvbmdpdHVkZRgFIAEoAUgDUglsb25naXR1ZGWIAQFCDgoMX2NhdGVnb3J5X2ZrQg0KC190aGlzX21vbnRoQgsKCV9sYXRpdHVkZUIMCgpfbG9uZ2l0dWRl');
+final $typed_data.Uint8List listBusinessRequestDescriptor = $convert.base64Decode('ChNMaXN0QnVzaW5lc3NSZXF1ZXN0EiQKC2NhdGVnb3J5X2ZrGAEgASgJSABSCmNhdGVnb3J5RmuIAQESFwoHbm90X2lkcxgCIAMoCVIGbm90SWRzEiIKCnRoaXNfbW9udGgYAyABKAhIAVIJdGhpc01vbnRoiAEBEikKC2Nvb3JkaW5hdGVzGAQgASgLMgcuTGF0TG5nUgtjb29yZGluYXRlc0IOCgxfY2F0ZWdvcnlfZmtCDQoLX3RoaXNfbW9udGg=');
 @$core.Deprecated('Use listBusinessResponseDescriptor instead')
 const ListBusinessResponse$json = const {
   '1': 'ListBusinessResponse',
@@ -45,17 +42,18 @@ const Business$json = const {
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
-    const {'1': 'address', '3': 4, '4': 1, '5': 9, '10': 'address'},
-    const {'1': 'phone', '3': 5, '4': 1, '5': 9, '10': 'phone'},
-    const {'1': 'email', '3': 6, '4': 1, '5': 9, '10': 'email'},
-    const {'1': 'photo', '3': 7, '4': 1, '5': 9, '10': 'photo'},
-    const {'1': 'coordinates', '3': 8, '4': 1, '5': 11, '6': '.LatLng', '10': 'coordinates'},
-    const {'1': 'polygon', '3': 9, '4': 3, '5': 11, '6': '.Polygon', '10': 'polygon'},
+    const {'1': 'address', '3': 5, '4': 1, '5': 9, '10': 'address'},
+    const {'1': 'phone', '3': 6, '4': 1, '5': 9, '10': 'phone'},
+    const {'1': 'email', '3': 7, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'photo', '3': 8, '4': 1, '5': 9, '10': 'photo'},
+    const {'1': 'photo_url', '3': 9, '4': 1, '5': 9, '10': 'photoUrl'},
+    const {'1': 'coordinates', '3': 10, '4': 1, '5': 11, '6': '.LatLng', '10': 'coordinates'},
+    const {'1': 'polygon', '3': 11, '4': 3, '5': 11, '6': '.Polygon', '10': 'polygon'},
   ],
 };
 
 /// Descriptor for `Business`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List businessDescriptor = $convert.base64Decode('CghCdXNpbmVzcxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVzY3JpcHRpb24SGAoHYWRkcmVzcxgEIAEoCVIHYWRkcmVzcxIUCgVwaG9uZRgFIAEoCVIFcGhvbmUSFAoFZW1haWwYBiABKAlSBWVtYWlsEhQKBXBob3RvGAcgASgJUgVwaG90bxIpCgtjb29yZGluYXRlcxgIIAEoCzIHLkxhdExuZ1ILY29vcmRpbmF0ZXMSIgoHcG9seWdvbhgJIAMoCzIILlBvbHlnb25SB3BvbHlnb24=');
+final $typed_data.Uint8List businessDescriptor = $convert.base64Decode('CghCdXNpbmVzcxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVzY3JpcHRpb24SGAoHYWRkcmVzcxgFIAEoCVIHYWRkcmVzcxIUCgVwaG9uZRgGIAEoCVIFcGhvbmUSFAoFZW1haWwYByABKAlSBWVtYWlsEhQKBXBob3RvGAggASgJUgVwaG90bxIbCglwaG90b191cmwYCSABKAlSCHBob3RvVXJsEikKC2Nvb3JkaW5hdGVzGAogASgLMgcuTGF0TG5nUgtjb29yZGluYXRlcxIiCgdwb2x5Z29uGAsgAygLMgguUG9seWdvblIHcG9seWdvbg==');
 @$core.Deprecated('Use polygonDescriptor instead')
 const Polygon$json = const {
   '1': 'Polygon',

@@ -13,8 +13,7 @@ message ListBusinessRequest {
   optional string category_fk = 1;
   repeated string not_ids = 2;
   optional bool this_month = 3;
-  optional double latitude = 4;
-  optional double longitude = 5;
+  LatLng coordinates = 4;
 }
 
 message ListBusinessResponse {
@@ -26,11 +25,13 @@ message Business {
   string name = 2;
   string description = 3;
   // BusinessCategory category = 4;
-  string address = 4;
-  string phone = 5;
-  string email = 6;
-  string photo = 7;
-  // string photo_url = 9;
+  string address = 5;
+  string phone = 6;
+  string email = 7;
+  string photo = 8;
+  string photo_url = 9;
+  LatLng coordinates = 10;
+  repeated Polygon polygon = 11;
   // double distance = 10;
   // bool to_pick_up = 11;
   // bool home_delivery = 12;
@@ -39,12 +40,10 @@ message Business {
   // int32 lead_hours_time = 15;
   // int32 lead_minutes_time = 16;
   // bool is_open = 17;
-  // LatLng coordinates = 18;
-  LatLng coordinates = 8;
-  repeated Polygon polygon = 9;
   // double valuation = 20;
   // double delivery_price = 21;
   // google.protobuf.Timestamp created_at = 22;
+  // create_time
   // google.protobuf.Timestamp updated_at = 23;
 }
 

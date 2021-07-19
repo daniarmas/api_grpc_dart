@@ -16,13 +16,14 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
   @override
   Future<Either<Failure, Iterable<Business>>> listBusiness() async {
     final result = await _database.list(table: 'Business', attributes: [
-      '"Business".id',
-      '"Business".name',
-      '"Business".description',
-      '"Business".address',
-      '"Business".phone',
-      '"Business".email',
-      '"Business".photo',
+      '"Business"."id"',
+      '"Business"."name"',
+      '"Business"."description"',
+      '"Business"."address"',
+      '"Business"."phone"',
+      '"Business"."email"',
+      '"Business"."photo"',
+      '"Business"."photoUrl"',
       'ST_X("Business"."coordinates") AS longitude',
       'ST_Y("Business"."coordinates") AS latitude',
       'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon'
@@ -39,6 +40,7 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
           phone: e['Business']['phone'],
           email: e['Business']['email'],
           photo: e['Business']['photo'],
+          photoUrl: e['Business']['photoUrl'],
           polygon: parsePolygon(result[0]['']['polygon']),
           coordinates: LatLng(
               latitude: e['']['latitude'], longitude: e['']['longitude']));
