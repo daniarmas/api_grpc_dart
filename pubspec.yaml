@@ -11,9 +11,13 @@ dependencies:
   grpc: ^3.0.0
   path: ^1.8.0
   postgres: ^2.3.2
-  postgresql2: ^1.0.0
-  
+  dartz: ^0.10.0-nullsafety.2
+  equatable: ^2.0.3
 
 dev_dependencies:
+  # dart run build_runner build
+  build_runner: ^2.0.5
   dotenv: ^3.0.0
   lints: ^1.0.1
+  mockito: ^5.0.10
+  test: ^1.17.9

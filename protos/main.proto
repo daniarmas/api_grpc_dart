@@ -11,11 +11,9 @@ service BusinessService {
 
 message ListBusinessRequest {
   optional string category_fk = 1;
-  optional int32 limit = 2;
-  repeated string not_ids = 3;
-  optional bool this_month = 4;
-  optional double latitude = 5;
-  optional double longitude = 6;
+  repeated string not_ids = 2;
+  optional bool this_month = 3;
+  LatLng coordinates = 4;
 }
 
 message ListBusinessResponse {
@@ -25,25 +23,33 @@ message ListBusinessResponse {
 message Business {
   string id = 1;
   string name = 2;
-  // string description = 3;
+  string description = 3;
   // BusinessCategory category = 4;
-  // string address = 5;
-  // string phone = 6;
-  // string email = 7;
-  // string photo = 8;
-  // string photo_url = 9;
+  string address = 5;
+  string phone = 6;
+  string email = 7;
+  string photo = 8;
+  string photo_url = 9;
+  LatLng coordinates = 10;
+  repeated Polygon polygon = 11;
+  double distance = 12;
   // double distance = 10;
   // bool to_pick_up = 11;
   // bool home_delivery = 12;
-  // // BusinessSchedule schedule = 13;
+  // BusinessSchedule schedule = 13;
   // int32 lead_day_time = 14;
   // int32 lead_hours_time = 15;
   // int32 lead_minutes_time = 16;
   // bool is_open = 17;
-  // LatLng coordinates = 18;
-  // double valuation = 19;
-  // double delivery_price = 20;
-  // google.protobuf.Timestamp created_at = 21;
+  // double valuation = 20;
+  // double delivery_price = 21;
+  // google.protobuf.Timestamp created_at = 22;
+  // create_time
+  // google.protobuf.Timestamp updated_at = 23;
+}
+
+message Polygon {
+  repeated double coordinates = 1;
 }
 
 // message BusinessSchedule {

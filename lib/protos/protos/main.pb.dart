@@ -1,6 +1,6 @@
 ///
 //  Generated code. Do not modify.
-//  source: grpc/main.proto
+//  source: protos/main.proto
 //
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
@@ -12,29 +12,22 @@ import 'package:protobuf/protobuf.dart' as $pb;
 class ListBusinessRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListBusinessRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'categoryFk')
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'limit', $pb.PbFieldType.O3)
-    ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'notIds')
-    ..aOB(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thisMonth')
-    ..a<$core.double>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'latitude', $pb.PbFieldType.OD)
-    ..a<$core.double>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longitude', $pb.PbFieldType.OD)
+    ..pPS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'notIds')
+    ..aOB(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thisMonth')
+    ..aOM<LatLng>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', subBuilder: LatLng.create)
     ..hasRequiredFields = false
   ;
 
   ListBusinessRequest._() : super();
   factory ListBusinessRequest({
     $core.String? categoryFk,
-    $core.int? limit,
     $core.Iterable<$core.String>? notIds,
     $core.bool? thisMonth,
-    $core.double? latitude,
-    $core.double? longitude,
+    LatLng? coordinates,
   }) {
     final _result = create();
     if (categoryFk != null) {
       _result.categoryFk = categoryFk;
-    }
-    if (limit != null) {
-      _result.limit = limit;
     }
     if (notIds != null) {
       _result.notIds.addAll(notIds);
@@ -42,11 +35,8 @@ class ListBusinessRequest extends $pb.GeneratedMessage {
     if (thisMonth != null) {
       _result.thisMonth = thisMonth;
     }
-    if (latitude != null) {
-      _result.latitude = latitude;
-    }
-    if (longitude != null) {
-      _result.longitude = longitude;
+    if (coordinates != null) {
+      _result.coordinates = coordinates;
     }
     return _result;
   }
@@ -81,43 +71,27 @@ class ListBusinessRequest extends $pb.GeneratedMessage {
   void clearCategoryFk() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.int get limit => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set limit($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasLimit() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearLimit() => clearField(2);
+  $core.List<$core.String> get notIds => $_getList(1);
 
   @$pb.TagNumber(3)
-  $core.List<$core.String> get notIds => $_getList(2);
+  $core.bool get thisMonth => $_getBF(2);
+  @$pb.TagNumber(3)
+  set thisMonth($core.bool v) { $_setBool(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasThisMonth() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearThisMonth() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.bool get thisMonth => $_getBF(3);
+  LatLng get coordinates => $_getN(3);
   @$pb.TagNumber(4)
-  set thisMonth($core.bool v) { $_setBool(3, v); }
+  set coordinates(LatLng v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasThisMonth() => $_has(3);
+  $core.bool hasCoordinates() => $_has(3);
   @$pb.TagNumber(4)
-  void clearThisMonth() => clearField(4);
-
-  @$pb.TagNumber(5)
-  $core.double get latitude => $_getN(4);
-  @$pb.TagNumber(5)
-  set latitude($core.double v) { $_setDouble(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasLatitude() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearLatitude() => clearField(5);
-
-  @$pb.TagNumber(6)
-  $core.double get longitude => $_getN(5);
-  @$pb.TagNumber(6)
-  set longitude($core.double v) { $_setDouble(5, v); }
-  @$pb.TagNumber(6)
-  $core.bool hasLongitude() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearLongitude() => clearField(6);
+  void clearCoordinates() => clearField(4);
+  @$pb.TagNumber(4)
+  LatLng ensureCoordinates() => $_ensure(3);
 }
 
 class ListBusinessResponse extends $pb.GeneratedMessage {
@@ -165,6 +139,15 @@ class Business extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Business', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'address')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phone')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photo')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photoUrl')
+    ..aOM<LatLng>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', subBuilder: LatLng.create)
+    ..pc<Polygon>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'polygon', $pb.PbFieldType.PM, subBuilder: Polygon.create)
+    ..a<$core.double>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'distance', $pb.PbFieldType.OD)
     ..hasRequiredFields = false
   ;
 
@@ -172,6 +155,15 @@ class Business extends $pb.GeneratedMessage {
   factory Business({
     $core.String? id,
     $core.String? name,
+    $core.String? description,
+    $core.String? address,
+    $core.String? phone,
+    $core.String? email,
+    $core.String? photo,
+    $core.String? photoUrl,
+    LatLng? coordinates,
+    $core.Iterable<Polygon>? polygon,
+    $core.double? distance,
   }) {
     final _result = create();
     if (id != null) {
@@ -179,6 +171,33 @@ class Business extends $pb.GeneratedMessage {
     }
     if (name != null) {
       _result.name = name;
+    }
+    if (description != null) {
+      _result.description = description;
+    }
+    if (address != null) {
+      _result.address = address;
+    }
+    if (phone != null) {
+      _result.phone = phone;
+    }
+    if (email != null) {
+      _result.email = email;
+    }
+    if (photo != null) {
+      _result.photo = photo;
+    }
+    if (photoUrl != null) {
+      _result.photoUrl = photoUrl;
+    }
+    if (coordinates != null) {
+      _result.coordinates = coordinates;
+    }
+    if (polygon != null) {
+      _result.polygon.addAll(polygon);
+    }
+    if (distance != null) {
+      _result.distance = distance;
     }
     return _result;
   }
@@ -220,6 +239,124 @@ class Business extends $pb.GeneratedMessage {
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
   void clearName() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get description => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set description($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasDescription() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDescription() => clearField(3);
+
+  @$pb.TagNumber(5)
+  $core.String get address => $_getSZ(3);
+  @$pb.TagNumber(5)
+  set address($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasAddress() => $_has(3);
+  @$pb.TagNumber(5)
+  void clearAddress() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get phone => $_getSZ(4);
+  @$pb.TagNumber(6)
+  set phone($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasPhone() => $_has(4);
+  @$pb.TagNumber(6)
+  void clearPhone() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get email => $_getSZ(5);
+  @$pb.TagNumber(7)
+  set email($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasEmail() => $_has(5);
+  @$pb.TagNumber(7)
+  void clearEmail() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get photo => $_getSZ(6);
+  @$pb.TagNumber(8)
+  set photo($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasPhoto() => $_has(6);
+  @$pb.TagNumber(8)
+  void clearPhoto() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get photoUrl => $_getSZ(7);
+  @$pb.TagNumber(9)
+  set photoUrl($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasPhotoUrl() => $_has(7);
+  @$pb.TagNumber(9)
+  void clearPhotoUrl() => clearField(9);
+
+  @$pb.TagNumber(10)
+  LatLng get coordinates => $_getN(8);
+  @$pb.TagNumber(10)
+  set coordinates(LatLng v) { setField(10, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasCoordinates() => $_has(8);
+  @$pb.TagNumber(10)
+  void clearCoordinates() => clearField(10);
+  @$pb.TagNumber(10)
+  LatLng ensureCoordinates() => $_ensure(8);
+
+  @$pb.TagNumber(11)
+  $core.List<Polygon> get polygon => $_getList(9);
+
+  @$pb.TagNumber(12)
+  $core.double get distance => $_getN(10);
+  @$pb.TagNumber(12)
+  set distance($core.double v) { $_setDouble(10, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasDistance() => $_has(10);
+  @$pb.TagNumber(12)
+  void clearDistance() => clearField(12);
+}
+
+class Polygon extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Polygon', createEmptyInstance: create)
+    ..p<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', $pb.PbFieldType.PD)
+    ..hasRequiredFields = false
+  ;
+
+  Polygon._() : super();
+  factory Polygon({
+    $core.Iterable<$core.double>? coordinates,
+  }) {
+    final _result = create();
+    if (coordinates != null) {
+      _result.coordinates.addAll(coordinates);
+    }
+    return _result;
+  }
+  factory Polygon.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Polygon.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Polygon clone() => Polygon()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Polygon copyWith(void Function(Polygon) updates) => super.copyWith((message) => updates(message as Polygon)) as Polygon; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Polygon create() => Polygon._();
+  Polygon createEmptyInstance() => create();
+  static $pb.PbList<Polygon> createRepeated() => $pb.PbList<Polygon>();
+  @$core.pragma('dart2js:noInline')
+  static Polygon getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Polygon>(create);
+  static Polygon? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.double> get coordinates => $_getList(0);
 }
 
 class LatLng extends $pb.GeneratedMessage {
