@@ -1,4 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:postgres_dao/agregation_attribute.dart';
+import 'package:postgres_dao/normal_attribute.dart';
+import 'package:postgres_dao/where_agregation_attribute.dart';
+import 'package:postgres_dao/where_normal_attribute.dart';
 
 import '../../core/error/failure.dart';
 import '../../injection_container.dart' as sl;
@@ -28,10 +32,20 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
           NormalAttribute(name: 'email', table: _table),
           NormalAttribute(name: 'photo', table: _table),
           NormalAttribute(name: 'photoUrl', table: _table),
-          AgregationAttribute(name: 'ST_X("Business"."coordinates") AS longitude', table: _table),
-          AgregationAttribute(name: 'ST_Y("Business"."coordinates") AS latitude', table: _table),
-          AgregationAttribute(name: 'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon', table: _table),
-          AgregationAttribute(name: 'ST_Distance("coordinates", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) AS "distance"', table: _table),
+          AgregationAttribute(
+              name: 'ST_X("Business"."coordinates") AS longitude',
+              table: _table),
+          AgregationAttribute(
+              name: 'ST_Y("Business"."coordinates") AS latitude',
+              table: _table),
+          AgregationAttribute(
+              name:
+                  'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon',
+              table: _table),
+          AgregationAttribute(
+              name:
+                  'ST_Distance("coordinates", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) AS "distance"',
+              table: _table),
         ],
         orderByAsc: 'distance',
         whereAnd: [

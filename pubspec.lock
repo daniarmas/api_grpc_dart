@@ -373,12 +373,19 @@ packages:
     source: hosted
     version: "1.5.0"
   postgres:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: postgres
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.2"
+  postgres_dao:
+    dependency: "direct main"
+    description:
+      path: "packages/postgres_dao"
+      relative: true
+    source: path
+    version: "0.0.1"
   protobuf:
     dependency: transitive
     description:

@@ -1,26 +1,20 @@
-name: api_grpc_dart
-description: A simple command-line application.
+name: postgres_dao
+description: A Postgres Dao.
 version: 0.0.1
 # homepage: https://www.example.com
 
-publish_to: "none"
+publish_to: 'none'
 
 environment:
   sdk: ">=2.13.1 <3.0.0"
 
 dependencies:
-  get_it: ^7.1.4
-  grpc: ^3.0.0
   path: ^1.8.0
-  postgres_dao:
-    path: ./packages/postgres_dao
-  dartz: ^0.10.0-nullsafety.2
-  equatable: ^2.0.3
+  postgres: ^2.3.2
 
 dev_dependencies:
   # dart run build_runner build
   build_runner: ^2.0.5
-  dotenv: ^3.0.0
   lints: ^1.0.1
   mockito: ^5.0.10
   test: ^1.17.9

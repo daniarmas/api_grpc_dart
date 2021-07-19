@@ -1,4 +1,7 @@
-import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/attribute.dart';
+import 'package:postgres_dao/postgres_dao.dart';
+import 'package:postgres_dao/where_attribute.dart';
+import 'package:postgres_dao/where_normal_attribute.dart';
 
 import '../../environment.dart';
 import '../../injection_container.dart' as sl;
@@ -6,18 +9,17 @@ import 'database.dart';
 
 class PostgresqlDatabase implements Database {
   static final Environment _environment = sl.serviceLocator();
-  static final _connection = PostgreSQLConnection(_environment.databaseHost,
-      _environment.databasePort, _environment.databaseDatabase,
+  static final _connection = PostgresqlDao(
+      host: _environment.databaseHost,
+      port: _environment.databasePort,
+      database: _environment.databaseDatabase,
       username: _environment.databaseUsername,
       password: _environment.databasePassword);
 
   @override
   Future<bool> connect() async {
     try {
-      await _connection.open().then((value) async {
-        print('🚀 Database Server is on...');
-      });
-      return Future.value(true);
+      return _connection.connect();
     } catch (error) {
       throw Exception(error);
     }
@@ -47,14 +49,12 @@ class PostgresqlDatabase implements Database {
       int? limit,
       List<WhereAttribute>? whereAnd,
       String? orderByAsc}) async {
-    String query = constructSqlQuery(
+    return _connection.list(
         limit: limit,
         whereAnd: whereAnd,
         table: table,
         attributes: attributes,
         orderByAsc: orderByAsc);
-    print(query);
-    return _connection.mappedResultsQuery(query);
   }
 
   @override
