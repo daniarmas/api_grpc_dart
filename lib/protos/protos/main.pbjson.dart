@@ -49,11 +49,12 @@ const Business$json = const {
     const {'1': 'photo_url', '3': 9, '4': 1, '5': 9, '10': 'photoUrl'},
     const {'1': 'coordinates', '3': 10, '4': 1, '5': 11, '6': '.LatLng', '10': 'coordinates'},
     const {'1': 'polygon', '3': 11, '4': 3, '5': 11, '6': '.Polygon', '10': 'polygon'},
+    const {'1': 'distance', '3': 12, '4': 1, '5': 1, '10': 'distance'},
   ],
 };
 
 /// Descriptor for `Business`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List businessDescriptor = $convert.base64Decode('CghCdXNpbmVzcxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVzY3JpcHRpb24SGAoHYWRkcmVzcxgFIAEoCVIHYWRkcmVzcxIUCgVwaG9uZRgGIAEoCVIFcGhvbmUSFAoFZW1haWwYByABKAlSBWVtYWlsEhQKBXBob3RvGAggASgJUgVwaG90bxIbCglwaG90b191cmwYCSABKAlSCHBob3RvVXJsEikKC2Nvb3JkaW5hdGVzGAogASgLMgcuTGF0TG5nUgtjb29yZGluYXRlcxIiCgdwb2x5Z29uGAsgAygLMgguUG9seWdvblIHcG9seWdvbg==');
+final $typed_data.Uint8List businessDescriptor = $convert.base64Decode('CghCdXNpbmVzcxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVzY3JpcHRpb24SGAoHYWRkcmVzcxgFIAEoCVIHYWRkcmVzcxIUCgVwaG9uZRgGIAEoCVIFcGhvbmUSFAoFZW1haWwYByABKAlSBWVtYWlsEhQKBXBob3RvGAggASgJUgVwaG90bxIbCglwaG90b191cmwYCSABKAlSCHBob3RvVXJsEikKC2Nvb3JkaW5hdGVzGAogASgLMgcuTGF0TG5nUgtjb29yZGluYXRlcxIiCgdwb2x5Z29uGAsgAygLMgguUG9seWdvblIHcG9seWdvbhIaCghkaXN0YW5jZRgMIAEoAVIIZGlzdGFuY2U=');
 @$core.Deprecated('Use polygonDescriptor instead')
 const Polygon$json = const {
   '1': 'Polygon',

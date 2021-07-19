@@ -43,11 +43,17 @@ class PostgresqlDatabase implements Database {
   @override
   Future<List<dynamic>> list(
       {required String table,
-      List<String>? attributes,
+      List<Attribute>? attributes,
       int? limit,
-      List<WhereAttribute>? whereAnd}) async {
+      List<WhereAttribute>? whereAnd,
+      String? orderByAsc}) async {
     String query = constructSqlQuery(
-        limit: limit, where: whereAnd, table: table, attributes: attributes);
+        limit: limit,
+        whereAnd: whereAnd,
+        table: table,
+        attributes: attributes,
+        orderByAsc: orderByAsc);
+    print(query);
     return _connection.mappedResultsQuery(query);
   }
 
@@ -59,38 +65,51 @@ class PostgresqlDatabase implements Database {
 
   String constructSqlQuery({
     required String table,
-    List<String>? attributes,
+    List<Attribute>? attributes,
     int? limit,
-    List<WhereAttribute>? where,
+    List<WhereAttribute>? whereAnd,
+    String? orderByAsc,
   }) {
-    String whereResult = '';
+    // Attributes
     String attributesResult = '*';
-    String limitResult = limit != null ? 'LIMIT $limit;' : '';
-    if (where != null && where.isNotEmpty) {
-      String whereString = '';
-      for (int i = 0; i < where.length; i++) {
-        if (i == where.length - 1) {
-          whereString += '"$table".${where[i].key} = \'${where[i].value}\' ';
-        } else {
-          whereString +=
-              '"$table".${where[i].key} = \'${where[i].value}\' AND ';
-        }
-      }
-      whereResult = 'WHERE $whereString';
-    }
     if (attributes != null && attributes.isNotEmpty) {
       attributesResult = '';
       for (int i = 0; i < attributes.length; i++) {
         if (i == attributes.length - 1) {
-          attributesResult += '${attributes[i]} ';
+          attributesResult += '${attributes[i].name} ';
         } else {
-          attributesResult += '${attributes[i]}, ';
+          attributesResult += '${attributes[i].name}, ';
         }
       }
     }
+    // Where
+    String whereResult = '';
+    if (whereAnd != null && whereAnd.isNotEmpty) {
+      String whereString = '';
+      for (int i = 0; i < whereAnd.length; i++) {
+        if (i == whereAnd.length - 1) {
+          (whereAnd[i] is WhereNormalAttribute)
+              ? whereString += '${whereAnd[i].key} = \'${whereAnd[i].value}\' '
+              : whereString += '${whereAnd[i].key} = \'${whereAnd[i].value}\' ';
+        } else {
+          (whereAnd[i] is WhereNormalAttribute)
+              ? whereString +=
+                  '${whereAnd[i].key} = \'${whereAnd[i].value}\' AND '
+              : whereString +=
+                  '${whereAnd[i].key} = \'${whereAnd[i].value}\' AND ';
+        }
+      }
+      whereResult = 'WHERE $whereString';
+    }
+    // OrderBy
+    String orderByAscResult =
+        orderByAsc != null ? 'ORDER BY  $orderByAsc ASC ' : '';
+    // Limit
+    String limitResult = limit != null ? 'LIMIT $limit;' : '';
     return 'SELECT $attributesResult '
         'FROM "$table" '
         '$whereResult'
+        '$orderByAscResult'
         '$limitResult';
   }
 }

@@ -32,6 +32,7 @@ message Business {
   string photo_url = 9;
   LatLng coordinates = 10;
   repeated Polygon polygon = 11;
+  double distance = 12;
   // double distance = 10;
   // bool to_pick_up = 11;
   // bool home_delivery = 12;

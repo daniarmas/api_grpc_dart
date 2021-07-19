@@ -147,6 +147,7 @@ class Business extends $pb.GeneratedMessage {
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photoUrl')
     ..aOM<LatLng>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', subBuilder: LatLng.create)
     ..pc<Polygon>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'polygon', $pb.PbFieldType.PM, subBuilder: Polygon.create)
+    ..a<$core.double>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'distance', $pb.PbFieldType.OD)
     ..hasRequiredFields = false
   ;
 
@@ -162,6 +163,7 @@ class Business extends $pb.GeneratedMessage {
     $core.String? photoUrl,
     LatLng? coordinates,
     $core.Iterable<Polygon>? polygon,
+    $core.double? distance,
   }) {
     final _result = create();
     if (id != null) {
@@ -193,6 +195,9 @@ class Business extends $pb.GeneratedMessage {
     }
     if (polygon != null) {
       _result.polygon.addAll(polygon);
+    }
+    if (distance != null) {
+      _result.distance = distance;
     }
     return _result;
   }
@@ -302,6 +307,15 @@ class Business extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(11)
   $core.List<Polygon> get polygon => $_getList(9);
+
+  @$pb.TagNumber(12)
+  $core.double get distance => $_getN(10);
+  @$pb.TagNumber(12)
+  set distance($core.double v) { $_setDouble(10, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasDistance() => $_has(10);
+  @$pb.TagNumber(12)
+  void clearDistance() => clearField(12);
 }
 
 class Polygon extends $pb.GeneratedMessage {

@@ -379,13 +379,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.2"
-  postgresql2:
-    dependency: "direct main"
-    description:
-      name: postgresql2
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   protobuf:
     dependency: transitive
     description:
@@ -407,13 +400,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  rikulo_commons:
-    dependency: transitive
-    description:
-      name: rikulo_commons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.0.3"
   shelf:
     dependency: transitive
     description:

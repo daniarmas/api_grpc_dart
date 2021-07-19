@@ -7,30 +7,41 @@ import '../database/database.dart';
 
 // ignore: one_member_abstracts
 abstract class ListBusinessLocalDataSource {
-  Future<Either<Failure, Iterable<Business>>> listBusiness();
+  Future<Either<Failure, Iterable<Business>>> listBusiness(LatLng latLng);
 }
 
 class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
   final Database _database = sl.serviceLocator();
 
   @override
-  Future<Either<Failure, Iterable<Business>>> listBusiness() async {
-    final result = await _database.list(table: 'Business', attributes: [
-      '"Business"."id"',
-      '"Business"."name"',
-      '"Business"."description"',
-      '"Business"."address"',
-      '"Business"."phone"',
-      '"Business"."email"',
-      '"Business"."photo"',
-      '"Business"."photoUrl"',
-      'ST_X("Business"."coordinates") AS longitude',
-      'ST_Y("Business"."coordinates") AS latitude',
-      'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon'
-    ], whereAnd: [
-      WhereAttribute(key: 'name', value: 'Kadis Varadero'),
-      WhereAttribute(key: 'phone', value: '45567899')
-    ], limit: 10);
+  Future<Either<Failure, Iterable<Business>>> listBusiness(
+      LatLng latLng) async {
+    String _table = 'Business';
+    final result = await _database.list(
+        table: _table,
+        attributes: [
+          NormalAttribute(name: 'id', table: _table),
+          NormalAttribute(name: 'name', table: _table),
+          NormalAttribute(name: 'description', table: _table),
+          NormalAttribute(name: 'address', table: _table),
+          NormalAttribute(name: 'phone', table: _table),
+          NormalAttribute(name: 'email', table: _table),
+          NormalAttribute(name: 'photo', table: _table),
+          NormalAttribute(name: 'photoUrl', table: _table),
+          AgregationAttribute(name: 'ST_X("Business"."coordinates") AS longitude', table: _table),
+          AgregationAttribute(name: 'ST_Y("Business"."coordinates") AS latitude', table: _table),
+          AgregationAttribute(name: 'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon', table: _table),
+          AgregationAttribute(name: 'ST_Distance("coordinates", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) AS "distance"', table: _table),
+        ],
+        orderByAsc: 'distance',
+        whereAnd: [
+          WhereAgregationAttribute(
+              key:
+                  'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
+              value: 'true'),
+          WhereNormalAttribute(key: 'isOpen', value: 'true', table: 'Business'),
+        ],
+        limit: 10);
     return Right(result.map((e) {
       return Business(
           id: e['Business']['id'],
@@ -41,7 +52,8 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
           email: e['Business']['email'],
           photo: e['Business']['photo'],
           photoUrl: e['Business']['photoUrl'],
-          polygon: parsePolygon(result[0]['']['polygon']),
+          // polygon: parsePolygon(result[0]['']['polygon']),
+          distance: e['']['distance'],
           coordinates: LatLng(
               latitude: e['']['latitude'], longitude: e['']['longitude']));
     }));
