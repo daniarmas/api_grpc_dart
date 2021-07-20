@@ -48,11 +48,11 @@ class PostgresqlDatabase implements Database {
       List<String>? attributes,
       List<String>? agregationMethods,
       int? limit,
-      List<WhereAttribute>? whereAnd,
+      List<WhereAttribute>? where,
       String? orderByAsc}) async {
     return _connection.list(
         limit: limit,
-        whereAnd: whereAnd,
+        where: where,
         table: table,
         attributes: attributes,
         agregationAttributes: agregationMethods,

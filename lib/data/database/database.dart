@@ -9,7 +9,7 @@ abstract class Database {
       List<String>? attributes,
       List<String>? agregationMethods, 
       int? limit,
-      List<WhereAttribute>? whereAnd,
+      List<WhereAttribute>? where,
       String? orderByAsc});
   dynamic get();
   dynamic create(dynamic object);

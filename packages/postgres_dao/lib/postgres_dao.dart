@@ -51,11 +51,11 @@ class PostgresqlDao {
       List<String>? attributes,
       List<String>? agregationAttributes,
       int? limit,
-      List<WhereAttribute>? whereAnd,
+      List<WhereAttribute>? where,
       String? orderByAsc}) async {
     String query = constructSqlQuery(
         limit: limit,
-        whereAnd: whereAnd,
+        where: where,
         table: table,
         attributes: attributes,
         agregationAttributes: agregationAttributes,

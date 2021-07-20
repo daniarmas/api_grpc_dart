@@ -9,7 +9,7 @@ String constructSqlQuery({
   List<String>? attributes,
   List<String>? agregationAttributes,
   int? limit,
-  List<WhereAttribute>? whereAnd,
+  List<WhereAttribute>? where,
   String? orderByAsc,
 }) {
   // Attributes
@@ -42,46 +42,46 @@ String constructSqlQuery({
   }
   // Where
   String whereResult = '';
-  if (whereAnd != null && whereAnd.isNotEmpty) {
+  if (where != null && where.isNotEmpty) {
     String whereString = '';
-    for (int i = 0; i < whereAnd.length; i++) {
-      if (i == whereAnd.length - 1) {
-        if (whereAnd[i] is WhereNormalAttribute) {
+    for (int i = 0; i < where.length; i++) {
+      if (i == where.length - 1) {
+        if (where[i] is WhereNormalAttribute) {
           whereString +=
-              ' AND "$table".${whereAnd[i].key} = \'${whereAnd[i].value}\' ';
-        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
-            whereAnd[i].value != '') {
+              ' AND "$table".${where[i].key} = \'${where[i].value}\' ';
+        } else if (where[i] is WhereNormalAttributeNotIn &&
+            where[i].value != '') {
           whereString +=
-              ' AND "$table".${whereAnd[i].key} ${whereAnd[i].value} ';
-        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
-            whereAnd[i].value == '') {
+              ' AND "$table".${where[i].key} ${where[i].value} ';
+        } else if (where[i] is WhereNormalAttributeNotIn &&
+            where[i].value == '') {
         } else {
-          whereString += ' AND ${whereAnd[i].key} = \'${whereAnd[i].value}\' ';
+          whereString += ' AND ${where[i].key} = \'${where[i].value}\' ';
         }
       } else if (i == 0) {
-        if (whereAnd[i] is WhereNormalAttribute) {
+        if (where[i] is WhereNormalAttribute) {
           whereString +=
-              '"$table".${whereAnd[i].key} = \'${whereAnd[i].value}\'';
-        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
-            whereAnd[i].value != '') {
-          whereString += '"$table".${whereAnd[i].key} ${whereAnd[i].value}';
-        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
-            whereAnd[i].value == '') {
+              '"$table".${where[i].key} = \'${where[i].value}\'';
+        } else if (where[i] is WhereNormalAttributeNotIn &&
+            where[i].value != '') {
+          whereString += '"$table".${where[i].key} ${where[i].value}';
+        } else if (where[i] is WhereNormalAttributeNotIn &&
+            where[i].value == '') {
         } else {
-          whereString += '${whereAnd[i].key} = \'${whereAnd[i].value}\'';
+          whereString += '${where[i].key} = \'${where[i].value}\'';
         }
       } else {
-        if (whereAnd[i] is WhereNormalAttribute) {
+        if (where[i] is WhereNormalAttribute) {
           whereString +=
-              ' AND "$table".${whereAnd[i].key} = \'${whereAnd[i].value}\'';
-        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
-            whereAnd[i].value != '') {
+              ' AND "$table".${where[i].key} = \'${where[i].value}\'';
+        } else if (where[i] is WhereNormalAttributeNotIn &&
+            where[i].value != '') {
           whereString +=
-              ' AND "$table".${whereAnd[i].key} ${whereAnd[i].value}';
-        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
-            whereAnd[i].value == '') {
+              ' AND "$table".${where[i].key} ${where[i].value}';
+        } else if (where[i] is WhereNormalAttributeNotIn &&
+            where[i].value == '') {
         } else {
-          whereString += ' AND ${whereAnd[i].key} = \'${whereAnd[i].value}\'';
+          whereString += ' AND ${where[i].key} = \'${where[i].value}\'';
         }
       }
     }

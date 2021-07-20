@@ -41,7 +41,7 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
           'ST_Distance("coordinates", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) AS "distance"'
         ],
         orderByAsc: 'distance',
-        whereAnd: [
+        where: [
           WhereAgregationAttribute(
               key:
                   'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
