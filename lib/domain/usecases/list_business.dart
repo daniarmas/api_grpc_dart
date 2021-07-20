@@ -12,6 +12,6 @@ class ListBusinessUseCase implements UseCase<Business, NoParams> {
 
   @override
   Future<Either<Failure, Iterable<Business>>> call(NoParams params) async {
-    return businessRepository.listBusiness(LatLng(latitude: 1, longitude: 1));
+    return businessRepository.listBusiness(LatLng(latitude: 1, longitude: 1), ['1']);
   }
 }

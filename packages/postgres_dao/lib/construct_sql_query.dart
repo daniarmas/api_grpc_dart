@@ -1,3 +1,7 @@
+import 'package:postgres_dao/normal_attribute.dart';
+import 'package:postgres_dao/parse_list.dart';
+import 'package:postgres_dao/where_normal_attribute_not_in.dart';
+
 import 'attribute.dart';
 import 'where_attribute.dart';
 import 'where_normal_attribute.dart';
@@ -15,9 +19,13 @@ String constructSqlQuery({
     attributesResult = '';
     for (int i = 0; i < attributes.length; i++) {
       if (i == attributes.length - 1) {
-        attributesResult += '${attributes[i].name} ';
+        (attributes[i] is NormalAttribute)
+            ? attributesResult += '"$table".${attributes[i].name} '
+            : attributesResult += '${attributes[i].name} ';
       } else {
-        attributesResult += '${attributes[i].name}, ';
+        (attributes[i] is NormalAttribute)
+            ? attributesResult += '"$table".${attributes[i].name}, '
+            : attributesResult += '${attributes[i].name}, ';
       }
     }
   }
@@ -27,16 +35,43 @@ String constructSqlQuery({
     String whereString = '';
     for (int i = 0; i < whereAnd.length; i++) {
       if (i == whereAnd.length - 1) {
-        (whereAnd[i] is WhereNormalAttribute)
-            ? whereString +=
-                '"$table".${whereAnd[i].key} = \'${whereAnd[i].value}\' '
-            : whereString += '${whereAnd[i].key} = \'${whereAnd[i].value}\' ';
+        if (whereAnd[i] is WhereNormalAttribute) {
+          whereString +=
+              ' AND "$table".${whereAnd[i].key} = \'${whereAnd[i].value}\' ';
+        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
+            whereAnd[i].value != '') {
+          whereString += ' AND "$table".${whereAnd[i].key} ${whereAnd[i].value} ';
+        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
+            whereAnd[i].value == '') {
+        } else {
+          whereString += ' AND ${whereAnd[i].key} = \'${whereAnd[i].value}\' ';
+        }
+      } else if (i == 0) {
+        if (whereAnd[i] is WhereNormalAttribute) {
+          whereString +=
+              '"$table".${whereAnd[i].key} = \'${whereAnd[i].value}\'';
+        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
+            whereAnd[i].value != '') {
+          whereString +=
+              '"$table".${whereAnd[i].key} ${whereAnd[i].value}';
+        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
+            whereAnd[i].value == '') {
+        } else {
+          whereString += '${whereAnd[i].key} = \'${whereAnd[i].value}\'';
+        }
       } else {
-        (whereAnd[i] is WhereNormalAttribute)
-            ? whereString +=
-                '"$table".${whereAnd[i].key} = \'${whereAnd[i].value}\' AND '
-            : whereString +=
-                '${whereAnd[i].key} = \'${whereAnd[i].value}\' AND ';
+        if (whereAnd[i] is WhereNormalAttribute) {
+          whereString +=
+              ' AND "$table".${whereAnd[i].key} = \'${whereAnd[i].value}\'';
+        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
+            whereAnd[i].value != '') {
+          whereString +=
+              ' AND "$table".${whereAnd[i].key} ${whereAnd[i].value}';
+        } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
+            whereAnd[i].value == '') {
+        } else {
+          whereString += ' AND ${whereAnd[i].key} = \'${whereAnd[i].value}\'';
+        }
       }
     }
     whereResult = 'WHERE $whereString';

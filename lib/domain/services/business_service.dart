@@ -11,9 +11,11 @@ class BusinessService extends BusinessServiceBase {
     try {
       late ListBusinessResponse response;
       BusinessRepository businessRepository = GetIt.I<BusinessRepository>();
-      final result = await businessRepository.listBusiness(LatLng(
-          latitude: request.coordinates.latitude,
-          longitude: request.coordinates.longitude));
+      final result = await businessRepository.listBusiness(
+          LatLng(
+              latitude: request.coordinates.latitude,
+              longitude: request.coordinates.longitude),
+          request.notIds);
       result.fold((l) => {throw Exception(l)},
           (r) => {response = ListBusinessResponse(business: r)});
       return response;

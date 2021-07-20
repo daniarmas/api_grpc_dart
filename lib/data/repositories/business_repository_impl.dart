@@ -13,9 +13,9 @@ class BusinessRepositoryImpl implements BusinessRepository {
 
   @override
   Future<Either<Failure, Iterable<Business>>> listBusiness(
-      LatLng latLng) async {
+      LatLng latLng, List<String> notIds) async {
     try {
-      return await localDataSource.listBusiness(latLng);
+      return await localDataSource.listBusiness(latLng, notIds);
     } on ServerException {
       return Left(ServerFailure());
     }

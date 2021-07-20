@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:postgres_dao/agregation_attribute.dart';
 import 'package:postgres_dao/normal_attribute.dart';
 import 'package:postgres_dao/where_agregation_attribute.dart';
+import 'package:postgres_dao/where_normal_attribute_not_in.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';
 
 import '../../core/error/failure.dart';
@@ -11,7 +12,8 @@ import '../database/database.dart';
 
 // ignore: one_member_abstracts
 abstract class ListBusinessLocalDataSource {
-  Future<Either<Failure, Iterable<Business>>> listBusiness(LatLng latLng);
+  Future<Either<Failure, Iterable<Business>>> listBusiness(
+      LatLng latLng, List<String>? notIds);
 }
 
 class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
@@ -19,7 +21,7 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
 
   @override
   Future<Either<Failure, Iterable<Business>>> listBusiness(
-      LatLng latLng) async {
+      LatLng latLng, List<String>? notIds) async {
     String _table = 'Business';
     final result = await _database.list(
         table: _table,
@@ -45,11 +47,12 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
         ],
         orderByAsc: 'distance',
         whereAnd: [
+          WhereNormalAttributeNotIn(key: 'id', value: notIds),
           WhereAgregationAttribute(
               key:
                   'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
               value: 'true'),
-          WhereNormalAttribute(key: 'isOpen', value: 'true', table: 'Business'),
+          WhereNormalAttribute(key: 'isOpen', value: 'true'),
         ],
         limit: 10);
     return Right(result.map((e) {
