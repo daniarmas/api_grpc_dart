@@ -28,12 +28,13 @@ String constructSqlQuery({
     for (int i = 0; i < whereAnd.length; i++) {
       if (i == whereAnd.length - 1) {
         (whereAnd[i] is WhereNormalAttribute)
-            ? whereString += '${whereAnd[i].key} = \'${whereAnd[i].value}\' '
+            ? whereString +=
+                '"$table".${whereAnd[i].key} = \'${whereAnd[i].value}\' '
             : whereString += '${whereAnd[i].key} = \'${whereAnd[i].value}\' ';
       } else {
         (whereAnd[i] is WhereNormalAttribute)
             ? whereString +=
-                '${whereAnd[i].key} = \'${whereAnd[i].value}\' AND '
+                '"$table".${whereAnd[i].key} = \'${whereAnd[i].value}\' AND '
             : whereString +=
                 '${whereAnd[i].key} = \'${whereAnd[i].value}\' AND ';
       }

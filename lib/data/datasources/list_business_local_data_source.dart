@@ -24,28 +24,24 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
     final result = await _database.list(
         table: _table,
         attributes: [
-          NormalAttribute(name: 'id', table: _table),
-          NormalAttribute(name: 'name', table: _table),
-          NormalAttribute(name: 'description', table: _table),
-          NormalAttribute(name: 'address', table: _table),
-          NormalAttribute(name: 'phone', table: _table),
-          NormalAttribute(name: 'email', table: _table),
-          NormalAttribute(name: 'photo', table: _table),
-          NormalAttribute(name: 'photoUrl', table: _table),
+          NormalAttribute(name: 'id'),
+          NormalAttribute(name: 'name'),
+          NormalAttribute(name: 'description'),
+          NormalAttribute(name: 'address'),
+          NormalAttribute(name: 'phone'),
+          NormalAttribute(name: 'email'),
+          NormalAttribute(name: 'photo'),
+          NormalAttribute(name: 'photoUrl'),
           AgregationAttribute(
-              name: 'ST_X("Business"."coordinates") AS longitude',
-              table: _table),
+              name: 'ST_X("Business"."coordinates") AS longitude'),
           AgregationAttribute(
-              name: 'ST_Y("Business"."coordinates") AS latitude',
-              table: _table),
+              name: 'ST_Y("Business"."coordinates") AS latitude'),
           AgregationAttribute(
               name:
-                  'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon',
-              table: _table),
+                  'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon'),
           AgregationAttribute(
               name:
-                  'ST_Distance("coordinates", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) AS "distance"',
-              table: _table),
+                  'ST_Distance("coordinates", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) AS "distance"'),
         ],
         orderByAsc: 'distance',
         whereAnd: [
