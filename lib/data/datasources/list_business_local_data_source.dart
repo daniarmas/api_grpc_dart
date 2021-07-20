@@ -22,37 +22,32 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
   @override
   Future<Either<Failure, Iterable<Business>>> listBusiness(
       LatLng latLng, List<String>? notIds) async {
-    String _table = 'Business';
     final result = await _database.list(
-        table: _table,
+        table: 'Business',
         attributes: [
-          NormalAttribute(name: 'id'),
-          NormalAttribute(name: 'name'),
-          NormalAttribute(name: 'description'),
-          NormalAttribute(name: 'address'),
-          NormalAttribute(name: 'phone'),
-          NormalAttribute(name: 'email'),
-          NormalAttribute(name: 'photo'),
-          NormalAttribute(name: 'photoUrl'),
-          AgregationAttribute(
-              name: 'ST_X("Business"."coordinates") AS longitude'),
-          AgregationAttribute(
-              name: 'ST_Y("Business"."coordinates") AS latitude'),
-          AgregationAttribute(
-              name:
-                  'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon'),
-          AgregationAttribute(
-              name:
-                  'ST_Distance("coordinates", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) AS "distance"'),
+          'id',
+          'name',
+          'description',
+          'address',
+          'phone',
+          'email',
+          'photo',
+          'photoUrl'
+        ],
+        agregationMethods: [
+          'ST_X("Business"."coordinates") AS longitude',
+          'ST_Y("Business"."coordinates") AS latitude',
+          'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon',
+          'ST_Distance("coordinates", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) AS "distance"'
         ],
         orderByAsc: 'distance',
         whereAnd: [
-          WhereNormalAttributeNotIn(key: 'id', value: notIds),
           WhereAgregationAttribute(
               key:
                   'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
               value: 'true'),
           WhereNormalAttribute(key: 'isOpen', value: 'true'),
+          WhereNormalAttributeNotIn(key: 'id', value: notIds),
         ],
         limit: 10);
     return Right(result.map((e) {

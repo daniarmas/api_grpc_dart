@@ -45,7 +45,8 @@ class PostgresqlDatabase implements Database {
   @override
   Future<List<dynamic>> list(
       {required String table,
-      List<Attribute>? attributes,
+      List<String>? attributes,
+      List<String>? agregationMethods,
       int? limit,
       List<WhereAttribute>? whereAnd,
       String? orderByAsc}) async {
@@ -54,6 +55,7 @@ class PostgresqlDatabase implements Database {
         whereAnd: whereAnd,
         table: table,
         attributes: attributes,
+        agregationAttributes: agregationMethods,
         orderByAsc: orderByAsc);
   }
 

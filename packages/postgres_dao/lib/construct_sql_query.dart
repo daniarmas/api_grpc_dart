@@ -1,14 +1,13 @@
 import 'package:postgres_dao/normal_attribute.dart';
-import 'package:postgres_dao/parse_list.dart';
 import 'package:postgres_dao/where_normal_attribute_not_in.dart';
 
-import 'attribute.dart';
 import 'where_attribute.dart';
 import 'where_normal_attribute.dart';
 
 String constructSqlQuery({
   required String table,
-  List<Attribute>? attributes,
+  List<String>? attributes,
+  List<String>? agregationAttributes,
   int? limit,
   List<WhereAttribute>? whereAnd,
   String? orderByAsc,
@@ -20,14 +19,26 @@ String constructSqlQuery({
     for (int i = 0; i < attributes.length; i++) {
       if (i == attributes.length - 1) {
         (attributes[i] is NormalAttribute)
-            ? attributesResult += '"$table".${attributes[i].name} '
-            : attributesResult += '${attributes[i].name} ';
+            ? attributesResult += '"$table"."${attributes[i]}"'
+            : attributesResult += '"$table"."${attributes[i]}"';
       } else {
         (attributes[i] is NormalAttribute)
-            ? attributesResult += '"$table".${attributes[i].name}, '
-            : attributesResult += '${attributes[i].name}, ';
+            ? attributesResult += '"$table"."${attributes[i]}",'
+            : attributesResult += '"$table"."${attributes[i]}",';
       }
     }
+  }
+  // AgregationAttributes
+  String agregationAttributesResult = '';
+  if (agregationAttributes != null && agregationAttributes.isNotEmpty) {
+    for (int i = 0; i < agregationAttributes.length; i++) {
+      if (i == agregationAttributes.length - 1) {
+        agregationAttributesResult += agregationAttributes[i];
+      } else {
+        agregationAttributesResult += '${agregationAttributes[i]},';
+      }
+    }
+    attributesResult += ', $agregationAttributesResult';
   }
   // Where
   String whereResult = '';
@@ -40,7 +51,8 @@ String constructSqlQuery({
               ' AND "$table".${whereAnd[i].key} = \'${whereAnd[i].value}\' ';
         } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
             whereAnd[i].value != '') {
-          whereString += ' AND "$table".${whereAnd[i].key} ${whereAnd[i].value} ';
+          whereString +=
+              ' AND "$table".${whereAnd[i].key} ${whereAnd[i].value} ';
         } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
             whereAnd[i].value == '') {
         } else {
@@ -52,8 +64,7 @@ String constructSqlQuery({
               '"$table".${whereAnd[i].key} = \'${whereAnd[i].value}\'';
         } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
             whereAnd[i].value != '') {
-          whereString +=
-              '"$table".${whereAnd[i].key} ${whereAnd[i].value}';
+          whereString += '"$table".${whereAnd[i].key} ${whereAnd[i].value}';
         } else if (whereAnd[i] is WhereNormalAttributeNotIn &&
             whereAnd[i].value == '') {
         } else {

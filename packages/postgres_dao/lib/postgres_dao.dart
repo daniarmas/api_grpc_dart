@@ -1,6 +1,5 @@
 import 'package:postgres/postgres.dart';
 
-import 'attribute.dart';
 import 'construct_sql_query.dart';
 import 'where_attribute.dart';
 
@@ -49,7 +48,8 @@ class PostgresqlDao {
 
   Future<List<dynamic>> list(
       {required String table,
-      List<Attribute>? attributes,
+      List<String>? attributes,
+      List<String>? agregationAttributes,
       int? limit,
       List<WhereAttribute>? whereAnd,
       String? orderByAsc}) async {
@@ -58,6 +58,7 @@ class PostgresqlDao {
         whereAnd: whereAnd,
         table: table,
         attributes: attributes,
+        agregationAttributes: agregationAttributes,
         orderByAsc: orderByAsc);
     print(query);
     return _connection.mappedResultsQuery(query);
