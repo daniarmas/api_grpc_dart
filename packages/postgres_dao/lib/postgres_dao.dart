@@ -1,7 +1,7 @@
 import 'package:postgres/postgres.dart';
 
 import 'construct_sql_query.dart';
-import 'where_attribute.dart';
+import 'where.dart';
 
 class PostgresqlDao {
   final String host;
@@ -51,9 +51,9 @@ class PostgresqlDao {
       List<String>? attributes,
       List<String>? agregationAttributes,
       int? limit,
-      List<WhereAttribute>? where,
+      List<Where>? where,
       String? orderByAsc}) async {
-    String query = constructSqlQuery(
+    String? query = constructSqlQuery(
         limit: limit,
         where: where,
         table: table,
@@ -61,7 +61,7 @@ class PostgresqlDao {
         agregationAttributes: agregationAttributes,
         orderByAsc: orderByAsc);
     print(query);
-    return _connection.mappedResultsQuery(query);
+    return _connection.mappedResultsQuery(query!);
   }
 
   @override
