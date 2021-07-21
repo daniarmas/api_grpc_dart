@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:postgres_dao/and.dart';
+import 'package:postgres_dao/or.dart';
 import 'package:postgres_dao/where_agregation_attribute.dart';
 import 'package:postgres_dao/where_normal_attribute_not_in.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';
@@ -41,14 +42,22 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
         ],
         orderByAsc: 'distance',
         where: [
+          Or([
+            WhereAgregationAttribute(
+                key:
+                    'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
+                value: 'true'),
+            WhereNormalAttribute(key: 'isOpen', value: 'true'),
+            WhereNormalAttributeNotIn(key: 'id', value: notIds),
+          ]),
           And([
             WhereAgregationAttribute(
                 key:
                     'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
                 value: 'true'),
             WhereNormalAttribute(key: 'isOpen', value: 'true'),
+            WhereNormalAttributeNotIn(key: 'id', value: notIds),
           ]),
-          WhereNormalAttributeNotIn(key: 'id', value: notIds),
         ],
         limit: 10);
     return Right(result.map((e) {

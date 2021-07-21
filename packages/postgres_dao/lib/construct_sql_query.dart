@@ -1,5 +1,6 @@
 import 'package:postgres_dao/and.dart';
 import 'package:postgres_dao/normal_attribute.dart';
+import 'package:postgres_dao/or.dart';
 import 'package:postgres_dao/where_attribute.dart';
 import 'package:postgres_dao/where_normal_attribute_not_in.dart';
 
@@ -78,6 +79,34 @@ String? constructSqlQuery({
                 }
               }
             }
+          } else if (where[i] is Or) {
+            var and = where[i] as Or;
+            for (var y = 0; y < and.attributes.length; y++) {
+              var item = and.attributes[y];
+              if (y == 0) {
+                if (item is WhereNormalAttribute) {
+                  whereString += '"$table".${item.key} = \'${item.value}\'';
+                } else if (where[y] is WhereNormalAttributeNotIn &&
+                    item.value != '') {
+                  whereString += '"$table".${item.key} ${item.value}';
+                } else if (where[y] is WhereNormalAttributeNotIn &&
+                    item.value == '') {
+                } else {
+                  whereString += '${item.key} = \'${item.value}\'';
+                }
+              } else {
+                if (item is WhereNormalAttribute) {
+                  whereString += ' OR "$table".${item.key} = \'${item.value}\'';
+                } else if (item is WhereNormalAttributeNotIn &&
+                    item.value != '') {
+                  whereString += ' OR "$table".${item.key} ${item.value}';
+                } else if (item is WhereNormalAttributeNotIn &&
+                    item.value == '') {
+                } else {
+                  whereString += ' OR ${item.key} = \'${item.value}\'';
+                }
+              }
+            }
           } else {
             var item = where[i] as WhereAttribute;
             if (item is WhereNormalAttribute) {
@@ -90,6 +119,7 @@ String? constructSqlQuery({
             }
           }
         } else {
+          whereString += ' AND ';
           if (where[i] is And) {
             var and = where[i] as And;
             for (var y = 0; y < and.attributes.length; y++) {
@@ -116,6 +146,35 @@ String? constructSqlQuery({
                     item.value == '') {
                 } else {
                   whereString += ' AND ${item.key} = \'${item.value}\' ';
+                }
+              }
+            }
+          } else if (where[i] is Or) {
+            var and = where[i] as Or;
+            for (var y = 0; y < and.attributes.length; y++) {
+              var item = and.attributes[y];
+              if (y == 0) {
+                if (item is WhereNormalAttribute) {
+                  whereString += '"$table".${item.key} = \'${item.value}\' ';
+                } else if (item is WhereNormalAttributeNotIn &&
+                    item.value != '') {
+                  whereString += '"$table".${item.key} ${item.value} ';
+                } else if (item is WhereNormalAttributeNotIn &&
+                    item.value == '') {
+                } else {
+                  whereString += '${item.key} = \'${item.value}\' ';
+                }
+              } else {
+                if (item is WhereNormalAttribute) {
+                  whereString +=
+                      ' OR "$table".${item.key} = \'${item.value}\' ';
+                } else if (item is WhereNormalAttributeNotIn &&
+                    item.value != '') {
+                  whereString += ' OR "$table".${item.key} ${item.value} ';
+                } else if (item is WhereNormalAttributeNotIn &&
+                    item.value == '') {
+                } else {
+                  whereString += ' OR ${item.key} = \'${item.value}\' ';
                 }
               }
             }
