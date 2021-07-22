@@ -1,6 +1,6 @@
 import 'package:postgres/postgres.dart';
 
-import 'construct_sql_query.dart';
+import 'construct_sql_query_select.dart';
 import 'where.dart';
 
 class PostgresqlDao {
@@ -53,7 +53,7 @@ class PostgresqlDao {
       int? limit,
       List<Where>? where,
       String? orderByAsc}) async {
-    String? query = constructSqlQuery(
+    String? query = constructSqlQuerySelect(
         limit: limit,
         where: where,
         table: table,

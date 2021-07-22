@@ -8,6 +8,19 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use verificationCodeTypeDescriptor instead')
+const VerificationCodeType$json = const {
+  '1': 'VerificationCodeType',
+  '2': const [
+    const {'1': 'UNSPECIFIED', '2': 0},
+    const {'1': 'SIGN_IN', '2': 1},
+    const {'1': 'SIGN_UP', '2': 2},
+    const {'1': 'CHANGE_USER_EMAIL', '2': 3},
+  ],
+};
+
+/// Descriptor for `VerificationCodeType`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List verificationCodeTypeDescriptor = $convert.base64Decode('ChRWZXJpZmljYXRpb25Db2RlVHlwZRIPCgtVTlNQRUNJRklFRBAAEgsKB1NJR05fSU4QARILCgdTSUdOX1VQEAISFQoRQ0hBTkdFX1VTRVJfRU1BSUwQAw==');
 @$core.Deprecated('Use listBusinessRequestDescriptor instead')
 const ListBusinessRequest$json = const {
   '1': 'ListBusinessRequest',
@@ -65,6 +78,40 @@ const Polygon$json = const {
 
 /// Descriptor for `Polygon`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List polygonDescriptor = $convert.base64Decode('CgdQb2x5Z29uEiAKC2Nvb3JkaW5hdGVzGAEgAygBUgtjb29yZGluYXRlcw==');
+@$core.Deprecated('Use createVerificationCodeRequestDescriptor instead')
+const CreateVerificationCodeRequest$json = const {
+  '1': 'CreateVerificationCodeRequest',
+  '2': const [
+    const {'1': 'deviceId', '3': 1, '4': 1, '5': 9, '10': 'deviceId'},
+    const {'1': 'email', '3': 2, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'type', '3': 3, '4': 1, '5': 14, '6': '.VerificationCodeType', '10': 'type'},
+  ],
+};
+
+/// Descriptor for `CreateVerificationCodeRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createVerificationCodeRequestDescriptor = $convert.base64Decode('Ch1DcmVhdGVWZXJpZmljYXRpb25Db2RlUmVxdWVzdBIaCghkZXZpY2VJZBgBIAEoCVIIZGV2aWNlSWQSFAoFZW1haWwYAiABKAlSBWVtYWlsEikKBHR5cGUYAyABKA4yFS5WZXJpZmljYXRpb25Db2RlVHlwZVIEdHlwZQ==');
+@$core.Deprecated('Use createVerificationCodeResponseDescriptor instead')
+const CreateVerificationCodeResponse$json = const {
+  '1': 'CreateVerificationCodeResponse',
+  '2': const [
+    const {'1': 'verificationCode', '3': 1, '4': 1, '5': 11, '6': '.VerificationCode', '10': 'verificationCode'},
+  ],
+};
+
+/// Descriptor for `CreateVerificationCodeResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List createVerificationCodeResponseDescriptor = $convert.base64Decode('Ch5DcmVhdGVWZXJpZmljYXRpb25Db2RlUmVzcG9uc2USPQoQdmVyaWZpY2F0aW9uQ29kZRgBIAEoCzIRLlZlcmlmaWNhdGlvbkNvZGVSEHZlcmlmaWNhdGlvbkNvZGU=');
+@$core.Deprecated('Use verificationCodeDescriptor instead')
+const VerificationCode$json = const {
+  '1': 'VerificationCode',
+  '2': const [
+    const {'1': 'code', '3': 1, '4': 1, '5': 9, '10': 'code'},
+    const {'1': 'type', '3': 2, '4': 1, '5': 14, '6': '.VerificationCodeType', '10': 'type'},
+    const {'1': 'deviceId', '3': 3, '4': 1, '5': 9, '10': 'deviceId'},
+  ],
+};
+
+/// Descriptor for `VerificationCode`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List verificationCodeDescriptor = $convert.base64Decode('ChBWZXJpZmljYXRpb25Db2RlEhIKBGNvZGUYASABKAlSBGNvZGUSKQoEdHlwZRgCIAEoDjIVLlZlcmlmaWNhdGlvbkNvZGVUeXBlUgR0eXBlEhoKCGRldmljZUlkGAMgASgJUghkZXZpY2VJZA==');
 @$core.Deprecated('Use latLngDescriptor instead')
 const LatLng$json = const {
   '1': 'LatLng',

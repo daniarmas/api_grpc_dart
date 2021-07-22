@@ -33,8 +33,8 @@ class MockBusinessRepository extends _i1.Mock
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, Iterable<_i6.Business>>> listBusiness(
-          _i6.LatLng? latLng) =>
-      (super.noSuchMethod(Invocation.method(#listBusiness, [latLng]),
+          _i6.LatLng? latLng, List<String>? notIds) =>
+      (super.noSuchMethod(Invocation.method(#listBusiness, [latLng, notIds]),
               returnValue:
                   Future<_i2.Either<_i5.Failure, Iterable<_i6.Business>>>.value(
                       _FakeEither<_i5.Failure, Iterable<_i6.Business>>()))
