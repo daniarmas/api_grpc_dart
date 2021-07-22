@@ -12,7 +12,8 @@ abstract class Database {
       List<Where>? where,
       String? orderByAsc});
   dynamic get();
-  dynamic create(dynamic object);
+  Future<Map<String, dynamic>> create(
+      {required String table, required Map<String, dynamic> data});
   dynamic update(dynamic object);
   void delete(String id);
 }

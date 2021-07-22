@@ -3,9 +3,12 @@ import 'package:get_it/get_it.dart';
 
 import 'data/database/database.dart';
 import 'data/database/postgresql.dart';
-import 'data/datasources/list_business_local_data_source.dart';
+import 'data/datasources/business_local_data_source.dart';
+import 'data/datasources/verification_code_local_data_source.dart';
 import 'data/repositories/business_repository_impl.dart';
+import 'data/repositories/verification_code_repository_impl.dart';
 import 'domain/repositories/business_repository.dart';
+import 'domain/repositories/verification_code_repository.dart';
 import 'environment.dart';
 
 final serviceLocator = GetIt.instance;
@@ -21,8 +24,12 @@ void initInjectionContainer() {
     databasePassword: env['DATABASE_PASSWORD']!,
   ));
   serviceLocator.registerSingleton<Database>(PostgresqlDatabase());
-  serviceLocator.registerSingleton<ListBusinessLocalDataSource>(
-      ListBusinessLocalDataSourceImpl());
+  serviceLocator.registerSingleton<BusinessLocalDataSource>(
+      BusinessLocalDataSourceImpl());
+  serviceLocator.registerSingleton<VerificationCodeLocalDataSource>(
+      VerificationCodeLocalDataSourceImpl());
   serviceLocator.registerSingleton<BusinessRepository>(
       BusinessRepositoryImpl(localDataSource: serviceLocator()));
+  serviceLocator.registerSingleton<VerificationCodeRepository>(
+      VerificationCodeRepositoryImpl(localDataSource: serviceLocator()));
 }

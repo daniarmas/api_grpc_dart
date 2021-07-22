@@ -1,4 +1,5 @@
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/construct_sql_query_insert.dart';
 
 import 'construct_sql_query_select.dart';
 import 'where.dart';
@@ -32,9 +33,11 @@ class PostgresqlDao {
     }
   }
 
-  dynamic create(dynamic object) {
-    // TODO: implement create
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> create(
+      {required String table, required Map<String, dynamic> data}) async {
+    String query = constructSqlQueryInsert(table: table, data: data);
+    final response = await _connection.mappedResultsQuery(query);
+    return Future.value(response[0][table]);
   }
 
   void delete(String id) {
@@ -61,7 +64,7 @@ class PostgresqlDao {
         agregationAttributes: agregationAttributes,
         orderByAsc: orderByAsc);
     print(query);
-    return _connection.mappedResultsQuery(query!);
+    return _connection.mappedResultsQuery(query);
   }
 
   @override

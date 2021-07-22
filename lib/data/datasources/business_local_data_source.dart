@@ -11,12 +11,12 @@ import '../../protos/protos/main.pb.dart';
 import '../database/database.dart';
 
 // ignore: one_member_abstracts
-abstract class ListBusinessLocalDataSource {
+abstract class BusinessLocalDataSource {
   Future<Either<Failure, Iterable<Business>>> listBusiness(
       LatLng latLng, List<String>? notIds);
 }
 
-class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
+class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
   final Database _database = sl.serviceLocator();
 
   @override

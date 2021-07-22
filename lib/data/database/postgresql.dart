@@ -24,9 +24,9 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  dynamic create(dynamic object) {
-    // TODO: implement create
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> create(
+      {required String table, required Map<String, dynamic> data}) {
+    return _connection.create(table: table, data: data);
   }
 
   @override

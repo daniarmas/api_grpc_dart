@@ -10,6 +10,7 @@ service BusinessService {
 
 service AuthenticationService {
   rpc CreateVerificationCode (CreateVerificationCodeRequest) returns (CreateVerificationCodeResponse) {}
+  rpc ListVerificationCode (ListVerificationCodeRequest) returns (ListVerificationCodeResponse) {}
 }
 
 
@@ -66,10 +67,19 @@ message CreateVerificationCodeResponse {
     VerificationCode verificationCode = 1;
 }
 
+message ListVerificationCodeRequest {
+    
+}
+
+message ListVerificationCodeResponse {
+    repeated VerificationCode verificationCodes = 1;
+}
+
 message VerificationCode {
-  string code = 1;
-  VerificationCodeType type = 2;
-  string deviceId = 3;
+  string id = 1;
+  string code = 2;
+  VerificationCodeType type = 3;
+  string deviceId = 4;
 }
 
 enum VerificationCodeType {
