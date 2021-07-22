@@ -7,7 +7,7 @@ import 'package:postgres_dao/where_normal_attribute_not_in.dart';
 import 'where.dart';
 import 'where_normal_attribute.dart';
 
-String? constructSqlQuery({
+String? constructSqlQuerySelect({
   required String table,
   List<String>? attributes,
   List<String>? agregationAttributes,

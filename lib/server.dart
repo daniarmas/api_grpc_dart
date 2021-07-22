@@ -1,3 +1,4 @@
+import 'package:api_grpc_dart/domain/services/authentication_service.dart';
 import 'package:grpc/grpc.dart' as grpc;
 
 import 'data/database/database.dart';
@@ -12,9 +13,8 @@ class Server {
   static Future<void> init() async {
     await _database.connect().then((value) async {
       if (value) {
-        final server = grpc.Server([
-          BusinessService(),
-        ]);
+        final server =
+            grpc.Server([BusinessService(), AuthenticationService()]);
         await server.serve(port: _environment.port);
         print('🚀 Server listening at port ${server.port}...');
       }
