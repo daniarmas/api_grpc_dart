@@ -1,7 +1,7 @@
 import 'package:api_grpc_dart/core/usecases/usecase.dart';
 import 'package:api_grpc_dart/domain/repositories/business_repository.dart';
 import 'package:api_grpc_dart/domain/usecases/list_business.dart';
-import 'package:api_grpc_dart/grpc/protos/main.pb.dart';
+import 'package:api_grpc_dart/protos/protos/main.pb.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -22,13 +22,15 @@ void main() {
 
   test('should get a list of business from the repository', () async {
     // arrange
-    when(mockBusinessRepository.listBusiness())
+    when(mockBusinessRepository
+            .listBusiness(LatLng(latitude: 1, longitude: 1), ['1']))
         .thenAnswer((_) async => Right(listOfBusiness));
     // act
     final result = await usecase(NoParams());
     // assert
     expect(result, Right(listOfBusiness));
-    verify(mockBusinessRepository.listBusiness());
+    verify(mockBusinessRepository
+        .listBusiness(LatLng(latitude: 1, longitude: 1), ['1']));
     verifyNoMoreInteractions(mockBusinessRepository);
   });
 }
