@@ -39,6 +39,7 @@ void main() {
           .listBusiness(LatLng(latitude: 1, longitude: 1), ['1']));
       expect(result, Right(listOfBusiness));
     });
+
     test(
         'should return server failure when the call to local data source is unsuccessful.',
         () async {
