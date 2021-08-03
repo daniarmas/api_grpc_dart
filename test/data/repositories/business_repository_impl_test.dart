@@ -10,7 +10,7 @@ import 'package:mockito/mockito.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
-import 'business_repository_impl_test.mocks.dart';
+import '../repositories/business_repository_impl_test.mocks.dart';
 
 @GenerateMocks([BusinessLocalDataSource])
 void main() {
