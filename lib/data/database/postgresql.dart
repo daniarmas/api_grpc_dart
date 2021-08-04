@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:postgres_dao/postgres_dao.dart';
 import 'package:postgres_dao/where.dart';
 
@@ -5,8 +6,9 @@ import '../../environment.dart';
 import '../../injection_container.dart' as sl;
 import 'database.dart';
 
+@Injectable(as: Database)
 class PostgresqlDatabase implements Database {
-  static final Environment _environment = sl.serviceLocator();
+  static final EnvironmentApp _environment = sl.getIt();
   static final _connection = PostgresqlDao(
       host: _environment.databaseHost,
       port: _environment.databasePort,

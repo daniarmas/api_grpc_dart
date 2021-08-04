@@ -7,8 +7,8 @@ import 'environment.dart';
 import 'injection_container.dart' as sl;
 
 class Server {
-  static final Environment _environment = sl.serviceLocator();
-  static final Database _database = sl.serviceLocator();
+  static final EnvironmentApp _environment = sl.getIt();
+  static final Database _database = sl.getIt();
 
   static Future<void> init() async {
     await _database.connect().then((value) async {

@@ -13,6 +13,7 @@ dependencies:
   grpc: ^3.0.0
   nanoid: ^1.0.0
   path: ^1.8.0
+  injectable: ^1.4.1
   postgres_dao:
     path: ./packages/postgres_dao
   dartz: ^0.10.0-nullsafety.2
@@ -20,6 +21,7 @@ dependencies:
 
 dev_dependencies:
   # dart run build_runner build
+  injectable_generator: ^1.4.1
   build_runner: ^2.0.5
   dotenv: ^3.0.0
   lints: ^1.0.1

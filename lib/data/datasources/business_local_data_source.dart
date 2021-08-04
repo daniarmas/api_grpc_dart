@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:postgres_dao/and.dart';
 import 'package:postgres_dao/or.dart';
 import 'package:postgres_dao/where_agregation_attribute.dart';
@@ -6,7 +7,6 @@ import 'package:postgres_dao/where_normal_attribute_not_in.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';
 
 import '../../core/error/failure.dart';
-import '../../injection_container.dart' as sl;
 import '../../protos/protos/main.pb.dart';
 import '../database/database.dart';
 
@@ -16,8 +16,11 @@ abstract class BusinessLocalDataSource {
       LatLng latLng, List<String>? notIds);
 }
 
+@Injectable(as: BusinessLocalDataSource)
 class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
-  final Database _database = sl.serviceLocator();
+  final Database _database;
+
+  BusinessLocalDataSourceImpl(this._database);
 
   @override
   Future<Either<Failure, Iterable<Business>>> listBusiness(

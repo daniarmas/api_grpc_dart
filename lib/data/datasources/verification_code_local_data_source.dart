@@ -1,5 +1,6 @@
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../core/error/failure.dart';
 import '../../injection_container.dart' as sl;
@@ -13,9 +14,12 @@ abstract class VerificationCodeLocalDataSource {
   Future<Either<Failure, Iterable<VerificationCode>>> listVerificationCode();
 }
 
+@Injectable(as: VerificationCodeLocalDataSource)
 class VerificationCodeLocalDataSourceImpl
     implements VerificationCodeLocalDataSource {
-  final Database _database = sl.serviceLocator();
+  final Database _database;
+
+  VerificationCodeLocalDataSourceImpl(this._database);
 
   @override
   Future<Either<Failure, VerificationCode>> createVerificationCode(
@@ -45,7 +49,8 @@ class VerificationCodeLocalDataSourceImpl
       return VerificationCode(
           id: e['VerificationCodeTest']['id'],
           code: e['VerificationCodeTest']['code'],
-          type: parseVerificationCodeTypeEnum(e['VerificationCodeTest']['type']),
+          type:
+              parseVerificationCodeTypeEnum(e['VerificationCodeTest']['type']),
           deviceId: e['VerificationCodeTest']['deviceId']);
     }));
   }
