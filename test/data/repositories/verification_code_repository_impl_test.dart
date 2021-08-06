@@ -27,7 +27,7 @@ void main() {
         localDataSource: mockVerificationCodeLocalDataSource);
   });
 
-  group('verification code repository impl ...', () {
+  group('testing the verification code repository implementation...', () {
     test('verification code repository return sucess', () async {
       // setup
       Map<String, dynamic> map = {
