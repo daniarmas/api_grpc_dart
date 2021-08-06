@@ -1,30 +1,26 @@
-# FROM dart:2.13.3 AS dev
-# WORKDIR /app
-# COPY pubspec.* ./
-# RUN dart pub get
-# EXPOSE 8000
-# CMD ["npm", "run", "dev"]
-
-# Specify the Dart SDK base image version using dart:<version> (ex: dart:2.12)
-FROM dart:2.13.3 AS build
-
-# Resolve app dependencies.
+FROM docker.uclv.cu/dart:2.13.3
+# Specify the pub.dev url from china
+# ENV PUB_HOSTED_URL=https://pub.flutter-io.cn
+# ENV FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+ENV PORT=2210
+ENV POSTGRESDB_URI='postgres://postgres:postgres@192.168.0.2:54322/postgres'
+ENV DATABASE_DATABASE='database'
+ENV DATABASE_HOST='192.168.0.2'
+ENV DATABASE_PORT=54322
+ENV DATABASE_USERNAME='postgres'
+ENV DATABASE_PASSWORD='postgres'
+# Creating the working directory of the app.
 WORKDIR /app
-COPY pubspec.* ./
-RUN dart pub get
-
-# Copy app source code and AOT compile it.
+# COPY app source code
 COPY . .
+RUN dart pub get
 # Ensure packages are still up-to-date if anything has changed
 RUN dart pub get --offline
-RUN dart compile exe bin/api_grpc_dart.dart -o bin/api_grpc_dart
-
 # Build minimal serving image from AOT-compiled `/server` and required system
 # libraries and configuration files stored in `/runtime/` from the build stage.
-FROM dart:2.13.3
-COPY --from=build /runtime/ /
-COPY --from=build /app/bin/api_grpc_dart /app/bin/
-
-# Start server.
+# RUN dart compile exe bin/api_grpc_dart.dart -o bin/api_grpc_dart
+# COPY --from=build /runtime/ /
+# COPY --from=build /app/bin/api_grpc_dart /app/bin/
+# Expose the server port.
 EXPOSE 2210
-CMD ["/app/bin/api_grpc_dart"]
+CMD ["dart", "run"]
