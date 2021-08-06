@@ -1,4 +1,5 @@
 import 'package:api_grpc_dart/core/error/exception.dart';
+import 'package:api_grpc_dart/core/error/failure.dart';
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart';
 import 'package:api_grpc_dart/data/repositories/verification_code_repository_impl.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
@@ -62,7 +63,7 @@ void main() {
       // expectations
       verify(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: map));
-      expect(result, Left(ServerException()));
+      expect(result, Left(ServerFailure()));
     });
   });
 }

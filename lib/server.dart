@@ -1,14 +1,14 @@
-import 'package:api_grpc_dart/domain/services/authentication_service.dart';
+import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart' as grpc;
 
 import 'data/database/database.dart';
+import 'domain/services/authentication_service.dart';
 import 'domain/services/business_service.dart';
 import 'environment.dart';
-import 'injection_container.dart' as sl;
 
 class Server {
-  static final EnvironmentApp _environment = sl.getIt();
-  static final Database _database = sl.getIt();
+  static final EnvironmentApp _environment = GetIt.I<EnvironmentApp>();
+  static final Database _database = GetIt.I<Database>();
 
   static Future<void> init() async {
     await _database.connect().then((value) async {
