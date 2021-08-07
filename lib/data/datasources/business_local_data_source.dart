@@ -44,24 +44,24 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
           'ST_Distance("coordinates", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) AS "distance"'
         ],
         orderByAsc: 'distance',
-        // where: [
-        //   Or([
-        //     WhereAgregationAttribute(
-        //         key:
-        //             'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
-        //         value: 'true'),
-        //     WhereNormalAttribute(key: 'isOpen', value: 'true'),
-        //     WhereNormalAttributeNotIn(key: 'id', value: notIds),
-        //   ]),
-        //   And([
-        //     WhereAgregationAttribute(
-        //         key:
-        //             'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
-        //         value: 'true'),
-        //     WhereNormalAttribute(key: 'isOpen', value: 'true'),
-        //     WhereNormalAttributeNotIn(key: 'id', value: notIds),
-        //   ]),
-        // ],
+        where: [
+          Or([
+            WhereAgregationAttribute(
+                key:
+                    'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
+                value: 'true'),
+            WhereNormalAttribute(key: 'isOpen', value: 'true'),
+            WhereNormalAttributeNotIn(key: 'id', value: notIds),
+          ]),
+          And([
+            WhereAgregationAttribute(
+                key:
+                    'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
+                value: 'true'),
+            WhereNormalAttribute(key: 'isOpen', value: 'true'),
+            WhereNormalAttributeNotIn(key: 'id', value: notIds),
+          ]),
+        ],
         limit: 10);
     List<Business> responseList = [];
     for (var e in result) {
