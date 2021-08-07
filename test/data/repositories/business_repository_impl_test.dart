@@ -28,30 +28,30 @@ void main() {
   group('should return local data listBusiness from database', () {
     test('should return data when the call to local data source is successful.',
         () async {
-      when(mockListBusinessLocalDataSource
-              .listBusiness(LatLng(latitude: 1, longitude: 1), ['1']))
-          .thenAnswer((_) async => Right(listOfBusiness));
+      when(mockListBusinessLocalDataSource.listBusiness(
+          latLng: LatLng(latitude: 1, longitude: 1),
+          notIds: ['1'])).thenAnswer((_) async => listOfBusiness);
       // act
       final result = await businessRepositoryImpl
           .listBusiness(LatLng(latitude: 1, longitude: 1), ['1']);
       // assert
-      verify(mockListBusinessLocalDataSource
-          .listBusiness(LatLng(latitude: 1, longitude: 1), ['1']));
-      expect(result, Right(listOfBusiness));
+      verify(mockListBusinessLocalDataSource.listBusiness(
+          latLng: LatLng(latitude: 1, longitude: 1), notIds: ['1']));
+      expect(result, equals(Right(listOfBusiness)));
     });
 
     test(
         'should return server failure when the call to local data source is unsuccessful.',
         () async {
-      when(mockListBusinessLocalDataSource
-              .listBusiness(LatLng(latitude: 1, longitude: 1), ['1']))
-          .thenThrow(ServerException());
+      when(mockListBusinessLocalDataSource.listBusiness(
+          latLng: LatLng(latitude: 1, longitude: 1),
+          notIds: ['1'])).thenThrow(ServerException());
       // act
       final result = await businessRepositoryImpl
           .listBusiness(LatLng(latitude: 1, longitude: 1), ['1']);
       // assert
-      verify(mockListBusinessLocalDataSource
-          .listBusiness(LatLng(latitude: 1, longitude: 1), ['1']));
+      verify(mockListBusinessLocalDataSource.listBusiness(
+          latLng: LatLng(latitude: 1, longitude: 1), notIds: ['1']));
       expect(result, Left(ServerFailure()));
     });
   });

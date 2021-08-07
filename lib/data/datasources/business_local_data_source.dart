@@ -12,8 +12,8 @@ import '../database/database.dart';
 
 // ignore: one_member_abstracts
 abstract class BusinessLocalDataSource {
-  Future<Either<Failure, Iterable<Business>>> listBusiness(
-      LatLng latLng, List<String>? notIds);
+  Future<List<Business>> listBusiness(
+      {required LatLng latLng, List<String>? notIds});
 }
 
 @Injectable(as: BusinessLocalDataSource)
@@ -23,8 +23,8 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
   BusinessLocalDataSourceImpl(this._database);
 
   @override
-  Future<Either<Failure, Iterable<Business>>> listBusiness(
-      LatLng latLng, List<String>? notIds) async {
+  Future<List<Business>> listBusiness(
+      {required LatLng latLng, List<String>? notIds}) async {
     final result = await _database.list(
         table: 'Business',
         attributes: [
@@ -44,26 +44,42 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
           'ST_Distance("coordinates", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) AS "distance"'
         ],
         orderByAsc: 'distance',
-        where: [
-          Or([
-            WhereAgregationAttribute(
-                key:
-                    'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
-                value: 'true'),
-            WhereNormalAttribute(key: 'isOpen', value: 'true'),
-            WhereNormalAttributeNotIn(key: 'id', value: notIds),
-          ]),
-          And([
-            WhereAgregationAttribute(
-                key:
-                    'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
-                value: 'true'),
-            WhereNormalAttribute(key: 'isOpen', value: 'true'),
-            WhereNormalAttributeNotIn(key: 'id', value: notIds),
-          ]),
-        ],
+        // where: [
+        //   Or([
+        //     WhereAgregationAttribute(
+        //         key:
+        //             'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
+        //         value: 'true'),
+        //     WhereNormalAttribute(key: 'isOpen', value: 'true'),
+        //     WhereNormalAttributeNotIn(key: 'id', value: notIds),
+        //   ]),
+        //   And([
+        //     WhereAgregationAttribute(
+        //         key:
+        //             'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
+        //         value: 'true'),
+        //     WhereNormalAttribute(key: 'isOpen', value: 'true'),
+        //     WhereNormalAttributeNotIn(key: 'id', value: notIds),
+        //   ]),
+        // ],
         limit: 10);
-    return Right(result.map((e) {
+    List<Business> responseList = [];
+    for (var e in result) {
+      responseList.add(Business(
+          id: e['Business']['id'],
+          name: e['Business']['name'],
+          description: e['Business']['description'],
+          address: e['Business']['address'],
+          phone: e['Business']['phone'],
+          email: e['Business']['email'],
+          photo: e['Business']['photo'],
+          photoUrl: e['Business']['photoUrl'],
+          // polygon: parsePolygon(result[0]['']['polygon']),
+          distance: e['']['distance'],
+          coordinates: LatLng(
+              latitude: e['']['latitude'], longitude: e['']['longitude'])));
+    }
+    var response = result.map((e) {
       return Business(
           id: e['Business']['id'],
           name: e['Business']['name'],
@@ -77,7 +93,9 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
           distance: e['']['distance'],
           coordinates: LatLng(
               latitude: e['']['latitude'], longitude: e['']['longitude']));
-    }));
+    });
+    print(response.runtimeType);
+    return responseList;
   }
 
   List<Polygon> parsePolygon(List<dynamic> parameter) {

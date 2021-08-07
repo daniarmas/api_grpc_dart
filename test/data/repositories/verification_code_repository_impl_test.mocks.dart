@@ -4,11 +4,9 @@
 
 import 'dart:async' as _i4;
 
-import 'package:api_grpc_dart/core/error/failure.dart' as _i5;
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart'
     as _i3;
-import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i6;
-import 'package:dartz/dartz.dart' as _i2;
+import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -17,10 +15,7 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: unnecessary_parenthesis
 
-class _FakeEither<L, R> extends _i1.Fake implements _i2.Either<L, R> {
-  @override
-  String toString() => super.toString();
-}
+class _FakeVerificationCode extends _i1.Fake implements _i2.VerificationCode {}
 
 /// A class which mocks [VerificationCodeLocalDataSource].
 ///
@@ -32,20 +27,17 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.VerificationCode>>
-      createVerificationCode({Map<String, dynamic>? data}) =>
-          (super.noSuchMethod(
+  _i4.Future<_i2.VerificationCode> createVerificationCode(
+          {Map<String, dynamic>? data}) =>
+      (super.noSuchMethod(
               Invocation.method(#createVerificationCode, [], {#data: data}),
               returnValue:
-                  Future<_i2.Either<_i5.Failure, _i6.VerificationCode>>.value(
-                      _FakeEither<_i5.Failure, _i6.VerificationCode>())) as _i4
-              .Future<_i2.Either<_i5.Failure, _i6.VerificationCode>>);
+                  Future<_i2.VerificationCode>.value(_FakeVerificationCode()))
+          as _i4.Future<_i2.VerificationCode>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, Iterable<_i6.VerificationCode>>>
-      listVerificationCode() => (super.noSuchMethod(
-          Invocation.method(#listVerificationCode, []),
-          returnValue: Future<
-                  _i2.Either<_i5.Failure, Iterable<_i6.VerificationCode>>>.value(
-              _FakeEither<_i5.Failure, Iterable<_i6.VerificationCode>>())) as _i4
-          .Future<_i2.Either<_i5.Failure, Iterable<_i6.VerificationCode>>>);
+  _i4.Future<List<_i2.VerificationCode>> listVerificationCode() =>
+      (super.noSuchMethod(Invocation.method(#listVerificationCode, []),
+              returnValue: Future<List<_i2.VerificationCode>>.value(
+                  <_i2.VerificationCode>[]))
+          as _i4.Future<List<_i2.VerificationCode>>);
 }

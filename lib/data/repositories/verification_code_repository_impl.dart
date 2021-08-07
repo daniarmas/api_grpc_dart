@@ -17,7 +17,8 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   Future<Either<Failure, VerificationCode>> createVerificationCode(
       {required Map<String, dynamic> data}) async {
     try {
-      return localDataSource.createVerificationCode(data: data);
+      final response = await localDataSource.createVerificationCode(data: data);
+      return Right(response);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -27,7 +28,8 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   Future<Either<Failure, Iterable<VerificationCode>>>
       listVerificationCode() async {
     try {
-      return localDataSource.listVerificationCode();
+      final response = await localDataSource.listVerificationCode();
+      return Right(response);
     } on ServerException {
       return Left(ServerFailure());
     }

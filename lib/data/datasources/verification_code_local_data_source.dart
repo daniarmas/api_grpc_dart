@@ -7,10 +7,10 @@ import '../../protos/protos/main.pb.dart';
 
 // ignore: one_member_abstracts
 abstract class VerificationCodeLocalDataSource {
-  Future<Either<Failure, VerificationCode>> createVerificationCode(
+  Future<VerificationCode> createVerificationCode(
       {required Map<String, dynamic> data});
 
-  Future<Either<Failure, Iterable<VerificationCode>>> listVerificationCode();
+  Future<List<VerificationCode>> listVerificationCode();
 }
 
 @Injectable(as: VerificationCodeLocalDataSource)
@@ -21,20 +21,20 @@ class VerificationCodeLocalDataSourceImpl
   VerificationCodeLocalDataSourceImpl(this._database);
 
   @override
-  Future<Either<Failure, VerificationCode>> createVerificationCode(
+  Future<VerificationCode> createVerificationCode(
       {required Map<String, dynamic> data}) async {
     final result =
         await _database.create(table: 'VerificationCodeTest', data: data);
-    return Right(VerificationCode(
+    return VerificationCode(
         id: result['id'],
         code: result['code'],
         deviceId: result['deviceId'],
-        type: parseVerificationCodeTypeEnum(result['type'])));
+        type: parseVerificationCodeTypeEnum(result['type']));
   }
 
   @override
-  Future<Either<Failure, Iterable<VerificationCode>>>
-      listVerificationCode() async {
+  Future<List<VerificationCode>> listVerificationCode() async {
+    List<VerificationCode> response = [];
     final result = await _database.list(
         table: 'VerificationCodeTest',
         attributes: [
@@ -44,14 +44,15 @@ class VerificationCodeLocalDataSourceImpl
           'deviceId',
         ],
         limit: 100);
-    return Right(result.map((e) {
-      return VerificationCode(
+    for (var e in result) {
+      response.add(VerificationCode(
           id: e['VerificationCodeTest']['id'],
           code: e['VerificationCodeTest']['code'],
           type:
               parseVerificationCodeTypeEnum(e['VerificationCodeTest']['type']),
-          deviceId: e['VerificationCodeTest']['deviceId']);
-    }));
+          deviceId: e['VerificationCodeTest']['deviceId']));
+    }
+    return response;
   }
 }
 

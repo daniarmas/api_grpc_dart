@@ -37,7 +37,7 @@ void main() {
       };
       when(mockVerificationCodeLocalDataSource.createVerificationCode(
               data: map))
-          .thenAnswer((_) async => Right(verificationCode));
+          .thenAnswer((_) async => verificationCode);
       // side effects
       final result =
           await businessRepositoryImpl.createVerificationCode(data: map);

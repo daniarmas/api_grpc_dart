@@ -14,10 +14,12 @@ class BusinessRepositoryImpl implements BusinessRepository {
   BusinessRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<Either<Failure, Iterable<Business>>> listBusiness(
+  Future<Either<Failure, List<Business>>> listBusiness(
       LatLng latLng, List<String> notIds) async {
     try {
-      return await localDataSource.listBusiness(latLng, notIds);
+      var response =
+          await localDataSource.listBusiness(latLng: latLng, notIds: notIds);
+      return Right(response);
     } on ServerException {
       return Left(ServerFailure());
     }

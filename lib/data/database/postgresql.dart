@@ -37,7 +37,7 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  dynamic get() {
+  Future<dynamic> get() {
     // TODO: implement get
     throw UnimplementedError();
   }
@@ -60,7 +60,7 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  dynamic update(dynamic object) {
+  Future<dynamic> update(dynamic object) {
     // TODO: implement update
     throw UnimplementedError();
   }
