@@ -12,7 +12,7 @@ abstract class Database {
       List<Where>? where,
       String? orderByAsc});
 
-  Future<dynamic> get();
+  Future<Map<String, dynamic>> get();
 
   Future<Map<String, dynamic>> create(
       {required String table, required Map<String, dynamic> data});

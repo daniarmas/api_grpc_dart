@@ -37,7 +37,7 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  Future<dynamic> get() {
+  Future<Map<String, dynamic>> get() {
     // TODO: implement get
     throw UnimplementedError();
   }
