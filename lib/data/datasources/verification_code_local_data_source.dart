@@ -1,8 +1,6 @@
 import 'package:api_grpc_dart/data/database/database.dart';
-import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../core/error/failure.dart';
 import '../../protos/protos/main.pb.dart';
 
 // ignore: one_member_abstracts

@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres_dao/and.dart';
 import 'package:postgres_dao/or.dart';
@@ -6,7 +5,6 @@ import 'package:postgres_dao/where_agregation_attribute.dart';
 import 'package:postgres_dao/where_normal_attribute_not_in.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';
 
-import '../../core/error/failure.dart';
 import '../../protos/protos/main.pb.dart';
 import '../database/database.dart';
 
