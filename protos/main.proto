@@ -8,6 +8,12 @@ service BusinessService {
   rpc ListBusiness (ListBusinessRequest) returns (ListBusinessResponse) {}
 }
 
+service AuthenticationService {
+  rpc CreateVerificationCode (CreateVerificationCodeRequest) returns (CreateVerificationCodeResponse) {}
+  rpc ListVerificationCode (ListVerificationCodeRequest) returns (ListVerificationCodeResponse) {}
+  rpc GetVerificationCode (GetVerificationCodeRequest) returns (GetVerificationCodeResponse) {}
+}
+
 
 message ListBusinessRequest {
   optional string category_fk = 1;
@@ -51,6 +57,48 @@ message Business {
 message Polygon {
   repeated double coordinates = 1;
 }
+
+message CreateVerificationCodeRequest {
+    string deviceId = 1;
+    string email = 2;
+    VerificationCodeType type = 3;
+}
+
+message CreateVerificationCodeResponse {
+    VerificationCode verificationCode = 1;
+}
+
+message ListVerificationCodeRequest {
+    
+}
+
+message ListVerificationCodeResponse {
+    repeated VerificationCode verificationCode = 1;
+}
+
+message GetVerificationCodeRequest {
+    string id = 1;
+}
+
+message GetVerificationCodeResponse {
+    VerificationCode verificationCode = 1;
+}
+
+message VerificationCode {
+  string id = 1;
+  string code = 2;
+  VerificationCodeType type = 3;
+  string deviceId = 4;
+}
+
+enum VerificationCodeType {
+  UNSPECIFIED = 0;
+  SIGN_IN = 1;
+  SIGN_UP = 2;
+  CHANGE_USER_EMAIL = 3;
+}
+
+// 'Sign_In', 'Sign_Up', 'Change_User_Email'
 
 // message BusinessSchedule {
 //   string id = 1;

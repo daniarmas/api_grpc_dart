@@ -15,13 +15,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
-  archive:
-    dependency: transitive
-    description:
-      name: archive
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.1.2"
   args:
     dependency: transitive
     description:
@@ -169,27 +162,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.3"
-  dartz:
-    dependency: "direct main"
-    description:
-      name: dartz
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.10.0"
-  dotenv:
-    dependency: "direct dev"
-    description:
-      name: dotenv
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.0.0"
-  equatable:
-    dependency: "direct main"
-    description:
-      name: equatable
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.3"
   file:
     dependency: transitive
     description:
@@ -211,13 +183,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
-  get_it:
-    dependency: "direct main"
-    description:
-      name: get_it
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "7.2.0"
   glob:
     dependency: transitive
     description:
@@ -225,38 +190,10 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
-  googleapis_auth:
-    dependency: transitive
-    description:
-      name: googleapis_auth
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.1.0"
   graphs:
     dependency: transitive
     description:
       name: graphs
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.0"
-  grpc:
-    dependency: "direct main"
-    description:
-      name: grpc
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.0.2"
-  http:
-    dependency: transitive
-    description:
-      name: http
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.13.3"
-  http2:
-    dependency: transitive
-    description:
-      name: http2
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
@@ -274,20 +211,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.0"
-  injectable:
-    dependency: "direct main"
-    description:
-      name: injectable
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.5.0"
-  injectable_generator:
-    dependency: "direct dev"
-    description:
-      name: injectable_generator
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.5.0"
   io:
     dependency: transitive
     description:
@@ -394,26 +317,12 @@ packages:
     source: hosted
     version: "1.5.0"
   postgres:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: postgres
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.4.0"
-  postgres_dao:
-    dependency: "direct main"
-    description:
-      path: "packages/postgres_dao"
-      relative: true
-    source: path
-    version: "0.0.1"
-  protobuf:
-    dependency: transitive
-    description:
-      name: protobuf
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.0"
   pub_semver:
     dependency: transitive
     description:

@@ -1,12 +1,14 @@
+import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 import 'package:postgres_dao/postgres_dao.dart';
 import 'package:postgres_dao/where.dart';
 
 import '../../environment.dart';
-import '../../injection_container.dart' as sl;
 import 'database.dart';
 
+@Injectable(as: Database)
 class PostgresqlDatabase implements Database {
-  static final Environment _environment = sl.serviceLocator();
+  static final EnvironmentApp _environment = GetIt.I<EnvironmentApp>();
   static final _connection = PostgresqlDao(
       host: _environment.databaseHost,
       port: _environment.databasePort,
@@ -24,9 +26,9 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  dynamic create(dynamic object) {
-    // TODO: implement create
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> create(
+      {required String table, required Map<String, dynamic> data}) {
+    return _connection.create(table: table, data: data);
   }
 
   @override
@@ -35,13 +37,20 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  dynamic get() {
-    // TODO: implement get
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> get(
+      {required String table,
+      List<String>? attributes,
+      List<String>? agregationMethods,
+      List<Where>? where}) {
+    return _connection.get(
+        where: where,
+        table: table,
+        attributes: attributes,
+        agregationMethods: agregationMethods);
   }
 
   @override
-  Future<List<dynamic>> list(
+  Future<List<Map<String, dynamic>>> list(
       {required String table,
       List<String>? attributes,
       List<String>? agregationMethods,
@@ -58,7 +67,7 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  dynamic update(dynamic object) {
+  Future<Map<String, dynamic>> update(dynamic object) {
     // TODO: implement update
     throw UnimplementedError();
   }

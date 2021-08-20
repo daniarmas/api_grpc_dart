@@ -9,6 +9,10 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'main.pbenum.dart';
+
+export 'main.pbenum.dart';
+
 class ListBusinessRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListBusinessRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'categoryFk')
@@ -357,6 +361,385 @@ class Polygon extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<$core.double> get coordinates => $_getList(0);
+}
+
+class CreateVerificationCodeRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateVerificationCodeRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..e<VerificationCodeType>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
+    ..hasRequiredFields = false
+  ;
+
+  CreateVerificationCodeRequest._() : super();
+  factory CreateVerificationCodeRequest({
+    $core.String? deviceId,
+    $core.String? email,
+    VerificationCodeType? type,
+  }) {
+    final _result = create();
+    if (deviceId != null) {
+      _result.deviceId = deviceId;
+    }
+    if (email != null) {
+      _result.email = email;
+    }
+    if (type != null) {
+      _result.type = type;
+    }
+    return _result;
+  }
+  factory CreateVerificationCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateVerificationCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateVerificationCodeRequest clone() => CreateVerificationCodeRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateVerificationCodeRequest copyWith(void Function(CreateVerificationCodeRequest) updates) => super.copyWith((message) => updates(message as CreateVerificationCodeRequest)) as CreateVerificationCodeRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateVerificationCodeRequest create() => CreateVerificationCodeRequest._();
+  CreateVerificationCodeRequest createEmptyInstance() => create();
+  static $pb.PbList<CreateVerificationCodeRequest> createRepeated() => $pb.PbList<CreateVerificationCodeRequest>();
+  @$core.pragma('dart2js:noInline')
+  static CreateVerificationCodeRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVerificationCodeRequest>(create);
+  static CreateVerificationCodeRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get deviceId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set deviceId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasDeviceId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearDeviceId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get email => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set email($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasEmail() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEmail() => clearField(2);
+
+  @$pb.TagNumber(3)
+  VerificationCodeType get type => $_getN(2);
+  @$pb.TagNumber(3)
+  set type(VerificationCodeType v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasType() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearType() => clearField(3);
+}
+
+class CreateVerificationCodeResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateVerificationCodeResponse', createEmptyInstance: create)
+    ..aOM<VerificationCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'verificationCode', protoName: 'verificationCode', subBuilder: VerificationCode.create)
+    ..hasRequiredFields = false
+  ;
+
+  CreateVerificationCodeResponse._() : super();
+  factory CreateVerificationCodeResponse({
+    VerificationCode? verificationCode,
+  }) {
+    final _result = create();
+    if (verificationCode != null) {
+      _result.verificationCode = verificationCode;
+    }
+    return _result;
+  }
+  factory CreateVerificationCodeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateVerificationCodeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateVerificationCodeResponse clone() => CreateVerificationCodeResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateVerificationCodeResponse copyWith(void Function(CreateVerificationCodeResponse) updates) => super.copyWith((message) => updates(message as CreateVerificationCodeResponse)) as CreateVerificationCodeResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateVerificationCodeResponse create() => CreateVerificationCodeResponse._();
+  CreateVerificationCodeResponse createEmptyInstance() => create();
+  static $pb.PbList<CreateVerificationCodeResponse> createRepeated() => $pb.PbList<CreateVerificationCodeResponse>();
+  @$core.pragma('dart2js:noInline')
+  static CreateVerificationCodeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVerificationCodeResponse>(create);
+  static CreateVerificationCodeResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  VerificationCode get verificationCode => $_getN(0);
+  @$pb.TagNumber(1)
+  set verificationCode(VerificationCode v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasVerificationCode() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearVerificationCode() => clearField(1);
+  @$pb.TagNumber(1)
+  VerificationCode ensureVerificationCode() => $_ensure(0);
+}
+
+class ListVerificationCodeRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListVerificationCodeRequest', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  ListVerificationCodeRequest._() : super();
+  factory ListVerificationCodeRequest() => create();
+  factory ListVerificationCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListVerificationCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListVerificationCodeRequest clone() => ListVerificationCodeRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListVerificationCodeRequest copyWith(void Function(ListVerificationCodeRequest) updates) => super.copyWith((message) => updates(message as ListVerificationCodeRequest)) as ListVerificationCodeRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListVerificationCodeRequest create() => ListVerificationCodeRequest._();
+  ListVerificationCodeRequest createEmptyInstance() => create();
+  static $pb.PbList<ListVerificationCodeRequest> createRepeated() => $pb.PbList<ListVerificationCodeRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ListVerificationCodeRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListVerificationCodeRequest>(create);
+  static ListVerificationCodeRequest? _defaultInstance;
+}
+
+class ListVerificationCodeResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListVerificationCodeResponse', createEmptyInstance: create)
+    ..pc<VerificationCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'verificationCode', $pb.PbFieldType.PM, protoName: 'verificationCode', subBuilder: VerificationCode.create)
+    ..hasRequiredFields = false
+  ;
+
+  ListVerificationCodeResponse._() : super();
+  factory ListVerificationCodeResponse({
+    $core.Iterable<VerificationCode>? verificationCode,
+  }) {
+    final _result = create();
+    if (verificationCode != null) {
+      _result.verificationCode.addAll(verificationCode);
+    }
+    return _result;
+  }
+  factory ListVerificationCodeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListVerificationCodeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListVerificationCodeResponse clone() => ListVerificationCodeResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListVerificationCodeResponse copyWith(void Function(ListVerificationCodeResponse) updates) => super.copyWith((message) => updates(message as ListVerificationCodeResponse)) as ListVerificationCodeResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListVerificationCodeResponse create() => ListVerificationCodeResponse._();
+  ListVerificationCodeResponse createEmptyInstance() => create();
+  static $pb.PbList<ListVerificationCodeResponse> createRepeated() => $pb.PbList<ListVerificationCodeResponse>();
+  @$core.pragma('dart2js:noInline')
+  static ListVerificationCodeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListVerificationCodeResponse>(create);
+  static ListVerificationCodeResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<VerificationCode> get verificationCode => $_getList(0);
+}
+
+class GetVerificationCodeRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetVerificationCodeRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..hasRequiredFields = false
+  ;
+
+  GetVerificationCodeRequest._() : super();
+  factory GetVerificationCodeRequest({
+    $core.String? id,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    return _result;
+  }
+  factory GetVerificationCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetVerificationCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetVerificationCodeRequest clone() => GetVerificationCodeRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetVerificationCodeRequest copyWith(void Function(GetVerificationCodeRequest) updates) => super.copyWith((message) => updates(message as GetVerificationCodeRequest)) as GetVerificationCodeRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetVerificationCodeRequest create() => GetVerificationCodeRequest._();
+  GetVerificationCodeRequest createEmptyInstance() => create();
+  static $pb.PbList<GetVerificationCodeRequest> createRepeated() => $pb.PbList<GetVerificationCodeRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetVerificationCodeRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetVerificationCodeRequest>(create);
+  static GetVerificationCodeRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+}
+
+class GetVerificationCodeResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetVerificationCodeResponse', createEmptyInstance: create)
+    ..aOM<VerificationCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'verificationCode', protoName: 'verificationCode', subBuilder: VerificationCode.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetVerificationCodeResponse._() : super();
+  factory GetVerificationCodeResponse({
+    VerificationCode? verificationCode,
+  }) {
+    final _result = create();
+    if (verificationCode != null) {
+      _result.verificationCode = verificationCode;
+    }
+    return _result;
+  }
+  factory GetVerificationCodeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetVerificationCodeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetVerificationCodeResponse clone() => GetVerificationCodeResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetVerificationCodeResponse copyWith(void Function(GetVerificationCodeResponse) updates) => super.copyWith((message) => updates(message as GetVerificationCodeResponse)) as GetVerificationCodeResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetVerificationCodeResponse create() => GetVerificationCodeResponse._();
+  GetVerificationCodeResponse createEmptyInstance() => create();
+  static $pb.PbList<GetVerificationCodeResponse> createRepeated() => $pb.PbList<GetVerificationCodeResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetVerificationCodeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetVerificationCodeResponse>(create);
+  static GetVerificationCodeResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  VerificationCode get verificationCode => $_getN(0);
+  @$pb.TagNumber(1)
+  set verificationCode(VerificationCode v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasVerificationCode() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearVerificationCode() => clearField(1);
+  @$pb.TagNumber(1)
+  VerificationCode ensureVerificationCode() => $_ensure(0);
+}
+
+class VerificationCode extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'VerificationCode', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
+    ..e<VerificationCodeType>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
+    ..hasRequiredFields = false
+  ;
+
+  VerificationCode._() : super();
+  factory VerificationCode({
+    $core.String? id,
+    $core.String? code,
+    VerificationCodeType? type,
+    $core.String? deviceId,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    if (code != null) {
+      _result.code = code;
+    }
+    if (type != null) {
+      _result.type = type;
+    }
+    if (deviceId != null) {
+      _result.deviceId = deviceId;
+    }
+    return _result;
+  }
+  factory VerificationCode.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory VerificationCode.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  VerificationCode clone() => VerificationCode()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  VerificationCode copyWith(void Function(VerificationCode) updates) => super.copyWith((message) => updates(message as VerificationCode)) as VerificationCode; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static VerificationCode create() => VerificationCode._();
+  VerificationCode createEmptyInstance() => create();
+  static $pb.PbList<VerificationCode> createRepeated() => $pb.PbList<VerificationCode>();
+  @$core.pragma('dart2js:noInline')
+  static VerificationCode getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<VerificationCode>(create);
+  static VerificationCode? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get code => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set code($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasCode() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearCode() => clearField(2);
+
+  @$pb.TagNumber(3)
+  VerificationCodeType get type => $_getN(2);
+  @$pb.TagNumber(3)
+  set type(VerificationCodeType v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasType() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearType() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get deviceId => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set deviceId($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasDeviceId() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearDeviceId() => clearField(4);
 }
 
 class LatLng extends $pb.GeneratedMessage {

@@ -1,6 +1,7 @@
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/construct_sql_query_insert.dart';
 
-import 'construct_sql_query.dart';
+import 'construct_sql_query_select.dart';
 import 'where.dart';
 
 class PostgresqlDao {
@@ -32,28 +33,50 @@ class PostgresqlDao {
     }
   }
 
-  dynamic create(dynamic object) {
-    // TODO: implement create
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> create(
+      {required String table, required Map<String, dynamic> data}) async {
+    String query = constructSqlQueryInsert(table: table, data: data);
+    final response = await _connection.mappedResultsQuery(query);
+    return Future.value(response[0][table]);
   }
 
   void delete(String id) {
     // TODO: implement delete
   }
 
-  dynamic get() {
-    // TODO: implement get
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> get(
+      {required String table,
+      List<String>? attributes,
+      List<String>? agregationMethods,
+      List<Where>? where}) async {
+    try {
+      String? query = constructSqlQuerySelect(
+          limit: 1,
+          where: where,
+          table: table,
+          attributes: attributes,
+          agregationAttributes: agregationMethods,
+          orderByAsc: 'id');
+      print(query);
+      final response = await _connection.mappedResultsQuery(query);
+      if (response.isNotEmpty) {
+        return response[0];
+      } else {
+        throw Exception('Not Exists');
+      }
+    } catch (error) {
+      rethrow;
+    }
   }
 
-  Future<List<dynamic>> list(
+  Future<List<Map<String, dynamic>>> list(
       {required String table,
       List<String>? attributes,
       List<String>? agregationAttributes,
       int? limit,
       List<Where>? where,
       String? orderByAsc}) async {
-    String? query = constructSqlQuery(
+    String? query = constructSqlQuerySelect(
         limit: limit,
         where: where,
         table: table,
@@ -61,7 +84,7 @@ class PostgresqlDao {
         agregationAttributes: agregationAttributes,
         orderByAsc: orderByAsc);
     print(query);
-    return _connection.mappedResultsQuery(query!);
+    return _connection.mappedResultsQuery(query);
   }
 
   @override

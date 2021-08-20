@@ -1,4 +1,4 @@
-class Environment {
+class EnvironmentApp {
   final int port;
   final String databaseHost;
   final int databasePort;
@@ -6,7 +6,7 @@ class Environment {
   final String databaseUsername;
   final String databasePassword;
 
-  Environment({
+  EnvironmentApp({
     required this.port,
     required this.databaseHost,
     required this.databasePort,

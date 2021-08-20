@@ -1,27 +1,28 @@
-import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:postgres_dao/and.dart';
 import 'package:postgres_dao/or.dart';
 import 'package:postgres_dao/where_agregation_attribute.dart';
 import 'package:postgres_dao/where_normal_attribute_not_in.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';
 
-import '../../core/error/failure.dart';
-import '../../injection_container.dart' as sl;
 import '../../protos/protos/main.pb.dart';
 import '../database/database.dart';
 
 // ignore: one_member_abstracts
-abstract class ListBusinessLocalDataSource {
-  Future<Either<Failure, Iterable<Business>>> listBusiness(
-      LatLng latLng, List<String>? notIds);
+abstract class BusinessLocalDataSource {
+  Future<List<Business>> listBusiness(
+      {required LatLng latLng, List<String>? notIds});
 }
 
-class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
-  final Database _database = sl.serviceLocator();
+@Injectable(as: BusinessLocalDataSource)
+class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
+  final Database _database;
+
+  BusinessLocalDataSourceImpl(this._database);
 
   @override
-  Future<Either<Failure, Iterable<Business>>> listBusiness(
-      LatLng latLng, List<String>? notIds) async {
+  Future<List<Business>> listBusiness(
+      {required LatLng latLng, List<String>? notIds}) async {
     final result = await _database.list(
         table: 'Business',
         attributes: [
@@ -60,7 +61,23 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
           ]),
         ],
         limit: 10);
-    return Right(result.map((e) {
+    List<Business> responseList = [];
+    for (var e in result) {
+      responseList.add(Business(
+          id: e['Business']['id'],
+          name: e['Business']['name'],
+          description: e['Business']['description'],
+          address: e['Business']['address'],
+          phone: e['Business']['phone'],
+          email: e['Business']['email'],
+          photo: e['Business']['photo'],
+          photoUrl: e['Business']['photoUrl'],
+          // polygon: parsePolygon(result[0]['']['polygon']),
+          distance: e['']['distance'],
+          coordinates: LatLng(
+              latitude: e['']['latitude'], longitude: e['']['longitude'])));
+    }
+    var response = result.map((e) {
       return Business(
           id: e['Business']['id'],
           name: e['Business']['name'],
@@ -74,7 +91,9 @@ class ListBusinessLocalDataSourceImpl implements ListBusinessLocalDataSource {
           distance: e['']['distance'],
           coordinates: LatLng(
               latitude: e['']['latitude'], longitude: e['']['longitude']));
-    }));
+    });
+    print(response.runtimeType);
+    return responseList;
   }
 
   List<Polygon> parsePolygon(List<dynamic> parameter) {
