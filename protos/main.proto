@@ -11,6 +11,7 @@ service BusinessService {
 service AuthenticationService {
   rpc CreateVerificationCode (CreateVerificationCodeRequest) returns (CreateVerificationCodeResponse) {}
   rpc ListVerificationCode (ListVerificationCodeRequest) returns (ListVerificationCodeResponse) {}
+  rpc GetVerificationCode (GetVerificationCodeRequest) returns (GetVerificationCodeResponse) {}
 }
 
 
@@ -72,7 +73,15 @@ message ListVerificationCodeRequest {
 }
 
 message ListVerificationCodeResponse {
-    repeated VerificationCode verificationCodes = 1;
+    repeated VerificationCode verificationCode = 1;
+}
+
+message GetVerificationCodeRequest {
+    string id = 1;
+}
+
+message GetVerificationCodeResponse {
+    VerificationCode verificationCode = 1;
 }
 
 message VerificationCode {

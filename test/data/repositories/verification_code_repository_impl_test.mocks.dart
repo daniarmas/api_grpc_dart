@@ -40,4 +40,10 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
               returnValue: Future<List<_i2.VerificationCode>>.value(
                   <_i2.VerificationCode>[]))
           as _i4.Future<List<_i2.VerificationCode>>);
+  @override
+  _i4.Future<_i2.VerificationCode> getVerificationCode({String? id}) => (super
+          .noSuchMethod(Invocation.method(#getVerificationCode, [], {#id: id}),
+              returnValue:
+                  Future<_i2.VerificationCode>.value(_FakeVerificationCode()))
+      as _i4.Future<_i2.VerificationCode>);
 }

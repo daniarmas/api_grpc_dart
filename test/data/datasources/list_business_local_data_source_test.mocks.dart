@@ -27,7 +27,7 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
       (super.noSuchMethod(Invocation.method(#connect, []),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
   @override
-  _i3.Future<List<dynamic>> list(
+  _i3.Future<List<Map<String, dynamic>>> list(
           {String? table,
           List<String>? attributes,
           List<String>? agregationMethods,
@@ -43,11 +43,25 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
                 #where: where,
                 #orderByAsc: orderByAsc
               }),
-              returnValue: Future<List<dynamic>>.value(<dynamic>[]))
-          as _i3.Future<List<dynamic>>);
+              returnValue: Future<List<Map<String, dynamic>>>.value(
+                  <Map<String, dynamic>>[]))
+          as _i3.Future<List<Map<String, dynamic>>>);
   @override
-  _i3.Future<dynamic> get() => (super.noSuchMethod(Invocation.method(#get, []),
-      returnValue: Future<dynamic>.value()) as _i3.Future<dynamic>);
+  _i3.Future<Map<String, dynamic>> get(
+          {String? table,
+          List<String>? attributes,
+          List<String>? agregationMethods,
+          List<_i4.Where>? where}) =>
+      (super.noSuchMethod(
+              Invocation.method(#get, [], {
+                #table: table,
+                #attributes: attributes,
+                #agregationMethods: agregationMethods,
+                #where: where
+              }),
+              returnValue:
+                  Future<Map<String, dynamic>>.value(<String, dynamic>{}))
+          as _i3.Future<Map<String, dynamic>>);
   @override
   _i3.Future<Map<String, dynamic>> create(
           {String? table, Map<String, dynamic>? data}) =>
@@ -57,9 +71,11 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
                   Future<Map<String, dynamic>>.value(<String, dynamic>{}))
           as _i3.Future<Map<String, dynamic>>);
   @override
-  _i3.Future<dynamic> update(dynamic object) =>
+  _i3.Future<Map<String, dynamic>> update(dynamic object) =>
       (super.noSuchMethod(Invocation.method(#update, [object]),
-          returnValue: Future<dynamic>.value()) as _i3.Future<dynamic>);
+              returnValue:
+                  Future<Map<String, dynamic>>.value(<String, dynamic>{}))
+          as _i3.Future<Map<String, dynamic>>);
   @override
   void delete(String? id) =>
       super.noSuchMethod(Invocation.method(#delete, [id]),

@@ -45,7 +45,7 @@ void main() {
         () async {
       when(mockListBusinessLocalDataSource.listBusiness(
           latLng: LatLng(latitude: 1, longitude: 1),
-          notIds: ['1'])).thenThrow(ServerException());
+          notIds: ['1'])).thenThrow(InternalException());
       // act
       final result = await businessRepositoryImpl
           .listBusiness(LatLng(latitude: 1, longitude: 1), ['1']);

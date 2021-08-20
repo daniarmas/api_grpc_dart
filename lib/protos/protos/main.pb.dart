@@ -518,17 +518,17 @@ class ListVerificationCodeRequest extends $pb.GeneratedMessage {
 
 class ListVerificationCodeResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListVerificationCodeResponse', createEmptyInstance: create)
-    ..pc<VerificationCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'verificationCodes', $pb.PbFieldType.PM, protoName: 'verificationCodes', subBuilder: VerificationCode.create)
+    ..pc<VerificationCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'verificationCode', $pb.PbFieldType.PM, protoName: 'verificationCode', subBuilder: VerificationCode.create)
     ..hasRequiredFields = false
   ;
 
   ListVerificationCodeResponse._() : super();
   factory ListVerificationCodeResponse({
-    $core.Iterable<VerificationCode>? verificationCodes,
+    $core.Iterable<VerificationCode>? verificationCode,
   }) {
     final _result = create();
-    if (verificationCodes != null) {
-      _result.verificationCodes.addAll(verificationCodes);
+    if (verificationCode != null) {
+      _result.verificationCode.addAll(verificationCode);
     }
     return _result;
   }
@@ -554,7 +554,103 @@ class ListVerificationCodeResponse extends $pb.GeneratedMessage {
   static ListVerificationCodeResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<VerificationCode> get verificationCodes => $_getList(0);
+  $core.List<VerificationCode> get verificationCode => $_getList(0);
+}
+
+class GetVerificationCodeRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetVerificationCodeRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..hasRequiredFields = false
+  ;
+
+  GetVerificationCodeRequest._() : super();
+  factory GetVerificationCodeRequest({
+    $core.String? id,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    return _result;
+  }
+  factory GetVerificationCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetVerificationCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetVerificationCodeRequest clone() => GetVerificationCodeRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetVerificationCodeRequest copyWith(void Function(GetVerificationCodeRequest) updates) => super.copyWith((message) => updates(message as GetVerificationCodeRequest)) as GetVerificationCodeRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetVerificationCodeRequest create() => GetVerificationCodeRequest._();
+  GetVerificationCodeRequest createEmptyInstance() => create();
+  static $pb.PbList<GetVerificationCodeRequest> createRepeated() => $pb.PbList<GetVerificationCodeRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetVerificationCodeRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetVerificationCodeRequest>(create);
+  static GetVerificationCodeRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+}
+
+class GetVerificationCodeResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetVerificationCodeResponse', createEmptyInstance: create)
+    ..aOM<VerificationCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'verificationCode', protoName: 'verificationCode', subBuilder: VerificationCode.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetVerificationCodeResponse._() : super();
+  factory GetVerificationCodeResponse({
+    VerificationCode? verificationCode,
+  }) {
+    final _result = create();
+    if (verificationCode != null) {
+      _result.verificationCode = verificationCode;
+    }
+    return _result;
+  }
+  factory GetVerificationCodeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetVerificationCodeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetVerificationCodeResponse clone() => GetVerificationCodeResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetVerificationCodeResponse copyWith(void Function(GetVerificationCodeResponse) updates) => super.copyWith((message) => updates(message as GetVerificationCodeResponse)) as GetVerificationCodeResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetVerificationCodeResponse create() => GetVerificationCodeResponse._();
+  GetVerificationCodeResponse createEmptyInstance() => create();
+  static $pb.PbList<GetVerificationCodeResponse> createRepeated() => $pb.PbList<GetVerificationCodeResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetVerificationCodeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetVerificationCodeResponse>(create);
+  static GetVerificationCodeResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  VerificationCode get verificationCode => $_getN(0);
+  @$pb.TagNumber(1)
+  set verificationCode(VerificationCode v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasVerificationCode() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearVerificationCode() => clearField(1);
+  @$pb.TagNumber(1)
+  VerificationCode ensureVerificationCode() => $_ensure(0);
 }
 
 class VerificationCode extends $pb.GeneratedMessage {

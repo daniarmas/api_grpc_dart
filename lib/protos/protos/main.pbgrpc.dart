@@ -71,6 +71,12 @@ class AuthenticationServiceClient extends $grpc.Client {
       ($0.ListVerificationCodeRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.ListVerificationCodeResponse.fromBuffer(value));
+  static final _$getVerificationCode = $grpc.ClientMethod<
+          $0.GetVerificationCodeRequest, $0.GetVerificationCodeResponse>(
+      '/AuthenticationService/GetVerificationCode',
+      ($0.GetVerificationCodeRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.GetVerificationCodeResponse.fromBuffer(value));
 
   AuthenticationServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -88,6 +94,12 @@ class AuthenticationServiceClient extends $grpc.Client {
       $0.ListVerificationCodeRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$listVerificationCode, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetVerificationCodeResponse> getVerificationCode(
+      $0.GetVerificationCodeRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getVerificationCode, request, options: options);
   }
 }
 
@@ -113,6 +125,15 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.ListVerificationCodeRequest.fromBuffer(value),
         ($0.ListVerificationCodeResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.GetVerificationCodeRequest,
+            $0.GetVerificationCodeResponse>(
+        'GetVerificationCode',
+        getVerificationCode_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.GetVerificationCodeRequest.fromBuffer(value),
+        ($0.GetVerificationCodeResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CreateVerificationCodeResponse> createVerificationCode_Pre(
@@ -127,8 +148,16 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
     return listVerificationCode(call, await request);
   }
 
+  $async.Future<$0.GetVerificationCodeResponse> getVerificationCode_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.GetVerificationCodeRequest> request) async {
+    return getVerificationCode(call, await request);
+  }
+
   $async.Future<$0.CreateVerificationCodeResponse> createVerificationCode(
       $grpc.ServiceCall call, $0.CreateVerificationCodeRequest request);
   $async.Future<$0.ListVerificationCodeResponse> listVerificationCode(
       $grpc.ServiceCall call, $0.ListVerificationCodeRequest request);
+  $async.Future<$0.GetVerificationCodeResponse> getVerificationCode(
+      $grpc.ServiceCall call, $0.GetVerificationCodeRequest request);
 }

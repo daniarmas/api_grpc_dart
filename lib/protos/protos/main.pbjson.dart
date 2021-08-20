@@ -111,12 +111,32 @@ final $typed_data.Uint8List listVerificationCodeRequestDescriptor = $convert.bas
 const ListVerificationCodeResponse$json = const {
   '1': 'ListVerificationCodeResponse',
   '2': const [
-    const {'1': 'verificationCodes', '3': 1, '4': 3, '5': 11, '6': '.VerificationCode', '10': 'verificationCodes'},
+    const {'1': 'verificationCode', '3': 1, '4': 3, '5': 11, '6': '.VerificationCode', '10': 'verificationCode'},
   ],
 };
 
 /// Descriptor for `ListVerificationCodeResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List listVerificationCodeResponseDescriptor = $convert.base64Decode('ChxMaXN0VmVyaWZpY2F0aW9uQ29kZVJlc3BvbnNlEj8KEXZlcmlmaWNhdGlvbkNvZGVzGAEgAygLMhEuVmVyaWZpY2F0aW9uQ29kZVIRdmVyaWZpY2F0aW9uQ29kZXM=');
+final $typed_data.Uint8List listVerificationCodeResponseDescriptor = $convert.base64Decode('ChxMaXN0VmVyaWZpY2F0aW9uQ29kZVJlc3BvbnNlEj0KEHZlcmlmaWNhdGlvbkNvZGUYASADKAsyES5WZXJpZmljYXRpb25Db2RlUhB2ZXJpZmljYXRpb25Db2Rl');
+@$core.Deprecated('Use getVerificationCodeRequestDescriptor instead')
+const GetVerificationCodeRequest$json = const {
+  '1': 'GetVerificationCodeRequest',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+  ],
+};
+
+/// Descriptor for `GetVerificationCodeRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getVerificationCodeRequestDescriptor = $convert.base64Decode('ChpHZXRWZXJpZmljYXRpb25Db2RlUmVxdWVzdBIOCgJpZBgBIAEoCVICaWQ=');
+@$core.Deprecated('Use getVerificationCodeResponseDescriptor instead')
+const GetVerificationCodeResponse$json = const {
+  '1': 'GetVerificationCodeResponse',
+  '2': const [
+    const {'1': 'verificationCode', '3': 1, '4': 1, '5': 11, '6': '.VerificationCode', '10': 'verificationCode'},
+  ],
+};
+
+/// Descriptor for `GetVerificationCodeResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getVerificationCodeResponseDescriptor = $convert.base64Decode('ChtHZXRWZXJpZmljYXRpb25Db2RlUmVzcG9uc2USPQoQdmVyaWZpY2F0aW9uQ29kZRgBIAEoCzIRLlZlcmlmaWNhdGlvbkNvZGVSEHZlcmlmaWNhdGlvbkNvZGU=');
 @$core.Deprecated('Use verificationCodeDescriptor instead')
 const VerificationCode$json = const {
   '1': 'VerificationCode',

@@ -8,4 +8,6 @@ abstract class VerificationCodeRepository {
   Future<Either<Failure, VerificationCode>> createVerificationCode(
       {required Map<String, dynamic> data});
   Future<Either<Failure, Iterable<VerificationCode>>> listVerificationCode();
+  Future<Either<Failure, VerificationCode>> getVerificationCode(
+      {required String id});
 }

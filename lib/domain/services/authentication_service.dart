@@ -23,6 +23,8 @@ class AuthenticationService extends AuthenticationServiceBase {
       'code': next.toInt().toString(),
       'type': request.type,
       'deviceId': request.deviceId,
+      'createdAt': DateTime.now(),
+      'updatedAt': DateTime.now(),
     });
     result.fold(
         (l) => {throw Exception(l)},
@@ -39,7 +41,21 @@ class AuthenticationService extends AuthenticationServiceBase {
         GetIt.I<VerificationCodeRepository>();
     final result = await verificationCodeRepository.listVerificationCode();
     result.fold((l) => {throw Exception(l)},
-        (r) => {response = ListVerificationCodeResponse(verificationCodes: r)});
+        (r) => {response = ListVerificationCodeResponse(verificationCode: r)});
+    return response;
+  }
+
+  @override
+  Future<GetVerificationCodeResponse> getVerificationCode(
+      ServiceCall call, GetVerificationCodeRequest request) async {
+    late GetVerificationCodeResponse response;
+    VerificationCodeRepository verificationCodeRepository =
+        GetIt.I<VerificationCodeRepository>();
+    const String msg = 'Length of `Name` cannot be more than 10 characters';
+    final result =
+        await verificationCodeRepository.getVerificationCode(id: request.id);
+    result.fold((l) => {throw GrpcError.invalidArgument(msg)},
+        (r) => {response = GetVerificationCodeResponse(verificationCode: r)});
     return response;
   }
 }

@@ -20,8 +20,9 @@ class BusinessRepositoryImpl implements BusinessRepository {
       var response =
           await localDataSource.listBusiness(latLng: latLng, notIds: notIds);
       return Right(response);
-    } on ServerException {
-      return Left(ServerFailure());
+    } on InternalException {
+      throw Exception();
+      // return Left(ServerFailure());
     }
   }
 }

@@ -56,7 +56,7 @@ void main() {
       };
       when(mockVerificationCodeLocalDataSource.createVerificationCode(
               data: map))
-          .thenThrow(ServerException());
+          .thenThrow(InternalException());
       // side effects
       final result =
           await businessRepositoryImpl.createVerificationCode(data: map);

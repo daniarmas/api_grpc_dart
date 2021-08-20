@@ -19,7 +19,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
     try {
       final response = await localDataSource.createVerificationCode(data: data);
       return Right(response);
-    } on ServerException {
+    } on InternalException {
       return Left(ServerFailure());
     }
   }
@@ -30,7 +30,18 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
     try {
       final response = await localDataSource.listVerificationCode();
       return Right(response);
-    } on ServerException {
+    } on InternalException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, VerificationCode>> getVerificationCode(
+      {required String id}) async {
+    try {
+      final response = await localDataSource.getVerificationCode(id: id);
+      return Right(response);
+    } on NotFoundException {
       return Left(ServerFailure());
     }
   }

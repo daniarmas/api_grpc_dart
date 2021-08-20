@@ -1,5 +1,6 @@
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
+import 'package:postgres_dao/where_normal_attribute.dart';
 
 import '../../protos/protos/main.pb.dart';
 
@@ -9,6 +10,8 @@ abstract class VerificationCodeLocalDataSource {
       {required Map<String, dynamic> data});
 
   Future<List<VerificationCode>> listVerificationCode();
+
+  Future<VerificationCode> getVerificationCode({required String id});
 }
 
 @Injectable(as: VerificationCodeLocalDataSource)
@@ -22,7 +25,7 @@ class VerificationCodeLocalDataSourceImpl
   Future<VerificationCode> createVerificationCode(
       {required Map<String, dynamic> data}) async {
     final result =
-        await _database.create(table: 'VerificationCodeTest', data: data);
+        await _database.create(table: 'VerificationCode', data: data);
     return VerificationCode(
         id: result['id'],
         code: result['code'],
@@ -34,7 +37,7 @@ class VerificationCodeLocalDataSourceImpl
   Future<List<VerificationCode>> listVerificationCode() async {
     List<VerificationCode> response = [];
     final result = await _database.list(
-        table: 'VerificationCodeTest',
+        table: 'VerificationCode',
         attributes: [
           'id',
           'code',
@@ -44,13 +47,34 @@ class VerificationCodeLocalDataSourceImpl
         limit: 100);
     for (var e in result) {
       response.add(VerificationCode(
-          id: e['VerificationCodeTest']['id'],
-          code: e['VerificationCodeTest']['code'],
-          type:
-              parseVerificationCodeTypeEnum(e['VerificationCodeTest']['type']),
-          deviceId: e['VerificationCodeTest']['deviceId']));
+          id: e['VerificationCode']['id'],
+          code: e['VerificationCode']['code'],
+          type: parseVerificationCodeTypeEnum(e['VerificationCode']['type']),
+          deviceId: e['VerificationCode']['deviceId']));
     }
     return response;
+  }
+
+  @override
+  Future<VerificationCode> getVerificationCode({required String id}) async {
+    try {
+      final result = await _database.get(table: 'VerificationCode', where: [
+        WhereNormalAttribute(key: 'id', value: id),
+      ], attributes: [
+        'id',
+        'code',
+        'type',
+        'deviceId',
+      ]);
+      return VerificationCode(
+          id: result['VerificationCode']['id'],
+          code: result['VerificationCode']['code'],
+          type:
+              parseVerificationCodeTypeEnum(result['VerificationCode']['type']),
+          deviceId: result['VerificationCode']['deviceId']);
+    } catch (error) {
+      rethrow;
+    }
   }
 }
 
