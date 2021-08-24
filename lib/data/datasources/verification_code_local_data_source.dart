@@ -12,6 +12,7 @@ abstract class VerificationCodeLocalDataSource {
   Future<List<VerificationCode>> listVerificationCode();
 
   Future<VerificationCode> getVerificationCode({required String id});
+  void deleteVerificationCode({required String id});
 }
 
 @Injectable(as: VerificationCodeLocalDataSource)
@@ -75,6 +76,13 @@ class VerificationCodeLocalDataSourceImpl
     } catch (error) {
       rethrow;
     }
+  }
+
+  @override
+  Future<void> deleteVerificationCode({required String id}) async {
+    _database.delete(
+        table: 'VerificationCode',
+        where: [WhereNormalAttribute(key: 'id', value: id)]);
   }
 }
 

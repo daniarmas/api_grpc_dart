@@ -2,6 +2,7 @@ import 'package:postgres_dao/where.dart';
 
 abstract class Database {
   Future<bool> connect();
+  void close();
 
   /// Listing registries...
   Future<List<Map<String, dynamic>>> list(
@@ -23,5 +24,5 @@ abstract class Database {
 
   Future<Map<String, dynamic>> update(dynamic object);
 
-  void delete(String id);
+  void delete({required String table, required List<Where> where});
 }

@@ -28,3 +28,20 @@ class VerificationCodeType extends $pb.ProtobufEnum {
   const VerificationCodeType._($core.int v, $core.String n) : super(v, n);
 }
 
+class HealthCheckResponse_ServingStatus extends $pb.ProtobufEnum {
+  static const HealthCheckResponse_ServingStatus UNKNOWN = HealthCheckResponse_ServingStatus._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'UNKNOWN');
+  static const HealthCheckResponse_ServingStatus SERVING = HealthCheckResponse_ServingStatus._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'SERVING');
+  static const HealthCheckResponse_ServingStatus NOT_SERVING = HealthCheckResponse_ServingStatus._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'NOT_SERVING');
+
+  static const $core.List<HealthCheckResponse_ServingStatus> values = <HealthCheckResponse_ServingStatus> [
+    UNKNOWN,
+    SERVING,
+    NOT_SERVING,
+  ];
+
+  static final $core.Map<$core.int, HealthCheckResponse_ServingStatus> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static HealthCheckResponse_ServingStatus? valueOf($core.int value) => _byValue[value];
+
+  const HealthCheckResponse_ServingStatus._($core.int v, $core.String n) : super(v, n);
+}
+

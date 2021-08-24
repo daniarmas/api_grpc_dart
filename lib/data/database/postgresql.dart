@@ -26,14 +26,23 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
+  void close() async {
+    try {
+      _connection.close();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
+  @override
   Future<Map<String, dynamic>> create(
       {required String table, required Map<String, dynamic> data}) {
     return _connection.create(table: table, data: data);
   }
 
   @override
-  void delete(String id) {
-    // TODO: implement delete
+  void delete({required String table, required List<Where> where}) {
+    _connection.delete(table: table, where: where);
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/construct_sql_query_delete.dart';
 import 'package:postgres_dao/construct_sql_query_insert.dart';
 
 import 'construct_sql_query_select.dart';
@@ -33,6 +34,16 @@ class PostgresqlDao {
     }
   }
 
+  void close() async {
+    try {
+      _connection = PostgreSQLConnection(host, port, database,
+          username: username, password: password);
+      await _connection.close();
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
   Future<Map<String, dynamic>> create(
       {required String table, required Map<String, dynamic> data}) async {
     String query = constructSqlQueryInsert(table: table, data: data);
@@ -40,8 +51,14 @@ class PostgresqlDao {
     return Future.value(response[0][table]);
   }
 
-  void delete(String id) {
-    // TODO: implement delete
+  void delete({required String table, List<Where>? where}) async {
+    try {
+      String query = constructSqlQueryDelete(where: where, table: table);
+      print(query);
+      await _connection.mappedResultsQuery(query);
+    } catch (error) {
+      rethrow;
+    }
   }
 
   Future<Map<String, dynamic>> get(

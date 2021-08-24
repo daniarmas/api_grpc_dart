@@ -470,6 +470,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
+  shutdown:
+    dependency: "direct main"
+    description:
+      name: shutdown
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.3"
   source_gen:
     dependency: transitive
     description:
@@ -499,7 +506,7 @@ packages:
     source: hosted
     version: "1.8.1"
   stack_trace:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: stack_trace
       url: "https://pub.flutter-io.cn"

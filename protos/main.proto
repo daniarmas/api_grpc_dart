@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // import "google/protobuf/timestamp.proto";
-// import "google/protobuf/empty.proto";
+import "google/protobuf/empty.proto";
 // import "google/protobuf/any.proto";
 
 service BusinessService {
@@ -12,8 +12,38 @@ service AuthenticationService {
   rpc CreateVerificationCode (CreateVerificationCodeRequest) returns (CreateVerificationCodeResponse) {}
   rpc ListVerificationCode (ListVerificationCodeRequest) returns (ListVerificationCodeResponse) {}
   rpc GetVerificationCode (GetVerificationCodeRequest) returns (GetVerificationCodeResponse) {}
+  rpc DeleteVerificationCode (DeleteVerificationCodeRequest) returns (google.protobuf.Empty) {}
 }
 
+service HostnameService {
+  rpc hostname(HostnameRequest) returns (HostnameResponse) {}
+}
+
+message HostnameRequest {
+  
+}
+
+message HostnameResponse {
+  string hostname = 1;
+}
+
+service Health {
+  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
+  // rpc Watch(HealthCheckRequest) returns (stream HealthCheckResponse);
+}
+
+message HealthCheckRequest {
+  string service = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
+}
 
 message ListBusinessRequest {
   optional string category_fk = 1;
@@ -74,6 +104,10 @@ message ListVerificationCodeRequest {
 
 message ListVerificationCodeResponse {
     repeated VerificationCode verificationCode = 1;
+}
+
+message DeleteVerificationCodeRequest {
+    string id = 1;
 }
 
 message GetVerificationCodeRequest {

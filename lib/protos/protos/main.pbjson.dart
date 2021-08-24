@@ -21,6 +21,54 @@ const VerificationCodeType$json = const {
 
 /// Descriptor for `VerificationCodeType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List verificationCodeTypeDescriptor = $convert.base64Decode('ChRWZXJpZmljYXRpb25Db2RlVHlwZRIPCgtVTlNQRUNJRklFRBAAEgsKB1NJR05fSU4QARILCgdTSUdOX1VQEAISFQoRQ0hBTkdFX1VTRVJfRU1BSUwQAw==');
+@$core.Deprecated('Use hostnameRequestDescriptor instead')
+const HostnameRequest$json = const {
+  '1': 'HostnameRequest',
+};
+
+/// Descriptor for `HostnameRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List hostnameRequestDescriptor = $convert.base64Decode('Cg9Ib3N0bmFtZVJlcXVlc3Q=');
+@$core.Deprecated('Use hostnameResponseDescriptor instead')
+const HostnameResponse$json = const {
+  '1': 'HostnameResponse',
+  '2': const [
+    const {'1': 'hostname', '3': 1, '4': 1, '5': 9, '10': 'hostname'},
+  ],
+};
+
+/// Descriptor for `HostnameResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List hostnameResponseDescriptor = $convert.base64Decode('ChBIb3N0bmFtZVJlc3BvbnNlEhoKCGhvc3RuYW1lGAEgASgJUghob3N0bmFtZQ==');
+@$core.Deprecated('Use healthCheckRequestDescriptor instead')
+const HealthCheckRequest$json = const {
+  '1': 'HealthCheckRequest',
+  '2': const [
+    const {'1': 'service', '3': 1, '4': 1, '5': 9, '10': 'service'},
+  ],
+};
+
+/// Descriptor for `HealthCheckRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List healthCheckRequestDescriptor = $convert.base64Decode('ChJIZWFsdGhDaGVja1JlcXVlc3QSGAoHc2VydmljZRgBIAEoCVIHc2VydmljZQ==');
+@$core.Deprecated('Use healthCheckResponseDescriptor instead')
+const HealthCheckResponse$json = const {
+  '1': 'HealthCheckResponse',
+  '2': const [
+    const {'1': 'status', '3': 1, '4': 1, '5': 14, '6': '.HealthCheckResponse.ServingStatus', '10': 'status'},
+  ],
+  '4': const [HealthCheckResponse_ServingStatus$json],
+};
+
+@$core.Deprecated('Use healthCheckResponseDescriptor instead')
+const HealthCheckResponse_ServingStatus$json = const {
+  '1': 'ServingStatus',
+  '2': const [
+    const {'1': 'UNKNOWN', '2': 0},
+    const {'1': 'SERVING', '2': 1},
+    const {'1': 'NOT_SERVING', '2': 2},
+  ],
+};
+
+/// Descriptor for `HealthCheckResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List healthCheckResponseDescriptor = $convert.base64Decode('ChNIZWFsdGhDaGVja1Jlc3BvbnNlEjoKBnN0YXR1cxgBIAEoDjIiLkhlYWx0aENoZWNrUmVzcG9uc2UuU2VydmluZ1N0YXR1c1IGc3RhdHVzIjoKDVNlcnZpbmdTdGF0dXMSCwoHVU5LTk9XThAAEgsKB1NFUlZJTkcQARIPCgtOT1RfU0VSVklORxAC');
 @$core.Deprecated('Use listBusinessRequestDescriptor instead')
 const ListBusinessRequest$json = const {
   '1': 'ListBusinessRequest',
@@ -117,6 +165,16 @@ const ListVerificationCodeResponse$json = const {
 
 /// Descriptor for `ListVerificationCodeResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List listVerificationCodeResponseDescriptor = $convert.base64Decode('ChxMaXN0VmVyaWZpY2F0aW9uQ29kZVJlc3BvbnNlEj0KEHZlcmlmaWNhdGlvbkNvZGUYASADKAsyES5WZXJpZmljYXRpb25Db2RlUhB2ZXJpZmljYXRpb25Db2Rl');
+@$core.Deprecated('Use deleteVerificationCodeRequestDescriptor instead')
+const DeleteVerificationCodeRequest$json = const {
+  '1': 'DeleteVerificationCodeRequest',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+  ],
+};
+
+/// Descriptor for `DeleteVerificationCodeRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteVerificationCodeRequestDescriptor = $convert.base64Decode('Ch1EZWxldGVWZXJpZmljYXRpb25Db2RlUmVxdWVzdBIOCgJpZBgBIAEoCVICaWQ=');
 @$core.Deprecated('Use getVerificationCodeRequestDescriptor instead')
 const GetVerificationCodeRequest$json = const {
   '1': 'GetVerificationCodeRequest',

@@ -1,9 +1,12 @@
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart' as grpc;
+import 'package:shutdown/shutdown.dart' as shutdown;
 
 import 'data/database/database.dart';
 import 'domain/services/authentication_service.dart';
 import 'domain/services/business_service.dart';
+import 'domain/services/health_service.dart';
+import 'domain/services/hostname_service.dart';
 import 'environment.dart';
 
 class Server {
@@ -13,13 +16,18 @@ class Server {
   static Future<void> init() async {
     await _database.connect().then((value) async {
       if (value) {
-        final server =
-            grpc.Server([BusinessService(), AuthenticationService()]);
+        final server = grpc.Server([
+          BusinessService(),
+          AuthenticationService(),
+          HealthService(),
+          HostnameService()
+        ]);
         await server.serve(port: _environment.port);
         print('🚀 Server listening at port ${server.port}...');
       }
     }).catchError((onError) {
       throw Exception(onError);
     });
+    shutdown.addHandler(() async => _database.close());
   }
 }

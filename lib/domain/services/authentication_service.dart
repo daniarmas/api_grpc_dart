@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:api_grpc_dart/domain/repositories/verification_code_repository.dart';
+import 'package:api_grpc_dart/protos/google/protobuf/empty.pb.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 
@@ -57,5 +58,14 @@ class AuthenticationService extends AuthenticationServiceBase {
     result.fold((l) => {throw GrpcError.invalidArgument(msg)},
         (r) => {response = GetVerificationCodeResponse(verificationCode: r)});
     return response;
+  }
+
+  @override
+  Future<Empty> deleteVerificationCode(
+      ServiceCall call, DeleteVerificationCodeRequest request) async {
+    VerificationCodeRepository verificationCodeRepository =
+        GetIt.I<VerificationCodeRepository>();
+    await verificationCodeRepository.deleteVerificationCode(id: request.id);
+    return Future.value(Empty());
   }
 }

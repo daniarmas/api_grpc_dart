@@ -45,4 +45,15 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> deleteVerificationCode(
+      {required String id}) async {
+    try {
+      localDataSource.deleteVerificationCode(id: id);
+      return Right(null);
+    } on NotFoundException {
+      return Left(ServerFailure());
+    }
+  }
 }

@@ -10,4 +10,5 @@ abstract class VerificationCodeRepository {
   Future<Either<Failure, Iterable<VerificationCode>>> listVerificationCode();
   Future<Either<Failure, VerificationCode>> getVerificationCode(
       {required String id});
+  Future<Either<Failure, void>> deleteVerificationCode({required String id});
 }
