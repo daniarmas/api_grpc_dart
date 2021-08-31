@@ -1,5 +1,3 @@
-import 'package:api_grpc_dart/core/error/exception.dart';
-import 'package:api_grpc_dart/core/error/failure.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';

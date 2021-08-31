@@ -1,5 +1,4 @@
 import 'package:postgres_dao/and.dart';
-import 'package:postgres_dao/normal_attribute.dart';
 import 'package:postgres_dao/or.dart';
 import 'package:postgres_dao/where_attribute.dart';
 import 'package:postgres_dao/where_normal_attribute_not_in.dart';

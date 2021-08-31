@@ -3,7 +3,6 @@ import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/error/exception.dart';
-import '../../core/error/failure.dart';
 import '../../domain/repositories/verification_code_repository.dart';
 import '../../protos/protos/main.pb.dart';
 import '../datasources/verification_code_local_data_source.dart';
