@@ -1,3 +1,4 @@
+import 'package:api_grpc_dart/core/error/exception.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres_dao/postgres_dao.dart';
@@ -19,9 +20,9 @@ class PostgresqlDatabase implements Database {
   @override
   Future<bool> connect() async {
     try {
-      return _connection.connect();
+      return await _connection.connect();
     } catch (error) {
-      throw Exception(error);
+      rethrow;
     }
   }
 
@@ -30,14 +31,14 @@ class PostgresqlDatabase implements Database {
     try {
       _connection.close();
     } catch (error) {
-      throw Exception(error);
+      rethrow;
     }
   }
 
   @override
   Future<Map<String, dynamic>> create(
-      {required String table, required Map<String, dynamic> data}) {
-    return _connection.create(table: table, data: data);
+      {required String table, required Map<String, dynamic> data}) async {
+    return await _connection.create(table: table, data: data);
   }
 
   @override
@@ -50,12 +51,25 @@ class PostgresqlDatabase implements Database {
       {required String table,
       List<String>? attributes,
       List<String>? agregationMethods,
-      List<Where>? where}) {
-    return _connection.get(
-        where: where,
-        table: table,
-        attributes: attributes,
-        agregationMethods: agregationMethods);
+      List<Where>? where}) async {
+    try {
+      return await _connection.get(
+          where: where,
+          table: table,
+          attributes: attributes,
+          agregationMethods: agregationMethods);
+    } catch (error) {
+      if (error.toString() ==
+          'Attempting to execute query, but connection is not open.') {
+        throw DatabaseConnectionNotOpenException();
+      } else if (error
+          .toString()
+          .contains('relation "$table" does not exist')) {
+        throw DatabaseTableNotExistsException();
+      } else {
+        rethrow;
+      }
+    }
   }
 
   @override
@@ -66,13 +80,26 @@ class PostgresqlDatabase implements Database {
       int? limit,
       List<Where>? where,
       String? orderByAsc}) async {
-    return _connection.list(
-        limit: limit,
-        where: where,
-        table: table,
-        attributes: attributes,
-        agregationAttributes: agregationMethods,
-        orderByAsc: orderByAsc);
+    try {
+      return await _connection.list(
+          limit: limit,
+          where: where,
+          table: table,
+          attributes: attributes,
+          agregationAttributes: agregationMethods,
+          orderByAsc: orderByAsc);
+    } catch (error) {
+      if (error.toString().contains(
+          'Attempting to execute query, but connection is not open.')) {
+        throw DatabaseConnectionNotOpenException();
+      } else if (error
+          .toString()
+          .contains('relation "$table" does not exist')) {
+        throw DatabaseTableNotExistsException();
+      } else {
+        rethrow;
+      }
+    }
   }
 
   @override

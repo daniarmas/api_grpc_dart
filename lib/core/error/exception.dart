@@ -27,3 +27,7 @@ class InternalException implements Exception {}
 class UnavailableException implements Exception {}
 
 class DeadlineExceededException implements Exception {}
+
+class DatabaseConnectionNotOpenException implements Exception {}
+
+class DatabaseTableNotExistsException implements Exception {}

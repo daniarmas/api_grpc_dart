@@ -1,3 +1,5 @@
+import 'package:api_grpc_dart/core/error/exception.dart';
+import 'package:api_grpc_dart/core/error/failure.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';
@@ -36,24 +38,28 @@ class VerificationCodeLocalDataSourceImpl
 
   @override
   Future<List<VerificationCode>> listVerificationCode() async {
-    List<VerificationCode> response = [];
-    final result = await _database.list(
-        table: 'VerificationCode',
-        attributes: [
-          'id',
-          'code',
-          'type',
-          'deviceId',
-        ],
-        limit: 100);
-    for (var e in result) {
-      response.add(VerificationCode(
-          id: e['VerificationCode']['id'],
-          code: e['VerificationCode']['code'],
-          type: parseVerificationCodeTypeEnum(e['VerificationCode']['type']),
-          deviceId: e['VerificationCode']['deviceId']));
+    try {
+      List<VerificationCode> response = [];
+      final result = await _database.list(
+          table: 'VerificationCode',
+          attributes: [
+            'id',
+            'code',
+            'type',
+            'deviceId',
+          ],
+          limit: 100);
+      for (var e in result) {
+        response.add(VerificationCode(
+            id: e['VerificationCode']['id'],
+            code: e['VerificationCode']['code'],
+            type: parseVerificationCodeTypeEnum(e['VerificationCode']['type']),
+            deviceId: e['VerificationCode']['deviceId']));
+      }
+      return response;
+    } catch (error) {
+      rethrow;
     }
-    return response;
   }
 
   @override

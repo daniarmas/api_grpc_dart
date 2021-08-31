@@ -28,3 +28,10 @@ README.md
 **/.editorconfig
 **/.aws
 **/dist
+/.dart_tool
+.DS_Store
+/protos
+Makefile
+CHANGELOG.md
+analysis_options.yaml
+/test

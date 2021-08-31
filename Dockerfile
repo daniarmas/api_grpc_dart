@@ -12,6 +12,7 @@ RUN dart compile exe lib/client.dart -o lib/client
 # Build minimal serving image from AOT-compiled `/server` and required system
 # libraries and configuration files stored in `/runtime/` from the build stage.
 RUN dart compile exe bin/api_grpc_dart.dart -o bin/api_grpc_dart
+RUN rm gen.sh
 # Expose the server port.
 EXPOSE 2210
 CMD [ "/bin/bash", "-c", "bin/api_grpc_dart" ]

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/error/exception.dart';
@@ -25,13 +26,17 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   }
 
   @override
-  Future<Either<Failure, Iterable<VerificationCode>>>
+  Future<Either<GrpcError, Iterable<VerificationCode>>>
       listVerificationCode() async {
     try {
       final response = await localDataSource.listVerificationCode();
       return Right(response);
-    } on InternalException {
-      return Left(ServerFailure());
+    } on DatabaseConnectionNotOpenException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on DatabaseTableNotExistsException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
     }
   }
 

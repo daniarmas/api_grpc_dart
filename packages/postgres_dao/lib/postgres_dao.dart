@@ -47,6 +47,7 @@ class PostgresqlDao {
   Future<Map<String, dynamic>> create(
       {required String table, required Map<String, dynamic> data}) async {
     String query = constructSqlQueryInsert(table: table, data: data);
+    print(query);
     final response = await _connection.mappedResultsQuery(query);
     return Future.value(response[0][table]);
   }

@@ -13,10 +13,32 @@ service AuthenticationService {
   rpc ListVerificationCode (ListVerificationCodeRequest) returns (ListVerificationCodeResponse) {}
   rpc GetVerificationCode (GetVerificationCodeRequest) returns (GetVerificationCodeResponse) {}
   rpc DeleteVerificationCode (DeleteVerificationCodeRequest) returns (google.protobuf.Empty) {}
+
+  rpc CreateSignIn (CreateSignInRequest) returns (CreateSignInResponse) {}
 }
+
 
 service HostnameService {
   rpc hostname(HostnameRequest) returns (HostnameResponse) {}
+}
+
+message CreateSignInRequest {
+  string email = 1;
+  string platform = 2;
+  string systemVersion = 3;
+  string appVersion = 4;
+  string app = 5;
+  string deviceId = 6;
+  string model = 7;
+  string firebaseCloudMessagingId = 8;
+  string code = 9;
+}
+
+message CreateSignInResponse {
+  string refreshToken = 1;
+  string authorizationToken = 2;
+  User user = 3;
+  Business business = 4;
 }
 
 message HostnameRequest {
@@ -69,7 +91,6 @@ message Business {
   LatLng coordinates = 10;
   repeated Polygon polygon = 11;
   double distance = 12;
-  // double distance = 10;
   // bool to_pick_up = 11;
   // bool home_delivery = 12;
   // BusinessSchedule schedule = 13;
@@ -82,6 +103,97 @@ message Business {
   // google.protobuf.Timestamp created_at = 22;
   // create_time
   // google.protobuf.Timestamp updated_at = 23;
+}
+
+message User {
+  string id = 1;
+  string fullName = 2; 
+  string photo = 3;
+  string photoUrl = 4;
+  repeated UserAddress userAddress = 5;
+  string birthday = 6;
+  string email = 7; 
+  repeated UserPermission permissions = 8;
+  string createTime = 9;
+  string updateTime = 10;
+}
+
+message BannedUser {
+  string id = 1;
+  string description = 2;
+  string userFk = 3;
+  string moderatorAuthorizationTokenFk = 4;
+}
+
+message BannedDevice {
+  string id = 1;
+  string description = 2;
+  string deviceFk = 3;
+  string moderatorAuthorizationTokenFk = 4;
+}
+
+message AuthorizationToken {
+  enum AppType {
+    UNSPECIFIED = 0;
+    APP = 1;
+    BUSINESS_APP = 2;
+  }
+  string id = 1;
+  string authorizationToken = 2;
+  string refreshTokenFk = 3;
+  string deviceFk = 4;
+  string userFk = 5;
+  bool valid = 6;
+  AppType app = 7;
+  string appVersion = 8;
+}
+
+message RefreshToken {
+  string id = 1;
+  string refreshToken = 2;
+  string userFk = 3;
+  bool valid = 4;
+  string expirationTime = 5;
+}
+
+message Device {
+  enum Platform {
+    UNSPECIFIED = 0;
+    IOS = 1;
+    ANDROID = 2;
+  }
+  string id = 1;
+  Platform platform = 2;
+  string systemVersion = 3;
+  string deviceId = 4;
+  string firebaseCloudMessagingId = 5;
+  string model = 6;
+}
+
+message UserAddress {
+  enum UserAddressType {
+  UNSPECIFIED = 0;
+  HOUSE = 1;
+  APARTAMENT = 2;
+  }
+  string id = 1;
+  string tag = 2;
+  UserAddressType residenceType = 3;
+  string buildingNumber = 4;
+  string houseNumber = 5;
+  LatLng coordinates = 6;
+  string description = 7;
+  string userFk = 8;
+  string provinceFk = 9;
+  string municipalityFk = 10;
+}
+
+message UserPermission {
+  string id = 1;
+  string name = 2;
+  string permissionFk = 3;
+  string userFk = 4;
+  string businessFk = 5;
 }
 
 message Polygon {
@@ -103,7 +215,11 @@ message ListVerificationCodeRequest {
 }
 
 message ListVerificationCodeResponse {
+  message Data {
     repeated VerificationCode verificationCode = 1;
+  }
+  Data data = 1;
+  Error error = 2;
 }
 
 message DeleteVerificationCodeRequest {
@@ -182,3 +298,32 @@ message BusinessCategory {
   string id = 1;
   string name = 2;
 }
+
+message Error {
+    int32 code = 1;
+    string codeName = 2;
+    string message = 3;
+  }
+
+// The error format v2 for Google JSON REST APIs.
+//
+// NOTE: This schema is not used for other wire protocols.
+// message Error {
+//   // This message has the same semantics as `google.rpc.Status`. It uses HTTP
+//   // status code instead of gRPC status code. It has an extra field `status`
+//   // for backward compatibility with Google API Client Libraries.
+//   message Status {
+//     // The HTTP status code that corresponds to `google.rpc.Status.code`.
+//     int32 code = 1;
+//     // This corresponds to `google.rpc.Status.message`.
+//     string message = 2;
+//     // This is the enum version for `google.rpc.Status.code`.
+//     google.rpc.Code status = 4;
+//     // This corresponds to `google.rpc.Status.details`.
+//     repeated google.protobuf.Any details = 5;
+//   }
+//   // The actual error payload. The nested message structure is for backward
+//   // compatibility with Google API client libraries. It also makes the error
+//   // more readable to developers.
+//   Status error = 1;
+// }

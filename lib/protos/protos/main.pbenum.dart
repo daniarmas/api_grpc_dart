@@ -45,3 +45,54 @@ class HealthCheckResponse_ServingStatus extends $pb.ProtobufEnum {
   const HealthCheckResponse_ServingStatus._($core.int v, $core.String n) : super(v, n);
 }
 
+class AuthorizationToken_AppType extends $pb.ProtobufEnum {
+  static const AuthorizationToken_AppType UNSPECIFIED = AuthorizationToken_AppType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'UNSPECIFIED');
+  static const AuthorizationToken_AppType APP = AuthorizationToken_AppType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'APP');
+  static const AuthorizationToken_AppType BUSINESS_APP = AuthorizationToken_AppType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'BUSINESS_APP');
+
+  static const $core.List<AuthorizationToken_AppType> values = <AuthorizationToken_AppType> [
+    UNSPECIFIED,
+    APP,
+    BUSINESS_APP,
+  ];
+
+  static final $core.Map<$core.int, AuthorizationToken_AppType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static AuthorizationToken_AppType? valueOf($core.int value) => _byValue[value];
+
+  const AuthorizationToken_AppType._($core.int v, $core.String n) : super(v, n);
+}
+
+class Device_Platform extends $pb.ProtobufEnum {
+  static const Device_Platform UNSPECIFIED = Device_Platform._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'UNSPECIFIED');
+  static const Device_Platform IOS = Device_Platform._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'IOS');
+  static const Device_Platform ANDROID = Device_Platform._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ANDROID');
+
+  static const $core.List<Device_Platform> values = <Device_Platform> [
+    UNSPECIFIED,
+    IOS,
+    ANDROID,
+  ];
+
+  static final $core.Map<$core.int, Device_Platform> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static Device_Platform? valueOf($core.int value) => _byValue[value];
+
+  const Device_Platform._($core.int v, $core.String n) : super(v, n);
+}
+
+class UserAddress_UserAddressType extends $pb.ProtobufEnum {
+  static const UserAddress_UserAddressType UNSPECIFIED = UserAddress_UserAddressType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'UNSPECIFIED');
+  static const UserAddress_UserAddressType HOUSE = UserAddress_UserAddressType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'HOUSE');
+  static const UserAddress_UserAddressType APARTAMENT = UserAddress_UserAddressType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'APARTAMENT');
+
+  static const $core.List<UserAddress_UserAddressType> values = <UserAddress_UserAddressType> [
+    UNSPECIFIED,
+    HOUSE,
+    APARTAMENT,
+  ];
+
+  static final $core.Map<$core.int, UserAddress_UserAddressType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static UserAddress_UserAddressType? valueOf($core.int value) => _byValue[value];
+
+  const UserAddress_UserAddressType._($core.int v, $core.String n) : super(v, n);
+}
+

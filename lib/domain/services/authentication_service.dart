@@ -24,8 +24,8 @@ class AuthenticationService extends AuthenticationServiceBase {
       'code': next.toInt().toString(),
       'type': request.type,
       'deviceId': request.deviceId,
-      'createdAt': DateTime.now(),
-      'updatedAt': DateTime.now(),
+      'createTime': DateTime.now(),
+      'updateTime': DateTime.now(),
     });
     result.fold(
         (l) => {throw Exception(l)},
@@ -41,8 +41,19 @@ class AuthenticationService extends AuthenticationServiceBase {
     VerificationCodeRepository verificationCodeRepository =
         GetIt.I<VerificationCodeRepository>();
     final result = await verificationCodeRepository.listVerificationCode();
-    result.fold((l) => {throw Exception(l)},
-        (r) => {response = ListVerificationCodeResponse(verificationCode: r)});
+    result.fold(
+        (left) => {
+              response = ListVerificationCodeResponse(
+                  error: Error(
+                      code: left.code,
+                      message: left.message,
+                      codeName: left.codeName))
+            },
+        (right) => {
+              response = ListVerificationCodeResponse(
+                  data: ListVerificationCodeResponse_Data(
+                      verificationCode: right))
+            });
     return response;
   }
 
@@ -67,5 +78,12 @@ class AuthenticationService extends AuthenticationServiceBase {
         GetIt.I<VerificationCodeRepository>();
     await verificationCodeRepository.deleteVerificationCode(id: request.id);
     return Future.value(Empty());
+  }
+
+  @override
+  Future<CreateSignInResponse> createSignIn(
+      ServiceCall call, CreateSignInRequest request) {
+    // TODO: implement createSignIn
+    throw UnimplementedError();
   }
 }

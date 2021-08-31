@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:grpc/grpc.dart';
 
 import '../../core/error/failure.dart';
 import '../../protos/protos/main.pb.dart';
@@ -7,7 +8,7 @@ import '../../protos/protos/main.pb.dart';
 abstract class VerificationCodeRepository {
   Future<Either<Failure, VerificationCode>> createVerificationCode(
       {required Map<String, dynamic> data});
-  Future<Either<Failure, Iterable<VerificationCode>>> listVerificationCode();
+  Future<Either<GrpcError, Iterable<VerificationCode>>> listVerificationCode();
   Future<Either<Failure, VerificationCode>> getVerificationCode(
       {required String id});
   Future<Either<Failure, void>> deleteVerificationCode({required String id});

@@ -9,7 +9,6 @@ String constructSqlQueryInsert(
   String valuesResult = '';
   Iterable<String> keys = data.keys;
   Iterable<dynamic> values = data.values;
-  print(keys);
   // Columns && Values
   for (var i = 0; i < keys.length; i++) {
     if (i == keys.length - 1) {
