@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
+import 'package:grpc/grpc.dart';
 
-import '../../core/error/failure.dart';
 import '../../protos/protos/main.pb.dart';
 
 // ignore: one_member_abstracts
 abstract class DeviceRepository {
-  Future<Either<Failure, Device>> createDevice(
+  Future<Either<GrpcError, Device>> createDevice(
       {required Map<String, dynamic> data});
-  Future<Either<Failure, Iterable<Device>>> listDevice();
-  Future<Either<Failure, Device>> getDevice({required String id});
-  Future<Either<Failure, void>> deleteDevice({required String id});
+  Future<Either<GrpcError, Iterable<Device>>> listDevice();
+  Future<Either<GrpcError, Device>> getDevice({required String id});
+  Future<Either<GrpcError, void>> deleteDevice({required String id});
 }

@@ -1,6 +1,7 @@
 import 'package:api_grpc_dart/data/datasources/authorization_token_local_data_source.dart';
 import 'package:api_grpc_dart/domain/repositories/authorization_token.dart';
 import 'package:dartz/dartz.dart';
+import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/error/exception.dart';
@@ -14,52 +15,63 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
   AuthorizationTokenRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<Either<Failure, AuthorizationToken>> createAuthorizationToken(
+  Future<Either<GrpcError, AuthorizationToken>> createAuthorizationToken(
       {required Map<String, dynamic> data}) async {
     try {
       final response =
           await localDataSource.createAuthorizationToken(data: data);
       return Right(response);
-    } catch (error) {
-      var sad = error;
-      return Left(ServerFailure());
+    } on DatabaseConnectionNotOpenException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on DatabaseTableNotExistsException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
     }
-    // }
-    // on InternalException {
-    //   return Left(ServerFailure());
-    // }
   }
 
   @override
-  Future<Either<Failure, Iterable<AuthorizationToken>>>
+  Future<Either<GrpcError, Iterable<AuthorizationToken>>>
       listAuthorizationToken() async {
     try {
       final response = await localDataSource.listAuthorizationToken();
       return Right(response);
-    } on InternalException {
-      return Left(ServerFailure());
+    } on DatabaseConnectionNotOpenException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on DatabaseTableNotExistsException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
     }
   }
 
   @override
-  Future<Either<Failure, AuthorizationToken>> getAuthorizationToken(
+  Future<Either<GrpcError, AuthorizationToken>> getAuthorizationToken(
       {required String id}) async {
     try {
       final response = await localDataSource.getAuthorizationToken(id: id);
       return Right(response);
-    } on NotFoundException {
-      return Left(ServerFailure());
+    } on DatabaseConnectionNotOpenException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on DatabaseTableNotExistsException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
     }
   }
 
   @override
-  Future<Either<Failure, void>> deleteAuthorizationToken(
+  Future<Either<GrpcError, void>> deleteAuthorizationToken(
       {required String id}) async {
     try {
       localDataSource.deleteAuthorizationToken(id: id);
       return Right(null);
-    } on NotFoundException {
-      return Left(ServerFailure());
+    } on DatabaseConnectionNotOpenException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on DatabaseTableNotExistsException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
     }
   }
 }

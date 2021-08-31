@@ -23,48 +23,56 @@ class AuthorizationTokenLocalDataSourceImpl
   @override
   Future<AuthorizationToken> createAuthorizationToken(
       {required Map<String, dynamic> data}) async {
-    final result =
-        await _database.create(table: 'AuthorizationToken', data: data);
-    return AuthorizationToken(
-      id: result['id'],
-      authorizationToken: result['authorizationToken'],
-      refreshTokenFk: result['refreshTokenFk'],
-      app: parseAppTypeEnum(result['app']),
-      appVersion: result['appVersion'],
-      deviceFk: result['deviceFk'],
-      userFk: result['userFk'],
-      valid: result['valid'],
-    );
+    try {
+      final result =
+          await _database.create(table: 'AuthorizationToken', data: data);
+      return AuthorizationToken(
+        id: result['id'],
+        authorizationToken: result['authorizationToken'],
+        refreshTokenFk: result['refreshTokenFk'],
+        app: parseAppTypeEnum(result['app']),
+        appVersion: result['appVersion'],
+        deviceFk: result['deviceFk'],
+        userFk: result['userFk'],
+        valid: result['valid'],
+      );
+    } catch (error) {
+      rethrow;
+    }
   }
 
   @override
   Future<List<AuthorizationToken>> listAuthorizationToken() async {
-    List<AuthorizationToken> response = [];
-    final result = await _database.list(
-        table: 'AuthorizationToken',
-        attributes: [
-          'id',
-          'authorizationToken',
-          'refreshTokenFk',
-          'app',
-          'appVersion',
-          'deviceFk',
-          'userFk',
-          'valid'
-        ],
-        limit: 100);
-    for (var e in result) {
-      response.add(AuthorizationToken(
-          id: e['AuthorizationToken']['id'],
-          authorizationToken: e['AuthorizationToken']['authorizationToken'],
-          refreshTokenFk: e['AuthorizationToken']['refreshTokenFk'],
-          appVersion: e['AuthorizationToken']['appVersion'],
-          app: parseAppTypeEnum(e['AuthorizationToken']['app']),
-          userFk: e['AuthorizationToken']['userFk'],
-          valid: e['AuthorizationToken']['valid'],
-          deviceFk: e['AuthorizationToken']['deviceFk']));
+    try {
+      List<AuthorizationToken> response = [];
+      final result = await _database.list(
+          table: 'AuthorizationToken',
+          attributes: [
+            'id',
+            'authorizationToken',
+            'refreshTokenFk',
+            'app',
+            'appVersion',
+            'deviceFk',
+            'userFk',
+            'valid'
+          ],
+          limit: 100);
+      for (var e in result) {
+        response.add(AuthorizationToken(
+            id: e['AuthorizationToken']['id'],
+            authorizationToken: e['AuthorizationToken']['authorizationToken'],
+            refreshTokenFk: e['AuthorizationToken']['refreshTokenFk'],
+            appVersion: e['AuthorizationToken']['appVersion'],
+            app: parseAppTypeEnum(e['AuthorizationToken']['app']),
+            userFk: e['AuthorizationToken']['userFk'],
+            valid: e['AuthorizationToken']['valid'],
+            deviceFk: e['AuthorizationToken']['deviceFk']));
+      }
+      return response;
+    } catch (error) {
+      rethrow;
     }
-    return response;
   }
 
   @override
@@ -103,9 +111,13 @@ class AuthorizationTokenLocalDataSourceImpl
 
   @override
   Future<void> deleteAuthorizationToken({required String id}) async {
-    _database.delete(
-        table: 'AuthorizationToken',
-        where: [WhereNormalAttribute(key: 'id', value: id)]);
+    try {
+      _database.delete(
+          table: 'AuthorizationToken',
+          where: [WhereNormalAttribute(key: 'id', value: id)]);
+    } catch (error) {
+      rethrow;
+    }
   }
 
   AuthorizationToken_AppType parseAppTypeEnum(String value) {

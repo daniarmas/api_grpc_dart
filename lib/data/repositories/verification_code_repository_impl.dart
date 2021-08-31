@@ -15,13 +15,17 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   VerificationCodeRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<Either<Failure, VerificationCode>> createVerificationCode(
+  Future<Either<GrpcError, VerificationCode>> createVerificationCode(
       {required Map<String, dynamic> data}) async {
     try {
       final response = await localDataSource.createVerificationCode(data: data);
       return Right(response);
-    } on InternalException {
-      return Left(ServerFailure());
+    } on DatabaseConnectionNotOpenException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on DatabaseTableNotExistsException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
     }
   }
 
@@ -41,24 +45,32 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   }
 
   @override
-  Future<Either<Failure, VerificationCode>> getVerificationCode(
+  Future<Either<GrpcError, VerificationCode>> getVerificationCode(
       {required String id}) async {
     try {
       final response = await localDataSource.getVerificationCode(id: id);
       return Right(response);
-    } on NotFoundException {
-      return Left(ServerFailure());
+    } on DatabaseConnectionNotOpenException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on DatabaseTableNotExistsException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
     }
   }
 
   @override
-  Future<Either<Failure, void>> deleteVerificationCode(
+  Future<Either<GrpcError, void>> deleteVerificationCode(
       {required String id}) async {
     try {
       localDataSource.deleteVerificationCode(id: id);
       return Right(null);
-    } on NotFoundException {
-      return Left(ServerFailure());
+    } on DatabaseConnectionNotOpenException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on DatabaseTableNotExistsException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
     }
   }
 }
