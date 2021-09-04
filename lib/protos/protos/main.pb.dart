@@ -1920,65 +1920,19 @@ class ListVerificationCodeRequest extends $pb.GeneratedMessage {
   static ListVerificationCodeRequest? _defaultInstance;
 }
 
-class ListVerificationCodeResponse_Data extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListVerificationCodeResponse.Data', createEmptyInstance: create)
-    ..pc<VerificationCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'verificationCode', $pb.PbFieldType.PM, protoName: 'verificationCode', subBuilder: VerificationCode.create)
-    ..hasRequiredFields = false
-  ;
-
-  ListVerificationCodeResponse_Data._() : super();
-  factory ListVerificationCodeResponse_Data({
-    $core.Iterable<VerificationCode>? verificationCode,
-  }) {
-    final _result = create();
-    if (verificationCode != null) {
-      _result.verificationCode.addAll(verificationCode);
-    }
-    return _result;
-  }
-  factory ListVerificationCodeResponse_Data.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory ListVerificationCodeResponse_Data.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  ListVerificationCodeResponse_Data clone() => ListVerificationCodeResponse_Data()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  ListVerificationCodeResponse_Data copyWith(void Function(ListVerificationCodeResponse_Data) updates) => super.copyWith((message) => updates(message as ListVerificationCodeResponse_Data)) as ListVerificationCodeResponse_Data; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static ListVerificationCodeResponse_Data create() => ListVerificationCodeResponse_Data._();
-  ListVerificationCodeResponse_Data createEmptyInstance() => create();
-  static $pb.PbList<ListVerificationCodeResponse_Data> createRepeated() => $pb.PbList<ListVerificationCodeResponse_Data>();
-  @$core.pragma('dart2js:noInline')
-  static ListVerificationCodeResponse_Data getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListVerificationCodeResponse_Data>(create);
-  static ListVerificationCodeResponse_Data? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.List<VerificationCode> get verificationCode => $_getList(0);
-}
-
 class ListVerificationCodeResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListVerificationCodeResponse', createEmptyInstance: create)
-    ..aOM<ListVerificationCodeResponse_Data>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'data', subBuilder: ListVerificationCodeResponse_Data.create)
-    ..aOM<Error>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'error', subBuilder: Error.create)
+    ..pc<VerificationCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'verificationCode', $pb.PbFieldType.PM, protoName: 'verificationCode', subBuilder: VerificationCode.create)
     ..hasRequiredFields = false
   ;
 
   ListVerificationCodeResponse._() : super();
   factory ListVerificationCodeResponse({
-    ListVerificationCodeResponse_Data? data,
-    Error? error,
+    $core.Iterable<VerificationCode>? verificationCode,
   }) {
     final _result = create();
-    if (data != null) {
-      _result.data = data;
-    }
-    if (error != null) {
-      _result.error = error;
+    if (verificationCode != null) {
+      _result.verificationCode.addAll(verificationCode);
     }
     return _result;
   }
@@ -2004,26 +1958,7 @@ class ListVerificationCodeResponse extends $pb.GeneratedMessage {
   static ListVerificationCodeResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  ListVerificationCodeResponse_Data get data => $_getN(0);
-  @$pb.TagNumber(1)
-  set data(ListVerificationCodeResponse_Data v) { setField(1, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasData() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearData() => clearField(1);
-  @$pb.TagNumber(1)
-  ListVerificationCodeResponse_Data ensureData() => $_ensure(0);
-
-  @$pb.TagNumber(2)
-  Error get error => $_getN(1);
-  @$pb.TagNumber(2)
-  set error(Error v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasError() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearError() => clearField(2);
-  @$pb.TagNumber(2)
-  Error ensureError() => $_ensure(1);
+  $core.List<VerificationCode> get verificationCode => $_getList(0);
 }
 
 class DeleteVerificationCodeRequest extends $pb.GeneratedMessage {
@@ -2173,8 +2108,9 @@ class VerificationCode extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'VerificationCode', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
-    ..e<VerificationCodeType>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..e<VerificationCodeType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
     ..hasRequiredFields = false
   ;
 
@@ -2182,6 +2118,7 @@ class VerificationCode extends $pb.GeneratedMessage {
   factory VerificationCode({
     $core.String? id,
     $core.String? code,
+    $core.String? email,
     VerificationCodeType? type,
     $core.String? deviceId,
   }) {
@@ -2191,6 +2128,9 @@ class VerificationCode extends $pb.GeneratedMessage {
     }
     if (code != null) {
       _result.code = code;
+    }
+    if (email != null) {
+      _result.email = email;
     }
     if (type != null) {
       _result.type = type;
@@ -2240,22 +2180,31 @@ class VerificationCode extends $pb.GeneratedMessage {
   void clearCode() => clearField(2);
 
   @$pb.TagNumber(3)
-  VerificationCodeType get type => $_getN(2);
+  $core.String get email => $_getSZ(2);
   @$pb.TagNumber(3)
-  set type(VerificationCodeType v) { setField(3, v); }
+  set email($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasType() => $_has(2);
+  $core.bool hasEmail() => $_has(2);
   @$pb.TagNumber(3)
-  void clearType() => clearField(3);
+  void clearEmail() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get deviceId => $_getSZ(3);
+  VerificationCodeType get type => $_getN(3);
   @$pb.TagNumber(4)
-  set deviceId($core.String v) { $_setString(3, v); }
+  set type(VerificationCodeType v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasDeviceId() => $_has(3);
+  $core.bool hasType() => $_has(3);
   @$pb.TagNumber(4)
-  void clearDeviceId() => clearField(4);
+  void clearType() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get deviceId => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set deviceId($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasDeviceId() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearDeviceId() => clearField(5);
 }
 
 class LatLng extends $pb.GeneratedMessage {
@@ -2419,80 +2368,5 @@ class BusinessCategory extends $pb.GeneratedMessage {
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
   void clearName() => clearField(2);
-}
-
-class Error extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Error', createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code', $pb.PbFieldType.O3)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'codeName', protoName: 'codeName')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'message')
-    ..hasRequiredFields = false
-  ;
-
-  Error._() : super();
-  factory Error({
-    $core.int? code,
-    $core.String? codeName,
-    $core.String? message,
-  }) {
-    final _result = create();
-    if (code != null) {
-      _result.code = code;
-    }
-    if (codeName != null) {
-      _result.codeName = codeName;
-    }
-    if (message != null) {
-      _result.message = message;
-    }
-    return _result;
-  }
-  factory Error.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Error.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Error clone() => Error()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Error copyWith(void Function(Error) updates) => super.copyWith((message) => updates(message as Error)) as Error; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static Error create() => Error._();
-  Error createEmptyInstance() => create();
-  static $pb.PbList<Error> createRepeated() => $pb.PbList<Error>();
-  @$core.pragma('dart2js:noInline')
-  static Error getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Error>(create);
-  static Error? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.int get code => $_getIZ(0);
-  @$pb.TagNumber(1)
-  set code($core.int v) { $_setSignedInt32(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasCode() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearCode() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get codeName => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set codeName($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasCodeName() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearCodeName() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get message => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set message($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasMessage() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearMessage() => clearField(3);
 }
 

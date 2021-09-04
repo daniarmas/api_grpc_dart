@@ -1,3 +1,4 @@
+import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
@@ -17,8 +18,21 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   Future<Either<GrpcError, VerificationCode>> createVerificationCode(
       {required Map<String, dynamic> data}) async {
     try {
-      final response = await localDataSource.createVerificationCode(data: data);
-      return Right(response);
+      if (data['type'] == VerificationCodeType.UNSPECIFIED) {
+        return Left(GrpcError.invalidArgument('Input `type` invalid'));
+      } else if (!StringUtils.isEmail(data['email'])) {
+        return Left(GrpcError.invalidArgument('Input `email` invalid'));
+      } else {
+        final verificationCodeListResponse =
+            await localDataSource.listVerificationCodeReturnIds(data: data);
+        if (verificationCodeListResponse.isNotEmpty) {
+          await localDataSource
+              .deleteVerificationCodeBeforeCreateVerificationCode(data: data);
+        }
+        final response =
+            await localDataSource.createVerificationCode(data: data);
+        return Right(response);
+      }
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
     } on DatabaseTableNotExistsException {
@@ -53,6 +67,8 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       return Left(GrpcError.internal('Internal server error'));
     } on DatabaseTableNotExistsException {
       return Left(GrpcError.internal('Internal server error'));
+    } on GrpcError {
+      rethrow;
     } on Exception {
       return Left(GrpcError.internal('Internal server error'));
     }
@@ -62,12 +78,16 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   Future<Either<GrpcError, void>> deleteVerificationCode(
       {required String id}) async {
     try {
-      localDataSource.deleteVerificationCode(id: id);
+      await localDataSource.deleteVerificationCode(data: {'id': id});
       return Right(null);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
     } on DatabaseTableNotExistsException {
       return Left(GrpcError.internal('Internal server error'));
+    } on NotFoundException {
+      throw GrpcError.notFound('Not Found');
+    } on GrpcError {
+      rethrow;
     } on Exception {
       return Left(GrpcError.internal('Internal server error'));
     }

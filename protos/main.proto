@@ -207,7 +207,7 @@ message CreateVerificationCodeRequest {
 }
 
 message CreateVerificationCodeResponse {
-    VerificationCode verificationCode = 1;
+  VerificationCode verificationCode = 1;
 }
 
 message ListVerificationCodeRequest {
@@ -215,11 +215,7 @@ message ListVerificationCodeRequest {
 }
 
 message ListVerificationCodeResponse {
-  message Data {
-    repeated VerificationCode verificationCode = 1;
-  }
-  Data data = 1;
-  Error error = 2;
+  repeated VerificationCode verificationCode = 1;
 }
 
 message DeleteVerificationCodeRequest {
@@ -237,8 +233,9 @@ message GetVerificationCodeResponse {
 message VerificationCode {
   string id = 1;
   string code = 2;
-  VerificationCodeType type = 3;
-  string deviceId = 4;
+  string email = 3;
+  VerificationCodeType type = 4;
+  string deviceId = 5;
 }
 
 enum VerificationCodeType {
@@ -298,12 +295,6 @@ message BusinessCategory {
   string id = 1;
   string name = 2;
 }
-
-message Error {
-    int32 code = 1;
-    string codeName = 2;
-    string message = 3;
-  }
 
 // The error format v2 for Google JSON REST APIs.
 //

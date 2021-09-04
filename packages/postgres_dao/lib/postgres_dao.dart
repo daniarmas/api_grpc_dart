@@ -3,6 +3,7 @@ import 'package:postgres_dao/construct_sql_query_delete.dart';
 import 'package:postgres_dao/construct_sql_query_insert.dart';
 
 import 'construct_sql_query_select.dart';
+import 'exception.dart';
 import 'where.dart';
 
 class PostgresqlDao {
@@ -52,11 +53,14 @@ class PostgresqlDao {
     return Future.value(response[0][table]);
   }
 
-  void delete({required String table, List<Where>? where}) async {
+  Future<void> delete({required String table, List<Where>? where}) async {
     try {
       String query = constructSqlQueryDelete(where: where, table: table);
       print(query);
-      await _connection.mappedResultsQuery(query);
+      final result = await _connection.mappedResultsQuery(query);
+      if (result.isEmpty) {
+        throw Exception('NOT_FOUND');
+      }
     } catch (error) {
       rethrow;
     }
@@ -80,7 +84,7 @@ class PostgresqlDao {
       if (response.isNotEmpty) {
         return response[0];
       } else {
-        throw Exception('Not Exists');
+        throw Exception('NOT_FOUND');
       }
     } catch (error) {
       rethrow;

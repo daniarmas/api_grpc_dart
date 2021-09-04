@@ -1,9 +1,9 @@
 import 'package:api_grpc_dart/core/error/exception.dart';
-import 'package:api_grpc_dart/core/error/failure.dart';
 import 'package:api_grpc_dart/data/datasources/business_local_data_source.dart';
 import 'package:api_grpc_dart/data/repositories/business_repository_impl.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
 import 'package:dartz/dartz.dart';
+import 'package:grpc/grpc.dart';
 
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -52,7 +52,7 @@ void main() {
       // assert
       verify(mockListBusinessLocalDataSource.listBusiness(
           latLng: LatLng(latitude: 1, longitude: 1), notIds: ['1']));
-      expect(result, Left(ServerFailure()));
+      expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });
 }

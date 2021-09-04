@@ -21,6 +21,8 @@ dependencies:
   dartz: ^0.10.0-nullsafety.2
   equatable: ^2.0.3
 
+  dio: ^4.0.0
+
 dev_dependencies:
   # dart run build_runner build
   injectable_generator: ^1.4.1

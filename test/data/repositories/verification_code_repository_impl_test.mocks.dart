@@ -50,9 +50,17 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
                   Future<_i2.VerificationCode>.value(_FakeVerificationCode_0()))
       as _i4.Future<_i2.VerificationCode>);
   @override
-  void deleteVerificationCode({String? id}) => super.noSuchMethod(
-      Invocation.method(#deleteVerificationCode, [], {#id: id}),
-      returnValueForMissingStub: null);
+  void deleteVerificationCode({Map<String, dynamic>? data}) =>
+      super.noSuchMethod(
+          Invocation.method(#deleteVerificationCode, [], {#data: data}),
+          returnValueForMissingStub: null);
+  @override
+  void deleteVerificationCodeBeforeCreateVerificationCode(
+          {Map<String, dynamic>? data}) =>
+      super.noSuchMethod(
+          Invocation.method(#deleteVerificationCodeBeforeCreateVerificationCode,
+              [], {#data: data}),
+          returnValueForMissingStub: null);
   @override
   String toString() => super.toString();
 }

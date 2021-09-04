@@ -347,22 +347,12 @@ final $typed_data.Uint8List listVerificationCodeRequestDescriptor = $convert.bas
 const ListVerificationCodeResponse$json = const {
   '1': 'ListVerificationCodeResponse',
   '2': const [
-    const {'1': 'data', '3': 1, '4': 1, '5': 11, '6': '.ListVerificationCodeResponse.Data', '10': 'data'},
-    const {'1': 'error', '3': 2, '4': 1, '5': 11, '6': '.Error', '10': 'error'},
-  ],
-  '3': const [ListVerificationCodeResponse_Data$json],
-};
-
-@$core.Deprecated('Use listVerificationCodeResponseDescriptor instead')
-const ListVerificationCodeResponse_Data$json = const {
-  '1': 'Data',
-  '2': const [
     const {'1': 'verificationCode', '3': 1, '4': 3, '5': 11, '6': '.VerificationCode', '10': 'verificationCode'},
   ],
 };
 
 /// Descriptor for `ListVerificationCodeResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List listVerificationCodeResponseDescriptor = $convert.base64Decode('ChxMaXN0VmVyaWZpY2F0aW9uQ29kZVJlc3BvbnNlEjYKBGRhdGEYASABKAsyIi5MaXN0VmVyaWZpY2F0aW9uQ29kZVJlc3BvbnNlLkRhdGFSBGRhdGESHAoFZXJyb3IYAiABKAsyBi5FcnJvclIFZXJyb3IaRQoERGF0YRI9ChB2ZXJpZmljYXRpb25Db2RlGAEgAygLMhEuVmVyaWZpY2F0aW9uQ29kZVIQdmVyaWZpY2F0aW9uQ29kZQ==');
+final $typed_data.Uint8List listVerificationCodeResponseDescriptor = $convert.base64Decode('ChxMaXN0VmVyaWZpY2F0aW9uQ29kZVJlc3BvbnNlEj0KEHZlcmlmaWNhdGlvbkNvZGUYASADKAsyES5WZXJpZmljYXRpb25Db2RlUhB2ZXJpZmljYXRpb25Db2Rl');
 @$core.Deprecated('Use deleteVerificationCodeRequestDescriptor instead')
 const DeleteVerificationCodeRequest$json = const {
   '1': 'DeleteVerificationCodeRequest',
@@ -399,13 +389,14 @@ const VerificationCode$json = const {
   '2': const [
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     const {'1': 'code', '3': 2, '4': 1, '5': 9, '10': 'code'},
-    const {'1': 'type', '3': 3, '4': 1, '5': 14, '6': '.VerificationCodeType', '10': 'type'},
-    const {'1': 'deviceId', '3': 4, '4': 1, '5': 9, '10': 'deviceId'},
+    const {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'type', '3': 4, '4': 1, '5': 14, '6': '.VerificationCodeType', '10': 'type'},
+    const {'1': 'deviceId', '3': 5, '4': 1, '5': 9, '10': 'deviceId'},
   ],
 };
 
 /// Descriptor for `VerificationCode`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List verificationCodeDescriptor = $convert.base64Decode('ChBWZXJpZmljYXRpb25Db2RlEg4KAmlkGAEgASgJUgJpZBISCgRjb2RlGAIgASgJUgRjb2RlEikKBHR5cGUYAyABKA4yFS5WZXJpZmljYXRpb25Db2RlVHlwZVIEdHlwZRIaCghkZXZpY2VJZBgEIAEoCVIIZGV2aWNlSWQ=');
+final $typed_data.Uint8List verificationCodeDescriptor = $convert.base64Decode('ChBWZXJpZmljYXRpb25Db2RlEg4KAmlkGAEgASgJUgJpZBISCgRjb2RlGAIgASgJUgRjb2RlEhQKBWVtYWlsGAMgASgJUgVlbWFpbBIpCgR0eXBlGAQgASgOMhUuVmVyaWZpY2F0aW9uQ29kZVR5cGVSBHR5cGUSGgoIZGV2aWNlSWQYBSABKAlSCGRldmljZUlk');
 @$core.Deprecated('Use latLngDescriptor instead')
 const LatLng$json = const {
   '1': 'LatLng',
@@ -438,15 +429,3 @@ const BusinessCategory$json = const {
 
 /// Descriptor for `BusinessCategory`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List businessCategoryDescriptor = $convert.base64Decode('ChBCdXNpbmVzc0NhdGVnb3J5Eg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1l');
-@$core.Deprecated('Use errorDescriptor instead')
-const Error$json = const {
-  '1': 'Error',
-  '2': const [
-    const {'1': 'code', '3': 1, '4': 1, '5': 5, '10': 'code'},
-    const {'1': 'codeName', '3': 2, '4': 1, '5': 9, '10': 'codeName'},
-    const {'1': 'message', '3': 3, '4': 1, '5': 9, '10': 'message'},
-  ],
-};
-
-/// Descriptor for `Error`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List errorDescriptor = $convert.base64Decode('CgVFcnJvchISCgRjb2RlGAEgASgFUgRjb2RlEhoKCGNvZGVOYW1lGAIgASgJUghjb2RlTmFtZRIYCgdtZXNzYWdlGAMgASgJUgdtZXNzYWdl');

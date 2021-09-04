@@ -1,5 +1,6 @@
 import 'package:api_grpc_dart/core/error/exception.dart';
 import 'package:get_it/get_it.dart';
+import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres_dao/postgres_dao.dart';
 import 'package:postgres_dao/where.dart';
@@ -42,8 +43,24 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  void delete({required String table, required List<Where> where}) {
-    _connection.delete(table: table, where: where);
+  Future<void> delete(
+      {required String table, required List<Where> where}) async {
+    try {
+      await _connection.delete(table: table, where: where);
+    } catch (error) {
+      if (error.toString() ==
+          'Attempting to execute query, but connection is not open.') {
+        throw DatabaseConnectionNotOpenException();
+      } else if (error
+          .toString()
+          .contains('relation "$table" does not exist')) {
+        throw DatabaseTableNotExistsException();
+      } else if (error.toString().contains('NOT_FOUND')) {
+        throw NotFoundException();
+      } else {
+        rethrow;
+      }
+    }
   }
 
   @override
@@ -66,6 +83,8 @@ class PostgresqlDatabase implements Database {
           .toString()
           .contains('relation "$table" does not exist')) {
         throw DatabaseTableNotExistsException();
+      } else if (error.toString().contains('NOT_FOUND')) {
+        throw GrpcError.notFound('Not found');
       } else {
         rethrow;
       }

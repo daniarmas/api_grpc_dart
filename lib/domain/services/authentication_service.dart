@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:api_grpc_dart/domain/repositories/verification_code_repository.dart';
 import 'package:api_grpc_dart/protos/google/protobuf/empty.pb.dart';
 import 'package:get_it/get_it.dart';
@@ -12,25 +10,21 @@ class AuthenticationService extends AuthenticationServiceBase {
   Future<CreateVerificationCodeResponse> createVerificationCode(
       ServiceCall call, CreateVerificationCodeRequest request) async {
     late CreateVerificationCodeResponse response;
-    var randomNumber = Random();
-    var next = randomNumber.nextDouble() * 1000000;
-    while (next < 100000) {
-      next *= 10;
-    }
     VerificationCodeRepository verificationCodeRepository =
         GetIt.I<VerificationCodeRepository>();
     final result =
         await verificationCodeRepository.createVerificationCode(data: {
-      'code': next.toInt().toString(),
       'type': request.type,
+      'email': request.email,
       'deviceId': request.deviceId,
       'createTime': DateTime.now(),
       'updateTime': DateTime.now(),
     });
     result.fold(
-        (l) => {throw Exception(l)},
-        (r) =>
-            {response = CreateVerificationCodeResponse(verificationCode: r)});
+        (left) => {throw left},
+        (right) => {
+              response = CreateVerificationCodeResponse(verificationCode: right)
+            });
     return response;
   }
 
@@ -42,18 +36,9 @@ class AuthenticationService extends AuthenticationServiceBase {
         GetIt.I<VerificationCodeRepository>();
     final result = await verificationCodeRepository.listVerificationCode();
     result.fold(
-        (left) => {
-              response = ListVerificationCodeResponse(
-                  error: Error(
-                      code: left.code,
-                      message: left.message,
-                      codeName: left.codeName))
-            },
-        (right) => {
-              response = ListVerificationCodeResponse(
-                  data: ListVerificationCodeResponse_Data(
-                      verificationCode: right))
-            });
+        (left) => {throw left},
+        (right) =>
+            {response = ListVerificationCodeResponse(verificationCode: right)});
     return response;
   }
 
@@ -63,11 +48,12 @@ class AuthenticationService extends AuthenticationServiceBase {
     late GetVerificationCodeResponse response;
     VerificationCodeRepository verificationCodeRepository =
         GetIt.I<VerificationCodeRepository>();
-    const String msg = 'Length of `Name` cannot be more than 10 characters';
     final result =
         await verificationCodeRepository.getVerificationCode(id: request.id);
-    result.fold((l) => {throw GrpcError.invalidArgument(msg)},
-        (r) => {response = GetVerificationCodeResponse(verificationCode: r)});
+    result.fold(
+        (left) => {throw left},
+        (right) =>
+            {response = GetVerificationCodeResponse(verificationCode: right)});
     return response;
   }
 
@@ -76,8 +62,12 @@ class AuthenticationService extends AuthenticationServiceBase {
       ServiceCall call, DeleteVerificationCodeRequest request) async {
     VerificationCodeRepository verificationCodeRepository =
         GetIt.I<VerificationCodeRepository>();
-    await verificationCodeRepository.deleteVerificationCode(id: request.id);
-    return Future.value(Empty());
+    try {
+      await verificationCodeRepository.deleteVerificationCode(id: request.id);
+      return Future.value(Empty());
+    } catch (error) {
+      rethrow;
+    }
   }
 
   @override

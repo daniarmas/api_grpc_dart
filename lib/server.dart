@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:api_grpc_dart/interceptors.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart' as grpc;
+import 'package:grpc/grpc.dart';
 import 'package:shutdown/shutdown.dart' as shutdown;
 
 import 'data/database/database.dart';
@@ -21,6 +25,10 @@ class Server {
           AuthenticationService(),
           HealthService(),
           HostnameService()
+        ], [
+          (ServiceCall call, ServiceMethod method) {
+            return accessTokenValid(call, method);
+          },
         ]);
         await server.serve(port: _environment.port);
         print('🚀 Server listening at port ${server.port}...');

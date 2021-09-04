@@ -84,7 +84,7 @@ String constructSqlQueryDelete({
           }
         }
       } else {
-        whereString += ' AND ';
+        // whereString += ' AND ';
         if (where[i] is And) {
           var and = where[i] as And;
           for (var y = 0; y < and.attributes.length; y++) {
@@ -158,5 +158,6 @@ String constructSqlQueryDelete({
   }
   return 'DELETE '
       'FROM "$table" '
-      '$whereResult';
+      '$whereResult'
+      'RETURNING "$table"."id"';
 }

@@ -24,5 +24,5 @@ abstract class Database {
 
   Future<Map<String, dynamic>> update(dynamic object);
 
-  void delete({required String table, required List<Where> where});
+  Future<void> delete({required String table, required List<Where> where});
 }

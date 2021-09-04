@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';
 
 import '../../protos/protos/main.pb.dart';
+import '../../core/utils/string_utils.dart';
 
 // ignore: one_member_abstracts
 abstract class VerificationCodeLocalDataSource {
@@ -10,9 +11,13 @@ abstract class VerificationCodeLocalDataSource {
       {required Map<String, dynamic> data});
 
   Future<List<VerificationCode>> listVerificationCode();
+  Future<List<VerificationCode>> listVerificationCodeReturnIds(
+      {required Map<String, dynamic> data});
 
   Future<VerificationCode> getVerificationCode({required String id});
-  void deleteVerificationCode({required String id});
+  Future<void> deleteVerificationCode({required Map<String, dynamic> data});
+  Future<bool> deleteVerificationCodeBeforeCreateVerificationCode(
+      {required Map<String, dynamic> data});
 }
 
 @Injectable(as: VerificationCodeLocalDataSource)
@@ -25,13 +30,19 @@ class VerificationCodeLocalDataSourceImpl
   @override
   Future<VerificationCode> createVerificationCode(
       {required Map<String, dynamic> data}) async {
-    final result =
-        await _database.create(table: 'VerificationCode', data: data);
-    return VerificationCode(
-        id: result['id'],
-        code: result['code'],
-        deviceId: result['deviceId'],
-        type: parseVerificationCodeTypeEnum(result['type']));
+    try {
+      data.addAll({'code': StringUtils.generateNumber()});
+      final result =
+          await _database.create(table: 'VerificationCode', data: data);
+      return VerificationCode(
+          id: result['id'],
+          code: result['code'],
+          email: result['email'],
+          deviceId: result['deviceId'],
+          type: parseVerificationCodeTypeEnum(result['type']));
+    } catch (error) {
+      rethrow;
+    }
   }
 
   @override
@@ -43,6 +54,7 @@ class VerificationCodeLocalDataSourceImpl
           attributes: [
             'id',
             'code',
+            'email',
             'type',
             'deviceId',
           ],
@@ -51,8 +63,33 @@ class VerificationCodeLocalDataSourceImpl
         response.add(VerificationCode(
             id: e['VerificationCode']['id'],
             code: e['VerificationCode']['code'],
+            email: e['VerificationCode']['email'],
             type: parseVerificationCodeTypeEnum(e['VerificationCode']['type']),
             deviceId: e['VerificationCode']['deviceId']));
+      }
+      return response;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<VerificationCode>> listVerificationCodeReturnIds(
+      {required Map<String, dynamic> data}) async {
+    try {
+      List<VerificationCode> response = [];
+      final result = await _database.list(
+          table: 'VerificationCode',
+          attributes: [
+            'id',
+          ],
+          where: [
+            WhereNormalAttribute(key: 'type', value: data['type']),
+            WhereNormalAttribute(key: 'deviceId', value: data['deviceId'])
+          ],
+          limit: 100);
+      for (var e in result) {
+        response.add(VerificationCode(id: e['VerificationCode']['id']));
       }
       return response;
     } catch (error) {
@@ -68,12 +105,14 @@ class VerificationCodeLocalDataSourceImpl
       ], attributes: [
         'id',
         'code',
+        'email',
         'type',
         'deviceId',
       ]);
       return VerificationCode(
           id: result['VerificationCode']['id'],
           code: result['VerificationCode']['code'],
+          email: result['VerificationCode']['email'],
           type:
               parseVerificationCodeTypeEnum(result['VerificationCode']['type']),
           deviceId: result['VerificationCode']['deviceId']);
@@ -83,10 +122,29 @@ class VerificationCodeLocalDataSourceImpl
   }
 
   @override
-  Future<void> deleteVerificationCode({required String id}) async {
-    _database.delete(
-        table: 'VerificationCode',
-        where: [WhereNormalAttribute(key: 'id', value: id)]);
+  Future<void> deleteVerificationCode(
+      {required Map<String, dynamic> data}) async {
+    try {
+      await _database.delete(
+          table: 'VerificationCode',
+          where: [WhereNormalAttribute(key: 'id', value: data['id'])]);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> deleteVerificationCodeBeforeCreateVerificationCode(
+      {required Map<String, dynamic> data}) async {
+    try {
+      await _database.delete(table: 'VerificationCode', where: [
+        WhereNormalAttribute(key: 'type', value: data['type']),
+        WhereNormalAttribute(key: 'deviceId', value: data['deviceId'])
+      ]);
+      return true;
+    } catch (error) {
+      rethrow;
+    }
   }
 }
 
