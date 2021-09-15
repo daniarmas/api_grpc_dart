@@ -15,10 +15,10 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
 
   @override
   Future<Either<GrpcError, AuthorizationToken>> createAuthorizationToken(
-      {required Map<String, dynamic> data}) async {
+      {required Map<String, dynamic> data, required List<String> paths}) async {
     try {
       final response =
-          await localDataSource.createAuthorizationToken(data: data);
+          await localDataSource.createAuthorizationToken(data: data, paths: paths);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));

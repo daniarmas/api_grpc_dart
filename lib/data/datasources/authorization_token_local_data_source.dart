@@ -7,7 +7,7 @@ import '../../protos/protos/main.pb.dart';
 // ignore: one_member_abstracts
 abstract class AuthorizationTokenLocalDataSource {
   Future<AuthorizationToken> createAuthorizationToken(
-      {required Map<String, dynamic> data});
+      {required Map<String, dynamic> data, required List<String> paths});
   Future<List<AuthorizationToken>> listAuthorizationToken();
   Future<AuthorizationToken> getAuthorizationToken({required String id});
   void deleteAuthorizationToken({required String id});
@@ -22,10 +22,10 @@ class AuthorizationTokenLocalDataSourceImpl
 
   @override
   Future<AuthorizationToken> createAuthorizationToken(
-      {required Map<String, dynamic> data}) async {
+      {required Map<String, dynamic> data, required List<String> paths}) async {
     try {
-      final result =
-          await _database.create(table: 'AuthorizationToken', data: data);
+      final result = await _database.create(
+          table: 'AuthorizationToken', data: data, paths: paths);
       return AuthorizationToken(
         id: result['id'],
         authorizationToken: result['authorizationToken'],

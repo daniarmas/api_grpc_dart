@@ -38,29 +38,41 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
                   Future<_i2.VerificationCode>.value(_FakeVerificationCode_0()))
           as _i4.Future<_i2.VerificationCode>);
   @override
-  _i4.Future<List<_i2.VerificationCode>> listVerificationCode() =>
-      (super.noSuchMethod(Invocation.method(#listVerificationCode, []),
+  _i4.Future<List<_i2.VerificationCode>> listVerificationCode(
+          {List<String>? paths}) =>
+      (super.noSuchMethod(
+              Invocation.method(#listVerificationCode, [], {#paths: paths}),
               returnValue: Future<List<_i2.VerificationCode>>.value(
                   <_i2.VerificationCode>[]))
           as _i4.Future<List<_i2.VerificationCode>>);
   @override
-  _i4.Future<_i2.VerificationCode> getVerificationCode({String? id}) => (super
-          .noSuchMethod(Invocation.method(#getVerificationCode, [], {#id: id}),
-              returnValue:
-                  Future<_i2.VerificationCode>.value(_FakeVerificationCode_0()))
-      as _i4.Future<_i2.VerificationCode>);
-  @override
-  void deleteVerificationCode({Map<String, dynamic>? data}) =>
-      super.noSuchMethod(
-          Invocation.method(#deleteVerificationCode, [], {#data: data}),
-          returnValueForMissingStub: null);
-  @override
-  void deleteVerificationCodeBeforeCreateVerificationCode(
+  _i4.Future<List<_i2.VerificationCode>> listVerificationCodeReturnIds(
           {Map<String, dynamic>? data}) =>
-      super.noSuchMethod(
+      (super.noSuchMethod(
+          Invocation.method(#listVerificationCodeReturnIds, [], {#data: data}),
+          returnValue: Future<List<_i2.VerificationCode>>.value(
+              <_i2.VerificationCode>[])) as _i4
+          .Future<List<_i2.VerificationCode>>);
+  @override
+  _i4.Future<_i2.VerificationCode> getVerificationCode(
+          {String? id, List<String>? paths}) =>
+      (super.noSuchMethod(
+          Invocation.method(#getVerificationCode, [], {#id: id, #paths: paths}),
+          returnValue: Future<_i2.VerificationCode>.value(
+              _FakeVerificationCode_0())) as _i4.Future<_i2.VerificationCode>);
+  @override
+  _i4.Future<void> deleteVerificationCode({Map<String, dynamic>? data}) =>
+      (super.noSuchMethod(
+          Invocation.method(#deleteVerificationCode, [], {#data: data}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<bool> deleteVerificationCodeBeforeCreateVerificationCode(
+          {Map<String, dynamic>? data}) =>
+      (super.noSuchMethod(
           Invocation.method(#deleteVerificationCodeBeforeCreateVerificationCode,
               [], {#data: data}),
-          returnValueForMissingStub: null);
+          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
   @override
   String toString() => super.toString();
 }

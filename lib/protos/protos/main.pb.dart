@@ -9,6 +9,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import '../google/protobuf/field_mask.pb.dart' as $2;
+
 import 'main.pbenum.dart';
 
 export 'main.pbenum.dart';
@@ -1772,6 +1774,7 @@ class CreateVerificationCodeRequest extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
     ..e<VerificationCodeType>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
+    ..aOM<$2.FieldMask>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
@@ -1780,6 +1783,7 @@ class CreateVerificationCodeRequest extends $pb.GeneratedMessage {
     $core.String? deviceId,
     $core.String? email,
     VerificationCodeType? type,
+    $2.FieldMask? fieldMask,
   }) {
     final _result = create();
     if (deviceId != null) {
@@ -1790,6 +1794,9 @@ class CreateVerificationCodeRequest extends $pb.GeneratedMessage {
     }
     if (type != null) {
       _result.type = type;
+    }
+    if (fieldMask != null) {
+      _result.fieldMask = fieldMask;
     }
     return _result;
   }
@@ -1840,6 +1847,17 @@ class CreateVerificationCodeRequest extends $pb.GeneratedMessage {
   $core.bool hasType() => $_has(2);
   @$pb.TagNumber(3)
   void clearType() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $2.FieldMask get fieldMask => $_getN(3);
+  @$pb.TagNumber(4)
+  set fieldMask($2.FieldMask v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasFieldMask() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFieldMask() => clearField(4);
+  @$pb.TagNumber(4)
+  $2.FieldMask ensureFieldMask() => $_ensure(3);
 }
 
 class CreateVerificationCodeResponse extends $pb.GeneratedMessage {
@@ -1893,11 +1911,20 @@ class CreateVerificationCodeResponse extends $pb.GeneratedMessage {
 
 class ListVerificationCodeRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListVerificationCodeRequest', createEmptyInstance: create)
+    ..aOM<$2.FieldMask>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
   ListVerificationCodeRequest._() : super();
-  factory ListVerificationCodeRequest() => create();
+  factory ListVerificationCodeRequest({
+    $2.FieldMask? fieldMask,
+  }) {
+    final _result = create();
+    if (fieldMask != null) {
+      _result.fieldMask = fieldMask;
+    }
+    return _result;
+  }
   factory ListVerificationCodeRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory ListVerificationCodeRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -1918,6 +1945,17 @@ class ListVerificationCodeRequest extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static ListVerificationCodeRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListVerificationCodeRequest>(create);
   static ListVerificationCodeRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $2.FieldMask get fieldMask => $_getN(0);
+  @$pb.TagNumber(1)
+  set fieldMask($2.FieldMask v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasFieldMask() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFieldMask() => clearField(1);
+  @$pb.TagNumber(1)
+  $2.FieldMask ensureFieldMask() => $_ensure(0);
 }
 
 class ListVerificationCodeResponse extends $pb.GeneratedMessage {
@@ -2011,16 +2049,21 @@ class DeleteVerificationCodeRequest extends $pb.GeneratedMessage {
 class GetVerificationCodeRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetVerificationCodeRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
   GetVerificationCodeRequest._() : super();
   factory GetVerificationCodeRequest({
     $core.String? id,
+    $2.FieldMask? fieldMask,
   }) {
     final _result = create();
     if (id != null) {
       _result.id = id;
+    }
+    if (fieldMask != null) {
+      _result.fieldMask = fieldMask;
     }
     return _result;
   }
@@ -2053,6 +2096,17 @@ class GetVerificationCodeRequest extends $pb.GeneratedMessage {
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
   void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $2.FieldMask get fieldMask => $_getN(1);
+  @$pb.TagNumber(2)
+  set fieldMask($2.FieldMask v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasFieldMask() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFieldMask() => clearField(2);
+  @$pb.TagNumber(2)
+  $2.FieldMask ensureFieldMask() => $_ensure(1);
 }
 
 class GetVerificationCodeResponse extends $pb.GeneratedMessage {

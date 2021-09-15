@@ -20,7 +20,9 @@ abstract class Database {
       List<Where>? where});
 
   Future<Map<String, dynamic>> create(
-      {required String table, required Map<String, dynamic> data});
+      {required String table,
+      required Map<String, dynamic> data,
+      required List<String> paths});
 
   Future<Map<String, dynamic>> update(dynamic object);
 

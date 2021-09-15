@@ -2,6 +2,7 @@ syntax = "proto3";
 
 // import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
 // import "google/protobuf/any.proto";
 
 service BusinessService {
@@ -204,6 +205,7 @@ message CreateVerificationCodeRequest {
     string deviceId = 1;
     string email = 2;
     VerificationCodeType type = 3;
+    google.protobuf.FieldMask fieldMask = 4;
 }
 
 message CreateVerificationCodeResponse {
@@ -211,7 +213,7 @@ message CreateVerificationCodeResponse {
 }
 
 message ListVerificationCodeRequest {
-    
+  google.protobuf.FieldMask fieldMask = 1;
 }
 
 message ListVerificationCodeResponse {
@@ -223,11 +225,12 @@ message DeleteVerificationCodeRequest {
 }
 
 message GetVerificationCodeRequest {
-    string id = 1;
+  string id = 1;
+  google.protobuf.FieldMask fieldMask = 2;
 }
 
 message GetVerificationCodeResponse {
-    VerificationCode verificationCode = 1;
+  VerificationCode verificationCode = 1;
 }
 
 message VerificationCode {

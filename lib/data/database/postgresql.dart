@@ -38,13 +38,17 @@ class PostgresqlDatabase implements Database {
 
   @override
   Future<Map<String, dynamic>> create(
-      {required String table, required Map<String, dynamic> data}) async {
-    return await _connection.create(table: table, data: data);
+      {required String table,
+      required Map<String, dynamic> data,
+      required List<String> paths}) async {
+    return await _connection.create(table: table, data: data, paths: paths);
   }
 
   @override
   Future<void> delete(
-      {required String table, required List<Where> where}) async {
+      {required String table,
+      required List<Where> where,
+      List<String>? attributes}) async {
     try {
       await _connection.delete(table: table, where: where);
     } catch (error) {

@@ -6,7 +6,7 @@ import '../../protos/protos/main.pb.dart';
 // ignore: one_member_abstracts
 abstract class AuthorizationTokenRepository {
   Future<Either<GrpcError, AuthorizationToken>> createAuthorizationToken(
-      {required Map<String, dynamic> data});
+      {required Map<String, dynamic> data, required List<String> paths});
   Future<Either<GrpcError, Iterable<AuthorizationToken>>>
       listAuthorizationToken();
   Future<Either<GrpcError, AuthorizationToken>> getAuthorizationToken(

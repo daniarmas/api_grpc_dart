@@ -8,13 +8,15 @@ import '../../core/utils/string_utils.dart';
 // ignore: one_member_abstracts
 abstract class VerificationCodeLocalDataSource {
   Future<VerificationCode> createVerificationCode(
-      {required Map<String, dynamic> data});
+      {required Map<String, dynamic> data, required List<String> paths});
 
-  Future<List<VerificationCode>> listVerificationCode();
+  Future<List<VerificationCode>> listVerificationCode(
+      {required List<String> paths});
   Future<List<VerificationCode>> listVerificationCodeReturnIds(
       {required Map<String, dynamic> data});
 
-  Future<VerificationCode> getVerificationCode({required String id});
+  Future<VerificationCode> getVerificationCode(
+      {required String id, required List<String> paths});
   Future<void> deleteVerificationCode({required Map<String, dynamic> data});
   Future<bool> deleteVerificationCodeBeforeCreateVerificationCode(
       {required Map<String, dynamic> data});
@@ -29,11 +31,11 @@ class VerificationCodeLocalDataSourceImpl
 
   @override
   Future<VerificationCode> createVerificationCode(
-      {required Map<String, dynamic> data}) async {
+      {required Map<String, dynamic> data, required List<String> paths}) async {
     try {
       data.addAll({'code': StringUtils.generateNumber()});
-      final result =
-          await _database.create(table: 'VerificationCode', data: data);
+      final result = await _database.create(
+          table: 'VerificationCode', data: data, paths: paths);
       return VerificationCode(
           id: result['id'],
           code: result['code'],
@@ -46,19 +48,12 @@ class VerificationCodeLocalDataSourceImpl
   }
 
   @override
-  Future<List<VerificationCode>> listVerificationCode() async {
+  Future<List<VerificationCode>> listVerificationCode(
+      {required List<String> paths}) async {
     try {
       List<VerificationCode> response = [];
       final result = await _database.list(
-          table: 'VerificationCode',
-          attributes: [
-            'id',
-            'code',
-            'email',
-            'type',
-            'deviceId',
-          ],
-          limit: 100);
+          table: 'VerificationCode', attributes: paths, limit: 100);
       for (var e in result) {
         response.add(VerificationCode(
             id: e['VerificationCode']['id'],
@@ -98,17 +93,15 @@ class VerificationCodeLocalDataSourceImpl
   }
 
   @override
-  Future<VerificationCode> getVerificationCode({required String id}) async {
+  Future<VerificationCode> getVerificationCode(
+      {required String id, required List<String> paths}) async {
     try {
-      final result = await _database.get(table: 'VerificationCode', where: [
-        WhereNormalAttribute(key: 'id', value: id),
-      ], attributes: [
-        'id',
-        'code',
-        'email',
-        'type',
-        'deviceId',
-      ]);
+      final result = await _database.get(
+          table: 'VerificationCode',
+          where: [
+            WhereNormalAttribute(key: 'id', value: id),
+          ],
+          attributes: paths);
       return VerificationCode(
           id: result['VerificationCode']['id'],
           code: result['VerificationCode']['code'],
@@ -148,7 +141,7 @@ class VerificationCodeLocalDataSourceImpl
   }
 }
 
-VerificationCodeType parseVerificationCodeTypeEnum(String value) {
+VerificationCodeType parseVerificationCodeTypeEnum(String? value) {
   if (value == 'CHANGE_USER_EMAIL') {
     return VerificationCodeType.CHANGE_USER_EMAIL;
   } else if (value == 'SIGN_IN') {

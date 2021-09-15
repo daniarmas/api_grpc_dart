@@ -19,7 +19,7 @@ class AuthenticationService extends AuthenticationServiceBase {
       'deviceId': request.deviceId,
       'createTime': DateTime.now(),
       'updateTime': DateTime.now(),
-    });
+    }, paths: request.fieldMask.paths);
     result.fold(
         (left) => {throw left},
         (right) => {
@@ -34,7 +34,8 @@ class AuthenticationService extends AuthenticationServiceBase {
     late ListVerificationCodeResponse response;
     VerificationCodeRepository verificationCodeRepository =
         GetIt.I<VerificationCodeRepository>();
-    final result = await verificationCodeRepository.listVerificationCode();
+    final result = await verificationCodeRepository.listVerificationCode(
+        paths: request.fieldMask.paths);
     result.fold(
         (left) => {throw left},
         (right) =>
@@ -48,8 +49,8 @@ class AuthenticationService extends AuthenticationServiceBase {
     late GetVerificationCodeResponse response;
     VerificationCodeRepository verificationCodeRepository =
         GetIt.I<VerificationCodeRepository>();
-    final result =
-        await verificationCodeRepository.getVerificationCode(id: request.id);
+    final result = await verificationCodeRepository.getVerificationCode(
+        id: request.id, paths: request.fieldMask.paths);
     result.fold(
         (left) => {throw left},
         (right) =>

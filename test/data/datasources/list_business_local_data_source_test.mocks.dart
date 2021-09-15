@@ -82,9 +82,11 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
                   Future<Map<String, dynamic>>.value(<String, dynamic>{}))
           as _i3.Future<Map<String, dynamic>>);
   @override
-  void delete({String? table, List<_i4.Where>? where}) => super.noSuchMethod(
-      Invocation.method(#delete, [], {#table: table, #where: where}),
-      returnValueForMissingStub: null);
+  _i3.Future<void> delete({String? table, List<_i4.Where>? where}) =>
+      (super.noSuchMethod(
+          Invocation.method(#delete, [], {#table: table, #where: where}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
   String toString() => super.toString();
 }

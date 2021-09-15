@@ -16,7 +16,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
 
   @override
   Future<Either<GrpcError, VerificationCode>> createVerificationCode(
-      {required Map<String, dynamic> data}) async {
+      {required Map<String, dynamic> data, required List<String> paths}) async {
     try {
       if (data['type'] == VerificationCodeType.UNSPECIFIED) {
         return Left(GrpcError.invalidArgument('Input `type` invalid'));
@@ -29,8 +29,8 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
           await localDataSource
               .deleteVerificationCodeBeforeCreateVerificationCode(data: data);
         }
-        final response =
-            await localDataSource.createVerificationCode(data: data);
+        final response = await localDataSource.createVerificationCode(
+            data: data, paths: paths);
         return Right(response);
       }
     } on DatabaseConnectionNotOpenException {
@@ -43,10 +43,10 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   }
 
   @override
-  Future<Either<GrpcError, Iterable<VerificationCode>>>
-      listVerificationCode() async {
+  Future<Either<GrpcError, Iterable<VerificationCode>>> listVerificationCode(
+      {required List<String> paths}) async {
     try {
-      final response = await localDataSource.listVerificationCode();
+      final response = await localDataSource.listVerificationCode(paths: paths);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
@@ -59,9 +59,10 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
 
   @override
   Future<Either<GrpcError, VerificationCode>> getVerificationCode(
-      {required String id}) async {
+      {required String id, required List<String> paths}) async {
     try {
-      final response = await localDataSource.getVerificationCode(id: id);
+      final response =
+          await localDataSource.getVerificationCode(id: id, paths: paths);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
