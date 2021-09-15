@@ -2,6 +2,8 @@ import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:path/path.dart';
+import 'package:postgres/postgres.dart';
 
 import '../../core/error/exception.dart';
 import '../../domain/repositories/verification_code_repository.dart';
@@ -16,21 +18,24 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
 
   @override
   Future<Either<GrpcError, VerificationCode>> createVerificationCode(
-      {required Map<String, dynamic> data, required List<String> paths}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths}) async {
     try {
       if (data['type'] == VerificationCodeType.UNSPECIFIED) {
         return Left(GrpcError.invalidArgument('Input `type` invalid'));
       } else if (!StringUtils.isEmail(data['email'])) {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
       } else {
-        final verificationCodeListResponse =
-            await localDataSource.listVerificationCodeReturnIds(data: data);
+        final verificationCodeListResponse = await localDataSource
+            .listVerificationCodeReturnIds(data: data, context: context);
         if (verificationCodeListResponse.isNotEmpty) {
           await localDataSource
-              .deleteVerificationCodeBeforeCreateVerificationCode(data: data);
+              .deleteVerificationCodeBeforeCreateVerificationCode(
+                  data: data, context: context);
         }
         final response = await localDataSource.createVerificationCode(
-            data: data, paths: paths);
+            data: data, paths: paths, context: context);
         return Right(response);
       }
     } on DatabaseConnectionNotOpenException {
@@ -44,9 +49,11 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
 
   @override
   Future<Either<GrpcError, Iterable<VerificationCode>>> listVerificationCode(
-      {required List<String> paths}) async {
+      {required PostgreSQLExecutionContext context,
+      required List<String> paths}) async {
     try {
-      final response = await localDataSource.listVerificationCode(paths: paths);
+      final response = await localDataSource.listVerificationCode(
+          paths: paths, context: context);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
@@ -59,10 +66,12 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
 
   @override
   Future<Either<GrpcError, VerificationCode>> getVerificationCode(
-      {required String id, required List<String> paths}) async {
+      {required PostgreSQLExecutionContext context,
+      required String id,
+      required List<String> paths}) async {
     try {
-      final response =
-          await localDataSource.getVerificationCode(id: id, paths: paths);
+      final response = await localDataSource.getVerificationCode(
+          id: id, paths: paths, context: context);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
@@ -77,9 +86,10 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
 
   @override
   Future<Either<GrpcError, void>> deleteVerificationCode(
-      {required String id}) async {
+      {required PostgreSQLExecutionContext context, required String id}) async {
     try {
-      await localDataSource.deleteVerificationCode(data: {'id': id});
+      await localDataSource
+          .deleteVerificationCode(data: {'id': id}, context: context);
       return Right(null);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));

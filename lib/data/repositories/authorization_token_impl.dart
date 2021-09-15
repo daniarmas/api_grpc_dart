@@ -3,6 +3,7 @@ import 'package:api_grpc_dart/domain/repositories/authorization_token.dart';
 import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:postgres/postgres.dart';
 
 import '../../core/error/exception.dart';
 import '../../protos/protos/main.pb.dart';
@@ -15,10 +16,12 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
 
   @override
   Future<Either<GrpcError, AuthorizationToken>> createAuthorizationToken(
-      {required Map<String, dynamic> data, required List<String> paths}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths}) async {
     try {
-      final response =
-          await localDataSource.createAuthorizationToken(data: data, paths: paths);
+      final response = await localDataSource.createAuthorizationToken(
+          data: data, paths: paths, context: context);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
@@ -31,9 +34,12 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
 
   @override
   Future<Either<GrpcError, Iterable<AuthorizationToken>>>
-      listAuthorizationToken() async {
+      listAuthorizationToken({
+    required PostgreSQLExecutionContext context,
+  }) async {
     try {
-      final response = await localDataSource.listAuthorizationToken();
+      final response =
+          await localDataSource.listAuthorizationToken(context: context);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
@@ -46,9 +52,10 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
 
   @override
   Future<Either<GrpcError, AuthorizationToken>> getAuthorizationToken(
-      {required String id}) async {
+      {required PostgreSQLExecutionContext context, required String id}) async {
     try {
-      final response = await localDataSource.getAuthorizationToken(id: id);
+      final response =
+          await localDataSource.getAuthorizationToken(id: id, context: context);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
@@ -61,9 +68,9 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
 
   @override
   Future<Either<GrpcError, void>> deleteAuthorizationToken(
-      {required String id}) async {
+      {required PostgreSQLExecutionContext context, required String id}) async {
     try {
-      localDataSource.deleteAuthorizationToken(id: id);
+      localDataSource.deleteAuthorizationToken(id: id, context: context);
       return Right(null);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));

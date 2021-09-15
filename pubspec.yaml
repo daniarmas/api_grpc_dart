@@ -16,6 +16,7 @@ dependencies:
   injectable: ^1.4.1
   shutdown: ^0.4.3
   stack_trace: ^1.10.0
+  postgres: ^2.4.0
   postgres_dao:
     path: packages/postgres_dao
   dartz: ^0.10.0-nullsafety.2

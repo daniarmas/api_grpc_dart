@@ -1,5 +1,7 @@
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
+import 'package:path/path.dart';
+import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';
 
 import '../../protos/protos/main.pb.dart';
@@ -8,18 +10,27 @@ import '../../core/utils/string_utils.dart';
 // ignore: one_member_abstracts
 abstract class VerificationCodeLocalDataSource {
   Future<VerificationCode> createVerificationCode(
-      {required Map<String, dynamic> data, required List<String> paths});
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths});
 
   Future<List<VerificationCode>> listVerificationCode(
-      {required List<String> paths});
+      {required PostgreSQLExecutionContext context,
+      required List<String> paths});
   Future<List<VerificationCode>> listVerificationCodeReturnIds(
-      {required Map<String, dynamic> data});
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data});
 
   Future<VerificationCode> getVerificationCode(
-      {required String id, required List<String> paths});
-  Future<void> deleteVerificationCode({required Map<String, dynamic> data});
+      {required PostgreSQLExecutionContext context,
+      required String id,
+      required List<String> paths});
+  Future<void> deleteVerificationCode(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data});
   Future<bool> deleteVerificationCodeBeforeCreateVerificationCode(
-      {required Map<String, dynamic> data});
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data});
 }
 
 @Injectable(as: VerificationCodeLocalDataSource)
@@ -31,11 +42,16 @@ class VerificationCodeLocalDataSourceImpl
 
   @override
   Future<VerificationCode> createVerificationCode(
-      {required Map<String, dynamic> data, required List<String> paths}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths}) async {
     try {
       data.addAll({'code': StringUtils.generateNumber()});
       final result = await _database.create(
-          table: 'VerificationCode', data: data, paths: paths);
+          context: context,
+          table: 'VerificationCode',
+          data: data,
+          paths: paths);
       return VerificationCode(
           id: result['id'],
           code: result['code'],
@@ -49,11 +65,15 @@ class VerificationCodeLocalDataSourceImpl
 
   @override
   Future<List<VerificationCode>> listVerificationCode(
-      {required List<String> paths}) async {
+      {required PostgreSQLExecutionContext context,
+      required List<String> paths}) async {
     try {
       List<VerificationCode> response = [];
       final result = await _database.list(
-          table: 'VerificationCode', attributes: paths, limit: 100);
+          context: context,
+          table: 'VerificationCode',
+          attributes: paths,
+          limit: 100);
       for (var e in result) {
         response.add(VerificationCode(
             id: e['VerificationCode']['id'],
@@ -70,10 +90,12 @@ class VerificationCodeLocalDataSourceImpl
 
   @override
   Future<List<VerificationCode>> listVerificationCodeReturnIds(
-      {required Map<String, dynamic> data}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data}) async {
     try {
       List<VerificationCode> response = [];
       final result = await _database.list(
+          context: context,
           table: 'VerificationCode',
           attributes: [
             'id',
@@ -94,9 +116,12 @@ class VerificationCodeLocalDataSourceImpl
 
   @override
   Future<VerificationCode> getVerificationCode(
-      {required String id, required List<String> paths}) async {
+      {required PostgreSQLExecutionContext context,
+      required String id,
+      required List<String> paths}) async {
     try {
       final result = await _database.get(
+          context: context,
           table: 'VerificationCode',
           where: [
             WhereNormalAttribute(key: 'id', value: id),
@@ -116,9 +141,11 @@ class VerificationCodeLocalDataSourceImpl
 
   @override
   Future<void> deleteVerificationCode(
-      {required Map<String, dynamic> data}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data}) async {
     try {
       await _database.delete(
+          context: context,
           table: 'VerificationCode',
           where: [WhereNormalAttribute(key: 'id', value: data['id'])]);
     } catch (error) {
@@ -128,9 +155,11 @@ class VerificationCodeLocalDataSourceImpl
 
   @override
   Future<bool> deleteVerificationCodeBeforeCreateVerificationCode(
-      {required Map<String, dynamic> data}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data}) async {
     try {
-      await _database.delete(table: 'VerificationCode', where: [
+      await _database
+          .delete(context: context, table: 'VerificationCode', where: [
         WhereNormalAttribute(key: 'type', value: data['type']),
         WhereNormalAttribute(key: 'deviceId', value: data['deviceId'])
       ]);

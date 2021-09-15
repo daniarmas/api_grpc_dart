@@ -3,7 +3,6 @@ import 'package:postgres_dao/construct_sql_query_delete.dart';
 import 'package:postgres_dao/construct_sql_query_insert.dart';
 
 import 'construct_sql_query_select.dart';
-import 'exception.dart';
 import 'where.dart';
 
 class PostgresqlDao {
@@ -35,6 +34,14 @@ class PostgresqlDao {
     }
   }
 
+  Future<PostgreSQLConnection> getConnection() async {
+    try {
+      return _connection;
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
   void close() async {
     try {
       _connection = PostgreSQLConnection(host, port, database,
@@ -46,21 +53,29 @@ class PostgresqlDao {
   }
 
   Future<Map<String, dynamic>> create(
-      {required String table,
+      {required PostgreSQLExecutionContext context,
+      required String table,
       required Map<String, dynamic> data,
       required List<String> paths}) async {
-    String query =
-        constructSqlQueryInsert(table: table, data: data, attributes: paths);
-    print(query);
-    final response = await _connection.mappedResultsQuery(query);
-    return Future.value(response[0][table]);
+    try {
+      String query =
+          constructSqlQueryInsert(table: table, data: data, attributes: paths);
+      print(query);
+      final response = await context.mappedResultsQuery(query);
+      return Future.value(response[0][table]);
+    } catch (error) {
+      rethrow;
+    }
   }
 
-  Future<void> delete({required String table, List<Where>? where}) async {
+  Future<void> delete(
+      {required PostgreSQLExecutionContext context,
+      required String table,
+      List<Where>? where}) async {
     try {
       String query = constructSqlQueryDelete(where: where, table: table);
       print(query);
-      final result = await _connection.mappedResultsQuery(query);
+      final result = await context.mappedResultsQuery(query);
       if (result.isEmpty) {
         throw Exception('NOT_FOUND');
       }
@@ -70,7 +85,8 @@ class PostgresqlDao {
   }
 
   Future<Map<String, dynamic>> get(
-      {required String table,
+      {required PostgreSQLExecutionContext context,
+      required String table,
       List<String>? attributes,
       List<String>? agregationMethods,
       List<Where>? where}) async {
@@ -83,7 +99,7 @@ class PostgresqlDao {
           agregationAttributes: agregationMethods,
           orderByAsc: 'id');
       print(query);
-      final response = await _connection.mappedResultsQuery(query);
+      final response = await context.mappedResultsQuery(query);
       if (response.isNotEmpty) {
         return response[0];
       } else {
@@ -95,21 +111,26 @@ class PostgresqlDao {
   }
 
   Future<List<Map<String, dynamic>>> list(
-      {required String table,
+      {required PostgreSQLExecutionContext context,
+      required String table,
       List<String>? attributes,
       List<String>? agregationAttributes,
       int? limit,
       List<Where>? where,
       String? orderByAsc}) async {
-    String? query = constructSqlQuerySelect(
-        limit: limit,
-        where: where,
-        table: table,
-        attributes: attributes,
-        agregationAttributes: agregationAttributes,
-        orderByAsc: orderByAsc);
-    print(query);
-    return _connection.mappedResultsQuery(query);
+    try {
+      String? query = constructSqlQuerySelect(
+          limit: limit,
+          where: where,
+          table: table,
+          attributes: attributes,
+          agregationAttributes: agregationAttributes,
+          orderByAsc: orderByAsc);
+      print(query);
+      return context.mappedResultsQuery(query);
+    } catch (error) {
+      rethrow;
+    }
   }
 
   @override

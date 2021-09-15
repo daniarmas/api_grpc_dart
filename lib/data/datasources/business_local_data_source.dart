@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/and.dart';
 import 'package:postgres_dao/or.dart';
 import 'package:postgres_dao/where_agregation_attribute.dart';
@@ -11,7 +12,9 @@ import '../database/database.dart';
 // ignore: one_member_abstracts
 abstract class BusinessLocalDataSource {
   Future<List<Business>> listBusiness(
-      {required LatLng latLng, List<String>? notIds});
+      {required PostgreSQLExecutionContext context,
+      required LatLng latLng,
+      List<String>? notIds});
 }
 
 @Injectable(as: BusinessLocalDataSource)
@@ -22,8 +25,11 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
 
   @override
   Future<List<Business>> listBusiness(
-      {required LatLng latLng, List<String>? notIds}) async {
+      {required PostgreSQLExecutionContext context,
+      required LatLng latLng,
+      List<String>? notIds}) async {
     final result = await _database.list(
+        context: context,
         table: 'Business',
         attributes: [
           'id',

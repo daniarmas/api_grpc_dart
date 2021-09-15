@@ -18,53 +18,18 @@ export 'main.pbenum.dart';
 class CreateSignInRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateSignInRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'platform')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'systemVersion', protoName: 'systemVersion')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'appVersion', protoName: 'appVersion')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'app')
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'model')
-    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'firebaseCloudMessagingId', protoName: 'firebaseCloudMessagingId')
-    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
     ..hasRequiredFields = false
   ;
 
   CreateSignInRequest._() : super();
   factory CreateSignInRequest({
     $core.String? email,
-    $core.String? platform,
-    $core.String? systemVersion,
-    $core.String? appVersion,
-    $core.String? app,
-    $core.String? deviceId,
-    $core.String? model,
-    $core.String? firebaseCloudMessagingId,
     $core.String? code,
   }) {
     final _result = create();
     if (email != null) {
       _result.email = email;
-    }
-    if (platform != null) {
-      _result.platform = platform;
-    }
-    if (systemVersion != null) {
-      _result.systemVersion = systemVersion;
-    }
-    if (appVersion != null) {
-      _result.appVersion = appVersion;
-    }
-    if (app != null) {
-      _result.app = app;
-    }
-    if (deviceId != null) {
-      _result.deviceId = deviceId;
-    }
-    if (model != null) {
-      _result.model = model;
-    }
-    if (firebaseCloudMessagingId != null) {
-      _result.firebaseCloudMessagingId = firebaseCloudMessagingId;
     }
     if (code != null) {
       _result.code = code;
@@ -102,76 +67,13 @@ class CreateSignInRequest extends $pb.GeneratedMessage {
   void clearEmail() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get platform => $_getSZ(1);
+  $core.String get code => $_getSZ(1);
   @$pb.TagNumber(2)
-  set platform($core.String v) { $_setString(1, v); }
+  set code($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasPlatform() => $_has(1);
+  $core.bool hasCode() => $_has(1);
   @$pb.TagNumber(2)
-  void clearPlatform() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get systemVersion => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set systemVersion($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasSystemVersion() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearSystemVersion() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $core.String get appVersion => $_getSZ(3);
-  @$pb.TagNumber(4)
-  set appVersion($core.String v) { $_setString(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasAppVersion() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearAppVersion() => clearField(4);
-
-  @$pb.TagNumber(5)
-  $core.String get app => $_getSZ(4);
-  @$pb.TagNumber(5)
-  set app($core.String v) { $_setString(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasApp() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearApp() => clearField(5);
-
-  @$pb.TagNumber(6)
-  $core.String get deviceId => $_getSZ(5);
-  @$pb.TagNumber(6)
-  set deviceId($core.String v) { $_setString(5, v); }
-  @$pb.TagNumber(6)
-  $core.bool hasDeviceId() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearDeviceId() => clearField(6);
-
-  @$pb.TagNumber(7)
-  $core.String get model => $_getSZ(6);
-  @$pb.TagNumber(7)
-  set model($core.String v) { $_setString(6, v); }
-  @$pb.TagNumber(7)
-  $core.bool hasModel() => $_has(6);
-  @$pb.TagNumber(7)
-  void clearModel() => clearField(7);
-
-  @$pb.TagNumber(8)
-  $core.String get firebaseCloudMessagingId => $_getSZ(7);
-  @$pb.TagNumber(8)
-  set firebaseCloudMessagingId($core.String v) { $_setString(7, v); }
-  @$pb.TagNumber(8)
-  $core.bool hasFirebaseCloudMessagingId() => $_has(7);
-  @$pb.TagNumber(8)
-  void clearFirebaseCloudMessagingId() => clearField(8);
-
-  @$pb.TagNumber(9)
-  $core.String get code => $_getSZ(8);
-  @$pb.TagNumber(9)
-  set code($core.String v) { $_setString(8, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasCode() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearCode() => clearField(9);
+  void clearCode() => clearField(2);
 }
 
 class CreateSignInResponse extends $pb.GeneratedMessage {

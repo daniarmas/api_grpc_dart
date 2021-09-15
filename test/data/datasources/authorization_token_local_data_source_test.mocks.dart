@@ -69,9 +69,10 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
           as _i3.Future<Map<String, dynamic>>);
   @override
   _i3.Future<Map<String, dynamic>> create(
-          {String? table, Map<String, dynamic>? data}) =>
+          {String? table, Map<String, dynamic>? data, List<String>? paths}) =>
       (super.noSuchMethod(
-              Invocation.method(#create, [], {#table: table, #data: data}),
+              Invocation.method(
+                  #create, [], {#table: table, #data: data, #paths: paths}),
               returnValue:
                   Future<Map<String, dynamic>>.value(<String, dynamic>{}))
           as _i3.Future<Map<String, dynamic>>);

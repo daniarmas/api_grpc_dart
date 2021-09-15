@@ -31,9 +31,10 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
 
   @override
   _i4.Future<_i2.VerificationCode> createVerificationCode(
-          {Map<String, dynamic>? data}) =>
+          {Map<String, dynamic>? data, List<String>? paths}) =>
       (super.noSuchMethod(
-              Invocation.method(#createVerificationCode, [], {#data: data}),
+              Invocation.method(
+                  #createVerificationCode, [], {#data: data, #paths: paths}),
               returnValue:
                   Future<_i2.VerificationCode>.value(_FakeVerificationCode_0()))
           as _i4.Future<_i2.VerificationCode>);

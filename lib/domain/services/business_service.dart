@@ -1,3 +1,5 @@
+import 'package:api_grpc_dart/data/database/database.dart';
+import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 
@@ -10,12 +12,18 @@ class BusinessService extends BusinessServiceBase {
       ServiceCall call, ListBusinessRequest request) async {
     try {
       late ListBusinessResponse response;
+      late Either<GrpcError, Iterable<Business>> result;
       BusinessRepository businessRepository = GetIt.I<BusinessRepository>();
-      final result = await businessRepository.listBusiness(
-          LatLng(
-              latitude: request.coordinates.latitude,
-              longitude: request.coordinates.longitude),
-          request.notIds);
+      Database database = GetIt.I<Database>();
+      var connection = await database.getConnection();
+      connection.transaction((context) async {
+        result = await businessRepository.listBusiness(
+            latLng: LatLng(
+                latitude: request.coordinates.latitude,
+                longitude: request.coordinates.longitude),
+            notIds: request.notIds,
+            context: context);
+      });
       result.fold((l) => {throw Exception(l)},
           (r) => {response = ListBusinessResponse(business: r)});
       return response;

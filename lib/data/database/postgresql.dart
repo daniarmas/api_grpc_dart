@@ -2,6 +2,8 @@ import 'package:api_grpc_dart/core/error/exception.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:path/path.dart';
+import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/postgres_dao.dart';
 import 'package:postgres_dao/where.dart';
 
@@ -37,20 +39,32 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
+  Future<PostgreSQLConnection> getConnection() {
+    try {
+      return _connection.getConnection();
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<Map<String, dynamic>> create(
-      {required String table,
+      {required PostgreSQLExecutionContext context,
+      required String table,
       required Map<String, dynamic> data,
       required List<String> paths}) async {
-    return await _connection.create(table: table, data: data, paths: paths);
+    return await _connection.create(
+        table: table, data: data, paths: paths, context: context);
   }
 
   @override
   Future<void> delete(
-      {required String table,
+      {required PostgreSQLExecutionContext context,
+      required String table,
       required List<Where> where,
       List<String>? attributes}) async {
     try {
-      await _connection.delete(table: table, where: where);
+      await _connection.delete(table: table, where: where, context: context);
     } catch (error) {
       if (error.toString() ==
           'Attempting to execute query, but connection is not open.') {
@@ -69,12 +83,14 @@ class PostgresqlDatabase implements Database {
 
   @override
   Future<Map<String, dynamic>> get(
-      {required String table,
+      {required PostgreSQLExecutionContext context,
+      required String table,
       List<String>? attributes,
       List<String>? agregationMethods,
       List<Where>? where}) async {
     try {
       return await _connection.get(
+          context: context,
           where: where,
           table: table,
           attributes: attributes,
@@ -97,7 +113,8 @@ class PostgresqlDatabase implements Database {
 
   @override
   Future<List<Map<String, dynamic>>> list(
-      {required String table,
+      {required PostgreSQLExecutionContext context,
+      required String table,
       List<String>? attributes,
       List<String>? agregationMethods,
       int? limit,
@@ -105,6 +122,7 @@ class PostgresqlDatabase implements Database {
       String? orderByAsc}) async {
     try {
       return await _connection.list(
+          context: context,
           limit: limit,
           where: where,
           table: table,

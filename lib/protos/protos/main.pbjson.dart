@@ -26,19 +26,12 @@ const CreateSignInRequest$json = const {
   '1': 'CreateSignInRequest',
   '2': const [
     const {'1': 'email', '3': 1, '4': 1, '5': 9, '10': 'email'},
-    const {'1': 'platform', '3': 2, '4': 1, '5': 9, '10': 'platform'},
-    const {'1': 'systemVersion', '3': 3, '4': 1, '5': 9, '10': 'systemVersion'},
-    const {'1': 'appVersion', '3': 4, '4': 1, '5': 9, '10': 'appVersion'},
-    const {'1': 'app', '3': 5, '4': 1, '5': 9, '10': 'app'},
-    const {'1': 'deviceId', '3': 6, '4': 1, '5': 9, '10': 'deviceId'},
-    const {'1': 'model', '3': 7, '4': 1, '5': 9, '10': 'model'},
-    const {'1': 'firebaseCloudMessagingId', '3': 8, '4': 1, '5': 9, '10': 'firebaseCloudMessagingId'},
-    const {'1': 'code', '3': 9, '4': 1, '5': 9, '10': 'code'},
+    const {'1': 'code', '3': 2, '4': 1, '5': 9, '10': 'code'},
   ],
 };
 
 /// Descriptor for `CreateSignInRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List createSignInRequestDescriptor = $convert.base64Decode('ChNDcmVhdGVTaWduSW5SZXF1ZXN0EhQKBWVtYWlsGAEgASgJUgVlbWFpbBIaCghwbGF0Zm9ybRgCIAEoCVIIcGxhdGZvcm0SJAoNc3lzdGVtVmVyc2lvbhgDIAEoCVINc3lzdGVtVmVyc2lvbhIeCgphcHBWZXJzaW9uGAQgASgJUgphcHBWZXJzaW9uEhAKA2FwcBgFIAEoCVIDYXBwEhoKCGRldmljZUlkGAYgASgJUghkZXZpY2VJZBIUCgVtb2RlbBgHIAEoCVIFbW9kZWwSOgoYZmlyZWJhc2VDbG91ZE1lc3NhZ2luZ0lkGAggASgJUhhmaXJlYmFzZUNsb3VkTWVzc2FnaW5nSWQSEgoEY29kZRgJIAEoCVIEY29kZQ==');
+final $typed_data.Uint8List createSignInRequestDescriptor = $convert.base64Decode('ChNDcmVhdGVTaWduSW5SZXF1ZXN0EhQKBWVtYWlsGAEgASgJUgVlbWFpbBISCgRjb2RlGAIgASgJUgRjb2Rl');
 @$core.Deprecated('Use createSignInResponseDescriptor instead')
 const CreateSignInResponse$json = const {
   '1': 'CreateSignInResponse',

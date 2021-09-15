@@ -1,5 +1,7 @@
+import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:api_grpc_dart/domain/repositories/verification_code_repository.dart';
 import 'package:api_grpc_dart/protos/google/protobuf/empty.pb.dart';
+import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 
@@ -12,14 +14,18 @@ class AuthenticationService extends AuthenticationServiceBase {
     late CreateVerificationCodeResponse response;
     VerificationCodeRepository verificationCodeRepository =
         GetIt.I<VerificationCodeRepository>();
-    final result =
-        await verificationCodeRepository.createVerificationCode(data: {
-      'type': request.type,
-      'email': request.email,
-      'deviceId': request.deviceId,
-      'createTime': DateTime.now(),
-      'updateTime': DateTime.now(),
-    }, paths: request.fieldMask.paths);
+    late Either<GrpcError, VerificationCode> result;
+    Database database = GetIt.I<Database>();
+    var connection = await database.getConnection();
+    await connection.transaction((context) async {
+      result = await verificationCodeRepository.createVerificationCode(data: {
+        'type': request.type,
+        'email': request.email,
+        'deviceId': request.deviceId,
+        'createTime': DateTime.now(),
+        'updateTime': DateTime.now(),
+      }, paths: request.fieldMask.paths, context: context);
+    });
     result.fold(
         (left) => {throw left},
         (right) => {
@@ -34,8 +40,13 @@ class AuthenticationService extends AuthenticationServiceBase {
     late ListVerificationCodeResponse response;
     VerificationCodeRepository verificationCodeRepository =
         GetIt.I<VerificationCodeRepository>();
-    final result = await verificationCodeRepository.listVerificationCode(
-        paths: request.fieldMask.paths);
+    late Either<GrpcError, Iterable<VerificationCode>> result;
+    Database database = GetIt.I<Database>();
+    var connection = await database.getConnection();
+    await connection.transaction((context) async {
+      result = await verificationCodeRepository.listVerificationCode(
+          paths: request.fieldMask.paths, context: context);
+    });
     result.fold(
         (left) => {throw left},
         (right) =>
@@ -49,8 +60,13 @@ class AuthenticationService extends AuthenticationServiceBase {
     late GetVerificationCodeResponse response;
     VerificationCodeRepository verificationCodeRepository =
         GetIt.I<VerificationCodeRepository>();
-    final result = await verificationCodeRepository.getVerificationCode(
-        id: request.id, paths: request.fieldMask.paths);
+    late Either<GrpcError, VerificationCode> result;
+    Database database = GetIt.I<Database>();
+    var connection = await database.getConnection();
+    await connection.transaction((context) async {
+      result = await verificationCodeRepository.getVerificationCode(
+          id: request.id, paths: request.fieldMask.paths, context: context);
+    });
     result.fold(
         (left) => {throw left},
         (right) =>
@@ -61,10 +77,15 @@ class AuthenticationService extends AuthenticationServiceBase {
   @override
   Future<Empty> deleteVerificationCode(
       ServiceCall call, DeleteVerificationCodeRequest request) async {
-    VerificationCodeRepository verificationCodeRepository =
-        GetIt.I<VerificationCodeRepository>();
     try {
-      await verificationCodeRepository.deleteVerificationCode(id: request.id);
+      VerificationCodeRepository verificationCodeRepository =
+          GetIt.I<VerificationCodeRepository>();
+      Database database = GetIt.I<Database>();
+      var connection = await database.getConnection();
+      await connection.transaction((context) async {
+        await verificationCodeRepository.deleteVerificationCode(
+            id: request.id, context: context);
+      });
       return Future.value(Empty());
     } catch (error) {
       rethrow;

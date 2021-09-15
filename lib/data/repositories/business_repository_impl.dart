@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:postgres/postgres.dart';
 
 import '../../core/error/exception.dart';
 import '../../domain/repositories/business_repository.dart';
@@ -15,10 +16,12 @@ class BusinessRepositoryImpl implements BusinessRepository {
 
   @override
   Future<Either<GrpcError, List<Business>>> listBusiness(
-      LatLng latLng, List<String> notIds) async {
+      {required PostgreSQLExecutionContext context,
+      required LatLng latLng,
+      required List<String> notIds}) async {
     try {
-      var response =
-          await localDataSource.listBusiness(latLng: latLng, notIds: notIds);
+      var response = await localDataSource.listBusiness(
+          latLng: latLng, notIds: notIds, context: context);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
