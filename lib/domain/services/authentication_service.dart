@@ -65,7 +65,9 @@ class AuthenticationService extends AuthenticationServiceBase {
     var connection = await database.getConnection();
     await connection.transaction((context) async {
       result = await verificationCodeRepository.getVerificationCode(
-          id: request.id, paths: request.fieldMask.paths, context: context);
+          data: {'id': request.id},
+          paths: request.fieldMask.paths,
+          context: context);
     });
     result.fold(
         (left) => {throw left},
@@ -83,8 +85,8 @@ class AuthenticationService extends AuthenticationServiceBase {
       Database database = GetIt.I<Database>();
       var connection = await database.getConnection();
       await connection.transaction((context) async {
-        await verificationCodeRepository.deleteVerificationCode(
-            id: request.id, context: context);
+        await verificationCodeRepository
+            .deleteVerificationCode(data: {'id': request.id}, context: context);
       });
       return Future.value(Empty());
     } catch (error) {
@@ -94,8 +96,12 @@ class AuthenticationService extends AuthenticationServiceBase {
 
   @override
   Future<CreateSignInResponse> createSignIn(
-      ServiceCall call, CreateSignInRequest request) {
-    // TODO: implement createSignIn
+      ServiceCall call, CreateSignInRequest request) async {
+    late CreateSignInResponse response;
+    Database database = GetIt.I<Database>();
+    var connection = await database.getConnection();
+    late Either<GrpcError, CreateSignInResponse> result;
+    await connection.transaction((context) async {});
     throw UnimplementedError();
   }
 }

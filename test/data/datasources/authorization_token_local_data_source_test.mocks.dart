@@ -2,11 +2,12 @@
 // in api_grpc_dart/test/data/datasources/authorization_token_local_data_source_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:api_grpc_dart/data/database/database.dart' as _i2;
+import 'package:api_grpc_dart/data/database/database.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:postgres_dao/where.dart' as _i4;
+import 'package:postgres/postgres.dart' as _i2;
+import 'package:postgres_dao/where.dart' as _i5;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -16,31 +17,42 @@ import 'package:postgres_dao/where.dart' as _i4;
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: unnecessary_parenthesis
 
+class _FakePostgreSQLConnection_0 extends _i1.Fake
+    implements _i2.PostgreSQLConnection {}
+
 /// A class which mocks [Database].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDatabase extends _i1.Mock implements _i2.Database {
+class MockDatabase extends _i1.Mock implements _i3.Database {
   MockDatabase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<bool> connect() =>
+  _i4.Future<bool> connect() =>
       (super.noSuchMethod(Invocation.method(#connect, []),
-          returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
+          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
   @override
   void close() => super.noSuchMethod(Invocation.method(#close, []),
       returnValueForMissingStub: null);
   @override
-  _i3.Future<List<Map<String, dynamic>>> list(
-          {String? table,
+  _i4.Future<_i2.PostgreSQLConnection> getConnection() =>
+      (super.noSuchMethod(Invocation.method(#getConnection, []),
+              returnValue: Future<_i2.PostgreSQLConnection>.value(
+                  _FakePostgreSQLConnection_0()))
+          as _i4.Future<_i2.PostgreSQLConnection>);
+  @override
+  _i4.Future<List<Map<String, dynamic>>> list(
+          {_i2.PostgreSQLExecutionContext? context,
+          String? table,
           List<String>? attributes,
           List<String>? agregationMethods,
           int? limit,
-          List<_i4.Where>? where,
+          List<_i5.Where>? where,
           String? orderByAsc}) =>
       (super.noSuchMethod(
               Invocation.method(#list, [], {
+                #context: context,
                 #table: table,
                 #attributes: attributes,
                 #agregationMethods: agregationMethods,
@@ -50,15 +62,17 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
               }),
               returnValue: Future<List<Map<String, dynamic>>>.value(
                   <Map<String, dynamic>>[]))
-          as _i3.Future<List<Map<String, dynamic>>>);
+          as _i4.Future<List<Map<String, dynamic>>>);
   @override
-  _i3.Future<Map<String, dynamic>> get(
-          {String? table,
+  _i4.Future<Map<String, dynamic>> get(
+          {_i2.PostgreSQLExecutionContext? context,
+          String? table,
           List<String>? attributes,
           List<String>? agregationMethods,
-          List<_i4.Where>? where}) =>
+          List<_i5.Where>? where}) =>
       (super.noSuchMethod(
               Invocation.method(#get, [], {
+                #context: context,
                 #table: table,
                 #attributes: attributes,
                 #agregationMethods: agregationMethods,
@@ -66,28 +80,39 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
               }),
               returnValue:
                   Future<Map<String, dynamic>>.value(<String, dynamic>{}))
-          as _i3.Future<Map<String, dynamic>>);
+          as _i4.Future<Map<String, dynamic>>);
   @override
-  _i3.Future<Map<String, dynamic>> create(
-          {String? table, Map<String, dynamic>? data, List<String>? paths}) =>
+  _i4.Future<Map<String, dynamic>> create(
+          {_i2.PostgreSQLExecutionContext? context,
+          String? table,
+          Map<String, dynamic>? data,
+          List<String>? paths}) =>
       (super.noSuchMethod(
-              Invocation.method(
-                  #create, [], {#table: table, #data: data, #paths: paths}),
+              Invocation.method(#create, [], {
+                #context: context,
+                #table: table,
+                #data: data,
+                #paths: paths
+              }),
               returnValue:
                   Future<Map<String, dynamic>>.value(<String, dynamic>{}))
-          as _i3.Future<Map<String, dynamic>>);
+          as _i4.Future<Map<String, dynamic>>);
   @override
-  _i3.Future<Map<String, dynamic>> update(dynamic object) =>
+  _i4.Future<Map<String, dynamic>> update(dynamic object) =>
       (super.noSuchMethod(Invocation.method(#update, [object]),
               returnValue:
                   Future<Map<String, dynamic>>.value(<String, dynamic>{}))
-          as _i3.Future<Map<String, dynamic>>);
+          as _i4.Future<Map<String, dynamic>>);
   @override
-  _i3.Future<void> delete({String? table, List<_i4.Where>? where}) =>
+  _i4.Future<void> delete(
+          {_i2.PostgreSQLExecutionContext? context,
+          String? table,
+          List<_i5.Where>? where}) =>
       (super.noSuchMethod(
-          Invocation.method(#delete, [], {#table: table, #where: where}),
+          Invocation.method(
+              #delete, [], {#context: context, #table: table, #where: where}),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
   String toString() => super.toString();
 }

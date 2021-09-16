@@ -1,8 +1,12 @@
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:api_grpc_dart/data/datasources/authorization_token_local_data_source.dart';
+import 'package:api_grpc_dart/injection_container.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:path/path.dart';
+import 'package:postgres/postgres.dart';
 import 'package:test/test.dart';
 
 import './authorization_token_local_data_source_test.mocks.dart';
@@ -11,10 +15,15 @@ import './authorization_token_local_data_source_test.mocks.dart';
 void main() {
   late AuthorizationTokenLocalDataSourceImpl localDataSource;
   late MockDatabase mockDatabase;
+  late Database database;
+  late PostgreSQLConnection connection;
 
-  setUp(() {
+  setUp(() async {
+    configureDependencies();
     mockDatabase = MockDatabase();
     localDataSource = AuthorizationTokenLocalDataSourceImpl(mockDatabase);
+    database = GetIt.I<Database>();
+    connection = await database.getConnection();
   });
 
   List<Map<String, Map<String, Object>>> databaseResult = [
@@ -60,7 +69,10 @@ void main() {
               where: anyNamed('where')))
           .thenAnswer((_) async => databaseResult);
       // act
-      final result = await localDataSource.listAuthorizationToken();
+      late List<AuthorizationToken> result;
+      await connection.transaction((context) async {
+        result = await localDataSource.listAuthorizationToken(context: context);
+      });
       // assert
       verify(mockDatabase.list(
           agregationMethods: anyNamed('agregationMethods'),

@@ -1,4 +1,5 @@
 import 'package:api_grpc_dart/core/error/exception.dart';
+import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart';
 import 'package:api_grpc_dart/data/repositories/verification_code_repository_impl.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
@@ -6,46 +7,123 @@ import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:postgres/postgres.dart';
 import 'package:test/test.dart';
 
 import './verification_code_repository_impl_test.mocks.dart';
 
-@GenerateMocks([VerificationCodeLocalDataSource])
+@GenerateMocks([
+  VerificationCodeLocalDataSource,
+  Database,
+  PostgreSQLConnection,
+  PostgreSQLExecutionContext
+])
 void main() {
   late MockVerificationCodeLocalDataSource mockVerificationCodeLocalDataSource;
-  late VerificationCodeRepositoryImpl businessRepositoryImpl;
+  late VerificationCodeRepositoryImpl verificationCodeRepositoryImpl;
+  late PostgreSQLConnection connection;
 
   VerificationCode verificationCode = VerificationCode(
       code: '432567',
       deviceId: '1',
       id: 'ashdk13721y3179kshad',
       type: VerificationCodeType.SIGN_IN);
+  late PostgreSQLExecutionContext ctx;
 
-  setUp(() {
+  setUp(() async {
+    connection = PostgreSQLConnection('192.168.1.3', 5432, 'postgres',
+        username: 'postgres', password: 'postgres');
+    await connection.open();
+    await connection.transaction((context) async {
+      ctx = context;
+    });
     mockVerificationCodeLocalDataSource = MockVerificationCodeLocalDataSource();
-    businessRepositoryImpl = VerificationCodeRepositoryImpl(
+    verificationCodeRepositoryImpl = VerificationCodeRepositoryImpl(
         localDataSource: mockVerificationCodeLocalDataSource);
   });
 
+  tearDown(() async {
+    await connection.close();
+  });
+
   group('testing createVerificationCode', () {
-    test('Return data successfully when everything is ok', () async {
+    test(
+        'Return data successfully when there is no verification codes generated before and everything is ok',
+        () async {
       // setup
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
+      late Either<GrpcError, VerificationCode> result;
+      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+              data: map, context: ctx))
+          .thenAnswer((_) async => []);
       when(mockVerificationCodeLocalDataSource.createVerificationCode(
-              data: map))
-          .thenAnswer((_) async => verificationCode);
+          data: map,
+          context: ctx,
+          paths: [])).thenAnswer((_) async => verificationCode);
       // side effects
-      final result =
-          await businessRepositoryImpl.createVerificationCode(data: map);
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
       // expectations
+      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+          data: map, context: ctx));
+      verifyNever(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+              data: map, context: ctx));
       verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(data: map));
-      verify(mockVerificationCodeLocalDataSource.createVerificationCode(
-          data: map));
+          .createVerificationCode(data: map, context: ctx, paths: []));
+      expect(result, Right(verificationCode));
+    });
+
+    test(
+        'Return data successfully when there is verification codes generated before and everything is ok',
+        () async {
+      // setup
+      Map<String, dynamic> map = {
+        'deviceId': '1',
+        'email': 'daniel@estudiantes.uci.cu',
+        'type': VerificationCodeType.SIGN_IN
+      };
+      late Either<GrpcError, VerificationCode> result;
+      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+              data: map, context: ctx))
+          .thenAnswer((_) async => [
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN),
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN)
+              ]);
+      when(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+        data: map,
+        context: ctx,
+      )).thenAnswer((_) async => Future.value(true));
+      when(mockVerificationCodeLocalDataSource.createVerificationCode(
+          data: map,
+          context: ctx,
+          paths: [])).thenAnswer((_) async => verificationCode);
+      // side effects
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+          data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+              data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource
+          .createVerificationCode(data: map, context: ctx, paths: []));
       expect(result, Right(verificationCode));
     });
 
@@ -58,9 +136,12 @@ void main() {
         'type': VerificationCodeType.SIGN_IN
       };
       // side effects
-      final result =
-          await businessRepositoryImpl.createVerificationCode(data: map);
+      late Either<GrpcError, VerificationCode> result;
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
       // expectations
+      verifyNever(mockVerificationCodeLocalDataSource
+          .listVerificationCodeReturnIds(data: map, context: ctx));
       verifyNever(mockVerificationCodeLocalDataSource
           .deleteVerificationCodeBeforeCreateVerificationCode(data: map));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
@@ -78,9 +159,12 @@ void main() {
         'type': VerificationCodeType.UNSPECIFIED
       };
       // side effects
-      final result =
-          await businessRepositoryImpl.createVerificationCode(data: map);
+      late Either<GrpcError, VerificationCode> result;
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
       // expectations
+      verifyNever(mockVerificationCodeLocalDataSource
+          .listVerificationCodeReturnIds(data: map, context: ctx));
       verifyNever(mockVerificationCodeLocalDataSource
           .deleteVerificationCodeBeforeCreateVerificationCode(data: map));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
@@ -89,7 +173,7 @@ void main() {
     });
 
     test(
-        'Return GrpcError.internal when throw DatabaseConnectionNotOpenException',
+        'Return GrpcError.internal when listVerificationCodeReturnIds throw DatabaseConnectionNotOpenException',
         () async {
       // setup
       Map<String, dynamic> map = {
@@ -97,22 +181,26 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      when(mockVerificationCodeLocalDataSource.createVerificationCode(
-              data: map))
-          .thenThrow(DatabaseConnectionNotOpenException());
+      late Either<GrpcError, VerificationCode> result;
       // side effects
-      final result =
-          await businessRepositoryImpl.createVerificationCode(data: map);
+      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+              data: map, context: ctx))
+          .thenThrow(DatabaseConnectionNotOpenException());
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(data: map));
-      verify(mockVerificationCodeLocalDataSource.createVerificationCode(
-          data: map));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+          data: map, context: ctx));
+      verifyNever(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+              data: map, context: ctx));
+      verifyNever(mockVerificationCodeLocalDataSource
+          .createVerificationCode(data: map, context: ctx, paths: []));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
     test(
-        'Return GrpcError.internal when throw DatabaseConnectionNotOpenException',
+        'Return GrpcError.internal when deleteVerificationCodeBeforeCreateVerificationCode throw DatabaseConnectionNotOpenException',
         () async {
       // setup
       Map<String, dynamic> map = {
@@ -120,21 +208,44 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      when(mockVerificationCodeLocalDataSource.createVerificationCode(
-              data: map))
-          .thenThrow(DatabaseConnectionNotOpenException());
+      late Either<GrpcError, VerificationCode> result;
       // side effects
-      final result =
-          await businessRepositoryImpl.createVerificationCode(data: map);
+      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+              data: map, context: ctx))
+          .thenAnswer((_) async => [
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN),
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN)
+              ]);
+      when(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+        data: map,
+        context: ctx,
+      )).thenThrow(DatabaseConnectionNotOpenException());
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
       // expectations
+      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+          data: map, context: ctx));
       verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(data: map));
-      verify(mockVerificationCodeLocalDataSource.createVerificationCode(
-          data: map));
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+              data: map, context: ctx));
+      verifyNever(mockVerificationCodeLocalDataSource
+          .createVerificationCode(data: map, context: ctx, paths: []));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
-    test('Return GrpcError.internal when throw DatabaseTableNotExistsException',
+    test(
+        'Return GrpcError.internal when createVerificationCode throw DatabaseConnectionNotOpenException',
         () async {
       // setup
       Map<String, dynamic> map = {
@@ -142,38 +253,533 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
+      late Either<GrpcError, VerificationCode> result;
+      // side effects
+      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+              data: map, context: ctx))
+          .thenAnswer((_) async => [
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN),
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN)
+              ]);
+      when(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+        data: map,
+        context: ctx,
+      )).thenAnswer((_) async => Future.value(true));
       when(mockVerificationCodeLocalDataSource.createVerificationCode(
-              data: map))
+          data: map,
+          context: ctx,
+          paths: [])).thenThrow(DatabaseConnectionNotOpenException());
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+          data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+              data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource
+          .createVerificationCode(data: map, context: ctx, paths: []));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+
+    test(
+        'Return GrpcError.internal when createVerificationCode throw DatabaseTableNotExistsException',
+        () async {
+      // setup
+      Map<String, dynamic> map = {
+        'deviceId': '1',
+        'email': 'daniel@estudiantes.uci.cu',
+        'type': VerificationCodeType.SIGN_IN
+      };
+      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+              data: map, context: ctx))
+          .thenAnswer((_) async => [
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN),
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN)
+              ]);
+      when(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+        data: map,
+        context: ctx,
+      )).thenAnswer((_) async => Future.value(true));
+      when(mockVerificationCodeLocalDataSource.createVerificationCode(
+          data: map,
+          context: ctx,
+          paths: [])).thenThrow(DatabaseTableNotExistsException());
+      // side effects
+      late Either<GrpcError, VerificationCode> result;
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+          data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+              data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource
+          .createVerificationCode(data: map, context: ctx, paths: []));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+
+    test(
+        'Return GrpcError.internal when listVerificationCodeReturnIds throw DatabaseTableNotExistsException',
+        () async {
+      // setup
+      Map<String, dynamic> map = {
+        'deviceId': '1',
+        'email': 'daniel@estudiantes.uci.cu',
+        'type': VerificationCodeType.SIGN_IN
+      };
+      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+              data: map, context: ctx))
           .thenThrow(DatabaseTableNotExistsException());
       // side effects
-      final result =
-          await businessRepositoryImpl.createVerificationCode(data: map);
+      late Either<GrpcError, VerificationCode> result;
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(data: map));
-      verify(mockVerificationCodeLocalDataSource.createVerificationCode(
-          data: map));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+          data: map, context: ctx));
+      verifyNever(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+              data: map, context: ctx));
+      verifyNever(mockVerificationCodeLocalDataSource
+          .createVerificationCode(data: map, context: ctx, paths: []));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
-    test('Return GrpcError.internal when throw any Exception', () async {
+    test(
+        'Return GrpcError.internal when deleteVerificationCodeBeforeCreateVerificationCode throw DatabaseTableNotExistsException',
+        () async {
       // setup
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
+      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+              data: map, context: ctx))
+          .thenAnswer((_) async => [
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN),
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN)
+              ]);
+      when(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+        data: map,
+        context: ctx,
+      )).thenThrow(DatabaseTableNotExistsException());
+      // side effects
+      late Either<GrpcError, VerificationCode> result;
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+          data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+              data: map, context: ctx));
+      verifyNever(mockVerificationCodeLocalDataSource
+          .createVerificationCode(data: map, context: ctx, paths: []));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+
+    test(
+        'Return GrpcError.internal when createVerificationCode throw any Exception',
+        () async {
+      // setup
+      Map<String, dynamic> map = {
+        'deviceId': '1',
+        'email': 'daniel@estudiantes.uci.cu',
+        'type': VerificationCodeType.SIGN_IN
+      };
+      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+              data: map, context: ctx))
+          .thenAnswer((_) async => [
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN),
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN)
+              ]);
+      when(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+        data: map,
+        context: ctx,
+      )).thenAnswer((_) async => Future.value(true));
       when(mockVerificationCodeLocalDataSource.createVerificationCode(
-              data: map))
+          data: map, context: ctx, paths: [])).thenThrow(Exception());
+      // side effects
+      late Either<GrpcError, VerificationCode> result;
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+          data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+              data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource
+          .createVerificationCode(data: map, context: ctx, paths: []));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+
+    test(
+        'Return GrpcError.internal when listVerificationCodeReturnIds throw any Exception',
+        () async {
+      // setup
+      Map<String, dynamic> map = {
+        'deviceId': '1',
+        'email': 'daniel@estudiantes.uci.cu',
+        'type': VerificationCodeType.SIGN_IN
+      };
+      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+              data: map, context: ctx))
           .thenThrow(Exception());
       // side effects
-      final result =
-          await businessRepositoryImpl.createVerificationCode(data: map);
+      late Either<GrpcError, VerificationCode> result;
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+          data: map, context: ctx));
+      verifyNever(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+              data: map, context: ctx));
+      verifyNever(mockVerificationCodeLocalDataSource
+          .createVerificationCode(data: map, context: ctx, paths: []));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+
+    test(
+        'Return GrpcError.internal when deleteVerificationCodeBeforeCreateVerificationCode throw any Exception',
+        () async {
+      // setup
+      Map<String, dynamic> map = {
+        'deviceId': '1',
+        'email': 'daniel@estudiantes.uci.cu',
+        'type': VerificationCodeType.SIGN_IN
+      };
+      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+              data: map, context: ctx))
+          .thenAnswer((_) async => [
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN),
+                VerificationCode(
+                    code: '1',
+                    deviceId: '1',
+                    email: '1',
+                    id: '1',
+                    type: VerificationCodeType.SIGN_IN)
+              ]);
+      when(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+        data: map,
+        context: ctx,
+      )).thenThrow(Exception());
+      // side effects
+      late Either<GrpcError, VerificationCode> result;
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+          data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource
+          .deleteVerificationCodeBeforeCreateVerificationCode(
+              data: map, context: ctx));
+      verifyNever(mockVerificationCodeLocalDataSource
+          .createVerificationCode(data: map, context: ctx, paths: []));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+  });
+
+  group('testing listVerificationCode', () {
+    test('Return data successfully when everything is ok', () async {
+      // setup
+      List<VerificationCode> listOfVerificationCode = [
+        VerificationCode(
+            code: '1',
+            deviceId: '1',
+            email: '1',
+            id: '1',
+            type: VerificationCodeType.SIGN_IN),
+        VerificationCode(
+            code: '1',
+            deviceId: '1',
+            email: '1',
+            id: '1',
+            type: VerificationCodeType.SIGN_IN)
+      ];
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+          context: ctx,
+          paths: [])).thenAnswer((_) async => listOfVerificationCode);
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .listVerificationCode(context: ctx, paths: []);
       // expectations
       verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(data: map));
-      verify(mockVerificationCodeLocalDataSource.createVerificationCode(
-          data: map));
+          .listVerificationCode(context: ctx, paths: []));
+      expect(result, Right(listOfVerificationCode));
+    });
+    test(
+        'Return a empty list of data successfully when not exists verification codes',
+        () async {
+      // setup
+      List<VerificationCode> listOfVerificationCode = [];
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+          context: ctx,
+          paths: [])).thenAnswer((_) async => listOfVerificationCode);
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .listVerificationCode(context: ctx, paths: []);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource
+          .listVerificationCode(context: ctx, paths: []));
+      expect(result, Right(listOfVerificationCode));
+    });
+    test(
+        'Return GrpcError.internal when listVerificationCode throw any Exception',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+          context: ctx, paths: [])).thenThrow(Exception());
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .listVerificationCode(context: ctx, paths: []);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource
+          .listVerificationCode(context: ctx, paths: []));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+    test(
+        'Return GrpcError.internal when listVerificationCode throw DatabaseTableNotExistsException',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+          context: ctx,
+          paths: [])).thenThrow(DatabaseTableNotExistsException());
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .listVerificationCode(context: ctx, paths: []);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource
+          .listVerificationCode(context: ctx, paths: []));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+    test(
+        'Return GrpcError.internal when listVerificationCode throw DatabaseConnectionNotOpenException',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+          context: ctx,
+          paths: [])).thenThrow(DatabaseConnectionNotOpenException());
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .listVerificationCode(context: ctx, paths: []);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource
+          .listVerificationCode(context: ctx, paths: []));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+  });
+  group('testing getVerificationCode', () {
+    test(
+        'Return data successfully when everything is ok and exists a verificationCode with the provided id',
+        () async {
+      // setup
+      VerificationCode verificationCode = VerificationCode(
+          code: '1',
+          deviceId: '1',
+          email: '1',
+          id: '1',
+          type: VerificationCodeType.SIGN_IN);
+      when(mockVerificationCodeLocalDataSource.getVerificationCode(
+          id: '1',
+          context: ctx,
+          paths: [])).thenAnswer((_) async => verificationCode);
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .getVerificationCode(id: '1', context: ctx, paths: []);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource
+          .getVerificationCode(id: '1', context: ctx, paths: []));
+      expect(result, Right(verificationCode));
+    });
+    test(
+        'Return GrpcError.notFound when everything is ok and dosnt exists a verificationCode with the provided id',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource.getVerificationCode(
+          id: '1',
+          context: ctx,
+          paths: [])).thenThrow(GrpcError.notFound('Not found'));
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .getVerificationCode(id: '1', context: ctx, paths: []);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource
+          .getVerificationCode(id: '1', context: ctx, paths: []));
+      expect(result, Left(GrpcError.notFound('Not found')));
+    });
+    test(
+        'Return GrpcError.internal when getVerificationCode throw DatabaseConnectionNotOpenException',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource.getVerificationCode(
+              context: ctx, paths: [], id: '1'))
+          .thenThrow(DatabaseConnectionNotOpenException());
+      // side effects
+      final result = await verificationCodeRepositoryImpl.getVerificationCode(
+          context: ctx, paths: [], id: '1');
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
+          context: ctx, paths: [], id: '1'));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+    test(
+        'Return GrpcError.internal when getVerificationCode throw DatabaseTableNotExistsException',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource.getVerificationCode(
+              context: ctx, paths: [], id: '1'))
+          .thenThrow(DatabaseTableNotExistsException());
+      // side effects
+      final result = await verificationCodeRepositoryImpl.getVerificationCode(
+          context: ctx, paths: [], id: '1');
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
+          context: ctx, paths: [], id: '1'));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+    test('Return GrpcError.internal when getVerificationCode throw Exception',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource.getVerificationCode(
+              context: ctx, paths: [], id: '1'))
+          .thenThrow(Exception());
+      // side effects
+      final result = await verificationCodeRepositoryImpl.getVerificationCode(
+          context: ctx, paths: [], id: '1');
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
+          context: ctx, paths: [], id: '1'));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+  });
+  group('testing deleteVerificationCode', () {
+    test(
+        'Delete data successfully when everything is ok and exists a deleteVerificationCode with the provided id',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource
+              .deleteVerificationCode(data: {'id': '1'}, context: ctx))
+          .thenAnswer((_) async => verificationCode);
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .deleteVerificationCode(id: '1', context: ctx);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource
+          .deleteVerificationCode(data: {'id': '1'}, context: ctx));
+      expect(result, Right(null));
+    });
+    test(
+        'Return GrpcError.notFound when everything is ok and dosnt exists a deleteVerificationCode with the provided id',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource
+              .deleteVerificationCode(data: {'id': '1'}, context: ctx))
+          .thenThrow(GrpcError.notFound('Not found'));
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .deleteVerificationCode(id: '1', context: ctx);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource
+          .deleteVerificationCode(data: {'id': '1'}, context: ctx));
+      expect(result, Left(GrpcError.notFound('Not found')));
+    });
+    test(
+        'Return GrpcError.internal when deleteVerificationCode throw DatabaseConnectionNotOpenException',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          context: ctx,
+          data: {'id': '1'})).thenThrow(DatabaseConnectionNotOpenException());
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .deleteVerificationCode(context: ctx, id: '1');
+      // expectations
+      verify(mockVerificationCodeLocalDataSource
+          .deleteVerificationCode(context: ctx, data: {'id': '1'}));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+    test(
+        'Return GrpcError.internal when deleteVerificationCode throw DatabaseTableNotExistsException',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          context: ctx,
+          data: {'id': '1'})).thenThrow(DatabaseTableNotExistsException());
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .deleteVerificationCode(context: ctx, id: '1');
+      // expectations
+      verify(mockVerificationCodeLocalDataSource
+          .deleteVerificationCode(context: ctx, data: {'id': '1'}));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+    test(
+        'Return GrpcError.internal when deleteVerificationCode throw Exception',
+        () async {
+      // setup
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          context: ctx, data: {'id': '1'})).thenThrow(Exception());
+      // side effects
+      final result = await verificationCodeRepositoryImpl
+          .deleteVerificationCode(context: ctx, id: '1');
+      // expectations
+      verify(mockVerificationCodeLocalDataSource
+          .deleteVerificationCode(context: ctx, data: {'id': '1'}));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });

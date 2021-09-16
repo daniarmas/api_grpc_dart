@@ -1,11 +1,10 @@
+import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
-import 'package:path/path.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';
 
 import '../../protos/protos/main.pb.dart';
-import '../../core/utils/string_utils.dart';
 
 // ignore: one_member_abstracts
 abstract class VerificationCodeLocalDataSource {
@@ -23,7 +22,7 @@ abstract class VerificationCodeLocalDataSource {
 
   Future<VerificationCode> getVerificationCode(
       {required PostgreSQLExecutionContext context,
-      required String id,
+      required Map<String, dynamic> data,
       required List<String> paths});
   Future<void> deleteVerificationCode(
       {required PostgreSQLExecutionContext context,
@@ -117,14 +116,14 @@ class VerificationCodeLocalDataSourceImpl
   @override
   Future<VerificationCode> getVerificationCode(
       {required PostgreSQLExecutionContext context,
-      required String id,
+      required Map<String, dynamic> data,
       required List<String> paths}) async {
     try {
       final result = await _database.get(
           context: context,
           table: 'VerificationCode',
           where: [
-            WhereNormalAttribute(key: 'id', value: id),
+            WhereNormalAttribute(key: 'id', value: data['id']),
           ],
           attributes: paths);
       return VerificationCode(

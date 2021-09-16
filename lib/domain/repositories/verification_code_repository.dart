@@ -15,8 +15,10 @@ abstract class VerificationCodeRepository {
       required List<String> paths});
   Future<Either<GrpcError, VerificationCode>> getVerificationCode(
       {required PostgreSQLExecutionContext context,
-      required String id,
+      required Map<String, dynamic> data,
       required List<String> paths});
-  Future<Either<GrpcError, void>> deleteVerificationCode(
-      {required PostgreSQLExecutionContext context, required String id});
+  Future<Either<GrpcError, void>> deleteVerificationCode({
+    required PostgreSQLExecutionContext context,
+    required Map<String, dynamic> data,
+  });
 }
