@@ -4,7 +4,6 @@ import 'package:postgres/postgres.dart';
 
 import '../../protos/protos/main.pb.dart';
 
-// ignore: one_member_abstracts
 abstract class VerificationCodeRepository {
   Future<Either<GrpcError, VerificationCode>> createVerificationCode(
       {required PostgreSQLExecutionContext context,

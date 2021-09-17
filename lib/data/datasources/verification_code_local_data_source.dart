@@ -99,10 +99,7 @@ class VerificationCodeLocalDataSourceImpl
           attributes: [
             'id',
           ],
-          where: [
-            WhereNormalAttribute(key: 'type', value: data['type']),
-            WhereNormalAttribute(key: 'deviceId', value: data['deviceId'])
-          ],
+          where: getWhereNormalAttributeList(data),
           limit: 100);
       for (var e in result) {
         response.add(VerificationCode(id: e['VerificationCode']['id']));
@@ -142,9 +139,10 @@ class VerificationCodeLocalDataSourceImpl
       required Map<String, dynamic> data}) async {
     try {
       await _database.delete(
-          context: context,
-          table: 'VerificationCode',
-          where: [WhereNormalAttribute(key: 'id', value: data['id'])]);
+        context: context,
+        table: 'VerificationCode',
+        where: getWhereNormalAttributeList(data),
+      );
     } catch (error) {
       rethrow;
     }
@@ -155,11 +153,11 @@ class VerificationCodeLocalDataSourceImpl
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data}) async {
     try {
-      await _database
-          .delete(context: context, table: 'VerificationCode', where: [
-        WhereNormalAttribute(key: 'type', value: data['type']),
-        WhereNormalAttribute(key: 'deviceId', value: data['deviceId'])
-      ]);
+      await _database.delete(
+        context: context,
+        table: 'VerificationCode',
+        where: getWhereNormalAttributeList(data),
+      );
       return true;
     } catch (error) {
       rethrow;

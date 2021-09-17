@@ -27,11 +27,18 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
       } else {
         final verificationCodeListResponse = await localDataSource
-            .listVerificationCodeReturnIds(data: data, context: context);
+            .listVerificationCodeReturnIds(data: {
+          'email': data['email'],
+          'type': data['type'],
+          'deviceId': data['deviceId']
+        }, context: context);
         if (verificationCodeListResponse.isNotEmpty) {
           await localDataSource
-              .deleteVerificationCodeBeforeCreateVerificationCode(
-                  data: data, context: context);
+              .deleteVerificationCodeBeforeCreateVerificationCode(data: {
+            'email': data['email'],
+            'type': data['type'],
+            'deviceId': data['deviceId']
+          }, context: context);
         }
         final response = await localDataSource.createVerificationCode(
             data: data, paths: paths, context: context);
