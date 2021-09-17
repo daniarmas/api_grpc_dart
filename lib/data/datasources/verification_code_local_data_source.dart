@@ -6,7 +6,6 @@ import 'package:postgres_dao/postgres_dao.dart';
 
 import '../../protos/protos/main.pb.dart';
 
-// ignore: one_member_abstracts
 abstract class VerificationCodeLocalDataSource {
   Future<VerificationCode> createVerificationCode(
       {required PostgreSQLExecutionContext context,
