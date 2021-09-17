@@ -10,7 +10,7 @@ import 'package:api_grpc_dart/data/datasources/verification_code_local_data_sour
 import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:postgres/postgres.dart' as _i3;
-import 'package:postgres_dao/where.dart' as _i7;
+import 'package:postgres_dao/postgres_dao.dart' as _i7;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters

@@ -8,7 +8,6 @@ import 'package:shutdown/shutdown.dart' as shutdown;
 
 import 'data/database/database.dart';
 import 'domain/services/authentication_service.dart';
-import 'domain/services/business_service.dart';
 import 'domain/services/health_service.dart';
 import 'domain/services/hostname_service.dart';
 import 'environment.dart';
@@ -21,7 +20,6 @@ class Server {
     await _database.connect().then((value) async {
       if (value) {
         final server = grpc.Server([
-          BusinessService(),
           AuthenticationService(),
           HealthService(),
           HostnameService()
