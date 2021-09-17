@@ -635,15 +635,15 @@ void main() {
           id: '1',
           type: VerificationCodeType.SIGN_IN);
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
-          id: '1',
+          data: {'id': '1'},
           context: ctx,
           paths: [])).thenAnswer((_) async => verificationCode);
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .getVerificationCode(id: '1', context: ctx, paths: []);
+      final result = await verificationCodeRepositoryImpl.getVerificationCode(
+          data: {'id': '1'}, context: ctx, paths: []);
       // expectations
-      verify(mockVerificationCodeLocalDataSource
-          .getVerificationCode(id: '1', context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
+          data: {'id': '1'}, context: ctx, paths: []));
       expect(result, Right(verificationCode));
     });
     test(
@@ -651,15 +651,15 @@ void main() {
         () async {
       // setup
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
-          id: '1',
+          data: {'id': '1'},
           context: ctx,
           paths: [])).thenThrow(GrpcError.notFound('Not found'));
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .getVerificationCode(id: '1', context: ctx, paths: []);
+      final result = await verificationCodeRepositoryImpl.getVerificationCode(
+          data: {'id': '1'}, context: ctx, paths: []);
       // expectations
-      verify(mockVerificationCodeLocalDataSource
-          .getVerificationCode(id: '1', context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
+          data: {'id': '1'}, context: ctx, paths: []));
       expect(result, Left(GrpcError.notFound('Not found')));
     });
     test(
@@ -667,14 +667,15 @@ void main() {
         () async {
       // setup
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
-              context: ctx, paths: [], id: '1'))
-          .thenThrow(DatabaseConnectionNotOpenException());
+          context: ctx,
+          paths: [],
+          data: {'id': '1'})).thenThrow(DatabaseConnectionNotOpenException());
       // side effects
-      final result = await verificationCodeRepositoryImpl.getVerificationCode(
-          context: ctx, paths: [], id: '1');
+      final result = await verificationCodeRepositoryImpl
+          .getVerificationCode(context: ctx, paths: [], data: {'id': '1'});
       // expectations
-      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
-          context: ctx, paths: [], id: '1'));
+      verify(mockVerificationCodeLocalDataSource
+          .getVerificationCode(context: ctx, paths: [], data: {'id': '1'}));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
     test(
@@ -682,28 +683,28 @@ void main() {
         () async {
       // setup
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
-              context: ctx, paths: [], id: '1'))
-          .thenThrow(DatabaseTableNotExistsException());
+          context: ctx,
+          paths: [],
+          data: {'id': '1'})).thenThrow(DatabaseTableNotExistsException());
       // side effects
-      final result = await verificationCodeRepositoryImpl.getVerificationCode(
-          context: ctx, paths: [], id: '1');
+      final result = await verificationCodeRepositoryImpl
+          .getVerificationCode(context: ctx, paths: [], data: {'id': '1'});
       // expectations
-      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
-          context: ctx, paths: [], id: '1'));
+      verify(mockVerificationCodeLocalDataSource
+          .getVerificationCode(context: ctx, paths: [], data: {'id': '1'}));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
     test('Return GrpcError.internal when getVerificationCode throw Exception',
         () async {
       // setup
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
-              context: ctx, paths: [], id: '1'))
-          .thenThrow(Exception());
+          context: ctx, paths: [], data: {'id': '1'})).thenThrow(Exception());
       // side effects
-      final result = await verificationCodeRepositoryImpl.getVerificationCode(
-          context: ctx, paths: [], id: '1');
+      final result = await verificationCodeRepositoryImpl
+          .getVerificationCode(context: ctx, paths: [], data: {'id': '1'});
       // expectations
-      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
-          context: ctx, paths: [], id: '1'));
+      verify(mockVerificationCodeLocalDataSource
+          .getVerificationCode(context: ctx, paths: [], data: {'id': '1'}));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });
@@ -717,7 +718,7 @@ void main() {
           .thenAnswer((_) async => verificationCode);
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .deleteVerificationCode(id: '1', context: ctx);
+          .deleteVerificationCode(data: {'id': '1'}, context: ctx);
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .deleteVerificationCode(data: {'id': '1'}, context: ctx));
@@ -732,7 +733,7 @@ void main() {
           .thenThrow(GrpcError.notFound('Not found'));
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .deleteVerificationCode(id: '1', context: ctx);
+          .deleteVerificationCode(data: {'id': '1'}, context: ctx);
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .deleteVerificationCode(data: {'id': '1'}, context: ctx));
@@ -747,7 +748,7 @@ void main() {
           data: {'id': '1'})).thenThrow(DatabaseConnectionNotOpenException());
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .deleteVerificationCode(context: ctx, id: '1');
+          .deleteVerificationCode(context: ctx, data: {'id': '1'});
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .deleteVerificationCode(context: ctx, data: {'id': '1'}));
@@ -762,7 +763,7 @@ void main() {
           data: {'id': '1'})).thenThrow(DatabaseTableNotExistsException());
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .deleteVerificationCode(context: ctx, id: '1');
+          .deleteVerificationCode(context: ctx, data: {'id': '1'});
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .deleteVerificationCode(context: ctx, data: {'id': '1'}));
@@ -776,7 +777,7 @@ void main() {
           context: ctx, data: {'id': '1'})).thenThrow(Exception());
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .deleteVerificationCode(context: ctx, id: '1');
+          .deleteVerificationCode(context: ctx, data: {'id': '1'});
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .deleteVerificationCode(context: ctx, data: {'id': '1'}));

@@ -71,11 +71,11 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
   @override
   _i5.Future<_i2.VerificationCode> getVerificationCode(
           {_i3.PostgreSQLExecutionContext? context,
-          String? id,
+          Map<String, dynamic>? data,
           List<String>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#getVerificationCode, [],
-                  {#context: context, #id: id, #paths: paths}),
+                  {#context: context, #data: data, #paths: paths}),
               returnValue:
                   Future<_i2.VerificationCode>.value(_FakeVerificationCode_0()))
           as _i5.Future<_i2.VerificationCode>);
