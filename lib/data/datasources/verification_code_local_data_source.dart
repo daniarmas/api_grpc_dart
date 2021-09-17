@@ -2,7 +2,7 @@ import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
-import 'package:postgres_dao/where_normal_attribute.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 
 import '../../protos/protos/main.pb.dart';
 
@@ -122,9 +122,7 @@ class VerificationCodeLocalDataSourceImpl
       final result = await _database.get(
           context: context,
           table: 'VerificationCode',
-          where: [
-            WhereNormalAttribute(key: 'id', value: data['id']),
-          ],
+          where: getWhereNormalAttributeList(data),
           attributes: paths);
       return VerificationCode(
           id: result['VerificationCode']['id'],
