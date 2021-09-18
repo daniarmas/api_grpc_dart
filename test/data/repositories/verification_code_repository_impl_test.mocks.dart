@@ -51,20 +51,12 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
           as _i5.Future<_i2.VerificationCode>);
   @override
   _i5.Future<List<_i2.VerificationCode>> listVerificationCode(
-          {_i3.PostgreSQLExecutionContext? context, List<String>? paths}) =>
-      (super.noSuchMethod(
-          Invocation.method(
-              #listVerificationCode, [], {#context: context, #paths: paths}),
-          returnValue: Future<List<_i2.VerificationCode>>.value(
-              <_i2.VerificationCode>[])) as _i5
-          .Future<List<_i2.VerificationCode>>);
-  @override
-  _i5.Future<List<_i2.VerificationCode>> listVerificationCodeReturnIds(
           {_i3.PostgreSQLExecutionContext? context,
+          List<String>? paths,
           Map<String, dynamic>? data}) =>
       (super.noSuchMethod(
-              Invocation.method(#listVerificationCodeReturnIds, [],
-                  {#context: context, #data: data}),
+              Invocation.method(#listVerificationCode, [],
+                  {#context: context, #paths: paths, #data: data}),
               returnValue: Future<List<_i2.VerificationCode>>.value(
                   <_i2.VerificationCode>[]))
           as _i5.Future<List<_i2.VerificationCode>>);
@@ -88,14 +80,6 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
               #deleteVerificationCode, [], {#context: context, #data: data}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
-  @override
-  _i5.Future<bool> deleteVerificationCodeBeforeCreateVerificationCode(
-          {_i3.PostgreSQLExecutionContext? context,
-          Map<String, dynamic>? data}) =>
-      (super.noSuchMethod(
-          Invocation.method(#deleteVerificationCodeBeforeCreateVerificationCode,
-              [], {#context: context, #data: data}),
-          returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
   @override
   String toString() => super.toString();
 }
@@ -126,18 +110,18 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
           {_i3.PostgreSQLExecutionContext? context,
           String? table,
           List<String>? attributes,
+          List<_i7.Where>? where,
           List<String>? agregationMethods,
           int? limit,
-          List<_i7.Where>? where,
           String? orderByAsc}) =>
       (super.noSuchMethod(
               Invocation.method(#list, [], {
                 #context: context,
                 #table: table,
                 #attributes: attributes,
+                #where: where,
                 #agregationMethods: agregationMethods,
                 #limit: limit,
-                #where: where,
                 #orderByAsc: orderByAsc
               }),
               returnValue: Future<List<Map<String, dynamic>>>.value(
@@ -148,15 +132,15 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
           {_i3.PostgreSQLExecutionContext? context,
           String? table,
           List<String>? attributes,
-          List<String>? agregationMethods,
-          List<_i7.Where>? where}) =>
+          List<_i7.Where>? where,
+          List<String>? agregationMethods}) =>
       (super.noSuchMethod(
               Invocation.method(#get, [], {
                 #context: context,
                 #table: table,
                 #attributes: attributes,
-                #agregationMethods: agregationMethods,
-                #where: where
+                #where: where,
+                #agregationMethods: agregationMethods
               }),
               returnValue:
                   Future<Map<String, dynamic>>.value(<String, dynamic>{}))
@@ -166,13 +150,13 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
           {_i3.PostgreSQLExecutionContext? context,
           String? table,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<String>? attributes}) =>
       (super.noSuchMethod(
               Invocation.method(#create, [], {
                 #context: context,
                 #table: table,
                 #data: data,
-                #paths: paths
+                #attributes: attributes
               }),
               returnValue:
                   Future<Map<String, dynamic>>.value(<String, dynamic>{}))

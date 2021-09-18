@@ -57,8 +57,10 @@ void main() {
         'type': VerificationCodeType.SIGN_IN
       };
       late Either<GrpcError, VerificationCode> result;
-      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: map, context: ctx))
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
           .thenAnswer((_) async => []);
       when(mockVerificationCodeLocalDataSource.createVerificationCode(
               data: anyNamed('data'),
@@ -69,11 +71,12 @@ void main() {
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockVerificationCodeLocalDataSource.deleteVerificationCode(
           data: map, context: ctx));
-      verifyNever(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: map, context: ctx));
       verify(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
       expect(result, Right(verificationCode));
@@ -89,8 +92,10 @@ void main() {
         'type': VerificationCodeType.SIGN_IN
       };
       late Either<GrpcError, VerificationCode> result;
-      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')))
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
           .thenAnswer((_) async => [
                 VerificationCode(
                     code: '1',
@@ -105,11 +110,10 @@ void main() {
                     id: '1',
                     type: VerificationCodeType.SIGN_IN)
               ]);
-      when(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
         data: anyNamed('data'),
         context: anyNamed('context'),
-      )).thenAnswer((_) async => Future.value(true));
+      )).thenAnswer((_) async => Future.value(null));
       when(mockVerificationCodeLocalDataSource.createVerificationCode(
               data: anyNamed('data'),
               context: anyNamed('context'),
@@ -119,11 +123,12 @@ void main() {
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-          data: map, context: ctx));
-      verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
       verify(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
       expect(result, Right(verificationCode));
@@ -142,12 +147,10 @@ void main() {
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verifyNever(
-          mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')));
-      verifyNever(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: anyNamed('data')));
+      verifyNever(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verifyNever(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
       expect(result, Left(GrpcError.invalidArgument('Input `email` invalid')));
@@ -167,12 +170,10 @@ void main() {
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verifyNever(
-          mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')));
-      verifyNever(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: anyNamed('data')));
+      verifyNever(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verifyNever(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
       expect(result, Left(GrpcError.invalidArgument('Input `type` invalid')));
@@ -189,17 +190,20 @@ void main() {
       };
       late Either<GrpcError, VerificationCode> result;
       // side effects
-      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')))
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
           .thenThrow(DatabaseConnectionNotOpenException());
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockVerificationCodeLocalDataSource.deleteVerificationCode(
           data: map, context: ctx));
-      verifyNever(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: map, context: ctx));
       verifyNever(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
       expect(result, Left(GrpcError.internal('Internal server error')));
@@ -216,8 +220,10 @@ void main() {
       };
       late Either<GrpcError, VerificationCode> result;
       // side effects
-      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')))
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
           .thenAnswer((_) async => [
                 VerificationCode(
                     code: '1',
@@ -232,21 +238,23 @@ void main() {
                     id: '1',
                     type: VerificationCodeType.SIGN_IN)
               ]);
-      when(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
         data: anyNamed('data'),
         context: anyNamed('context'),
       )).thenThrow(DatabaseConnectionNotOpenException());
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-          data: map, context: ctx));
-      verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: map, context: ctx));
-      verifyNever(mockVerificationCodeLocalDataSource
-          .createVerificationCode(data: map, context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -261,8 +269,10 @@ void main() {
       };
       late Either<GrpcError, VerificationCode> result;
       // side effects
-      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')))
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
           .thenAnswer((_) async => [
                 VerificationCode(
                     code: '1',
@@ -277,11 +287,10 @@ void main() {
                     id: '1',
                     type: VerificationCodeType.SIGN_IN)
               ]);
-      when(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
         data: anyNamed('data'),
         context: anyNamed('context'),
-      )).thenAnswer((_) async => Future.value(true));
+      )).thenAnswer((_) async => Future.value(null));
       when(mockVerificationCodeLocalDataSource.createVerificationCode(
               data: anyNamed('data'),
               context: anyNamed('context'),
@@ -290,13 +299,16 @@ void main() {
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-          data: map, context: ctx));
-      verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: map, context: ctx));
-      verify(mockVerificationCodeLocalDataSource
-          .createVerificationCode(data: map, context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verify(mockVerificationCodeLocalDataSource.createVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -309,8 +321,10 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')))
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
           .thenAnswer((_) async => [
                 VerificationCode(
                     code: '1',
@@ -325,11 +339,10 @@ void main() {
                     id: '1',
                     type: VerificationCodeType.SIGN_IN)
               ]);
-      when(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
         data: anyNamed('data'),
         context: anyNamed('context'),
-      )).thenAnswer((_) async => Future.value(true));
+      )).thenAnswer((_) async => Future.value(null));
       when(mockVerificationCodeLocalDataSource.createVerificationCode(
               data: anyNamed('data'),
               context: anyNamed('context'),
@@ -340,11 +353,12 @@ void main() {
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-          data: map, context: ctx));
-      verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: map, context: ctx));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
       verify(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
       expect(result, Left(GrpcError.internal('Internal server error')));
@@ -359,21 +373,26 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')))
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
           .thenThrow(DatabaseTableNotExistsException());
       // side effects
       late Either<GrpcError, VerificationCode> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-          data: map, context: ctx));
-      verifyNever(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: map, context: ctx));
-      verifyNever(mockVerificationCodeLocalDataSource
-          .createVerificationCode(data: map, context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -386,8 +405,10 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')))
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
           .thenAnswer((_) async => [
                 VerificationCode(
                     code: '1',
@@ -402,8 +423,7 @@ void main() {
                     id: '1',
                     type: VerificationCodeType.SIGN_IN)
               ]);
-      when(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
         data: anyNamed('data'),
         context: anyNamed('context'),
       )).thenThrow(DatabaseTableNotExistsException());
@@ -412,13 +432,16 @@ void main() {
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-          data: map, context: ctx));
-      verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: map, context: ctx));
-      verifyNever(mockVerificationCodeLocalDataSource
-          .createVerificationCode(data: map, context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -431,8 +454,10 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')))
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
           .thenAnswer((_) async => [
                 VerificationCode(
                     code: '1',
@@ -447,11 +472,10 @@ void main() {
                     id: '1',
                     type: VerificationCodeType.SIGN_IN)
               ]);
-      when(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
         data: anyNamed('data'),
         context: anyNamed('context'),
-      )).thenAnswer((_) async => Future.value(true));
+      )).thenAnswer((_) async => Future.value(null));
       when(mockVerificationCodeLocalDataSource.createVerificationCode(
               data: anyNamed('data'),
               context: anyNamed('context'),
@@ -462,13 +486,16 @@ void main() {
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-          data: map, context: ctx));
-      verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: map, context: ctx));
-      verify(mockVerificationCodeLocalDataSource
-          .createVerificationCode(data: map, context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verify(mockVerificationCodeLocalDataSource.createVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -481,21 +508,26 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')))
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
           .thenThrow(Exception());
       // side effects
       late Either<GrpcError, VerificationCode> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-          data: map, context: ctx));
-      verifyNever(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: map, context: ctx));
-      verifyNever(mockVerificationCodeLocalDataSource
-          .createVerificationCode(data: map, context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -508,8 +540,10 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      when(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-              data: anyNamed('data'), context: anyNamed('context')))
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
           .thenAnswer((_) async => [
                 VerificationCode(
                     code: '1',
@@ -524,23 +558,24 @@ void main() {
                     id: '1',
                     type: VerificationCodeType.SIGN_IN)
               ]);
-      when(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-        data: anyNamed('data'),
-        context: anyNamed('context'),
-      )).thenThrow(Exception());
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+              data: anyNamed('data'), context: anyNamed('context')))
+          .thenThrow(Exception());
       // side effects
       late Either<GrpcError, VerificationCode> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx);
       // expectations
-      verify(mockVerificationCodeLocalDataSource.listVerificationCodeReturnIds(
-          data: map, context: ctx));
-      verify(mockVerificationCodeLocalDataSource
-          .deleteVerificationCodeBeforeCreateVerificationCode(
-              data: map, context: ctx));
-      verifyNever(mockVerificationCodeLocalDataSource
-          .createVerificationCode(data: map, context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });
@@ -562,14 +597,18 @@ void main() {
             type: VerificationCodeType.SIGN_IN)
       ];
       when(mockVerificationCodeLocalDataSource.listVerificationCode(
-              context: anyNamed('context'), paths: anyNamed('paths')))
+              context: anyNamed('context'),
+              paths: anyNamed('paths'),
+              data: anyNamed('data')))
           .thenAnswer((_) async => listOfVerificationCode);
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .listVerificationCode(context: ctx, paths: []);
+          .listVerificationCode(context: ctx, paths: [], data: {});
       // expectations
-      verify(mockVerificationCodeLocalDataSource
-          .listVerificationCode(context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          context: anyNamed('context'),
+          paths: anyNamed('paths'),
+          data: anyNamed('data')));
       expect(result, Right(listOfVerificationCode));
     });
     test(
@@ -578,14 +617,18 @@ void main() {
       // setup
       List<VerificationCode> listOfVerificationCode = [];
       when(mockVerificationCodeLocalDataSource.listVerificationCode(
-              context: anyNamed('context'), paths: anyNamed('paths')))
+              context: anyNamed('context'),
+              paths: anyNamed('paths'),
+              data: anyNamed('data')))
           .thenAnswer((_) async => listOfVerificationCode);
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .listVerificationCode(context: ctx, paths: []);
+          .listVerificationCode(context: ctx, paths: [], data: {});
       // expectations
-      verify(mockVerificationCodeLocalDataSource
-          .listVerificationCode(context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          context: anyNamed('context'),
+          paths: anyNamed('paths'),
+          data: anyNamed('data')));
       expect(result, Right(listOfVerificationCode));
     });
     test(
@@ -593,14 +636,18 @@ void main() {
         () async {
       // setup
       when(mockVerificationCodeLocalDataSource.listVerificationCode(
-              context: anyNamed('context'), paths: anyNamed('paths')))
+              context: anyNamed('context'),
+              paths: anyNamed('paths'),
+              data: anyNamed('data')))
           .thenThrow(Exception());
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .listVerificationCode(context: ctx, paths: []);
+          .listVerificationCode(context: ctx, paths: [], data: {});
       // expectations
-      verify(mockVerificationCodeLocalDataSource
-          .listVerificationCode(context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          context: anyNamed('context'),
+          paths: anyNamed('paths'),
+          data: anyNamed('data')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
     test(
@@ -608,14 +655,18 @@ void main() {
         () async {
       // setup
       when(mockVerificationCodeLocalDataSource.listVerificationCode(
-              context: anyNamed('context'), paths: anyNamed('paths')))
+              context: anyNamed('context'),
+              paths: anyNamed('paths'),
+              data: anyNamed('data')))
           .thenThrow(DatabaseTableNotExistsException());
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .listVerificationCode(context: ctx, paths: []);
+          .listVerificationCode(context: ctx, paths: [], data: {});
       // expectations
-      verify(mockVerificationCodeLocalDataSource
-          .listVerificationCode(context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          context: anyNamed('context'),
+          paths: anyNamed('paths'),
+          data: anyNamed('data')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
     test(
@@ -623,14 +674,18 @@ void main() {
         () async {
       // setup
       when(mockVerificationCodeLocalDataSource.listVerificationCode(
-              context: anyNamed('context'), paths: anyNamed('paths')))
+              context: anyNamed('context'),
+              paths: anyNamed('paths'),
+              data: anyNamed('data')))
           .thenThrow(DatabaseConnectionNotOpenException());
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .listVerificationCode(context: ctx, paths: []);
+          .listVerificationCode(context: ctx, paths: [], data: {});
       // expectations
-      verify(mockVerificationCodeLocalDataSource
-          .listVerificationCode(context: ctx, paths: []));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          context: anyNamed('context'),
+          paths: anyNamed('paths'),
+          data: anyNamed('data')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });
