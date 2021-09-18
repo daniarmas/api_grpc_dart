@@ -26,12 +26,15 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       } else if (!StringUtils.isEmail(data['email'])) {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
       } else {
-        final verificationCodeListResponse = await localDataSource
-            .listVerificationCodeReturnIds(data: {
-          'email': data['email'],
-          'type': data['type'],
-          'deviceId': data['deviceId']
-        }, context: context);
+        final verificationCodeListResponse =
+            await localDataSource.listVerificationCode(
+                data: {
+                  'email': data['email'],
+                  'type': data['type'],
+                  'deviceId': data['deviceId']
+                },
+                context: context,
+                paths: ['id']);
         if (verificationCodeListResponse.isNotEmpty) {
           await localDataSource.deleteVerificationCode(data: {
             'email': data['email'],
@@ -55,10 +58,11 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   @override
   Future<Either<GrpcError, Iterable<VerificationCode>>> listVerificationCode(
       {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
       required List<String> paths}) async {
     try {
       final response = await localDataSource.listVerificationCode(
-          paths: paths, context: context);
+          paths: paths, context: context, data: data);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));

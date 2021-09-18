@@ -2,7 +2,6 @@ import 'package:api_grpc_dart/core/error/exception.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:path/path.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/postgres_dao.dart';
 import 'package:postgres_dao/where.dart';
@@ -52,17 +51,16 @@ class PostgresqlDatabase implements Database {
       {required PostgreSQLExecutionContext context,
       required String table,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<String> attributes}) async {
     return await _connection.create(
-        table: table, data: data, paths: paths, context: context);
+        table: table, data: data, attributes: attributes, context: context);
   }
 
   @override
   Future<void> delete(
       {required PostgreSQLExecutionContext context,
       required String table,
-      required List<Where> where,
-      List<String>? attributes}) async {
+      required List<Where> where}) async {
     try {
       await _connection.delete(table: table, where: where, context: context);
     } catch (error) {
@@ -85,9 +83,9 @@ class PostgresqlDatabase implements Database {
   Future<Map<String, dynamic>> get(
       {required PostgreSQLExecutionContext context,
       required String table,
-      List<String>? attributes,
-      List<String>? agregationMethods,
-      List<Where>? where}) async {
+      required List<String> attributes,
+      required List<Where> where,
+      List<String>? agregationMethods}) async {
     try {
       return await _connection.get(
           context: context,
@@ -115,10 +113,10 @@ class PostgresqlDatabase implements Database {
   Future<List<Map<String, dynamic>>> list(
       {required PostgreSQLExecutionContext context,
       required String table,
-      List<String>? attributes,
+      required List<Where> where,
+      required List<String> attributes,
       List<String>? agregationMethods,
       int? limit,
-      List<Where>? where,
       String? orderByAsc}) async {
     try {
       return await _connection.list(

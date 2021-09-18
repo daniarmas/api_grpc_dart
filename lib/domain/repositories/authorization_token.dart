@@ -11,15 +11,15 @@ abstract class AuthorizationTokenRepository {
       required Map<String, dynamic> data,
       required List<String> paths});
   Future<Either<GrpcError, Iterable<AuthorizationToken>>>
-      listAuthorizationToken({
-    required PostgreSQLExecutionContext context,
-  });
-  Future<Either<GrpcError, AuthorizationToken>> getAuthorizationToken({
-    required String id,
-    required PostgreSQLExecutionContext context,
-  });
-  Future<Either<GrpcError, void>> deleteAuthorizationToken({
-    required String id,
-    required PostgreSQLExecutionContext context,
-  });
+      listAuthorizationToken(
+          {required PostgreSQLExecutionContext context,
+          required Map<String, dynamic> data,
+          required List<String> paths});
+  Future<Either<GrpcError, AuthorizationToken>> getAuthorizationToken(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths});
+  Future<Either<GrpcError, void>> deleteAuthorizationToken(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data});
 }

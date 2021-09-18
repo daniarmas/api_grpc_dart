@@ -1,6 +1,7 @@
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/get_where_list.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';
 
 import '../../protos/protos/main.pb.dart';
@@ -11,13 +12,17 @@ abstract class AuthorizationTokenLocalDataSource {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths});
-  Future<List<AuthorizationToken>> listAuthorizationToken({
-    required PostgreSQLExecutionContext context,
-  });
+  Future<List<AuthorizationToken>> listAuthorizationToken(
+      {required PostgreSQLExecutionContext context,
+      required List<String> paths,
+      required Map<String, dynamic> data});
   Future<AuthorizationToken> getAuthorizationToken(
-      {required PostgreSQLExecutionContext context, required String id});
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths});
   void deleteAuthorizationToken(
-      {required PostgreSQLExecutionContext context, required String id});
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data});
 }
 
 @Injectable(as: AuthorizationTokenLocalDataSource)
@@ -37,7 +42,7 @@ class AuthorizationTokenLocalDataSourceImpl
           context: context,
           table: 'AuthorizationToken',
           data: data,
-          paths: paths);
+          attributes: paths);
       return AuthorizationToken(
         id: result['id'],
         authorizationToken: result['authorizationToken'],
@@ -55,7 +60,9 @@ class AuthorizationTokenLocalDataSourceImpl
 
   @override
   Future<List<AuthorizationToken>> listAuthorizationToken(
-      {required PostgreSQLExecutionContext context}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths}) async {
     try {
       List<AuthorizationToken> response = [];
       final result = await _database.list(
@@ -71,6 +78,7 @@ class AuthorizationTokenLocalDataSourceImpl
             'userFk',
             'valid'
           ],
+          where: getWhereNormalAttributeList(data),
           limit: 100);
       for (var e in result) {
         response.add(AuthorizationToken(
@@ -91,14 +99,14 @@ class AuthorizationTokenLocalDataSourceImpl
 
   @override
   Future<AuthorizationToken> getAuthorizationToken(
-      {required PostgreSQLExecutionContext context, required String id}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths}) async {
     try {
       final result = await _database.get(
         context: context,
         table: 'AuthorizationToken',
-        where: [
-          WhereNormalAttribute(key: 'id', value: id),
-        ],
+        where: getWhereNormalAttributeList(data),
         attributes: [
           'id',
           'authorizationToken',
@@ -127,12 +135,13 @@ class AuthorizationTokenLocalDataSourceImpl
 
   @override
   Future<void> deleteAuthorizationToken(
-      {required PostgreSQLExecutionContext context, required String id}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data}) async {
     try {
       _database.delete(
           context: context,
           table: 'AuthorizationToken',
-          where: [WhereNormalAttribute(key: 'id', value: id)]);
+          where: getWhereNormalAttributeList(data));
     } catch (error) {
       rethrow;
     }

@@ -56,10 +56,10 @@ class PostgresqlDao {
       {required PostgreSQLExecutionContext context,
       required String table,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      List<String>? attributes}) async {
     try {
-      String query =
-          constructSqlQueryInsert(table: table, data: data, attributes: paths);
+      String query = constructSqlQueryInsert(
+          table: table, data: data, attributes: attributes);
       print(query);
       final response = await context.mappedResultsQuery(query);
       return Future.value(response[0][table]);

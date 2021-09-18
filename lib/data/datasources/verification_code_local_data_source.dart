@@ -14,9 +14,7 @@ abstract class VerificationCodeLocalDataSource {
 
   Future<List<VerificationCode>> listVerificationCode(
       {required PostgreSQLExecutionContext context,
-      required List<String> paths});
-  Future<List<VerificationCode>> listVerificationCodeReturnIds(
-      {required PostgreSQLExecutionContext context,
+      required List<String> paths,
       required Map<String, dynamic> data});
 
   Future<VerificationCode> getVerificationCode(
@@ -46,7 +44,7 @@ class VerificationCodeLocalDataSourceImpl
           context: context,
           table: 'VerificationCode',
           data: data,
-          paths: paths);
+          attributes: paths);
       return VerificationCode(
           id: result['id'],
           code: result['code'],
@@ -59,15 +57,18 @@ class VerificationCodeLocalDataSourceImpl
   }
 
   @override
-  Future<List<VerificationCode>> listVerificationCode(
-      {required PostgreSQLExecutionContext context,
-      required List<String> paths}) async {
+  Future<List<VerificationCode>> listVerificationCode({
+    required PostgreSQLExecutionContext context,
+    required List<String> paths,
+    required Map<String, dynamic> data,
+  }) async {
     try {
       List<VerificationCode> response = [];
       final result = await _database.list(
           context: context,
           table: 'VerificationCode',
           attributes: paths,
+          where: getWhereNormalAttributeList(data),
           limit: 100);
       for (var e in result) {
         response.add(VerificationCode(
@@ -76,29 +77,6 @@ class VerificationCodeLocalDataSourceImpl
             email: e['VerificationCode']['email'],
             type: parseVerificationCodeTypeEnum(e['VerificationCode']['type']),
             deviceId: e['VerificationCode']['deviceId']));
-      }
-      return response;
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<List<VerificationCode>> listVerificationCodeReturnIds(
-      {required PostgreSQLExecutionContext context,
-      required Map<String, dynamic> data}) async {
-    try {
-      List<VerificationCode> response = [];
-      final result = await _database.list(
-          context: context,
-          table: 'VerificationCode',
-          attributes: [
-            'id',
-          ],
-          where: getWhereNormalAttributeList(data),
-          limit: 100);
-      for (var e in result) {
-        response.add(VerificationCode(id: e['VerificationCode']['id']));
       }
       return response;
     } catch (error) {
@@ -135,10 +113,9 @@ class VerificationCodeLocalDataSourceImpl
       required Map<String, dynamic> data}) async {
     try {
       await _database.delete(
-        context: context,
-        table: 'VerificationCode',
-        where: getWhereNormalAttributeList(data),
-      );
+          context: context,
+          table: 'VerificationCode',
+          where: getWhereNormalAttributeList(data));
     } catch (error) {
       rethrow;
     }

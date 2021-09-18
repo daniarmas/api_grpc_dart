@@ -45,7 +45,7 @@ class AuthenticationService extends AuthenticationServiceBase {
     var connection = await database.getConnection();
     await connection.transaction((context) async {
       result = await verificationCodeRepository.listVerificationCode(
-          paths: request.fieldMask.paths, context: context);
+          paths: request.fieldMask.paths, context: context, data: {});
     });
     result.fold(
         (left) => {throw left},

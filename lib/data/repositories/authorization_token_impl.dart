@@ -34,12 +34,13 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
 
   @override
   Future<Either<GrpcError, Iterable<AuthorizationToken>>>
-      listAuthorizationToken({
-    required PostgreSQLExecutionContext context,
-  }) async {
+      listAuthorizationToken(
+          {required PostgreSQLExecutionContext context,
+          required Map<String, dynamic> data,
+          required List<String> paths}) async {
     try {
-      final response =
-          await localDataSource.listAuthorizationToken(context: context);
+      final response = await localDataSource.listAuthorizationToken(
+          context: context, data: data, paths: paths);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
@@ -52,10 +53,12 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
 
   @override
   Future<Either<GrpcError, AuthorizationToken>> getAuthorizationToken(
-      {required PostgreSQLExecutionContext context, required String id}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths}) async {
     try {
-      final response =
-          await localDataSource.getAuthorizationToken(id: id, context: context);
+      final response = await localDataSource.getAuthorizationToken(
+          data: data, context: context, paths: paths);
       return Right(response);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
@@ -68,9 +71,10 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
 
   @override
   Future<Either<GrpcError, void>> deleteAuthorizationToken(
-      {required PostgreSQLExecutionContext context, required String id}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data}) async {
     try {
-      localDataSource.deleteAuthorizationToken(id: id, context: context);
+      localDataSource.deleteAuthorizationToken(data: data, context: context);
       return Right(null);
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));

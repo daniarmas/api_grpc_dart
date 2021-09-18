@@ -11,24 +11,24 @@ abstract class Database {
   Future<List<Map<String, dynamic>>> list(
       {required PostgreSQLExecutionContext context,
       required String table,
-      List<String>? attributes,
+      required List<String> attributes,
+      required List<Where> where,
       List<String>? agregationMethods,
       int? limit,
-      List<Where>? where,
       String? orderByAsc});
 
   Future<Map<String, dynamic>> get(
       {required PostgreSQLExecutionContext context,
       required String table,
-      List<String>? attributes,
-      List<String>? agregationMethods,
-      List<Where>? where});
+      required List<String> attributes,
+      required List<Where> where,
+      List<String>? agregationMethods});
 
   Future<Map<String, dynamic>> create(
       {required PostgreSQLExecutionContext context,
       required String table,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<String> attributes});
 
   Future<Map<String, dynamic>> update(dynamic object);
 
