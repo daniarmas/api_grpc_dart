@@ -33,8 +33,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
           'deviceId': data['deviceId']
         }, context: context);
         if (verificationCodeListResponse.isNotEmpty) {
-          await localDataSource
-              .deleteVerificationCodeBeforeCreateVerificationCode(data: {
+          await localDataSource.deleteVerificationCode(data: {
             'email': data['email'],
             'type': data['type'],
             'deviceId': data['deviceId']

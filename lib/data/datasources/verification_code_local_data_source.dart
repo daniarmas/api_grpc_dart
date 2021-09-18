@@ -26,9 +26,6 @@ abstract class VerificationCodeLocalDataSource {
   Future<void> deleteVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data});
-  Future<bool> deleteVerificationCodeBeforeCreateVerificationCode(
-      {required PostgreSQLExecutionContext context,
-      required Map<String, dynamic> data});
 }
 
 @Injectable(as: VerificationCodeLocalDataSource)
@@ -142,22 +139,6 @@ class VerificationCodeLocalDataSourceImpl
         table: 'VerificationCode',
         where: getWhereNormalAttributeList(data),
       );
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<bool> deleteVerificationCodeBeforeCreateVerificationCode(
-      {required PostgreSQLExecutionContext context,
-      required Map<String, dynamic> data}) async {
-    try {
-      await _database.delete(
-        context: context,
-        table: 'VerificationCode',
-        where: getWhereNormalAttributeList(data),
-      );
-      return true;
     } catch (error) {
       rethrow;
     }
