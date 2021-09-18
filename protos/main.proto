@@ -214,12 +214,13 @@ message ListVerificationCodeResponse {
 }
 
 message DeleteVerificationCodeRequest {
-    string id = 1;
+  string id = 1;
 }
 
 message GetVerificationCodeRequest {
   string id = 1;
-  google.protobuf.FieldMask fieldMask = 2;
+  string code = 2;
+  google.protobuf.FieldMask fieldMask = 5;
 }
 
 message GetVerificationCodeResponse {

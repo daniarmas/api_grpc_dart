@@ -1,3 +1,4 @@
+import 'package:api_grpc_dart/core/utils/get_request_data.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:api_grpc_dart/domain/repositories/verification_code_repository.dart';
 import 'package:api_grpc_dart/protos/google/protobuf/empty.pb.dart';
@@ -18,13 +19,13 @@ class AuthenticationService extends AuthenticationServiceBase {
     Database database = GetIt.I<Database>();
     var connection = await database.getConnection();
     await connection.transaction((context) async {
-      result = await verificationCodeRepository.createVerificationCode(data: {
-        'type': request.type,
-        'email': request.email,
-        'deviceId': request.deviceId,
-        'createTime': DateTime.now(),
-        'updateTime': DateTime.now(),
-      }, paths: request.fieldMask.paths, context: context);
+      result = await verificationCodeRepository.createVerificationCode(
+          data: getRequestData(request, add: {
+            'createTime': DateTime.now(),
+            'updateTime': DateTime.now()
+          }),
+          paths: request.fieldMask.paths,
+          context: context);
     });
     result.fold(
         (left) => {throw left},
@@ -45,7 +46,10 @@ class AuthenticationService extends AuthenticationServiceBase {
     var connection = await database.getConnection();
     await connection.transaction((context) async {
       result = await verificationCodeRepository.listVerificationCode(
-          paths: request.fieldMask.paths, context: context, data: {});
+        paths: request.fieldMask.paths,
+        context: context,
+        data: getRequestData(request),
+      );
     });
     result.fold(
         (left) => {throw left},
@@ -65,7 +69,7 @@ class AuthenticationService extends AuthenticationServiceBase {
     var connection = await database.getConnection();
     await connection.transaction((context) async {
       result = await verificationCodeRepository.getVerificationCode(
-          data: {'id': request.id},
+          data: getRequestData(request),
           paths: request.fieldMask.paths,
           context: context);
     });
@@ -85,8 +89,8 @@ class AuthenticationService extends AuthenticationServiceBase {
       Database database = GetIt.I<Database>();
       var connection = await database.getConnection();
       await connection.transaction((context) async {
-        await verificationCodeRepository
-            .deleteVerificationCode(data: {'id': request.id}, context: context);
+        await verificationCodeRepository.deleteVerificationCode(
+            data: getRequestData(request), context: context);
       });
       return Future.value(Empty());
     } catch (error) {

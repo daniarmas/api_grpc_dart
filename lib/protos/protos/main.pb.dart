@@ -1626,18 +1626,23 @@ class DeleteVerificationCodeRequest extends $pb.GeneratedMessage {
 class GetVerificationCodeRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetVerificationCodeRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
+    ..aOM<$2.FieldMask>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
   GetVerificationCodeRequest._() : super();
   factory GetVerificationCodeRequest({
     $core.String? id,
+    $core.String? code,
     $2.FieldMask? fieldMask,
   }) {
     final _result = create();
     if (id != null) {
       _result.id = id;
+    }
+    if (code != null) {
+      _result.code = code;
     }
     if (fieldMask != null) {
       _result.fieldMask = fieldMask;
@@ -1675,15 +1680,24 @@ class GetVerificationCodeRequest extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $2.FieldMask get fieldMask => $_getN(1);
+  $core.String get code => $_getSZ(1);
   @$pb.TagNumber(2)
-  set fieldMask($2.FieldMask v) { setField(2, v); }
+  set code($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasFieldMask() => $_has(1);
+  $core.bool hasCode() => $_has(1);
   @$pb.TagNumber(2)
-  void clearFieldMask() => clearField(2);
-  @$pb.TagNumber(2)
-  $2.FieldMask ensureFieldMask() => $_ensure(1);
+  void clearCode() => clearField(2);
+
+  @$pb.TagNumber(5)
+  $2.FieldMask get fieldMask => $_getN(2);
+  @$pb.TagNumber(5)
+  set fieldMask($2.FieldMask v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasFieldMask() => $_has(2);
+  @$pb.TagNumber(5)
+  void clearFieldMask() => clearField(5);
+  @$pb.TagNumber(5)
+  $2.FieldMask ensureFieldMask() => $_ensure(2);
 }
 
 class GetVerificationCodeResponse extends $pb.GeneratedMessage {
