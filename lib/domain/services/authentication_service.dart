@@ -12,72 +12,87 @@ class AuthenticationService extends AuthenticationServiceBase {
   @override
   Future<CreateVerificationCodeResponse> createVerificationCode(
       ServiceCall call, CreateVerificationCodeRequest request) async {
-    late CreateVerificationCodeResponse response;
-    VerificationCodeRepository verificationCodeRepository =
-        GetIt.I<VerificationCodeRepository>();
-    late Either<GrpcError, VerificationCode> result;
-    Database database = GetIt.I<Database>();
-    var connection = await database.getConnection();
-    await connection.transaction((context) async {
-      result = await verificationCodeRepository.createVerificationCode(
-          data: getRequestData(request, add: {
-            'createTime': DateTime.now(),
-            'updateTime': DateTime.now()
-          }),
-          paths: request.fieldMask.paths,
-          context: context);
-    });
-    result.fold(
-        (left) => {throw left},
-        (right) => {
-              response = CreateVerificationCodeResponse(verificationCode: right)
-            });
-    return response;
+    try {
+      late CreateVerificationCodeResponse response;
+      VerificationCodeRepository verificationCodeRepository =
+          GetIt.I<VerificationCodeRepository>();
+      late Either<GrpcError, VerificationCode> result;
+      Database database = GetIt.I<Database>();
+      var connection = await database.getConnection();
+      await connection.transaction((context) async {
+        result = await verificationCodeRepository.createVerificationCode(
+            data: getRequestData(request, add: {
+              'createTime': DateTime.now(),
+              'updateTime': DateTime.now()
+            }),
+            paths: request.fieldMask.paths,
+            context: context);
+      });
+      result.fold(
+          (left) => {throw left},
+          (right) => {
+                response =
+                    CreateVerificationCodeResponse(verificationCode: right)
+              });
+      return response;
+    } catch (error) {
+      throw GrpcError.internal('Internal server error');
+    }
   }
 
   @override
   Future<ListVerificationCodeResponse> listVerificationCode(
       ServiceCall call, ListVerificationCodeRequest request) async {
-    late ListVerificationCodeResponse response;
-    VerificationCodeRepository verificationCodeRepository =
-        GetIt.I<VerificationCodeRepository>();
-    late Either<GrpcError, Iterable<VerificationCode>> result;
-    Database database = GetIt.I<Database>();
-    var connection = await database.getConnection();
-    await connection.transaction((context) async {
-      result = await verificationCodeRepository.listVerificationCode(
-        paths: request.fieldMask.paths,
-        context: context,
-        data: getRequestData(request),
-      );
-    });
-    result.fold(
-        (left) => {throw left},
-        (right) =>
-            {response = ListVerificationCodeResponse(verificationCode: right)});
-    return response;
+    try {
+      late ListVerificationCodeResponse response;
+      VerificationCodeRepository verificationCodeRepository =
+          GetIt.I<VerificationCodeRepository>();
+      late Either<GrpcError, Iterable<VerificationCode>> result;
+      Database database = GetIt.I<Database>();
+      var connection = await database.getConnection();
+      await connection.transaction((context) async {
+        result = await verificationCodeRepository.listVerificationCode(
+          paths: request.fieldMask.paths,
+          context: context,
+          data: getRequestData(request),
+        );
+      });
+      result.fold(
+          (left) => {throw left},
+          (right) => {
+                response = ListVerificationCodeResponse(verificationCode: right)
+              });
+      return response;
+    } catch (error) {
+      throw GrpcError.internal('Internal server error');
+    }
   }
 
   @override
   Future<GetVerificationCodeResponse> getVerificationCode(
       ServiceCall call, GetVerificationCodeRequest request) async {
-    late GetVerificationCodeResponse response;
-    VerificationCodeRepository verificationCodeRepository =
-        GetIt.I<VerificationCodeRepository>();
-    late Either<GrpcError, VerificationCode> result;
-    Database database = GetIt.I<Database>();
-    var connection = await database.getConnection();
-    await connection.transaction((context) async {
-      result = await verificationCodeRepository.getVerificationCode(
-          data: getRequestData(request),
-          paths: request.fieldMask.paths,
-          context: context);
-    });
-    result.fold(
-        (left) => {throw left},
-        (right) =>
-            {response = GetVerificationCodeResponse(verificationCode: right)});
-    return response;
+    try {
+      late GetVerificationCodeResponse response;
+      VerificationCodeRepository verificationCodeRepository =
+          GetIt.I<VerificationCodeRepository>();
+      late Either<GrpcError, VerificationCode> result;
+      Database database = GetIt.I<Database>();
+      var connection = await database.getConnection();
+      await connection.transaction((context) async {
+        result = await verificationCodeRepository.getVerificationCode(
+            data: getRequestData(request),
+            paths: request.fieldMask.paths,
+            context: context);
+      });
+      result.fold(
+          (left) => {throw left},
+          (right) => {
+                response = GetVerificationCodeResponse(verificationCode: right)
+              });
+      return response;
+    } catch (error) {
+      throw GrpcError.internal('Internal server error');
+    }
   }
 
   @override
