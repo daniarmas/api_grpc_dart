@@ -25,7 +25,15 @@ class Server {
           HostnameService()
         ], [
           (ServiceCall call, ServiceMethod method) {
-            return accessTokenValid(call, method);
+            var accessTokenValidResponse = accessTokenValid(call, method);
+            var checkClientMetadataResponse = checkClientMetadata(call, method);
+            if (accessTokenValidResponse is GrpcError) {
+              return accessTokenValidResponse;
+            } else if (checkClientMetadataResponse is GrpcError) {
+              return checkClientMetadataResponse;
+            } else {
+              return null;
+            }
           },
         ]);
         await server.serve(port: _environment.port);

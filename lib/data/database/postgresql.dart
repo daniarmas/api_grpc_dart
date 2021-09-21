@@ -80,19 +80,20 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  Future<Map<String, dynamic>> get(
+  Future<Map<String, dynamic>?> get(
       {required PostgreSQLExecutionContext context,
       required String table,
       required List<String> attributes,
       required List<Where> where,
       List<String>? agregationMethods}) async {
     try {
-      return await _connection.get(
+      final response = await _connection.get(
           context: context,
           where: where,
           table: table,
           attributes: attributes,
           agregationMethods: agregationMethods);
+      return response;
     } catch (error) {
       if (error.toString() ==
           'Attempting to execute query, but connection is not open.') {

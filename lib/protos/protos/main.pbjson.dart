@@ -12,7 +12,7 @@ import 'dart:typed_data' as $typed_data;
 const VerificationCodeType$json = const {
   '1': 'VerificationCodeType',
   '2': const [
-    const {'1': 'UNSPECIFIED', '2': 0},
+    const {'1': 'VERIFICATION_CODE_TYPE_UNSPECIFIED', '2': 0},
     const {'1': 'SIGN_IN', '2': 1},
     const {'1': 'SIGN_UP', '2': 2},
     const {'1': 'CHANGE_USER_EMAIL', '2': 3},
@@ -20,7 +20,31 @@ const VerificationCodeType$json = const {
 };
 
 /// Descriptor for `VerificationCodeType`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List verificationCodeTypeDescriptor = $convert.base64Decode('ChRWZXJpZmljYXRpb25Db2RlVHlwZRIPCgtVTlNQRUNJRklFRBAAEgsKB1NJR05fSU4QARILCgdTSUdOX1VQEAISFQoRQ0hBTkdFX1VTRVJfRU1BSUwQAw==');
+final $typed_data.Uint8List verificationCodeTypeDescriptor = $convert.base64Decode('ChRWZXJpZmljYXRpb25Db2RlVHlwZRImCiJWRVJJRklDQVRJT05fQ09ERV9UWVBFX1VOU1BFQ0lGSUVEEAASCwoHU0lHTl9JThABEgsKB1NJR05fVVAQAhIVChFDSEFOR0VfVVNFUl9FTUFJTBAD');
+@$core.Deprecated('Use platformTypeDescriptor instead')
+const PlatformType$json = const {
+  '1': 'PlatformType',
+  '2': const [
+    const {'1': 'PLATFORM_TYPE_UNSPECIFIED', '2': 0},
+    const {'1': 'IOS', '2': 1},
+    const {'1': 'ANDROID', '2': 2},
+  ],
+};
+
+/// Descriptor for `PlatformType`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List platformTypeDescriptor = $convert.base64Decode('CgxQbGF0Zm9ybVR5cGUSHQoZUExBVEZPUk1fVFlQRV9VTlNQRUNJRklFRBAAEgcKA0lPUxABEgsKB0FORFJPSUQQAg==');
+@$core.Deprecated('Use appTypeDescriptor instead')
+const AppType$json = const {
+  '1': 'AppType',
+  '2': const [
+    const {'1': 'APP_TYPE_UNSPECIFIED', '2': 0},
+    const {'1': 'APP', '2': 1},
+    const {'1': 'BUSINESS_APP', '2': 2},
+  ],
+};
+
+/// Descriptor for `AppType`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhgKFEFQUF9UWVBFX1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
 @$core.Deprecated('Use createSignInRequestDescriptor instead')
 const CreateSignInRequest$json = const {
   '1': 'CreateSignInRequest',
@@ -101,7 +125,7 @@ const User$json = const {
     const {'1': 'photo', '3': 3, '4': 1, '5': 9, '10': 'photo'},
     const {'1': 'photoUrl', '3': 4, '4': 1, '5': 9, '10': 'photoUrl'},
     const {'1': 'userAddress', '3': 5, '4': 3, '5': 11, '6': '.UserAddress', '10': 'userAddress'},
-    const {'1': 'birthday', '3': 6, '4': 1, '5': 9, '10': 'birthday'},
+    const {'1': 'legalAge', '3': 6, '4': 1, '5': 8, '10': 'legalAge'},
     const {'1': 'email', '3': 7, '4': 1, '5': 9, '10': 'email'},
     const {'1': 'permissions', '3': 8, '4': 3, '5': 11, '6': '.UserPermission', '10': 'permissions'},
     const {'1': 'createTime', '3': 9, '4': 1, '5': 9, '10': 'createTime'},
@@ -110,7 +134,7 @@ const User$json = const {
 };
 
 /// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userDescriptor = $convert.base64Decode('CgRVc2VyEg4KAmlkGAEgASgJUgJpZBIaCghmdWxsTmFtZRgCIAEoCVIIZnVsbE5hbWUSFAoFcGhvdG8YAyABKAlSBXBob3RvEhoKCHBob3RvVXJsGAQgASgJUghwaG90b1VybBIuCgt1c2VyQWRkcmVzcxgFIAMoCzIMLlVzZXJBZGRyZXNzUgt1c2VyQWRkcmVzcxIaCghiaXJ0aGRheRgGIAEoCVIIYmlydGhkYXkSFAoFZW1haWwYByABKAlSBWVtYWlsEjEKC3Blcm1pc3Npb25zGAggAygLMg8uVXNlclBlcm1pc3Npb25SC3Blcm1pc3Npb25zEh4KCmNyZWF0ZVRpbWUYCSABKAlSCmNyZWF0ZVRpbWUSHgoKdXBkYXRlVGltZRgKIAEoCVIKdXBkYXRlVGltZQ==');
+final $typed_data.Uint8List userDescriptor = $convert.base64Decode('CgRVc2VyEg4KAmlkGAEgASgJUgJpZBIaCghmdWxsTmFtZRgCIAEoCVIIZnVsbE5hbWUSFAoFcGhvdG8YAyABKAlSBXBob3RvEhoKCHBob3RvVXJsGAQgASgJUghwaG90b1VybBIuCgt1c2VyQWRkcmVzcxgFIAMoCzIMLlVzZXJBZGRyZXNzUgt1c2VyQWRkcmVzcxIaCghsZWdhbEFnZRgGIAEoCFIIbGVnYWxBZ2USFAoFZW1haWwYByABKAlSBWVtYWlsEjEKC3Blcm1pc3Npb25zGAggAygLMg8uVXNlclBlcm1pc3Npb25SC3Blcm1pc3Npb25zEh4KCmNyZWF0ZVRpbWUYCSABKAlSCmNyZWF0ZVRpbWUSHgoKdXBkYXRlVGltZRgKIAEoCVIKdXBkYXRlVGltZQ==');
 @$core.Deprecated('Use bannedUserDescriptor instead')
 const BannedUser$json = const {
   '1': 'BannedUser',
@@ -118,12 +142,13 @@ const BannedUser$json = const {
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     const {'1': 'description', '3': 2, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'userFk', '3': 3, '4': 1, '5': 9, '10': 'userFk'},
-    const {'1': 'moderatorAuthorizationTokenFk', '3': 4, '4': 1, '5': 9, '10': 'moderatorAuthorizationTokenFk'},
+    const {'1': 'email', '3': 4, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'moderatorAuthorizationTokenFk', '3': 5, '4': 1, '5': 9, '10': 'moderatorAuthorizationTokenFk'},
   ],
 };
 
 /// Descriptor for `BannedUser`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List bannedUserDescriptor = $convert.base64Decode('CgpCYW5uZWRVc2VyEg4KAmlkGAEgASgJUgJpZBIgCgtkZXNjcmlwdGlvbhgCIAEoCVILZGVzY3JpcHRpb24SFgoGdXNlckZrGAMgASgJUgZ1c2VyRmsSRAodbW9kZXJhdG9yQXV0aG9yaXphdGlvblRva2VuRmsYBCABKAlSHW1vZGVyYXRvckF1dGhvcml6YXRpb25Ub2tlbkZr');
+final $typed_data.Uint8List bannedUserDescriptor = $convert.base64Decode('CgpCYW5uZWRVc2VyEg4KAmlkGAEgASgJUgJpZBIgCgtkZXNjcmlwdGlvbhgCIAEoCVILZGVzY3JpcHRpb24SFgoGdXNlckZrGAMgASgJUgZ1c2VyRmsSFAoFZW1haWwYBCABKAlSBWVtYWlsEkQKHW1vZGVyYXRvckF1dGhvcml6YXRpb25Ub2tlbkZrGAUgASgJUh1tb2RlcmF0b3JBdXRob3JpemF0aW9uVG9rZW5Gaw==');
 @$core.Deprecated('Use bannedDeviceDescriptor instead')
 const BannedDevice$json = const {
   '1': 'BannedDevice',
@@ -131,12 +156,13 @@ const BannedDevice$json = const {
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     const {'1': 'description', '3': 2, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'deviceFk', '3': 3, '4': 1, '5': 9, '10': 'deviceFk'},
-    const {'1': 'moderatorAuthorizationTokenFk', '3': 4, '4': 1, '5': 9, '10': 'moderatorAuthorizationTokenFk'},
+    const {'1': 'deviceId', '3': 4, '4': 1, '5': 9, '10': 'deviceId'},
+    const {'1': 'moderatorAuthorizationTokenFk', '3': 5, '4': 1, '5': 9, '10': 'moderatorAuthorizationTokenFk'},
   ],
 };
 
 /// Descriptor for `BannedDevice`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List bannedDeviceDescriptor = $convert.base64Decode('CgxCYW5uZWREZXZpY2USDgoCaWQYASABKAlSAmlkEiAKC2Rlc2NyaXB0aW9uGAIgASgJUgtkZXNjcmlwdGlvbhIaCghkZXZpY2VGaxgDIAEoCVIIZGV2aWNlRmsSRAodbW9kZXJhdG9yQXV0aG9yaXphdGlvblRva2VuRmsYBCABKAlSHW1vZGVyYXRvckF1dGhvcml6YXRpb25Ub2tlbkZr');
+final $typed_data.Uint8List bannedDeviceDescriptor = $convert.base64Decode('CgxCYW5uZWREZXZpY2USDgoCaWQYASABKAlSAmlkEiAKC2Rlc2NyaXB0aW9uGAIgASgJUgtkZXNjcmlwdGlvbhIaCghkZXZpY2VGaxgDIAEoCVIIZGV2aWNlRmsSGgoIZGV2aWNlSWQYBCABKAlSCGRldmljZUlkEkQKHW1vZGVyYXRvckF1dGhvcml6YXRpb25Ub2tlbkZrGAUgASgJUh1tb2RlcmF0b3JBdXRob3JpemF0aW9uVG9rZW5Gaw==');
 @$core.Deprecated('Use authorizationTokenDescriptor instead')
 const AuthorizationToken$json = const {
   '1': 'AuthorizationToken',
@@ -184,27 +210,16 @@ const Device$json = const {
   '1': 'Device',
   '2': const [
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    const {'1': 'platform', '3': 2, '4': 1, '5': 14, '6': '.Device.Platform', '10': 'platform'},
+    const {'1': 'platformType', '3': 2, '4': 1, '5': 14, '6': '.PlatformType', '10': 'platformType'},
     const {'1': 'systemVersion', '3': 3, '4': 1, '5': 9, '10': 'systemVersion'},
     const {'1': 'deviceId', '3': 4, '4': 1, '5': 9, '10': 'deviceId'},
     const {'1': 'firebaseCloudMessagingId', '3': 5, '4': 1, '5': 9, '10': 'firebaseCloudMessagingId'},
     const {'1': 'model', '3': 6, '4': 1, '5': 9, '10': 'model'},
   ],
-  '4': const [Device_Platform$json],
-};
-
-@$core.Deprecated('Use deviceDescriptor instead')
-const Device_Platform$json = const {
-  '1': 'Platform',
-  '2': const [
-    const {'1': 'UNSPECIFIED', '2': 0},
-    const {'1': 'IOS', '2': 1},
-    const {'1': 'ANDROID', '2': 2},
-  ],
 };
 
 /// Descriptor for `Device`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List deviceDescriptor = $convert.base64Decode('CgZEZXZpY2USDgoCaWQYASABKAlSAmlkEiwKCHBsYXRmb3JtGAIgASgOMhAuRGV2aWNlLlBsYXRmb3JtUghwbGF0Zm9ybRIkCg1zeXN0ZW1WZXJzaW9uGAMgASgJUg1zeXN0ZW1WZXJzaW9uEhoKCGRldmljZUlkGAQgASgJUghkZXZpY2VJZBI6ChhmaXJlYmFzZUNsb3VkTWVzc2FnaW5nSWQYBSABKAlSGGZpcmViYXNlQ2xvdWRNZXNzYWdpbmdJZBIUCgVtb2RlbBgGIAEoCVIFbW9kZWwiMQoIUGxhdGZvcm0SDwoLVU5TUEVDSUZJRUQQABIHCgNJT1MQARILCgdBTkRST0lEEAI=');
+final $typed_data.Uint8List deviceDescriptor = $convert.base64Decode('CgZEZXZpY2USDgoCaWQYASABKAlSAmlkEjEKDHBsYXRmb3JtVHlwZRgCIAEoDjINLlBsYXRmb3JtVHlwZVIMcGxhdGZvcm1UeXBlEiQKDXN5c3RlbVZlcnNpb24YAyABKAlSDXN5c3RlbVZlcnNpb24SGgoIZGV2aWNlSWQYBCABKAlSCGRldmljZUlkEjoKGGZpcmViYXNlQ2xvdWRNZXNzYWdpbmdJZBgFIAEoCVIYZmlyZWJhc2VDbG91ZE1lc3NhZ2luZ0lkEhQKBW1vZGVsGAYgASgJUgVtb2RlbA==');
 @$core.Deprecated('Use userAddressDescriptor instead')
 const UserAddress$json = const {
   '1': 'UserAddress',
@@ -263,15 +278,14 @@ final $typed_data.Uint8List polygonDescriptor = $convert.base64Decode('CgdQb2x5Z
 const CreateVerificationCodeRequest$json = const {
   '1': 'CreateVerificationCodeRequest',
   '2': const [
-    const {'1': 'deviceId', '3': 1, '4': 1, '5': 9, '10': 'deviceId'},
-    const {'1': 'email', '3': 2, '4': 1, '5': 9, '10': 'email'},
-    const {'1': 'type', '3': 3, '4': 1, '5': 14, '6': '.VerificationCodeType', '10': 'type'},
-    const {'1': 'fieldMask', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+    const {'1': 'email', '3': 1, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'type', '3': 2, '4': 1, '5': 14, '6': '.VerificationCodeType', '10': 'type'},
+    const {'1': 'fieldMask', '3': 3, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
   ],
 };
 
 /// Descriptor for `CreateVerificationCodeRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List createVerificationCodeRequestDescriptor = $convert.base64Decode('Ch1DcmVhdGVWZXJpZmljYXRpb25Db2RlUmVxdWVzdBIaCghkZXZpY2VJZBgBIAEoCVIIZGV2aWNlSWQSFAoFZW1haWwYAiABKAlSBWVtYWlsEikKBHR5cGUYAyABKA4yFS5WZXJpZmljYXRpb25Db2RlVHlwZVIEdHlwZRI4CglmaWVsZE1hc2sYBCABKAsyGi5nb29nbGUucHJvdG9idWYuRmllbGRNYXNrUglmaWVsZE1hc2s=');
+final $typed_data.Uint8List createVerificationCodeRequestDescriptor = $convert.base64Decode('Ch1DcmVhdGVWZXJpZmljYXRpb25Db2RlUmVxdWVzdBIUCgVlbWFpbBgBIAEoCVIFZW1haWwSKQoEdHlwZRgCIAEoDjIVLlZlcmlmaWNhdGlvbkNvZGVUeXBlUgR0eXBlEjgKCWZpZWxkTWFzaxgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5GaWVsZE1hc2tSCWZpZWxkTWFzaw==');
 @$core.Deprecated('Use createVerificationCodeResponseDescriptor instead')
 const CreateVerificationCodeResponse$json = const {
   '1': 'CreateVerificationCodeResponse',

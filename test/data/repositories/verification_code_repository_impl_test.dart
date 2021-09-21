@@ -1,5 +1,9 @@
 import 'package:api_grpc_dart/core/error/exception.dart';
+import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
+import 'package:api_grpc_dart/data/datasources/banned_device_local_data_source.dart';
+import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dart';
+import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart';
 import 'package:api_grpc_dart/data/repositories/verification_code_repository_impl.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
@@ -14,21 +18,25 @@ import './verification_code_repository_impl_test.mocks.dart';
 
 @GenerateMocks([
   VerificationCodeLocalDataSource,
-  Database,
-  PostgreSQLConnection,
-  PostgreSQLExecutionContext
+  UserLocalDataSource,
+  BannedUserLocalDataSource,
+  BannedDeviceLocalDataSource,
+  Database
 ])
 void main() {
   late MockVerificationCodeLocalDataSource mockVerificationCodeLocalDataSource;
+  late MockUserLocalDataSource mockUserLocalDataSource;
+  late MockBannedDeviceLocalDataSource mockBannedDeviceLocalDataSource;
+  late MockBannedUserLocalDataSource mockBannedUserLocalDataSource;
   late VerificationCodeRepositoryImpl verificationCodeRepositoryImpl;
   late PostgreSQLConnection connection;
-
-  VerificationCode verificationCode = VerificationCode(
+  late VerificationCode verificationCode = VerificationCode(
       code: '432567',
       deviceId: '1',
       id: 'ashdk13721y3179kshad',
       type: VerificationCodeType.SIGN_IN);
   late PostgreSQLExecutionContext ctx;
+  late HeadersMetadata metadata;
 
   setUp(() async {
     connection = PostgreSQLConnection('192.168.1.3', 5432, 'postgres',
@@ -37,9 +45,24 @@ void main() {
     await connection.transaction((context) async {
       ctx = context;
     });
+    metadata = HeadersMetadata(
+        accesstoken: '1',
+        platform: PlatformType.ANDROID,
+        systemVersion: '1',
+        appVersion: '1',
+        app: AppType.APP,
+        deviceId: '1',
+        model: '1',
+        firebaseCloudMessagingId: '1');
     mockVerificationCodeLocalDataSource = MockVerificationCodeLocalDataSource();
+    mockUserLocalDataSource = MockUserLocalDataSource();
+    mockBannedUserLocalDataSource = MockBannedUserLocalDataSource();
+    mockBannedDeviceLocalDataSource = MockBannedDeviceLocalDataSource();
     verificationCodeRepositoryImpl = VerificationCodeRepositoryImpl(
-        localDataSource: mockVerificationCodeLocalDataSource);
+        bannedUserLocalDataSource: mockBannedUserLocalDataSource,
+        bannedDeviceLocalDataSource: mockBannedDeviceLocalDataSource,
+        verificationCodeLocalDataSource: mockVerificationCodeLocalDataSource,
+        userLocalDataSource: mockUserLocalDataSource);
   });
 
   tearDown(() async {
@@ -69,7 +92,7 @@ void main() {
           .thenAnswer((_) async => verificationCode);
       // side effects
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'),
@@ -121,7 +144,7 @@ void main() {
           .thenAnswer((_) async => verificationCode);
       // side effects
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'),
@@ -145,7 +168,7 @@ void main() {
       // side effects
       late Either<GrpcError, VerificationCode> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verifyNever(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'), context: anyNamed('context')));
@@ -163,12 +186,12 @@ void main() {
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
-        'type': VerificationCodeType.UNSPECIFIED
+        'type': VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED
       };
       // side effects
       late Either<GrpcError, VerificationCode> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verifyNever(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'), context: anyNamed('context')));
@@ -196,7 +219,7 @@ void main() {
               paths: anyNamed('paths')))
           .thenThrow(DatabaseConnectionNotOpenException());
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'),
@@ -243,7 +266,7 @@ void main() {
         context: anyNamed('context'),
       )).thenThrow(DatabaseConnectionNotOpenException());
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'),
@@ -297,7 +320,7 @@ void main() {
               paths: anyNamed('paths')))
           .thenThrow(DatabaseConnectionNotOpenException());
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'),
@@ -351,7 +374,7 @@ void main() {
       // side effects
       late Either<GrpcError, VerificationCode> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'),
@@ -381,7 +404,7 @@ void main() {
       // side effects
       late Either<GrpcError, VerificationCode> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'),
@@ -430,7 +453,7 @@ void main() {
       // side effects
       late Either<GrpcError, VerificationCode> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'),
@@ -484,7 +507,7 @@ void main() {
       // side effects
       late Either<GrpcError, VerificationCode> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'),
@@ -516,7 +539,7 @@ void main() {
       // side effects
       late Either<GrpcError, VerificationCode> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'),
@@ -564,7 +587,7 @@ void main() {
       // side effects
       late Either<GrpcError, VerificationCode> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx);
+          data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           data: anyNamed('data'),
@@ -602,8 +625,8 @@ void main() {
               data: anyNamed('data')))
           .thenAnswer((_) async => listOfVerificationCode);
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .listVerificationCode(context: ctx, paths: [], data: {});
+      final result = await verificationCodeRepositoryImpl.listVerificationCode(
+          context: ctx, paths: [], data: {}, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           context: anyNamed('context'),
@@ -622,8 +645,8 @@ void main() {
               data: anyNamed('data')))
           .thenAnswer((_) async => listOfVerificationCode);
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .listVerificationCode(context: ctx, paths: [], data: {});
+      final result = await verificationCodeRepositoryImpl.listVerificationCode(
+          context: ctx, paths: [], data: {}, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           context: anyNamed('context'),
@@ -641,8 +664,8 @@ void main() {
               data: anyNamed('data')))
           .thenThrow(Exception());
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .listVerificationCode(context: ctx, paths: [], data: {});
+      final result = await verificationCodeRepositoryImpl.listVerificationCode(
+          context: ctx, paths: [], data: {}, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           context: anyNamed('context'),
@@ -660,8 +683,8 @@ void main() {
               data: anyNamed('data')))
           .thenThrow(DatabaseTableNotExistsException());
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .listVerificationCode(context: ctx, paths: [], data: {});
+      final result = await verificationCodeRepositoryImpl.listVerificationCode(
+          context: ctx, paths: [], data: {}, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           context: anyNamed('context'),
@@ -679,8 +702,8 @@ void main() {
               data: anyNamed('data')))
           .thenThrow(DatabaseConnectionNotOpenException());
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .listVerificationCode(context: ctx, paths: [], data: {});
+      final result = await verificationCodeRepositoryImpl.listVerificationCode(
+          context: ctx, paths: [], data: {}, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.listVerificationCode(
           context: anyNamed('context'),
@@ -707,7 +730,7 @@ void main() {
           .thenAnswer((_) async => verificationCode);
       // side effects
       final result = await verificationCodeRepositoryImpl.getVerificationCode(
-          data: {'id': '1'}, context: ctx, paths: []);
+          data: {'id': '1'}, context: ctx, paths: [], metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.getVerificationCode(
           data: {'id': '1'}, context: ctx, paths: []));
@@ -724,7 +747,7 @@ void main() {
           .thenThrow(GrpcError.notFound('Not found'));
       // side effects
       final result = await verificationCodeRepositoryImpl.getVerificationCode(
-          data: {'id': '1'}, context: ctx, paths: []);
+          data: {'id': '1'}, context: ctx, paths: [], metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource.getVerificationCode(
           data: {'id': '1'}, context: ctx, paths: []));
@@ -740,8 +763,8 @@ void main() {
               data: anyNamed('data')))
           .thenThrow(DatabaseConnectionNotOpenException());
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .getVerificationCode(context: ctx, paths: [], data: {'id': '1'});
+      final result = await verificationCodeRepositoryImpl.getVerificationCode(
+          context: ctx, paths: [], data: {'id': '1'}, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .getVerificationCode(context: ctx, paths: [], data: {'id': '1'}));
@@ -757,8 +780,8 @@ void main() {
               data: anyNamed('data')))
           .thenThrow(DatabaseTableNotExistsException());
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .getVerificationCode(context: ctx, paths: [], data: {'id': '1'});
+      final result = await verificationCodeRepositoryImpl.getVerificationCode(
+          context: ctx, paths: [], data: {'id': '1'}, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .getVerificationCode(context: ctx, paths: [], data: {'id': '1'}));
@@ -773,8 +796,8 @@ void main() {
               data: anyNamed('data')))
           .thenThrow(Exception());
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .getVerificationCode(context: ctx, paths: [], data: {'id': '1'});
+      final result = await verificationCodeRepositoryImpl.getVerificationCode(
+          context: ctx, paths: [], data: {'id': '1'}, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .getVerificationCode(context: ctx, paths: [], data: {'id': '1'}));
@@ -791,7 +814,8 @@ void main() {
           .thenAnswer((_) async => verificationCode);
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .deleteVerificationCode(data: {'id': '1'}, context: ctx);
+          .deleteVerificationCode(
+              data: {'id': '1'}, context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .deleteVerificationCode(data: {'id': '1'}, context: ctx));
@@ -806,7 +830,8 @@ void main() {
           .thenThrow(GrpcError.notFound('Not found'));
       // side effects
       final result = await verificationCodeRepositoryImpl
-          .deleteVerificationCode(data: {'id': '1'}, context: ctx);
+          .deleteVerificationCode(
+              data: {'id': '1'}, context: ctx, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .deleteVerificationCode(data: {'id': '1'}, context: ctx));
@@ -820,8 +845,9 @@ void main() {
               context: anyNamed('context'), data: anyNamed('data')))
           .thenThrow(DatabaseConnectionNotOpenException());
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .deleteVerificationCode(context: ctx, data: {'id': '1'});
+      final result =
+          await verificationCodeRepositoryImpl.deleteVerificationCode(
+              context: ctx, data: {'id': '1'}, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .deleteVerificationCode(context: ctx, data: {'id': '1'}));
@@ -835,8 +861,9 @@ void main() {
               context: anyNamed('context'), data: anyNamed('data')))
           .thenThrow(DatabaseTableNotExistsException());
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .deleteVerificationCode(context: ctx, data: {'id': '1'});
+      final result =
+          await verificationCodeRepositoryImpl.deleteVerificationCode(
+              context: ctx, data: {'id': '1'}, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .deleteVerificationCode(context: ctx, data: {'id': '1'}));
@@ -850,8 +877,9 @@ void main() {
               context: anyNamed('context'), data: anyNamed('data')))
           .thenThrow(Exception());
       // side effects
-      final result = await verificationCodeRepositoryImpl
-          .deleteVerificationCode(context: ctx, data: {'id': '1'});
+      final result =
+          await verificationCodeRepositoryImpl.deleteVerificationCode(
+              context: ctx, data: {'id': '1'}, metadata: metadata);
       // expectations
       verify(mockVerificationCodeLocalDataSource
           .deleteVerificationCode(context: ctx, data: {'id': '1'}));

@@ -1,3 +1,4 @@
+import 'package:api_grpc_dart/core/utils/parse_enums.dart';
 import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
@@ -17,7 +18,7 @@ abstract class VerificationCodeLocalDataSource {
       required List<String> paths,
       required Map<String, dynamic> data});
 
-  Future<VerificationCode> getVerificationCode(
+  Future<VerificationCode?> getVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths});
@@ -85,7 +86,7 @@ class VerificationCodeLocalDataSourceImpl
   }
 
   @override
-  Future<VerificationCode> getVerificationCode(
+  Future<VerificationCode?> getVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths}) async {
@@ -95,13 +96,16 @@ class VerificationCodeLocalDataSourceImpl
           table: 'VerificationCode',
           where: getWhereNormalAttributeList(data),
           attributes: paths);
-      return VerificationCode(
-          id: result['VerificationCode']['id'],
-          code: result['VerificationCode']['code'],
-          email: result['VerificationCode']['email'],
-          type:
-              parseVerificationCodeTypeEnum(result['VerificationCode']['type']),
-          deviceId: result['VerificationCode']['deviceId']);
+      if (result != null) {
+        return VerificationCode(
+            id: result['VerificationCode']['id'],
+            code: result['VerificationCode']['code'],
+            email: result['VerificationCode']['email'],
+            type: parseVerificationCodeTypeEnum(
+                result['VerificationCode']['type']),
+            deviceId: result['VerificationCode']['deviceId']);
+      }
+      return null;
     } catch (error) {
       rethrow;
     }
@@ -119,17 +123,5 @@ class VerificationCodeLocalDataSourceImpl
     } catch (error) {
       rethrow;
     }
-  }
-}
-
-VerificationCodeType parseVerificationCodeTypeEnum(String? value) {
-  if (value == 'CHANGE_USER_EMAIL') {
-    return VerificationCodeType.CHANGE_USER_EMAIL;
-  } else if (value == 'SIGN_IN') {
-    return VerificationCodeType.SIGN_IN;
-  } else if (value == 'SIGN_UP') {
-    return VerificationCodeType.SIGN_UP;
-  } else {
-    return VerificationCodeType.UNSPECIFIED;
   }
 }

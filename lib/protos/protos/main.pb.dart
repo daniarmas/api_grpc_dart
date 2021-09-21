@@ -330,7 +330,7 @@ class User extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photo')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photoUrl', protoName: 'photoUrl')
     ..pc<UserAddress>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userAddress', $pb.PbFieldType.PM, protoName: 'userAddress', subBuilder: UserAddress.create)
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'birthday')
+    ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'legalAge', protoName: 'legalAge')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
     ..pc<UserPermission>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'permissions', $pb.PbFieldType.PM, subBuilder: UserPermission.create)
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
@@ -345,7 +345,7 @@ class User extends $pb.GeneratedMessage {
     $core.String? photo,
     $core.String? photoUrl,
     $core.Iterable<UserAddress>? userAddress,
-    $core.String? birthday,
+    $core.bool? legalAge,
     $core.String? email,
     $core.Iterable<UserPermission>? permissions,
     $core.String? createTime,
@@ -367,8 +367,8 @@ class User extends $pb.GeneratedMessage {
     if (userAddress != null) {
       _result.userAddress.addAll(userAddress);
     }
-    if (birthday != null) {
-      _result.birthday = birthday;
+    if (legalAge != null) {
+      _result.legalAge = legalAge;
     }
     if (email != null) {
       _result.email = email;
@@ -445,13 +445,13 @@ class User extends $pb.GeneratedMessage {
   $core.List<UserAddress> get userAddress => $_getList(4);
 
   @$pb.TagNumber(6)
-  $core.String get birthday => $_getSZ(5);
+  $core.bool get legalAge => $_getBF(5);
   @$pb.TagNumber(6)
-  set birthday($core.String v) { $_setString(5, v); }
+  set legalAge($core.bool v) { $_setBool(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasBirthday() => $_has(5);
+  $core.bool hasLegalAge() => $_has(5);
   @$pb.TagNumber(6)
-  void clearBirthday() => clearField(6);
+  void clearLegalAge() => clearField(6);
 
   @$pb.TagNumber(7)
   $core.String get email => $_getSZ(6);
@@ -489,7 +489,8 @@ class BannedUser extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'moderatorAuthorizationTokenFk', protoName: 'moderatorAuthorizationTokenFk')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'moderatorAuthorizationTokenFk', protoName: 'moderatorAuthorizationTokenFk')
     ..hasRequiredFields = false
   ;
 
@@ -498,6 +499,7 @@ class BannedUser extends $pb.GeneratedMessage {
     $core.String? id,
     $core.String? description,
     $core.String? userFk,
+    $core.String? email,
     $core.String? moderatorAuthorizationTokenFk,
   }) {
     final _result = create();
@@ -509,6 +511,9 @@ class BannedUser extends $pb.GeneratedMessage {
     }
     if (userFk != null) {
       _result.userFk = userFk;
+    }
+    if (email != null) {
+      _result.email = email;
     }
     if (moderatorAuthorizationTokenFk != null) {
       _result.moderatorAuthorizationTokenFk = moderatorAuthorizationTokenFk;
@@ -564,13 +569,22 @@ class BannedUser extends $pb.GeneratedMessage {
   void clearUserFk() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get moderatorAuthorizationTokenFk => $_getSZ(3);
+  $core.String get email => $_getSZ(3);
   @$pb.TagNumber(4)
-  set moderatorAuthorizationTokenFk($core.String v) { $_setString(3, v); }
+  set email($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasModeratorAuthorizationTokenFk() => $_has(3);
+  $core.bool hasEmail() => $_has(3);
   @$pb.TagNumber(4)
-  void clearModeratorAuthorizationTokenFk() => clearField(4);
+  void clearEmail() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get moderatorAuthorizationTokenFk => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set moderatorAuthorizationTokenFk($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasModeratorAuthorizationTokenFk() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearModeratorAuthorizationTokenFk() => clearField(5);
 }
 
 class BannedDevice extends $pb.GeneratedMessage {
@@ -578,7 +592,8 @@ class BannedDevice extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceFk', protoName: 'deviceFk')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'moderatorAuthorizationTokenFk', protoName: 'moderatorAuthorizationTokenFk')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'moderatorAuthorizationTokenFk', protoName: 'moderatorAuthorizationTokenFk')
     ..hasRequiredFields = false
   ;
 
@@ -587,6 +602,7 @@ class BannedDevice extends $pb.GeneratedMessage {
     $core.String? id,
     $core.String? description,
     $core.String? deviceFk,
+    $core.String? deviceId,
     $core.String? moderatorAuthorizationTokenFk,
   }) {
     final _result = create();
@@ -598,6 +614,9 @@ class BannedDevice extends $pb.GeneratedMessage {
     }
     if (deviceFk != null) {
       _result.deviceFk = deviceFk;
+    }
+    if (deviceId != null) {
+      _result.deviceId = deviceId;
     }
     if (moderatorAuthorizationTokenFk != null) {
       _result.moderatorAuthorizationTokenFk = moderatorAuthorizationTokenFk;
@@ -653,13 +672,22 @@ class BannedDevice extends $pb.GeneratedMessage {
   void clearDeviceFk() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get moderatorAuthorizationTokenFk => $_getSZ(3);
+  $core.String get deviceId => $_getSZ(3);
   @$pb.TagNumber(4)
-  set moderatorAuthorizationTokenFk($core.String v) { $_setString(3, v); }
+  set deviceId($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasModeratorAuthorizationTokenFk() => $_has(3);
+  $core.bool hasDeviceId() => $_has(3);
   @$pb.TagNumber(4)
-  void clearModeratorAuthorizationTokenFk() => clearField(4);
+  void clearDeviceId() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get moderatorAuthorizationTokenFk => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set moderatorAuthorizationTokenFk($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasModeratorAuthorizationTokenFk() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearModeratorAuthorizationTokenFk() => clearField(5);
 }
 
 class AuthorizationToken extends $pb.GeneratedMessage {
@@ -913,7 +941,7 @@ class RefreshToken extends $pb.GeneratedMessage {
 class Device extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Device', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..e<Device_Platform>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'platform', $pb.PbFieldType.OE, defaultOrMaker: Device_Platform.UNSPECIFIED, valueOf: Device_Platform.valueOf, enumValues: Device_Platform.values)
+    ..e<PlatformType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'platformType', $pb.PbFieldType.OE, protoName: 'platformType', defaultOrMaker: PlatformType.PLATFORM_TYPE_UNSPECIFIED, valueOf: PlatformType.valueOf, enumValues: PlatformType.values)
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'systemVersion', protoName: 'systemVersion')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'firebaseCloudMessagingId', protoName: 'firebaseCloudMessagingId')
@@ -924,7 +952,7 @@ class Device extends $pb.GeneratedMessage {
   Device._() : super();
   factory Device({
     $core.String? id,
-    Device_Platform? platform,
+    PlatformType? platformType,
     $core.String? systemVersion,
     $core.String? deviceId,
     $core.String? firebaseCloudMessagingId,
@@ -934,8 +962,8 @@ class Device extends $pb.GeneratedMessage {
     if (id != null) {
       _result.id = id;
     }
-    if (platform != null) {
-      _result.platform = platform;
+    if (platformType != null) {
+      _result.platformType = platformType;
     }
     if (systemVersion != null) {
       _result.systemVersion = systemVersion;
@@ -982,13 +1010,13 @@ class Device extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  Device_Platform get platform => $_getN(1);
+  PlatformType get platformType => $_getN(1);
   @$pb.TagNumber(2)
-  set platform(Device_Platform v) { setField(2, v); }
+  set platformType(PlatformType v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasPlatform() => $_has(1);
+  $core.bool hasPlatformType() => $_has(1);
   @$pb.TagNumber(2)
-  void clearPlatform() => clearField(2);
+  void clearPlatformType() => clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get systemVersion => $_getSZ(2);
@@ -1348,24 +1376,19 @@ class Polygon extends $pb.GeneratedMessage {
 
 class CreateVerificationCodeRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateVerificationCodeRequest', createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..e<VerificationCodeType>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
-    ..aOM<$2.FieldMask>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..e<VerificationCodeType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
+    ..aOM<$2.FieldMask>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
   CreateVerificationCodeRequest._() : super();
   factory CreateVerificationCodeRequest({
-    $core.String? deviceId,
     $core.String? email,
     VerificationCodeType? type,
     $2.FieldMask? fieldMask,
   }) {
     final _result = create();
-    if (deviceId != null) {
-      _result.deviceId = deviceId;
-    }
     if (email != null) {
       _result.email = email;
     }
@@ -1399,42 +1422,33 @@ class CreateVerificationCodeRequest extends $pb.GeneratedMessage {
   static CreateVerificationCodeRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get deviceId => $_getSZ(0);
+  $core.String get email => $_getSZ(0);
   @$pb.TagNumber(1)
-  set deviceId($core.String v) { $_setString(0, v); }
+  set email($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasDeviceId() => $_has(0);
+  $core.bool hasEmail() => $_has(0);
   @$pb.TagNumber(1)
-  void clearDeviceId() => clearField(1);
+  void clearEmail() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get email => $_getSZ(1);
+  VerificationCodeType get type => $_getN(1);
   @$pb.TagNumber(2)
-  set email($core.String v) { $_setString(1, v); }
+  set type(VerificationCodeType v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasEmail() => $_has(1);
+  $core.bool hasType() => $_has(1);
   @$pb.TagNumber(2)
-  void clearEmail() => clearField(2);
+  void clearType() => clearField(2);
 
   @$pb.TagNumber(3)
-  VerificationCodeType get type => $_getN(2);
+  $2.FieldMask get fieldMask => $_getN(2);
   @$pb.TagNumber(3)
-  set type(VerificationCodeType v) { setField(3, v); }
+  set fieldMask($2.FieldMask v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasType() => $_has(2);
+  $core.bool hasFieldMask() => $_has(2);
   @$pb.TagNumber(3)
-  void clearType() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $2.FieldMask get fieldMask => $_getN(3);
-  @$pb.TagNumber(4)
-  set fieldMask($2.FieldMask v) { setField(4, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasFieldMask() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearFieldMask() => clearField(4);
-  @$pb.TagNumber(4)
-  $2.FieldMask ensureFieldMask() => $_ensure(3);
+  void clearFieldMask() => clearField(3);
+  @$pb.TagNumber(3)
+  $2.FieldMask ensureFieldMask() => $_ensure(2);
 }
 
 class CreateVerificationCodeResponse extends $pb.GeneratedMessage {
@@ -1754,7 +1768,7 @@ class VerificationCode extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..e<VerificationCodeType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
+    ..e<VerificationCodeType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
     ..hasRequiredFields = false
   ;

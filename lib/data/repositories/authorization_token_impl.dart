@@ -59,7 +59,10 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
     try {
       final response = await localDataSource.getAuthorizationToken(
           data: data, context: context, paths: paths);
-      return Right(response);
+      if (response != null) {
+        return Right(response);
+      }
+      return Left(GrpcError.notFound('Not found'));
     } on DatabaseConnectionNotOpenException {
       return Left(GrpcError.internal('Internal server error'));
     } on DatabaseTableNotExistsException {

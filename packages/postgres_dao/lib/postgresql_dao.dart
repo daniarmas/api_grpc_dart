@@ -84,7 +84,7 @@ class PostgresqlDao {
     }
   }
 
-  Future<Map<String, dynamic>> get(
+  Future<Map<String, dynamic>?> get(
       {required PostgreSQLExecutionContext context,
       required String table,
       List<String>? attributes,
@@ -102,9 +102,8 @@ class PostgresqlDao {
       final response = await context.mappedResultsQuery(query);
       if (response.isNotEmpty) {
         return response[0];
-      } else {
-        throw Exception('NOT_FOUND');
       }
+      return null;
     } catch (error) {
       rethrow;
     }

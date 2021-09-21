@@ -10,13 +10,13 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class VerificationCodeType extends $pb.ProtobufEnum {
-  static const VerificationCodeType UNSPECIFIED = VerificationCodeType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'UNSPECIFIED');
+  static const VerificationCodeType VERIFICATION_CODE_TYPE_UNSPECIFIED = VerificationCodeType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'VERIFICATION_CODE_TYPE_UNSPECIFIED');
   static const VerificationCodeType SIGN_IN = VerificationCodeType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'SIGN_IN');
   static const VerificationCodeType SIGN_UP = VerificationCodeType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'SIGN_UP');
   static const VerificationCodeType CHANGE_USER_EMAIL = VerificationCodeType._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'CHANGE_USER_EMAIL');
 
   static const $core.List<VerificationCodeType> values = <VerificationCodeType> [
-    UNSPECIFIED,
+    VERIFICATION_CODE_TYPE_UNSPECIFIED,
     SIGN_IN,
     SIGN_UP,
     CHANGE_USER_EMAIL,
@@ -26,6 +26,40 @@ class VerificationCodeType extends $pb.ProtobufEnum {
   static VerificationCodeType? valueOf($core.int value) => _byValue[value];
 
   const VerificationCodeType._($core.int v, $core.String n) : super(v, n);
+}
+
+class PlatformType extends $pb.ProtobufEnum {
+  static const PlatformType PLATFORM_TYPE_UNSPECIFIED = PlatformType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'PLATFORM_TYPE_UNSPECIFIED');
+  static const PlatformType IOS = PlatformType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'IOS');
+  static const PlatformType ANDROID = PlatformType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ANDROID');
+
+  static const $core.List<PlatformType> values = <PlatformType> [
+    PLATFORM_TYPE_UNSPECIFIED,
+    IOS,
+    ANDROID,
+  ];
+
+  static final $core.Map<$core.int, PlatformType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static PlatformType? valueOf($core.int value) => _byValue[value];
+
+  const PlatformType._($core.int v, $core.String n) : super(v, n);
+}
+
+class AppType extends $pb.ProtobufEnum {
+  static const AppType APP_TYPE_UNSPECIFIED = AppType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'APP_TYPE_UNSPECIFIED');
+  static const AppType APP = AppType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'APP');
+  static const AppType BUSINESS_APP = AppType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'BUSINESS_APP');
+
+  static const $core.List<AppType> values = <AppType> [
+    APP_TYPE_UNSPECIFIED,
+    APP,
+    BUSINESS_APP,
+  ];
+
+  static final $core.Map<$core.int, AppType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static AppType? valueOf($core.int value) => _byValue[value];
+
+  const AppType._($core.int v, $core.String n) : super(v, n);
 }
 
 class HealthCheckResponse_ServingStatus extends $pb.ProtobufEnum {
@@ -60,23 +94,6 @@ class AuthorizationToken_AppType extends $pb.ProtobufEnum {
   static AuthorizationToken_AppType? valueOf($core.int value) => _byValue[value];
 
   const AuthorizationToken_AppType._($core.int v, $core.String n) : super(v, n);
-}
-
-class Device_Platform extends $pb.ProtobufEnum {
-  static const Device_Platform UNSPECIFIED = Device_Platform._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'UNSPECIFIED');
-  static const Device_Platform IOS = Device_Platform._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'IOS');
-  static const Device_Platform ANDROID = Device_Platform._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ANDROID');
-
-  static const $core.List<Device_Platform> values = <Device_Platform> [
-    UNSPECIFIED,
-    IOS,
-    ANDROID,
-  ];
-
-  static final $core.Map<$core.int, Device_Platform> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static Device_Platform? valueOf($core.int value) => _byValue[value];
-
-  const Device_Platform._($core.int v, $core.String n) : super(v, n);
 }
 
 class UserAddress_UserAddressType extends $pb.ProtobufEnum {

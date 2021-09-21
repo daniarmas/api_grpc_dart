@@ -16,7 +16,7 @@ abstract class AuthorizationTokenLocalDataSource {
       {required PostgreSQLExecutionContext context,
       required List<String> paths,
       required Map<String, dynamic> data});
-  Future<AuthorizationToken> getAuthorizationToken(
+  Future<AuthorizationToken>? getAuthorizationToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths});
@@ -98,7 +98,7 @@ class AuthorizationTokenLocalDataSourceImpl
   }
 
   @override
-  Future<AuthorizationToken> getAuthorizationToken(
+  Future<AuthorizationToken>? getAuthorizationToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths}) async {
@@ -118,16 +118,19 @@ class AuthorizationTokenLocalDataSourceImpl
           'valid'
         ],
       );
-      return AuthorizationToken(
-          id: result['AuthorizationToken']['id'],
-          authorizationToken: result['AuthorizationToken']
-              ['authorizationToken'],
-          refreshTokenFk: result['AuthorizationToken']['refreshTokenFk'],
-          appVersion: result['AuthorizationToken']['appVersion'],
-          app: parseAppTypeEnum(result['AuthorizationToken']['app']),
-          userFk: result['AuthorizationToken']['userFk'],
-          valid: result['AuthorizationToken']['valid'],
-          deviceFk: result['AuthorizationToken']['deviceFk']);
+      if (result != null) {
+        return AuthorizationToken(
+            id: result['AuthorizationToken']['id'],
+            authorizationToken: result['AuthorizationToken']
+                ['authorizationToken'],
+            refreshTokenFk: result['AuthorizationToken']['refreshTokenFk'],
+            appVersion: result['AuthorizationToken']['appVersion'],
+            app: parseAppTypeEnum(result['AuthorizationToken']['app']),
+            userFk: result['AuthorizationToken']['userFk'],
+            valid: result['AuthorizationToken']['valid'],
+            deviceFk: result['AuthorizationToken']['deviceFk']);
+      }
+      return Future.value(null);
     } catch (error) {
       rethrow;
     }
