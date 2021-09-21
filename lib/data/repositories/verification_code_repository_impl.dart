@@ -92,7 +92,6 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception catch (error) {
-      var sads = error;
       return Left(GrpcError.internal('Internal server error'));
     }
   }

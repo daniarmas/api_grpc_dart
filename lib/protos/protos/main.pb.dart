@@ -698,7 +698,7 @@ class AuthorizationToken extends $pb.GeneratedMessage {
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceFk', protoName: 'deviceFk')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
     ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'valid')
-    ..e<AuthorizationToken_AppType>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'app', $pb.PbFieldType.OE, defaultOrMaker: AuthorizationToken_AppType.UNSPECIFIED, valueOf: AuthorizationToken_AppType.valueOf, enumValues: AuthorizationToken_AppType.values)
+    ..e<AppType>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'app', $pb.PbFieldType.OE, defaultOrMaker: AppType.APP_TYPE_UNSPECIFIED, valueOf: AppType.valueOf, enumValues: AppType.values)
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'appVersion', protoName: 'appVersion')
     ..hasRequiredFields = false
   ;
@@ -711,7 +711,7 @@ class AuthorizationToken extends $pb.GeneratedMessage {
     $core.String? deviceFk,
     $core.String? userFk,
     $core.bool? valid,
-    AuthorizationToken_AppType? app,
+    AppType? app,
     $core.String? appVersion,
   }) {
     final _result = create();
@@ -817,9 +817,9 @@ class AuthorizationToken extends $pb.GeneratedMessage {
   void clearValid() => clearField(6);
 
   @$pb.TagNumber(7)
-  AuthorizationToken_AppType get app => $_getN(6);
+  AppType get app => $_getN(6);
   @$pb.TagNumber(7)
-  set app(AuthorizationToken_AppType v) { setField(7, v); }
+  set app(AppType v) { setField(7, v); }
   @$pb.TagNumber(7)
   $core.bool hasApp() => $_has(6);
   @$pb.TagNumber(7)

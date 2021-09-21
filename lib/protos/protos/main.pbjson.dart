@@ -173,24 +173,13 @@ const AuthorizationToken$json = const {
     const {'1': 'deviceFk', '3': 4, '4': 1, '5': 9, '10': 'deviceFk'},
     const {'1': 'userFk', '3': 5, '4': 1, '5': 9, '10': 'userFk'},
     const {'1': 'valid', '3': 6, '4': 1, '5': 8, '10': 'valid'},
-    const {'1': 'app', '3': 7, '4': 1, '5': 14, '6': '.AuthorizationToken.AppType', '10': 'app'},
+    const {'1': 'app', '3': 7, '4': 1, '5': 14, '6': '.AppType', '10': 'app'},
     const {'1': 'appVersion', '3': 8, '4': 1, '5': 9, '10': 'appVersion'},
-  ],
-  '4': const [AuthorizationToken_AppType$json],
-};
-
-@$core.Deprecated('Use authorizationTokenDescriptor instead')
-const AuthorizationToken_AppType$json = const {
-  '1': 'AppType',
-  '2': const [
-    const {'1': 'UNSPECIFIED', '2': 0},
-    const {'1': 'APP', '2': 1},
-    const {'1': 'BUSINESS_APP', '2': 2},
   ],
 };
 
 /// Descriptor for `AuthorizationToken`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List authorizationTokenDescriptor = $convert.base64Decode('ChJBdXRob3JpemF0aW9uVG9rZW4SDgoCaWQYASABKAlSAmlkEi4KEmF1dGhvcml6YXRpb25Ub2tlbhgCIAEoCVISYXV0aG9yaXphdGlvblRva2VuEiYKDnJlZnJlc2hUb2tlbkZrGAMgASgJUg5yZWZyZXNoVG9rZW5GaxIaCghkZXZpY2VGaxgEIAEoCVIIZGV2aWNlRmsSFgoGdXNlckZrGAUgASgJUgZ1c2VyRmsSFAoFdmFsaWQYBiABKAhSBXZhbGlkEi0KA2FwcBgHIAEoDjIbLkF1dGhvcml6YXRpb25Ub2tlbi5BcHBUeXBlUgNhcHASHgoKYXBwVmVyc2lvbhgIIAEoCVIKYXBwVmVyc2lvbiI1CgdBcHBUeXBlEg8KC1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
+final $typed_data.Uint8List authorizationTokenDescriptor = $convert.base64Decode('ChJBdXRob3JpemF0aW9uVG9rZW4SDgoCaWQYASABKAlSAmlkEi4KEmF1dGhvcml6YXRpb25Ub2tlbhgCIAEoCVISYXV0aG9yaXphdGlvblRva2VuEiYKDnJlZnJlc2hUb2tlbkZrGAMgASgJUg5yZWZyZXNoVG9rZW5GaxIaCghkZXZpY2VGaxgEIAEoCVIIZGV2aWNlRmsSFgoGdXNlckZrGAUgASgJUgZ1c2VyRmsSFAoFdmFsaWQYBiABKAhSBXZhbGlkEhoKA2FwcBgHIAEoDjIILkFwcFR5cGVSA2FwcBIeCgphcHBWZXJzaW9uGAggASgJUgphcHBWZXJzaW9u');
 @$core.Deprecated('Use refreshTokenDescriptor instead')
 const RefreshToken$json = const {
   '1': 'RefreshToken',

@@ -1,3 +1,4 @@
+import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:api_grpc_dart/data/datasources/authorization_token_local_data_source.dart';
 import 'package:api_grpc_dart/domain/repositories/authorization_token.dart';
 import 'package:dartz/dartz.dart';
@@ -15,28 +16,11 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
   AuthorizationTokenRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<Either<GrpcError, AuthorizationToken>> createAuthorizationToken(
-      {required PostgreSQLExecutionContext context,
-      required Map<String, dynamic> data,
-      required List<String> paths}) async {
-    try {
-      final response = await localDataSource.createAuthorizationToken(
-          data: data, paths: paths, context: context);
-      return Right(response);
-    } on DatabaseConnectionNotOpenException {
-      return Left(GrpcError.internal('Internal server error'));
-    } on DatabaseTableNotExistsException {
-      return Left(GrpcError.internal('Internal server error'));
-    } on Exception {
-      return Left(GrpcError.internal('Internal server error'));
-    }
-  }
-
-  @override
   Future<Either<GrpcError, Iterable<AuthorizationToken>>>
       listAuthorizationToken(
           {required PostgreSQLExecutionContext context,
           required Map<String, dynamic> data,
+          required HeadersMetadata metadata,
           required List<String> paths}) async {
     try {
       final response = await localDataSource.listAuthorizationToken(
@@ -55,6 +39,7 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
   Future<Either<GrpcError, AuthorizationToken>> getAuthorizationToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
+      required HeadersMetadata metadata,
       required List<String> paths}) async {
     try {
       final response = await localDataSource.getAuthorizationToken(
@@ -75,6 +60,7 @@ class AuthorizationTokenRepositoryImpl implements AuthorizationTokenRepository {
   @override
   Future<Either<GrpcError, void>> deleteAuthorizationToken(
       {required PostgreSQLExecutionContext context,
+      required HeadersMetadata metadata,
       required Map<String, dynamic> data}) async {
     try {
       localDataSource.deleteAuthorizationToken(data: data, context: context);

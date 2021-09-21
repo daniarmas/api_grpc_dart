@@ -129,11 +129,6 @@ message BannedDevice {
 }
 
 message AuthorizationToken {
-  enum AppType {
-    UNSPECIFIED = 0;
-    APP = 1;
-    BUSINESS_APP = 2;
-  }
   string id = 1;
   string authorizationToken = 2;
   string refreshTokenFk = 3;

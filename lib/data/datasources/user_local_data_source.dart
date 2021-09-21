@@ -35,8 +35,22 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths}) async {
-    // TODO: implement createUser
-    throw UnimplementedError();
+    try {
+      final result = await _database.create(
+          context: context, table: 'User', data: data, attributes: paths);
+      String photo = result['photo'] ?? '';
+      return User(
+          id: result['id'] ?? '',
+          email: result['email'] ?? '',
+          fullName: result['fullName'] ?? '',
+          legalAge: result['legalAge'],
+          photo: result['photo'] ?? '',
+          photoUrl: (photo != '') ? 'https://192.168.1.3/oss/$photo' : '',
+          createTime: result['createTime'] ?? '',
+          updateTime: result['updateTime'] ?? '');
+    } catch (error) {
+      rethrow;
+    }
   }
 
   @override
@@ -59,15 +73,17 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
           where: getWhereNormalAttributeList(data),
           attributes: paths);
       if (result != null) {
-        String photo = result['photo'] ?? '';
+        String photo = result['User']['photo'] ?? '';
         return User(
             id: result['User']['id'] ?? '',
             email: result['User']['email'] ?? '',
             fullName: result['User']['fullName'] ?? '',
+            legalAge: result['User']['legalAge'] ?? false,
             photo: result['User']['photo'] ?? '',
             photoUrl:
-                (photo.isNotEmpty) ? 'https://192.168.1.3/oss/$photo' : photo,
-            legalAge: result['User']['legalAge'] ?? false);
+                (photo.isNotEmpty) ? 'https://192.168.1.3/oss/$photo' : '',
+            createTime: result['User']['createTime'] ?? '',
+            updateTime: result['User']['updateTime'] ?? '');
       }
       return null;
     } catch (error) {

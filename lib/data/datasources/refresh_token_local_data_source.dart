@@ -6,53 +6,49 @@ import 'package:postgres_dao/get_where_list.dart';
 
 import '../../protos/protos/main.pb.dart';
 
-abstract class AuthorizationTokenLocalDataSource {
-  Future<AuthorizationToken> createAuthorizationToken(
+abstract class RefreshTokenLocalDataSource {
+  Future<RefreshToken> createRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths});
 
-  Future<List<AuthorizationToken>> listAuthorizationToken(
+  Future<List<RefreshToken>> listRefreshToken(
       {required PostgreSQLExecutionContext context,
       required List<String> paths,
       required Map<String, dynamic> data});
 
-  Future<AuthorizationToken?> getAuthorizationToken(
+  Future<RefreshToken?> getRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths});
-  Future<void> deleteAuthorizationToken(
+  Future<void> deleteRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data});
 }
 
-@Injectable(as: AuthorizationTokenLocalDataSource)
-class AuthorizationTokenLocalDataSourceImpl
-    implements AuthorizationTokenLocalDataSource {
+@Injectable(as: RefreshTokenLocalDataSource)
+class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
   final Database _database;
 
-  AuthorizationTokenLocalDataSourceImpl(this._database);
+  RefreshTokenLocalDataSourceImpl(this._database);
 
   @override
-  Future<AuthorizationToken> createAuthorizationToken(
+  Future<RefreshToken> createRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths}) async {
     try {
       final result = await _database.create(
           context: context,
-          table: 'AuthorizationToken',
+          table: 'RefreshToken',
           data: data,
           attributes: paths);
-      return AuthorizationToken(
-        id: result['id'],
-        authorizationToken: result['authorizationToken'],
-        refreshTokenFk: result['refreshTokenFk'],
-        app: parseAppTypeEnum(result['app']),
-        appVersion: result['appVersion'],
-        deviceFk: result['deviceFk'],
-        userFk: result['userFk'],
-        valid: result['valid'],
+      return RefreshToken(
+        id: result['id'] ?? '',
+        expirationTime: result['expirationTime'] ?? '',
+        refreshToken: result['refreshToken'] ?? '',
+        userFk: result['userFk'] ?? '',
+        valid: result['valid'] ?? '',
       );
     } catch (error) {
       rethrow;
@@ -60,7 +56,7 @@ class AuthorizationTokenLocalDataSourceImpl
   }
 
   @override
-  Future<List<AuthorizationToken>> listAuthorizationToken(
+  Future<List<RefreshToken>> listRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths}) async {
@@ -68,30 +64,24 @@ class AuthorizationTokenLocalDataSourceImpl
   }
 
   @override
-  Future<AuthorizationToken?> getAuthorizationToken(
+  Future<RefreshToken?> getRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths}) async {
     try {
       final result = await _database.get(
         context: context,
-        table: 'AuthorizationToken',
+        table: 'RefreshToken',
         where: getWhereNormalAttributeList(data),
         attributes: paths,
       );
       if (result != null) {
-        return AuthorizationToken(
-            id: result['AuthorizationToken']['id'] ?? '',
-            authorizationToken:
-                result['AuthorizationToken']['authorizationToken'] ?? '',
-            refreshTokenFk:
-                result['AuthorizationToken']['refreshTokenFk'] ?? '',
-            appVersion: result['AuthorizationToken']['appVersion'] ?? '',
-            app: parseAppTypeEnum(result['AuthorizationToken']['app'] ??
-                AppType.APP_TYPE_UNSPECIFIED),
-            userFk: result['AuthorizationToken']['userFk'] ?? '',
-            valid: result['AuthorizationToken']['valid'] ?? null,
-            deviceFk: result['AuthorizationToken']['deviceFk'] ?? '');
+        return RefreshToken(
+            id: result['RefreshToken']['id'] ?? '',
+            userFk: result['RefreshToken']['userFk'] ?? '',
+            expirationTime: result['RefreshToken']['expirationTime'] ?? '',
+            refreshToken: result['RefreshToken']['refreshToken'] ?? '',
+            valid: result['RefreshToken']['valid'] ?? null);
       }
       return null;
     } catch (error) {
@@ -100,13 +90,13 @@ class AuthorizationTokenLocalDataSourceImpl
   }
 
   @override
-  Future<void> deleteAuthorizationToken(
+  Future<void> deleteRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data}) async {
     try {
       await _database.delete(
           context: context,
-          table: 'AuthorizationToken',
+          table: 'RefreshToken',
           where: getWhereNormalAttributeList(data));
     } catch (error) {
       rethrow;
