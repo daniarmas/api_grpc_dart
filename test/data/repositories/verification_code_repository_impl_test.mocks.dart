@@ -90,14 +90,13 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
               returnValue: Future<_i2.VerificationCode?>.value())
           as _i5.Future<_i2.VerificationCode?>);
   @override
-  _i5.Future<void> deleteVerificationCode(
+  _i5.Future<bool> deleteVerificationCode(
           {_i3.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data}) =>
       (super.noSuchMethod(
           Invocation.method(
               #deleteVerificationCode, [], {#context: context, #data: data}),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
   @override
   String toString() => super.toString();
 }
@@ -353,15 +352,14 @@ class MockDatabase extends _i1.Mock implements _i9.Database {
               returnValue: Future<Map<String, dynamic>?>.value())
           as _i5.Future<Map<String, dynamic>?>);
   @override
-  _i5.Future<void> delete(
+  _i5.Future<bool> delete(
           {_i3.PostgreSQLExecutionContext? context,
           String? table,
           List<_i10.Where>? where}) =>
       (super.noSuchMethod(
           Invocation.method(
               #delete, [], {#context: context, #table: table, #where: where}),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
+          returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
   @override
   String toString() => super.toString();
 }

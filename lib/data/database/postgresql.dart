@@ -58,12 +58,13 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  Future<void> delete(
+  Future<bool> delete(
       {required PostgreSQLExecutionContext context,
       required String table,
       required List<Where> where}) async {
     try {
       await _connection.delete(table: table, where: where, context: context);
+      return true;
     } catch (error) {
       if (error.toString() ==
           'Attempting to execute query, but connection is not open.') {
@@ -73,7 +74,7 @@ class PostgresqlDatabase implements Database {
           .contains('relation "$table" does not exist')) {
         throw DatabaseTableNotExistsException();
       } else if (error.toString().contains('NOT_FOUND')) {
-        throw NotFoundException();
+        return false;
       } else {
         rethrow;
       }

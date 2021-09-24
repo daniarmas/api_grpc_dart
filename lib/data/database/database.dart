@@ -36,7 +36,7 @@ abstract class Database {
       required List<Where> where,
       required List<String> attributes});
 
-  Future<void> delete(
+  Future<bool> delete(
       {required PostgreSQLExecutionContext context,
       required String table,
       required List<Where> where});

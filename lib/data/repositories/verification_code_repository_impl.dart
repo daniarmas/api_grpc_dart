@@ -8,7 +8,6 @@ import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 
-import '../../core/error/exception.dart';
 import '../../domain/repositories/verification_code_repository.dart';
 import '../../protos/protos/main.pb.dart';
 import '../datasources/verification_code_local_data_source.dart';
@@ -85,10 +84,6 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
             .createVerificationCode(data: data, paths: paths, context: context);
         return Right(response);
       }
-    } on DatabaseConnectionNotOpenException {
-      return Left(GrpcError.internal('Internal server error'));
-    } on DatabaseTableNotExistsException {
-      return Left(GrpcError.internal('Internal server error'));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception catch (error) {
@@ -106,10 +101,6 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       final response = await verificationCodeLocalDataSource
           .listVerificationCode(paths: paths, context: context, data: data);
       return Right(response);
-    } on DatabaseConnectionNotOpenException {
-      return Left(GrpcError.internal('Internal server error'));
-    } on DatabaseTableNotExistsException {
-      return Left(GrpcError.internal('Internal server error'));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception {
@@ -130,10 +121,6 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
         return Right(response);
       }
       return Left(GrpcError.notFound('Not found'));
-    } on DatabaseConnectionNotOpenException {
-      return Left(GrpcError.internal('Internal server error'));
-    } on DatabaseTableNotExistsException {
-      return Left(GrpcError.internal('Internal server error'));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception {
@@ -147,17 +134,15 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       required HeadersMetadata metadata,
       required Map<String, dynamic> data}) async {
     try {
-      await verificationCodeLocalDataSource
+      final result = await verificationCodeLocalDataSource
           .deleteVerificationCode(data: {'id': data['id']}, context: context);
-      return Right(null);
-    } on DatabaseConnectionNotOpenException {
-      return Left(GrpcError.internal('Internal server error'));
-    } on DatabaseTableNotExistsException {
-      return Left(GrpcError.internal('Internal server error'));
-    } on NotFoundException {
-      throw GrpcError.notFound('Not Found');
-    } on GrpcError catch (error) {
-      return Left(error);
+      if (result) {
+        return Right(null);
+      } else {
+        return Left(GrpcError.notFound('Not Found'));
+      }
+    } on GrpcError {
+      rethrow;
     } on Exception {
       return Left(GrpcError.internal('Internal server error'));
     }
@@ -176,10 +161,6 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
         return Right(response);
       }
       return Left(GrpcError.notFound('Not found'));
-    } on DatabaseConnectionNotOpenException {
-      return Left(GrpcError.internal('Internal server error'));
-    } on DatabaseTableNotExistsException {
-      return Left(GrpcError.internal('Internal server error'));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception {

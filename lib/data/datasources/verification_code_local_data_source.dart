@@ -29,7 +29,7 @@ abstract class VerificationCodeLocalDataSource {
       required Map<String, dynamic> data,
       required List<String> paths});
 
-  Future<void> deleteVerificationCode(
+  Future<bool> deleteVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data});
 }
@@ -134,11 +134,11 @@ class VerificationCodeLocalDataSourceImpl
   }
 
   @override
-  Future<void> deleteVerificationCode(
+  Future<bool> deleteVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data}) async {
     try {
-      await _database.delete(
+      return await _database.delete(
           context: context,
           table: 'VerificationCode',
           where: getWhereNormalAttributeList(data));

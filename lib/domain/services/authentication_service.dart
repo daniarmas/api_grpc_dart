@@ -115,14 +115,16 @@ class AuthenticationService extends AuthenticationServiceBase {
     try {
       VerificationCodeRepository verificationCodeRepository =
           GetIt.I<VerificationCodeRepository>();
+      late Either<GrpcError, void> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
-        await verificationCodeRepository.deleteVerificationCode(
+        result = await verificationCodeRepository.deleteVerificationCode(
             metadata: HeadersMetadata.fromServiceCall(call),
             data: getRequestData(request),
             context: context);
       });
-      return Future.value(Empty());
+      result.fold((left) => throw left, (right) => null);
+      return Empty();
     } catch (error) {
       if (error is GrpcError) {
         rethrow;
@@ -133,8 +135,7 @@ class AuthenticationService extends AuthenticationServiceBase {
   }
 
   @override
-  Future<SignInResponse> signIn(
-      ServiceCall call, SignInRequest request) async {
+  Future<SignInResponse> signIn(ServiceCall call, SignInRequest request) async {
     try {
       late SignInResponse response;
       SignInRepository signInRepository = GetIt.I<SignInRepository>();
