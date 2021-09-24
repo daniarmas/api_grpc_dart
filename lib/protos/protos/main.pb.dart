@@ -1195,6 +1195,8 @@ class BannedDevice extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceFk', protoName: 'deviceFk')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'moderatorAuthorizationTokenFk', protoName: 'moderatorAuthorizationTokenFk')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -1205,6 +1207,8 @@ class BannedDevice extends $pb.GeneratedMessage {
     $core.String? deviceFk,
     $core.String? deviceId,
     $core.String? moderatorAuthorizationTokenFk,
+    $core.String? createTime,
+    $core.String? updateTime,
   }) {
     final _result = create();
     if (id != null) {
@@ -1221,6 +1225,12 @@ class BannedDevice extends $pb.GeneratedMessage {
     }
     if (moderatorAuthorizationTokenFk != null) {
       _result.moderatorAuthorizationTokenFk = moderatorAuthorizationTokenFk;
+    }
+    if (createTime != null) {
+      _result.createTime = createTime;
+    }
+    if (updateTime != null) {
+      _result.updateTime = updateTime;
     }
     return _result;
   }
@@ -1289,6 +1299,24 @@ class BannedDevice extends $pb.GeneratedMessage {
   $core.bool hasModeratorAuthorizationTokenFk() => $_has(4);
   @$pb.TagNumber(5)
   void clearModeratorAuthorizationTokenFk() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get createTime => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set createTime($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasCreateTime() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearCreateTime() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get updateTime => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set updateTime($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasUpdateTime() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearUpdateTime() => clearField(7);
 }
 
 class AuthorizationToken extends $pb.GeneratedMessage {
@@ -1301,6 +1329,8 @@ class AuthorizationToken extends $pb.GeneratedMessage {
     ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'valid')
     ..e<AppType>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'app', $pb.PbFieldType.OE, defaultOrMaker: AppType.APP_TYPE_UNSPECIFIED, valueOf: AppType.valueOf, enumValues: AppType.values)
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'appVersion', protoName: 'appVersion')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -1314,6 +1344,8 @@ class AuthorizationToken extends $pb.GeneratedMessage {
     $core.bool? valid,
     AppType? app,
     $core.String? appVersion,
+    $core.String? createTime,
+    $core.String? updateTime,
   }) {
     final _result = create();
     if (id != null) {
@@ -1339,6 +1371,12 @@ class AuthorizationToken extends $pb.GeneratedMessage {
     }
     if (appVersion != null) {
       _result.appVersion = appVersion;
+    }
+    if (createTime != null) {
+      _result.createTime = createTime;
+    }
+    if (updateTime != null) {
+      _result.updateTime = updateTime;
     }
     return _result;
   }
@@ -1434,6 +1472,24 @@ class AuthorizationToken extends $pb.GeneratedMessage {
   $core.bool hasAppVersion() => $_has(7);
   @$pb.TagNumber(8)
   void clearAppVersion() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get createTime => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set createTime($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasCreateTime() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearCreateTime() => clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.String get updateTime => $_getSZ(9);
+  @$pb.TagNumber(10)
+  set updateTime($core.String v) { $_setString(9, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasUpdateTime() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearUpdateTime() => clearField(10);
 }
 
 class RefreshToken extends $pb.GeneratedMessage {
@@ -1443,6 +1499,8 @@ class RefreshToken extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
     ..aOB(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'valid')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'expirationTime', protoName: 'expirationTime')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -1453,6 +1511,8 @@ class RefreshToken extends $pb.GeneratedMessage {
     $core.String? userFk,
     $core.bool? valid,
     $core.String? expirationTime,
+    $core.String? createTime,
+    $core.String? updateTime,
   }) {
     final _result = create();
     if (id != null) {
@@ -1469,6 +1529,12 @@ class RefreshToken extends $pb.GeneratedMessage {
     }
     if (expirationTime != null) {
       _result.expirationTime = expirationTime;
+    }
+    if (createTime != null) {
+      _result.createTime = createTime;
+    }
+    if (updateTime != null) {
+      _result.updateTime = updateTime;
     }
     return _result;
   }
@@ -1537,6 +1603,24 @@ class RefreshToken extends $pb.GeneratedMessage {
   $core.bool hasExpirationTime() => $_has(4);
   @$pb.TagNumber(5)
   void clearExpirationTime() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get createTime => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set createTime($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasCreateTime() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearCreateTime() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get updateTime => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set updateTime($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasUpdateTime() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearUpdateTime() => clearField(7);
 }
 
 class Device extends $pb.GeneratedMessage {
@@ -1547,6 +1631,8 @@ class Device extends $pb.GeneratedMessage {
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'firebaseCloudMessagingId', protoName: 'firebaseCloudMessagingId')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'model')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -1558,6 +1644,8 @@ class Device extends $pb.GeneratedMessage {
     $core.String? deviceId,
     $core.String? firebaseCloudMessagingId,
     $core.String? model,
+    $core.String? createTime,
+    $core.String? updateTime,
   }) {
     final _result = create();
     if (id != null) {
@@ -1577,6 +1665,12 @@ class Device extends $pb.GeneratedMessage {
     }
     if (model != null) {
       _result.model = model;
+    }
+    if (createTime != null) {
+      _result.createTime = createTime;
+    }
+    if (updateTime != null) {
+      _result.updateTime = updateTime;
     }
     return _result;
   }
@@ -1654,6 +1748,24 @@ class Device extends $pb.GeneratedMessage {
   $core.bool hasModel() => $_has(5);
   @$pb.TagNumber(6)
   void clearModel() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get createTime => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set createTime($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasCreateTime() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearCreateTime() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get updateTime => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set updateTime($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasUpdateTime() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearUpdateTime() => clearField(8);
 }
 
 class UserAddress extends $pb.GeneratedMessage {
@@ -1668,6 +1780,8 @@ class UserAddress extends $pb.GeneratedMessage {
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provinceFk', protoName: 'provinceFk')
     ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'municipalityFk', protoName: 'municipalityFk')
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -1683,6 +1797,8 @@ class UserAddress extends $pb.GeneratedMessage {
     $core.String? userFk,
     $core.String? provinceFk,
     $core.String? municipalityFk,
+    $core.String? createTime,
+    $core.String? updateTime,
   }) {
     final _result = create();
     if (id != null) {
@@ -1714,6 +1830,12 @@ class UserAddress extends $pb.GeneratedMessage {
     }
     if (municipalityFk != null) {
       _result.municipalityFk = municipalityFk;
+    }
+    if (createTime != null) {
+      _result.createTime = createTime;
+    }
+    if (updateTime != null) {
+      _result.updateTime = updateTime;
     }
     return _result;
   }
@@ -1829,6 +1951,24 @@ class UserAddress extends $pb.GeneratedMessage {
   $core.bool hasMunicipalityFk() => $_has(9);
   @$pb.TagNumber(10)
   void clearMunicipalityFk() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.String get createTime => $_getSZ(10);
+  @$pb.TagNumber(11)
+  set createTime($core.String v) { $_setString(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasCreateTime() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearCreateTime() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.String get updateTime => $_getSZ(11);
+  @$pb.TagNumber(12)
+  set updateTime($core.String v) { $_setString(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasUpdateTime() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearUpdateTime() => clearField(12);
 }
 
 class UserPermission extends $pb.GeneratedMessage {
@@ -1838,6 +1978,8 @@ class UserPermission extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'permissionFk', protoName: 'permissionFk')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessFk', protoName: 'businessFk')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -1848,6 +1990,8 @@ class UserPermission extends $pb.GeneratedMessage {
     $core.String? permissionFk,
     $core.String? userFk,
     $core.String? businessFk,
+    $core.String? createTime,
+    $core.String? updateTime,
   }) {
     final _result = create();
     if (id != null) {
@@ -1864,6 +2008,12 @@ class UserPermission extends $pb.GeneratedMessage {
     }
     if (businessFk != null) {
       _result.businessFk = businessFk;
+    }
+    if (createTime != null) {
+      _result.createTime = createTime;
+    }
+    if (updateTime != null) {
+      _result.updateTime = updateTime;
     }
     return _result;
   }
@@ -1932,6 +2082,24 @@ class UserPermission extends $pb.GeneratedMessage {
   $core.bool hasBusinessFk() => $_has(4);
   @$pb.TagNumber(5)
   void clearBusinessFk() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get createTime => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set createTime($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasCreateTime() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearCreateTime() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get updateTime => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set updateTime($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasUpdateTime() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearUpdateTime() => clearField(7);
 }
 
 class Polygon extends $pb.GeneratedMessage {
@@ -1982,6 +2150,8 @@ class VerificationCode extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
     ..e<VerificationCodeType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -1992,6 +2162,8 @@ class VerificationCode extends $pb.GeneratedMessage {
     $core.String? email,
     VerificationCodeType? type,
     $core.String? deviceId,
+    $core.String? createTime,
+    $core.String? updateTime,
   }) {
     final _result = create();
     if (id != null) {
@@ -2008,6 +2180,12 @@ class VerificationCode extends $pb.GeneratedMessage {
     }
     if (deviceId != null) {
       _result.deviceId = deviceId;
+    }
+    if (createTime != null) {
+      _result.createTime = createTime;
+    }
+    if (updateTime != null) {
+      _result.updateTime = updateTime;
     }
     return _result;
   }
@@ -2076,6 +2254,24 @@ class VerificationCode extends $pb.GeneratedMessage {
   $core.bool hasDeviceId() => $_has(4);
   @$pb.TagNumber(5)
   void clearDeviceId() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get createTime => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set createTime($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasCreateTime() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearCreateTime() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get updateTime => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set updateTime($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasUpdateTime() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearUpdateTime() => clearField(7);
 }
 
 class LatLng extends $pb.GeneratedMessage {

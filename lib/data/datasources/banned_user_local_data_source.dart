@@ -61,13 +61,18 @@ class BannedUserLocalDataSourceImpl implements BannedUserLocalDataSource {
           attributes: paths);
       if (result != null) {
         return BannedUser(
-          id: result['id'],
-          description: result['description'],
-          moderatorAuthorizationTokenFk:
-              result['moderatorAuthorizationTokenFk'],
-          userFk: result['userFk'],
-          email: result['email'],
-        );
+            id: result['id'],
+            description: result['description'],
+            moderatorAuthorizationTokenFk:
+                result['moderatorAuthorizationTokenFk'],
+            userFk: result['userFk'],
+            email: result['email'],
+            createTime: (result['createTime'] != null)
+                ? result['createTime'].toString()
+                : null,
+            updateTime: (result['updateTime'] != null)
+                ? result['updateTime'].toString()
+                : null);
       }
       return null;
     } catch (error) {

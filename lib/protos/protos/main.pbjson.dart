@@ -260,11 +260,13 @@ const BannedDevice$json = const {
     const {'1': 'deviceFk', '3': 3, '4': 1, '5': 9, '10': 'deviceFk'},
     const {'1': 'deviceId', '3': 4, '4': 1, '5': 9, '10': 'deviceId'},
     const {'1': 'moderatorAuthorizationTokenFk', '3': 5, '4': 1, '5': 9, '10': 'moderatorAuthorizationTokenFk'},
+    const {'1': 'createTime', '3': 6, '4': 1, '5': 9, '10': 'createTime'},
+    const {'1': 'updateTime', '3': 7, '4': 1, '5': 9, '10': 'updateTime'},
   ],
 };
 
 /// Descriptor for `BannedDevice`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List bannedDeviceDescriptor = $convert.base64Decode('CgxCYW5uZWREZXZpY2USDgoCaWQYASABKAlSAmlkEiAKC2Rlc2NyaXB0aW9uGAIgASgJUgtkZXNjcmlwdGlvbhIaCghkZXZpY2VGaxgDIAEoCVIIZGV2aWNlRmsSGgoIZGV2aWNlSWQYBCABKAlSCGRldmljZUlkEkQKHW1vZGVyYXRvckF1dGhvcml6YXRpb25Ub2tlbkZrGAUgASgJUh1tb2RlcmF0b3JBdXRob3JpemF0aW9uVG9rZW5Gaw==');
+final $typed_data.Uint8List bannedDeviceDescriptor = $convert.base64Decode('CgxCYW5uZWREZXZpY2USDgoCaWQYASABKAlSAmlkEiAKC2Rlc2NyaXB0aW9uGAIgASgJUgtkZXNjcmlwdGlvbhIaCghkZXZpY2VGaxgDIAEoCVIIZGV2aWNlRmsSGgoIZGV2aWNlSWQYBCABKAlSCGRldmljZUlkEkQKHW1vZGVyYXRvckF1dGhvcml6YXRpb25Ub2tlbkZrGAUgASgJUh1tb2RlcmF0b3JBdXRob3JpemF0aW9uVG9rZW5GaxIeCgpjcmVhdGVUaW1lGAYgASgJUgpjcmVhdGVUaW1lEh4KCnVwZGF0ZVRpbWUYByABKAlSCnVwZGF0ZVRpbWU=');
 @$core.Deprecated('Use authorizationTokenDescriptor instead')
 const AuthorizationToken$json = const {
   '1': 'AuthorizationToken',
@@ -277,11 +279,13 @@ const AuthorizationToken$json = const {
     const {'1': 'valid', '3': 6, '4': 1, '5': 8, '10': 'valid'},
     const {'1': 'app', '3': 7, '4': 1, '5': 14, '6': '.AppType', '10': 'app'},
     const {'1': 'appVersion', '3': 8, '4': 1, '5': 9, '10': 'appVersion'},
+    const {'1': 'createTime', '3': 9, '4': 1, '5': 9, '10': 'createTime'},
+    const {'1': 'updateTime', '3': 10, '4': 1, '5': 9, '10': 'updateTime'},
   ],
 };
 
 /// Descriptor for `AuthorizationToken`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List authorizationTokenDescriptor = $convert.base64Decode('ChJBdXRob3JpemF0aW9uVG9rZW4SDgoCaWQYASABKAlSAmlkEi4KEmF1dGhvcml6YXRpb25Ub2tlbhgCIAEoCVISYXV0aG9yaXphdGlvblRva2VuEiYKDnJlZnJlc2hUb2tlbkZrGAMgASgJUg5yZWZyZXNoVG9rZW5GaxIaCghkZXZpY2VGaxgEIAEoCVIIZGV2aWNlRmsSFgoGdXNlckZrGAUgASgJUgZ1c2VyRmsSFAoFdmFsaWQYBiABKAhSBXZhbGlkEhoKA2FwcBgHIAEoDjIILkFwcFR5cGVSA2FwcBIeCgphcHBWZXJzaW9uGAggASgJUgphcHBWZXJzaW9u');
+final $typed_data.Uint8List authorizationTokenDescriptor = $convert.base64Decode('ChJBdXRob3JpemF0aW9uVG9rZW4SDgoCaWQYASABKAlSAmlkEi4KEmF1dGhvcml6YXRpb25Ub2tlbhgCIAEoCVISYXV0aG9yaXphdGlvblRva2VuEiYKDnJlZnJlc2hUb2tlbkZrGAMgASgJUg5yZWZyZXNoVG9rZW5GaxIaCghkZXZpY2VGaxgEIAEoCVIIZGV2aWNlRmsSFgoGdXNlckZrGAUgASgJUgZ1c2VyRmsSFAoFdmFsaWQYBiABKAhSBXZhbGlkEhoKA2FwcBgHIAEoDjIILkFwcFR5cGVSA2FwcBIeCgphcHBWZXJzaW9uGAggASgJUgphcHBWZXJzaW9uEh4KCmNyZWF0ZVRpbWUYCSABKAlSCmNyZWF0ZVRpbWUSHgoKdXBkYXRlVGltZRgKIAEoCVIKdXBkYXRlVGltZQ==');
 @$core.Deprecated('Use refreshTokenDescriptor instead')
 const RefreshToken$json = const {
   '1': 'RefreshToken',
@@ -291,11 +295,13 @@ const RefreshToken$json = const {
     const {'1': 'userFk', '3': 3, '4': 1, '5': 9, '10': 'userFk'},
     const {'1': 'valid', '3': 4, '4': 1, '5': 8, '10': 'valid'},
     const {'1': 'expirationTime', '3': 5, '4': 1, '5': 9, '10': 'expirationTime'},
+    const {'1': 'createTime', '3': 6, '4': 1, '5': 9, '10': 'createTime'},
+    const {'1': 'updateTime', '3': 7, '4': 1, '5': 9, '10': 'updateTime'},
   ],
 };
 
 /// Descriptor for `RefreshToken`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List refreshTokenDescriptor = $convert.base64Decode('CgxSZWZyZXNoVG9rZW4SDgoCaWQYASABKAlSAmlkEiIKDHJlZnJlc2hUb2tlbhgCIAEoCVIMcmVmcmVzaFRva2VuEhYKBnVzZXJGaxgDIAEoCVIGdXNlckZrEhQKBXZhbGlkGAQgASgIUgV2YWxpZBImCg5leHBpcmF0aW9uVGltZRgFIAEoCVIOZXhwaXJhdGlvblRpbWU=');
+final $typed_data.Uint8List refreshTokenDescriptor = $convert.base64Decode('CgxSZWZyZXNoVG9rZW4SDgoCaWQYASABKAlSAmlkEiIKDHJlZnJlc2hUb2tlbhgCIAEoCVIMcmVmcmVzaFRva2VuEhYKBnVzZXJGaxgDIAEoCVIGdXNlckZrEhQKBXZhbGlkGAQgASgIUgV2YWxpZBImCg5leHBpcmF0aW9uVGltZRgFIAEoCVIOZXhwaXJhdGlvblRpbWUSHgoKY3JlYXRlVGltZRgGIAEoCVIKY3JlYXRlVGltZRIeCgp1cGRhdGVUaW1lGAcgASgJUgp1cGRhdGVUaW1l');
 @$core.Deprecated('Use deviceDescriptor instead')
 const Device$json = const {
   '1': 'Device',
@@ -306,11 +312,13 @@ const Device$json = const {
     const {'1': 'deviceId', '3': 4, '4': 1, '5': 9, '10': 'deviceId'},
     const {'1': 'firebaseCloudMessagingId', '3': 5, '4': 1, '5': 9, '10': 'firebaseCloudMessagingId'},
     const {'1': 'model', '3': 6, '4': 1, '5': 9, '10': 'model'},
+    const {'1': 'createTime', '3': 7, '4': 1, '5': 9, '10': 'createTime'},
+    const {'1': 'updateTime', '3': 8, '4': 1, '5': 9, '10': 'updateTime'},
   ],
 };
 
 /// Descriptor for `Device`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List deviceDescriptor = $convert.base64Decode('CgZEZXZpY2USDgoCaWQYASABKAlSAmlkEikKCHBsYXRmb3JtGAIgASgOMg0uUGxhdGZvcm1UeXBlUghwbGF0Zm9ybRIkCg1zeXN0ZW1WZXJzaW9uGAMgASgJUg1zeXN0ZW1WZXJzaW9uEhoKCGRldmljZUlkGAQgASgJUghkZXZpY2VJZBI6ChhmaXJlYmFzZUNsb3VkTWVzc2FnaW5nSWQYBSABKAlSGGZpcmViYXNlQ2xvdWRNZXNzYWdpbmdJZBIUCgVtb2RlbBgGIAEoCVIFbW9kZWw=');
+final $typed_data.Uint8List deviceDescriptor = $convert.base64Decode('CgZEZXZpY2USDgoCaWQYASABKAlSAmlkEikKCHBsYXRmb3JtGAIgASgOMg0uUGxhdGZvcm1UeXBlUghwbGF0Zm9ybRIkCg1zeXN0ZW1WZXJzaW9uGAMgASgJUg1zeXN0ZW1WZXJzaW9uEhoKCGRldmljZUlkGAQgASgJUghkZXZpY2VJZBI6ChhmaXJlYmFzZUNsb3VkTWVzc2FnaW5nSWQYBSABKAlSGGZpcmViYXNlQ2xvdWRNZXNzYWdpbmdJZBIUCgVtb2RlbBgGIAEoCVIFbW9kZWwSHgoKY3JlYXRlVGltZRgHIAEoCVIKY3JlYXRlVGltZRIeCgp1cGRhdGVUaW1lGAggASgJUgp1cGRhdGVUaW1l');
 @$core.Deprecated('Use userAddressDescriptor instead')
 const UserAddress$json = const {
   '1': 'UserAddress',
@@ -325,6 +333,8 @@ const UserAddress$json = const {
     const {'1': 'userFk', '3': 8, '4': 1, '5': 9, '10': 'userFk'},
     const {'1': 'provinceFk', '3': 9, '4': 1, '5': 9, '10': 'provinceFk'},
     const {'1': 'municipalityFk', '3': 10, '4': 1, '5': 9, '10': 'municipalityFk'},
+    const {'1': 'createTime', '3': 11, '4': 1, '5': 9, '10': 'createTime'},
+    const {'1': 'updateTime', '3': 12, '4': 1, '5': 9, '10': 'updateTime'},
   ],
   '4': const [UserAddress_UserAddressType$json],
 };
@@ -340,7 +350,7 @@ const UserAddress_UserAddressType$json = const {
 };
 
 /// Descriptor for `UserAddress`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userAddressDescriptor = $convert.base64Decode('CgtVc2VyQWRkcmVzcxIOCgJpZBgBIAEoCVICaWQSEAoDdGFnGAIgASgJUgN0YWcSQgoNcmVzaWRlbmNlVHlwZRgDIAEoDjIcLlVzZXJBZGRyZXNzLlVzZXJBZGRyZXNzVHlwZVINcmVzaWRlbmNlVHlwZRImCg5idWlsZGluZ051bWJlchgEIAEoCVIOYnVpbGRpbmdOdW1iZXISIAoLaG91c2VOdW1iZXIYBSABKAlSC2hvdXNlTnVtYmVyEikKC2Nvb3JkaW5hdGVzGAYgASgLMgcuTGF0TG5nUgtjb29yZGluYXRlcxIgCgtkZXNjcmlwdGlvbhgHIAEoCVILZGVzY3JpcHRpb24SFgoGdXNlckZrGAggASgJUgZ1c2VyRmsSHgoKcHJvdmluY2VGaxgJIAEoCVIKcHJvdmluY2VGaxImCg5tdW5pY2lwYWxpdHlGaxgKIAEoCVIObXVuaWNpcGFsaXR5RmsiPQoPVXNlckFkZHJlc3NUeXBlEg8KC1VOU1BFQ0lGSUVEEAASCQoFSE9VU0UQARIOCgpBUEFSVEFNRU5UEAI=');
+final $typed_data.Uint8List userAddressDescriptor = $convert.base64Decode('CgtVc2VyQWRkcmVzcxIOCgJpZBgBIAEoCVICaWQSEAoDdGFnGAIgASgJUgN0YWcSQgoNcmVzaWRlbmNlVHlwZRgDIAEoDjIcLlVzZXJBZGRyZXNzLlVzZXJBZGRyZXNzVHlwZVINcmVzaWRlbmNlVHlwZRImCg5idWlsZGluZ051bWJlchgEIAEoCVIOYnVpbGRpbmdOdW1iZXISIAoLaG91c2VOdW1iZXIYBSABKAlSC2hvdXNlTnVtYmVyEikKC2Nvb3JkaW5hdGVzGAYgASgLMgcuTGF0TG5nUgtjb29yZGluYXRlcxIgCgtkZXNjcmlwdGlvbhgHIAEoCVILZGVzY3JpcHRpb24SFgoGdXNlckZrGAggASgJUgZ1c2VyRmsSHgoKcHJvdmluY2VGaxgJIAEoCVIKcHJvdmluY2VGaxImCg5tdW5pY2lwYWxpdHlGaxgKIAEoCVIObXVuaWNpcGFsaXR5RmsSHgoKY3JlYXRlVGltZRgLIAEoCVIKY3JlYXRlVGltZRIeCgp1cGRhdGVUaW1lGAwgASgJUgp1cGRhdGVUaW1lIj0KD1VzZXJBZGRyZXNzVHlwZRIPCgtVTlNQRUNJRklFRBAAEgkKBUhPVVNFEAESDgoKQVBBUlRBTUVOVBAC');
 @$core.Deprecated('Use userPermissionDescriptor instead')
 const UserPermission$json = const {
   '1': 'UserPermission',
@@ -350,11 +360,13 @@ const UserPermission$json = const {
     const {'1': 'permissionFk', '3': 3, '4': 1, '5': 9, '10': 'permissionFk'},
     const {'1': 'userFk', '3': 4, '4': 1, '5': 9, '10': 'userFk'},
     const {'1': 'businessFk', '3': 5, '4': 1, '5': 9, '10': 'businessFk'},
+    const {'1': 'createTime', '3': 6, '4': 1, '5': 9, '10': 'createTime'},
+    const {'1': 'updateTime', '3': 7, '4': 1, '5': 9, '10': 'updateTime'},
   ],
 };
 
 /// Descriptor for `UserPermission`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userPermissionDescriptor = $convert.base64Decode('Cg5Vc2VyUGVybWlzc2lvbhIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIiCgxwZXJtaXNzaW9uRmsYAyABKAlSDHBlcm1pc3Npb25GaxIWCgZ1c2VyRmsYBCABKAlSBnVzZXJGaxIeCgpidXNpbmVzc0ZrGAUgASgJUgpidXNpbmVzc0Zr');
+final $typed_data.Uint8List userPermissionDescriptor = $convert.base64Decode('Cg5Vc2VyUGVybWlzc2lvbhIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIiCgxwZXJtaXNzaW9uRmsYAyABKAlSDHBlcm1pc3Npb25GaxIWCgZ1c2VyRmsYBCABKAlSBnVzZXJGaxIeCgpidXNpbmVzc0ZrGAUgASgJUgpidXNpbmVzc0ZrEh4KCmNyZWF0ZVRpbWUYBiABKAlSCmNyZWF0ZVRpbWUSHgoKdXBkYXRlVGltZRgHIAEoCVIKdXBkYXRlVGltZQ==');
 @$core.Deprecated('Use polygonDescriptor instead')
 const Polygon$json = const {
   '1': 'Polygon',
@@ -374,11 +386,13 @@ const VerificationCode$json = const {
     const {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
     const {'1': 'type', '3': 4, '4': 1, '5': 14, '6': '.VerificationCodeType', '10': 'type'},
     const {'1': 'deviceId', '3': 5, '4': 1, '5': 9, '10': 'deviceId'},
+    const {'1': 'createTime', '3': 6, '4': 1, '5': 9, '10': 'createTime'},
+    const {'1': 'updateTime', '3': 7, '4': 1, '5': 9, '10': 'updateTime'},
   ],
 };
 
 /// Descriptor for `VerificationCode`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List verificationCodeDescriptor = $convert.base64Decode('ChBWZXJpZmljYXRpb25Db2RlEg4KAmlkGAEgASgJUgJpZBISCgRjb2RlGAIgASgJUgRjb2RlEhQKBWVtYWlsGAMgASgJUgVlbWFpbBIpCgR0eXBlGAQgASgOMhUuVmVyaWZpY2F0aW9uQ29kZVR5cGVSBHR5cGUSGgoIZGV2aWNlSWQYBSABKAlSCGRldmljZUlk');
+final $typed_data.Uint8List verificationCodeDescriptor = $convert.base64Decode('ChBWZXJpZmljYXRpb25Db2RlEg4KAmlkGAEgASgJUgJpZBISCgRjb2RlGAIgASgJUgRjb2RlEhQKBWVtYWlsGAMgASgJUgVlbWFpbBIpCgR0eXBlGAQgASgOMhUuVmVyaWZpY2F0aW9uQ29kZVR5cGVSBHR5cGUSGgoIZGV2aWNlSWQYBSABKAlSCGRldmljZUlkEh4KCmNyZWF0ZVRpbWUYBiABKAlSCmNyZWF0ZVRpbWUSHgoKdXBkYXRlVGltZRgHIAEoCVIKdXBkYXRlVGltZQ==');
 @$core.Deprecated('Use latLngDescriptor instead')
 const LatLng$json = const {
   '1': 'LatLng',

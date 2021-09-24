@@ -54,10 +54,14 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
           deviceId: result['deviceId'],
           model: result['model'],
           firebaseCloudMessagingId: result['firebaseCloudMessagingId'],
-          platform: (result['platform'] == null)
-              ? parsePlatformTypeEnum(result['platform'])
+          platform: parsePlatformTypeEnum(result['platform']),
+          systemVersion: result['systemVersion'],
+          createTime: (result['createTime'] != null)
+              ? result['createTime'].toString()
               : null,
-          systemVersion: result['systemVersion']);
+          updateTime: (result['updateTime'] != null)
+              ? result['updateTime'].toString()
+              : null);
     } catch (error) {
       rethrow;
     }
@@ -83,10 +87,14 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
             deviceId: item['deviceId'],
             firebaseCloudMessagingId: item['firebaseCloudMessagingId'],
             model: item['model'],
-            platform: (item['platform'] == null)
-                ? parsePlatformTypeEnum(item['platform'])
+            platform: parsePlatformTypeEnum(item['platform']),
+            systemVersion: item['systemVersion'],
+            createTime: (item['createTime'] != null)
+                ? item['createTime'].toString()
                 : null,
-            systemVersion: item['systemVersion']));
+            updateTime: (item['updateTime'] != null)
+                ? item['updateTime'].toString()
+                : null));
       }
       return response;
     } catch (error) {
@@ -111,10 +119,14 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
             deviceId: result['deviceId'],
             firebaseCloudMessagingId: result['firebaseCloudMessagingId'],
             model: result['model'],
-            platform: (result['platform'] != null)
-                ? parsePlatformTypeEnum(result['platform'])
+            platform: parsePlatformTypeEnum(result['platform']),
+            systemVersion: result['systemVersion'],
+            createTime: (result['createTime'] != null)
+                ? result['createTime'].toString()
                 : null,
-            systemVersion: result['systemVersion']);
+            updateTime: (result['updateTime'] != null)
+                ? result['updateTime'].toString()
+                : null);
       }
       return null;
     } catch (error) {
@@ -155,10 +167,14 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
             firebaseCloudMessagingId: result['firebaseCloudMessagingId'],
             model: result['model'],
             systemVersion: result['systemVersion'],
-            platform: (result['platform'] != null)
-                ? parsePlatformTypeEnum(result['platform'])
+            platform: parsePlatformTypeEnum(result['platform']),
+            deviceId: result['deviceId'],
+            createTime: (result['createTime'] != null)
+                ? result['createTime'].toString()
                 : null,
-            deviceId: result['deviceId']);
+            updateTime: (result['updateTime'] != null)
+                ? result['updateTime'].toString()
+                : null);
       }
       return null;
     } catch (error) {

@@ -8,6 +8,8 @@ class HeadersMetadata {
   final String? authorizationToken;
   final String? refreshToken;
   final PlatformType platform;
+  final String ipv4;
+  final String ipv6;
   final String systemVersion;
   final String appVersion;
   final AppType app;
@@ -21,6 +23,8 @@ class HeadersMetadata {
       required this.systemVersion,
       required this.appVersion,
       required this.app,
+      required this.ipv4,
+      required this.ipv6,
       required this.deviceId,
       required this.model,
       required this.firebaseCloudMessagingId,
@@ -33,6 +37,8 @@ class HeadersMetadata {
         appVersion = call.clientMetadata!['appversion']!,
         authorizationToken = call.clientMetadata!['authorizationtoken'],
         deviceId = call.clientMetadata!['deviceid']!,
+        ipv4 = call.clientMetadata!['ipv4']!,
+        ipv6 = call.clientMetadata!['ipv6']!,
         firebaseCloudMessagingId =
             call.clientMetadata!['firebasecloudmessagingid']!,
         model = call.clientMetadata!['model']!,

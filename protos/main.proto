@@ -2,11 +2,6 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
-// import "google/protobuf/any.proto";
-
-// service BusinessService {
-//   rpc ListBusiness (ListBusinessRequest) returns (ListBusinessResponse) {}
-// }
 
 service AuthenticationService {
   rpc CreateVerificationCode (CreateVerificationCodeRequest) returns (CreateVerificationCodeResponse) {}
@@ -138,6 +133,8 @@ message BannedDevice {
   string deviceFk = 3;
   string deviceId = 4;
   string moderatorAuthorizationTokenFk = 5;
+  string createTime = 6;
+  string updateTime = 7;
 }
 
 message AuthorizationToken {
@@ -149,6 +146,8 @@ message AuthorizationToken {
   bool valid = 6;
   AppType app = 7;
   string appVersion = 8;
+  string createTime = 9;
+  string updateTime = 10;
 }
 
 message RefreshToken {
@@ -157,6 +156,8 @@ message RefreshToken {
   string userFk = 3;
   bool valid = 4;
   string expirationTime = 5;
+  string createTime = 6;
+  string updateTime = 7;
 }
 
 message Device {
@@ -166,6 +167,8 @@ message Device {
   string deviceId = 4;
   string firebaseCloudMessagingId = 5;
   string model = 6;
+  string createTime = 7;
+  string updateTime = 8;
 }
 
 message UserAddress {
@@ -184,6 +187,8 @@ message UserAddress {
   string userFk = 8;
   string provinceFk = 9;
   string municipalityFk = 10;
+  string createTime = 11;
+  string updateTime = 12;
 }
 
 message UserPermission {
@@ -192,6 +197,8 @@ message UserPermission {
   string permissionFk = 3;
   string userFk = 4;
   string businessFk = 5;
+  string createTime = 6;
+  string updateTime = 7;
 }
 
 message Polygon {
@@ -204,6 +211,8 @@ message VerificationCode {
   string email = 3;
   VerificationCodeType type = 4;
   string deviceId = 5;
+  string createTime = 6;
+  string updateTime = 7;
 }
 
 // Enums

@@ -58,7 +58,13 @@ class VerificationCodeLocalDataSourceImpl
           code: result['code'],
           email: result['email'],
           deviceId: result['deviceId'],
-          type: parseVerificationCodeTypeEnum(result['type']));
+          type: parseVerificationCodeTypeEnum(result['type']),
+          createTime: (result['createTime'] != null)
+              ? result['createTime'].toString()
+              : null,
+          updateTime: (result['updateTime'] != null)
+              ? result['updateTime'].toString()
+              : null);
     } catch (error) {
       rethrow;
     }
@@ -84,7 +90,11 @@ class VerificationCodeLocalDataSourceImpl
             code: e['code'],
             email: e['email'],
             type: parseVerificationCodeTypeEnum(e['type']),
-            deviceId: e['deviceId']));
+            deviceId: e['deviceId'],
+            createTime:
+                (e['createTime'] != null) ? e['createTime'].toString() : null,
+            updateTime:
+                (e['updateTime'] != null) ? e['updateTime'].toString() : null));
       }
       return response;
     } catch (error) {
@@ -109,7 +119,13 @@ class VerificationCodeLocalDataSourceImpl
             code: result['code'],
             email: result['email'],
             type: parseVerificationCodeTypeEnum(result['type']),
-            deviceId: result['deviceId']);
+            deviceId: result['deviceId'],
+            createTime: (result['createTime'] != null)
+                ? result['createTime'].toString()
+                : null,
+            updateTime: (result['updateTime'] != null)
+                ? result['updateTime'].toString()
+                : null);
       }
       return null;
     } catch (error) {
@@ -149,7 +165,13 @@ class VerificationCodeLocalDataSourceImpl
             code: result['code'],
             email: result['email'],
             type: parseVerificationCodeTypeEnum(result['type']),
-            deviceId: result['deviceId']);
+            deviceId: result['deviceId'],
+            createTime: (result['createTime'] != null)
+                ? result['createTime'].toString()
+                : null,
+            updateTime: (result['updateTime'] != null)
+                ? result['updateTime'].toString()
+                : null);
       }
       return null;
     } catch (error) {

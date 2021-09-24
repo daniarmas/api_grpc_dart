@@ -61,13 +61,18 @@ class BannedDeviceLocalDataSourceImpl implements BannedDeviceLocalDataSource {
           attributes: paths);
       if (result != null) {
         return BannedDevice(
-          id: result['id'],
-          description: result['description'],
-          deviceFk: result['deviceFk'],
-          deviceId: result['deviceId'],
-          moderatorAuthorizationTokenFk:
-              result['moderatorAuthorizationTokenFk'],
-        );
+            id: result['id'],
+            description: result['description'],
+            deviceFk: result['deviceFk'],
+            deviceId: result['deviceId'],
+            moderatorAuthorizationTokenFk:
+                result['moderatorAuthorizationTokenFk'],
+            createTime: (result['createTime'] != null)
+                ? result['createTime'].toString()
+                : null,
+            updateTime: (result['updateTime'] != null)
+                ? result['updateTime'].toString()
+                : null);
       }
       return null;
     } catch (error) {

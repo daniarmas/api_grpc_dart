@@ -45,15 +45,20 @@ class AuthorizationTokenLocalDataSourceImpl
           data: data,
           attributes: paths);
       return AuthorizationToken(
-        id: result['id'],
-        authorizationToken: result['authorizationToken'],
-        refreshTokenFk: result['refreshTokenFk'],
-        app: parseAppTypeEnum(result['app']),
-        appVersion: result['appVersion'],
-        deviceFk: result['deviceFk'],
-        userFk: result['userFk'],
-        valid: result['valid'],
-      );
+          id: result['id'],
+          authorizationToken: result['authorizationToken'],
+          refreshTokenFk: result['refreshTokenFk'],
+          app: parseAppTypeEnum(result['app']),
+          appVersion: result['appVersion'],
+          deviceFk: result['deviceFk'],
+          userFk: result['userFk'],
+          valid: result['valid'],
+          createTime: (result['createTime'] != null)
+              ? result['createTime'].toString()
+              : null,
+          updateTime: (result['updateTime'] != null)
+              ? result['updateTime'].toString()
+              : null);
     } catch (error) {
       rethrow;
     }
@@ -88,7 +93,13 @@ class AuthorizationTokenLocalDataSourceImpl
             app: parseAppTypeEnum(result['app']),
             userFk: result['userFk'],
             valid: result['valid'],
-            deviceFk: result['deviceFk']);
+            deviceFk: result['deviceFk'],
+            createTime: (result['createTime'] != null)
+                ? result['createTime'].toString()
+                : null,
+            updateTime: (result['updateTime'] != null)
+                ? result['updateTime'].toString()
+                : null);
       }
       return null;
     } catch (error) {

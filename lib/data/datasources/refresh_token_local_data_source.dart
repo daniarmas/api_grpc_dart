@@ -48,7 +48,13 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
           expirationTime: result['expirationTime'].toString(),
           refreshToken: result['refreshToken'],
           userFk: result['userFk'],
-          valid: result['valid']);
+          valid: result['valid'],
+          createTime: (result['createTime'] != null)
+              ? result['createTime'].toString()
+              : null,
+          updateTime: (result['updateTime'] != null)
+              ? result['updateTime'].toString()
+              : null);
     } catch (error) {
       rethrow;
     }
@@ -80,7 +86,13 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
             userFk: result['userFk'],
             expirationTime: result['expirationTime'],
             refreshToken: result['refreshToken'],
-            valid: result['valid']);
+            valid: result['valid'],
+            createTime: (result['createTime'] != null)
+                ? result['createTime'].toString()
+                : null,
+            updateTime: (result['updateTime'] != null)
+                ? result['updateTime'].toString()
+                : null);
       }
       return null;
     } catch (error) {
