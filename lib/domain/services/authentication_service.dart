@@ -138,7 +138,7 @@ class AuthenticationService extends AuthenticationServiceBase {
   Future<SignInResponse> signIn(ServiceCall call, SignInRequest request) async {
     try {
       late SignInResponse response;
-      SignInRepository signInRepository = GetIt.I<SignInRepository>();
+      AuthenticationRepository signInRepository = GetIt.I<AuthenticationRepository>();
       late Either<GrpcError, SignInResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {

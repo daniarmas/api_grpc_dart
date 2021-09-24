@@ -18,8 +18,8 @@ import '../../core/error/exception.dart';
 import '../../protos/protos/main.pb.dart';
 import '../datasources/verification_code_local_data_source.dart';
 
-@Injectable(as: SignInRepository)
-class SignInRepositoryImpl implements SignInRepository {
+@Injectable(as: AuthenticationRepository)
+class AuthenticationImpl implements AuthenticationRepository {
   final VerificationCodeLocalDataSource verificationCodeLocalDataSource;
   final UserLocalDataSource userLocalDataSource;
   final DeviceLocalDataSource deviceLocalDataSource;
@@ -28,7 +28,7 @@ class SignInRepositoryImpl implements SignInRepository {
   final AuthorizationTokenLocalDataSource authorizationTokenLocalDataSource;
   final RefreshTokenLocalDataSource refreshTokenLocalDataSource;
 
-  SignInRepositoryImpl(
+  AuthenticationImpl(
       {required this.deviceLocalDataSource,
       required this.authorizationTokenLocalDataSource,
       required this.refreshTokenLocalDataSource,
