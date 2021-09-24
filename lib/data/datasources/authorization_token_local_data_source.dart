@@ -81,17 +81,14 @@ class AuthorizationTokenLocalDataSourceImpl
       );
       if (result != null) {
         return AuthorizationToken(
-            id: result['AuthorizationToken']['id'] ?? '',
-            authorizationToken:
-                result['AuthorizationToken']['authorizationToken'] ?? '',
-            refreshTokenFk:
-                result['AuthorizationToken']['refreshTokenFk'] ?? '',
-            appVersion: result['AuthorizationToken']['appVersion'] ?? '',
-            app: parseAppTypeEnum(result['AuthorizationToken']['app'] ??
-                AppType.APP_TYPE_UNSPECIFIED),
-            userFk: result['AuthorizationToken']['userFk'] ?? '',
-            valid: result['AuthorizationToken']['valid'] ?? null,
-            deviceFk: result['AuthorizationToken']['deviceFk'] ?? '');
+            id: result['id'],
+            authorizationToken: result['authorizationToken'],
+            refreshTokenFk: result['refreshTokenFk'],
+            appVersion: result['appVersion'],
+            app: parseAppTypeEnum(result['app']),
+            userFk: result['userFk'],
+            valid: result['valid'],
+            deviceFk: result['deviceFk']);
       }
       return null;
     } catch (error) {

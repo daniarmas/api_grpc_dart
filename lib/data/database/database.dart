@@ -7,7 +7,6 @@ abstract class Database {
 
   Future<PostgreSQLConnection> getConnection();
 
-  /// Listing registries...
   Future<List<Map<String, dynamic>>> list(
       {required PostgreSQLExecutionContext context,
       required String table,
@@ -30,7 +29,12 @@ abstract class Database {
       required Map<String, dynamic> data,
       required List<String> attributes});
 
-  Future<Map<String, dynamic>> update(dynamic object);
+  Future<Map<String, dynamic>?> update(
+      {required PostgreSQLExecutionContext context,
+      required String table,
+      required Map<String, dynamic> data,
+      required List<Where> where,
+      required List<String> attributes});
 
   Future<void> delete(
       {required PostgreSQLExecutionContext context,

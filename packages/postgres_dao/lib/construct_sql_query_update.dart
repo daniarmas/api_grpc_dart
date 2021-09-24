@@ -1,47 +1,26 @@
-import 'package:postgres_dao/and.dart';
-import 'package:postgres_dao/normal_attribute.dart';
-import 'package:postgres_dao/or.dart';
+import 'package:postgres_dao/where.dart';
 import 'package:postgres_dao/where_attribute.dart';
+import 'package:postgres_dao/where_normal_attribute.dart';
 import 'package:postgres_dao/where_normal_attribute_not_in.dart';
 
-import 'where.dart';
-import 'where_normal_attribute.dart';
+import 'and.dart';
+import 'or.dart';
 
-String constructSqlQuerySelect({
-  required String table,
-  List<String>? attributes,
-  List<String>? agregationAttributes,
-  int? limit,
-  List<Where>? where,
-  String? orderByAsc,
-}) {
-  // Attributes
-  String attributesResult = '*';
-  if (attributes != null && attributes.isNotEmpty) {
-    attributesResult = '';
-    for (int i = 0; i < attributes.length; i++) {
-      if (i == attributes.length - 1) {
-        (attributes[i] is NormalAttribute)
-            ? attributesResult += '"$table"."${attributes[i]}"'
-            : attributesResult += '"$table"."${attributes[i]}"';
-      } else {
-        (attributes[i] is NormalAttribute)
-            ? attributesResult += '"$table"."${attributes[i]}",'
-            : attributesResult += '"$table"."${attributes[i]}",';
-      }
+String constructSqlQueryUpdate(
+    {required String table,
+    required Map<String, dynamic> data,
+    required List<Where>? where,
+    List<String>? attributes}) {
+  String columns = '';
+  Iterable<String> keys = data.keys;
+  Iterable<dynamic> values = data.values;
+  // Columns && Values
+  for (var i = 0; i < keys.length; i++) {
+    if (i == keys.length - 1) {
+      columns += "\"${keys.elementAt(i)}\" = '${values.elementAt(i)}'";
+    } else {
+      columns += "\"${keys.elementAt(i)}\" = '${values.elementAt(i)}',";
     }
-  }
-  // AgregationAttributes
-  String agregationAttributesResult = '';
-  if (agregationAttributes != null && agregationAttributes.isNotEmpty) {
-    for (int i = 0; i < agregationAttributes.length; i++) {
-      if (i == agregationAttributes.length - 1) {
-        agregationAttributesResult += agregationAttributes[i];
-      } else {
-        agregationAttributesResult += '${agregationAttributes[i]},';
-      }
-    }
-    attributesResult += ', $agregationAttributesResult';
   }
   // Where
   String whereResult = '';
@@ -189,14 +168,20 @@ String constructSqlQuerySelect({
     }
     whereResult = 'WHERE $whereString';
   }
-  // OrderBy
-  String orderByAscResult =
-      orderByAsc != null ? 'ORDER BY  $orderByAsc ASC ' : '';
-  // Limit
-  String limitResult = limit != null ? 'LIMIT $limit;' : '';
-  return 'SELECT $attributesResult '
-      'FROM "$table" '
-      '$whereResult'
-      '$orderByAscResult'
-      '$limitResult ';
+  // Attributes
+  String attributesResult = '*';
+  if (attributes != null && attributes.isNotEmpty) {
+    attributesResult = '';
+    for (int i = 0; i < attributes.length; i++) {
+      if (i == attributes.length - 1) {
+        attributesResult += '"${attributes[i]}"';
+      } else {
+        attributesResult += '"${attributes[i]}",';
+      }
+    }
+  }
+  return 'UPDATE "$table" '
+      'SET $columns '
+      '$whereResult '
+      'RETURNING $attributesResult;';
 }

@@ -1,4 +1,3 @@
-import 'package:api_grpc_dart/core/utils/parse_enums.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
@@ -21,6 +20,7 @@ abstract class RefreshTokenLocalDataSource {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths});
+
   Future<void> deleteRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data});
@@ -44,12 +44,11 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
           data: data,
           attributes: paths);
       return RefreshToken(
-        id: result['id'] ?? '',
-        expirationTime: result['expirationTime'] ?? '',
-        refreshToken: result['refreshToken'] ?? '',
-        userFk: result['userFk'] ?? '',
-        valid: result['valid'] ?? '',
-      );
+          id: result['id'],
+          expirationTime: result['expirationTime'].toString(),
+          refreshToken: result['refreshToken'],
+          userFk: result['userFk'],
+          valid: result['valid']);
     } catch (error) {
       rethrow;
     }
@@ -77,11 +76,11 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
       );
       if (result != null) {
         return RefreshToken(
-            id: result['RefreshToken']['id'] ?? '',
-            userFk: result['RefreshToken']['userFk'] ?? '',
-            expirationTime: result['RefreshToken']['expirationTime'] ?? '',
-            refreshToken: result['RefreshToken']['refreshToken'] ?? '',
-            valid: result['RefreshToken']['valid'] ?? null);
+            id: result['id'],
+            userFk: result['userFk'],
+            expirationTime: result['expirationTime'],
+            refreshToken: result['refreshToken'],
+            valid: result['valid']);
       }
       return null;
     } catch (error) {

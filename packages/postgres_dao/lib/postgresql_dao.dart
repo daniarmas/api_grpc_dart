@@ -3,6 +3,7 @@ import 'package:postgres_dao/construct_sql_query_delete.dart';
 import 'package:postgres_dao/construct_sql_query_insert.dart';
 
 import 'construct_sql_query_select.dart';
+import 'construct_sql_query_update.dart';
 import 'where.dart';
 
 class PostgresqlDao {
@@ -101,7 +102,7 @@ class PostgresqlDao {
       print(query);
       final response = await context.mappedResultsQuery(query);
       if (response.isNotEmpty) {
-        return response[0];
+        return response[0][table];
       }
       return null;
     } catch (error) {
@@ -118,6 +119,7 @@ class PostgresqlDao {
       List<Where>? where,
       String? orderByAsc}) async {
     try {
+      List<Map<String, dynamic>> response = [];
       String? query = constructSqlQuerySelect(
           limit: limit,
           where: where,
@@ -126,15 +128,33 @@ class PostgresqlDao {
           agregationAttributes: agregationAttributes,
           orderByAsc: orderByAsc);
       print(query);
-      return context.mappedResultsQuery(query);
+      var result = await context.mappedResultsQuery(query);
+      for (var item in result) {
+        response.add(item[table]!);
+      }
+      return response;
     } catch (error) {
       rethrow;
     }
   }
 
-  @override
-  dynamic update(dynamic object) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<Map<String, dynamic>?> update(
+      {required PostgreSQLExecutionContext context,
+      required String table,
+      required Map<String, dynamic> data,
+      required List<Where>? where,
+      List<String>? attributes}) async {
+    try {
+      String query = constructSqlQueryUpdate(
+          table: table, data: data, attributes: attributes, where: where);
+      print(query);
+      final response = await context.mappedResultsQuery(query);
+      if (response.isNotEmpty) {
+        return response[0][table];
+      }
+      return null;
+    } catch (error) {
+      rethrow;
+    }
   }
 }

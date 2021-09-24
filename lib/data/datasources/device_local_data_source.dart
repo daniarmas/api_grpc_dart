@@ -8,83 +8,85 @@ import 'package:postgres_dao/postgres_dao.dart';
 
 import '../../protos/protos/main.pb.dart';
 
-abstract class VerificationCodeLocalDataSource {
-  Future<VerificationCode> createVerificationCode(
+abstract class DeviceLocalDataSource {
+  Future<Device> createDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths});
 
-  Future<List<VerificationCode>> listVerificationCode(
+  Future<List<Device>> listDevice(
+      {required PostgreSQLExecutionContext context,
+      required List<String> paths,
+      required Map<String, dynamic> data});
+
+  Future<Device?> getDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths});
 
-  Future<VerificationCode?> getVerificationCode(
+  Future<Device?> updateDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
+      required Map<String, dynamic> where,
       required List<String> paths});
 
-  Future<VerificationCode?> updateVerificationCode(
-      {required PostgreSQLExecutionContext context,
-      required Map<String, dynamic> data,
-      required List<String> paths});
-
-  Future<void> deleteVerificationCode(
+  Future<void> deleteDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data});
 }
 
-@Injectable(as: VerificationCodeLocalDataSource)
-class VerificationCodeLocalDataSourceImpl
-    implements VerificationCodeLocalDataSource {
+@Injectable(as: DeviceLocalDataSource)
+class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
   final Database _database;
 
-  VerificationCodeLocalDataSourceImpl(this._database);
+  DeviceLocalDataSourceImpl(this._database);
 
   @override
-  Future<VerificationCode> createVerificationCode(
+  Future<Device> createDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths}) async {
     try {
-      data.addAll({'code': StringUtils.generateNumber()});
       final result = await _database.create(
-          context: context,
-          table: 'VerificationCode',
-          data: data,
-          attributes: paths);
-      return VerificationCode(
+          context: context, table: 'Device', data: data, attributes: paths);
+      return Device(
           id: result['id'],
-          code: result['code'],
-          email: result['email'],
           deviceId: result['deviceId'],
-          type: parseVerificationCodeTypeEnum(result['type']));
+          model: result['model'],
+          firebaseCloudMessagingId: result['firebaseCloudMessagingId'],
+          platform: (result['platform'] == null)
+              ? parsePlatformTypeEnum(result['platform'])
+              : null,
+          systemVersion: result['systemVersion']);
     } catch (error) {
       rethrow;
     }
   }
 
   @override
-  Future<List<VerificationCode>> listVerificationCode({
+  Future<List<Device>> listDevice({
     required PostgreSQLExecutionContext context,
     required List<String> paths,
     required Map<String, dynamic> data,
   }) async {
     try {
-      List<VerificationCode> response = [];
+      List<Device> response = [];
       final result = await _database.list(
           context: context,
-          table: 'VerificationCode',
+          table: 'Device',
           attributes: paths,
           where: getWhereNormalAttributeList(data),
           limit: 100);
-      for (var e in result) {
-        response.add(VerificationCode(
-            id: e['id'],
-            code: e['code'],
-            email: e['email'],
-            type: parseVerificationCodeTypeEnum(e['type']),
-            deviceId: e['deviceId']));
+      for (var item in result) {
+        response.add(Device(
+            id: item['id'],
+            deviceId: item['deviceId'],
+            firebaseCloudMessagingId: item['firebaseCloudMessagingId'],
+            model: item['model'],
+            platform: (item['platform'] == null)
+                ? parsePlatformTypeEnum(item['platform'])
+                : null,
+            systemVersion: item['systemVersion']));
       }
       return response;
     } catch (error) {
@@ -93,23 +95,26 @@ class VerificationCodeLocalDataSourceImpl
   }
 
   @override
-  Future<VerificationCode?> getVerificationCode(
+  Future<Device?> getDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths}) async {
     try {
       final result = await _database.get(
           context: context,
-          table: 'VerificationCode',
+          table: 'Device',
           where: getWhereNormalAttributeList(data),
           attributes: paths);
       if (result != null) {
-        return VerificationCode(
+        return Device(
             id: result['id'],
-            code: result['code'],
-            email: result['email'],
-            type: parseVerificationCodeTypeEnum(result['type']),
-            deviceId: result['deviceId']);
+            deviceId: result['deviceId'],
+            firebaseCloudMessagingId: result['firebaseCloudMessagingId'],
+            model: result['model'],
+            platform: (result['platform'] != null)
+                ? parsePlatformTypeEnum(result['platform'])
+                : null,
+            systemVersion: result['systemVersion']);
       }
       return null;
     } catch (error) {
@@ -118,13 +123,13 @@ class VerificationCodeLocalDataSourceImpl
   }
 
   @override
-  Future<void> deleteVerificationCode(
+  Future<void> deleteDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data}) async {
     try {
       await _database.delete(
           context: context,
-          table: 'VerificationCode',
+          table: 'Device',
           where: getWhereNormalAttributeList(data));
     } catch (error) {
       rethrow;
@@ -132,23 +137,27 @@ class VerificationCodeLocalDataSourceImpl
   }
 
   @override
-  Future<VerificationCode?> updateVerificationCode(
+  Future<Device?> updateDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
+      required Map<String, dynamic> where,
       required List<String> paths}) async {
     try {
       final result = await _database.update(
           context: context,
-          table: 'VerificationCode',
+          table: 'Device',
           data: data,
-          where: [WhereNormalAttribute(key: 'id', value: data['id'])],
+          where: getWhereNormalAttributeList(where),
           attributes: paths);
       if (result != null) {
-        return VerificationCode(
+        return Device(
             id: result['id'],
-            code: result['code'],
-            email: result['email'],
-            type: parseVerificationCodeTypeEnum(result['type']),
+            firebaseCloudMessagingId: result['firebaseCloudMessagingId'],
+            model: result['model'],
+            systemVersion: result['systemVersion'],
+            platform: (result['platform'] != null)
+                ? parsePlatformTypeEnum(result['platform'])
+                : null,
             deviceId: result['deviceId']);
       }
       return null;

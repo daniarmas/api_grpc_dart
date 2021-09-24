@@ -33,17 +33,22 @@ class AuthenticationServiceClient extends $grpc.Client {
       ($0.GetVerificationCodeRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.GetVerificationCodeResponse.fromBuffer(value));
+  static final _$updateVerificationCode = $grpc.ClientMethod<
+          $0.UpdateVerificationCodeRequest, $0.UpdateVerificationCodeResponse>(
+      '/AuthenticationService/UpdateVerificationCode',
+      ($0.UpdateVerificationCodeRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.UpdateVerificationCodeResponse.fromBuffer(value));
   static final _$deleteVerificationCode =
       $grpc.ClientMethod<$0.DeleteVerificationCodeRequest, $1.Empty>(
           '/AuthenticationService/DeleteVerificationCode',
           ($0.DeleteVerificationCodeRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$createSignIn =
-      $grpc.ClientMethod<$0.CreateSignInRequest, $0.CreateSignInResponse>(
-          '/AuthenticationService/CreateSignIn',
-          ($0.CreateSignInRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $0.CreateSignInResponse.fromBuffer(value));
+  static final _$signIn =
+      $grpc.ClientMethod<$0.SignInRequest, $0.SignInResponse>(
+          '/AuthenticationService/SignIn',
+          ($0.SignInRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.SignInResponse.fromBuffer(value));
 
   AuthenticationServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -69,6 +74,13 @@ class AuthenticationServiceClient extends $grpc.Client {
     return $createUnaryCall(_$getVerificationCode, request, options: options);
   }
 
+  $grpc.ResponseFuture<$0.UpdateVerificationCodeResponse>
+      updateVerificationCode($0.UpdateVerificationCodeRequest request,
+          {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updateVerificationCode, request,
+        options: options);
+  }
+
   $grpc.ResponseFuture<$1.Empty> deleteVerificationCode(
       $0.DeleteVerificationCodeRequest request,
       {$grpc.CallOptions? options}) {
@@ -76,10 +88,9 @@ class AuthenticationServiceClient extends $grpc.Client {
         options: options);
   }
 
-  $grpc.ResponseFuture<$0.CreateSignInResponse> createSignIn(
-      $0.CreateSignInRequest request,
+  $grpc.ResponseFuture<$0.SignInResponse> signIn($0.SignInRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$createSignIn, request, options: options);
+    return $createUnaryCall(_$signIn, request, options: options);
   }
 }
 
@@ -114,6 +125,15 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.GetVerificationCodeRequest.fromBuffer(value),
         ($0.GetVerificationCodeResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UpdateVerificationCodeRequest,
+            $0.UpdateVerificationCodeResponse>(
+        'UpdateVerificationCode',
+        updateVerificationCode_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.UpdateVerificationCodeRequest.fromBuffer(value),
+        ($0.UpdateVerificationCodeResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.DeleteVerificationCodeRequest, $1.Empty>(
         'DeleteVerificationCode',
         deleteVerificationCode_Pre,
@@ -122,15 +142,13 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.DeleteVerificationCodeRequest.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod(
-        $grpc.ServiceMethod<$0.CreateSignInRequest, $0.CreateSignInResponse>(
-            'CreateSignIn',
-            createSignIn_Pre,
-            false,
-            false,
-            ($core.List<$core.int> value) =>
-                $0.CreateSignInRequest.fromBuffer(value),
-            ($0.CreateSignInResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SignInRequest, $0.SignInResponse>(
+        'SignIn',
+        signIn_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.SignInRequest.fromBuffer(value),
+        ($0.SignInResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CreateVerificationCodeResponse> createVerificationCode_Pre(
@@ -151,15 +169,20 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
     return getVerificationCode(call, await request);
   }
 
+  $async.Future<$0.UpdateVerificationCodeResponse> updateVerificationCode_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.UpdateVerificationCodeRequest> request) async {
+    return updateVerificationCode(call, await request);
+  }
+
   $async.Future<$1.Empty> deleteVerificationCode_Pre($grpc.ServiceCall call,
       $async.Future<$0.DeleteVerificationCodeRequest> request) async {
     return deleteVerificationCode(call, await request);
   }
 
-  $async.Future<$0.CreateSignInResponse> createSignIn_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$0.CreateSignInRequest> request) async {
-    return createSignIn(call, await request);
+  $async.Future<$0.SignInResponse> signIn_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SignInRequest> request) async {
+    return signIn(call, await request);
   }
 
   $async.Future<$0.CreateVerificationCodeResponse> createVerificationCode(
@@ -168,10 +191,12 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.ListVerificationCodeRequest request);
   $async.Future<$0.GetVerificationCodeResponse> getVerificationCode(
       $grpc.ServiceCall call, $0.GetVerificationCodeRequest request);
+  $async.Future<$0.UpdateVerificationCodeResponse> updateVerificationCode(
+      $grpc.ServiceCall call, $0.UpdateVerificationCodeRequest request);
   $async.Future<$1.Empty> deleteVerificationCode(
       $grpc.ServiceCall call, $0.DeleteVerificationCodeRequest request);
-  $async.Future<$0.CreateSignInResponse> createSignIn(
-      $grpc.ServiceCall call, $0.CreateSignInRequest request);
+  $async.Future<$0.SignInResponse> signIn(
+      $grpc.ServiceCall call, $0.SignInRequest request);
 }
 
 class HostnameServiceClient extends $grpc.Client {

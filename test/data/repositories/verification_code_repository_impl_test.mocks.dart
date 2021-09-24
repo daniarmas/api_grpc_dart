@@ -61,11 +61,11 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
   @override
   _i5.Future<List<_i2.VerificationCode>> listVerificationCode(
           {_i3.PostgreSQLExecutionContext? context,
-          List<String>? paths,
-          Map<String, dynamic>? data}) =>
+          Map<String, dynamic>? data,
+          List<String>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#listVerificationCode, [],
-                  {#context: context, #paths: paths, #data: data}),
+                  {#context: context, #data: data, #paths: paths}),
               returnValue: Future<List<_i2.VerificationCode>>.value(
                   <_i2.VerificationCode>[]))
           as _i5.Future<List<_i2.VerificationCode>>);
@@ -76,6 +76,16 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
           List<String>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#getVerificationCode, [],
+                  {#context: context, #data: data, #paths: paths}),
+              returnValue: Future<_i2.VerificationCode?>.value())
+          as _i5.Future<_i2.VerificationCode?>);
+  @override
+  _i5.Future<_i2.VerificationCode?> updateVerificationCode(
+          {_i3.PostgreSQLExecutionContext? context,
+          Map<String, dynamic>? data,
+          List<String>? paths}) =>
+      (super.noSuchMethod(
+              Invocation.method(#updateVerificationCode, [],
                   {#context: context, #data: data, #paths: paths}),
               returnValue: Future<_i2.VerificationCode?>.value())
           as _i5.Future<_i2.VerificationCode?>);
@@ -326,11 +336,22 @@ class MockDatabase extends _i1.Mock implements _i9.Database {
                   Future<Map<String, dynamic>>.value(<String, dynamic>{}))
           as _i5.Future<Map<String, dynamic>>);
   @override
-  _i5.Future<Map<String, dynamic>> update(dynamic object) =>
-      (super.noSuchMethod(Invocation.method(#update, [object]),
-              returnValue:
-                  Future<Map<String, dynamic>>.value(<String, dynamic>{}))
-          as _i5.Future<Map<String, dynamic>>);
+  _i5.Future<Map<String, dynamic>?> update(
+          {_i3.PostgreSQLExecutionContext? context,
+          String? table,
+          Map<String, dynamic>? data,
+          List<_i10.Where>? where,
+          List<String>? attributes}) =>
+      (super.noSuchMethod(
+              Invocation.method(#update, [], {
+                #context: context,
+                #table: table,
+                #data: data,
+                #where: where,
+                #attributes: attributes
+              }),
+              returnValue: Future<Map<String, dynamic>?>.value())
+          as _i5.Future<Map<String, dynamic>?>);
   @override
   _i5.Future<void> delete(
           {_i3.PostgreSQLExecutionContext? context,

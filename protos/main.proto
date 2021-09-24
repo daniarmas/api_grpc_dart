@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-// import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 // import "google/protobuf/any.proto";
@@ -13,22 +12,74 @@ service AuthenticationService {
   rpc CreateVerificationCode (CreateVerificationCodeRequest) returns (CreateVerificationCodeResponse) {}
   rpc ListVerificationCode (ListVerificationCodeRequest) returns (ListVerificationCodeResponse) {}
   rpc GetVerificationCode (GetVerificationCodeRequest) returns (GetVerificationCodeResponse) {}
+  rpc UpdateVerificationCode (UpdateVerificationCodeRequest) returns (UpdateVerificationCodeResponse) {}
   rpc DeleteVerificationCode (DeleteVerificationCodeRequest) returns (google.protobuf.Empty) {}
 
-  rpc CreateSignIn (CreateSignInRequest) returns (CreateSignInResponse) {}
+  rpc SignIn (SignInRequest) returns (SignInResponse) {}
 }
-
 
 service HostnameService {
   rpc hostname(HostnameRequest) returns (HostnameResponse) {}
 }
 
-message CreateSignInRequest {
-  string email = 1;
-  string code = 2;
+service Health {
+  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
 }
 
-message CreateSignInResponse {
+// Request & Response Message
+
+message CreateVerificationCodeRequest {
+    string email = 1;
+    VerificationCodeType type = 2;
+    google.protobuf.FieldMask fieldMask = 3;
+}
+
+message CreateVerificationCodeResponse {
+  VerificationCode verificationCode = 1;
+}
+
+message ListVerificationCodeRequest {
+  google.protobuf.FieldMask fieldMask = 1;
+}
+
+message ListVerificationCodeResponse {
+  repeated VerificationCode verificationCode = 1;
+}
+
+message DeleteVerificationCodeRequest {
+  string id = 1;
+}
+
+message GetVerificationCodeRequest {
+  string id = 1;
+  string code = 2;
+  google.protobuf.FieldMask fieldMask = 5;
+}
+
+message GetVerificationCodeResponse {
+  VerificationCode verificationCode = 1;
+}
+
+message UpdateVerificationCodeRequest {
+  string id = 1;
+  string code = 2;
+  string email = 3;
+  VerificationCodeType type = 4;
+  string deviceId = 5;
+  google.protobuf.FieldMask fieldMask = 6;
+}
+
+message UpdateVerificationCodeResponse {
+  VerificationCode verificationCode = 1;
+}
+
+message SignInRequest {
+  string email = 1;
+  string code = 2;
+  google.protobuf.FieldMask fieldMask = 3;
+}
+
+message SignInResponse {
   string refreshToken = 1;
   string authorizationToken = 2;
   User user = 3;
@@ -41,11 +92,6 @@ message HostnameRequest {
 
 message HostnameResponse {
   string hostname = 1;
-}
-
-service Health {
-  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
-  // rpc Watch(HealthCheckRequest) returns (stream HealthCheckResponse);
 }
 
 message HealthCheckRequest {
@@ -61,43 +107,7 @@ message HealthCheckResponse {
   ServingStatus status = 1;
 }
 
-// message ListBusinessRequest {
-//   optional string category_fk = 1;
-//   repeated string not_ids = 2;
-//   optional bool this_month = 3;
-//   LatLng coordinates = 4;
-// }
-
-// message ListBusinessResponse {
-//   repeated Business business = 1;
-// }
-
-// message Business {
-//   string id = 1;
-//   string name = 2;
-//   string description = 3;
-//   // BusinessCategory category = 4;
-//   string address = 5;
-//   string phone = 6;
-//   string email = 7;
-//   string photo = 8;
-//   string photo_url = 9;
-//   LatLng coordinates = 10;
-//   repeated Polygon polygon = 11;
-//   double distance = 12;
-//   // bool to_pick_up = 11;
-//   // bool home_delivery = 12;
-//   // BusinessSchedule schedule = 13;
-//   // int32 lead_day_time = 14;
-//   // int32 lead_hours_time = 15;
-//   // int32 lead_minutes_time = 16;
-//   // bool is_open = 17;
-//   // double valuation = 20;
-//   // double delivery_price = 21;
-//   // google.protobuf.Timestamp created_at = 22;
-//   // create_time
-//   // google.protobuf.Timestamp updated_at = 23;
-// }
+// Entites Messages
 
 message User {
   string id = 1;
@@ -118,6 +128,8 @@ message BannedUser {
   string userFk = 3;
   string email = 4;
   string moderatorAuthorizationTokenFk = 5;
+  string createTime = 6;
+  string updateTime = 7;
 }
 
 message BannedDevice {
@@ -149,7 +161,7 @@ message RefreshToken {
 
 message Device {
   string id = 1;
-  PlatformType platformType = 2;
+  PlatformType platform = 2;
   string systemVersion = 3;
   string deviceId = 4;
   string firebaseCloudMessagingId = 5;
@@ -186,38 +198,6 @@ message Polygon {
   repeated double coordinates = 1;
 }
 
-message CreateVerificationCodeRequest {
-    string email = 1;
-    VerificationCodeType type = 2;
-    google.protobuf.FieldMask fieldMask = 3;
-}
-
-message CreateVerificationCodeResponse {
-  VerificationCode verificationCode = 1;
-}
-
-message ListVerificationCodeRequest {
-  google.protobuf.FieldMask fieldMask = 1;
-}
-
-message ListVerificationCodeResponse {
-  repeated VerificationCode verificationCode = 1;
-}
-
-message DeleteVerificationCodeRequest {
-  string id = 1;
-}
-
-message GetVerificationCodeRequest {
-  string id = 1;
-  string code = 2;
-  google.protobuf.FieldMask fieldMask = 5;
-}
-
-message GetVerificationCodeResponse {
-  VerificationCode verificationCode = 1;
-}
-
 message VerificationCode {
   string id = 1;
   string code = 2;
@@ -225,6 +205,8 @@ message VerificationCode {
   VerificationCodeType type = 4;
   string deviceId = 5;
 }
+
+// Enums
 
 enum VerificationCodeType {
   VERIFICATION_CODE_TYPE_UNSPECIFIED = 0;
@@ -286,12 +268,3 @@ message LatLng {
   // The longitude in degrees. It must be in the range [-180.0, +180.0].
   double longitude = 2;
 }
-
-// message RepeatedBusiness {
-//   repeated Business business = 1;
-// }
-
-// message BusinessCategory {
-//   string id = 1;
-//   string name = 2;
-// }

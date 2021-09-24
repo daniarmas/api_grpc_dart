@@ -23,6 +23,10 @@ FutureOr<GrpcError?> checkClientMetadata(
     ServiceCall call, ServiceMethod method) {
   final metadata = call.clientMetadata;
   if (metadata!['platform'] == null ||
+      metadata['platform'] == 'PLATFORM_TYPE_UNSPECIFIED') {
+    return GrpcError.invalidArgument('Client metadata incomplete');
+  }
+  if (metadata['platform'] == null ||
       metadata['systemversion'] == null ||
       metadata['app'] == null ||
       metadata['appversion'] == null ||

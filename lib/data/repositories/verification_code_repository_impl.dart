@@ -162,4 +162,28 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       return Left(GrpcError.internal('Internal server error'));
     }
   }
+
+  @override
+  Future<Either<GrpcError, VerificationCode>> updateVerificationCode(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required HeadersMetadata metadata,
+      required List<String> paths}) async {
+    try {
+      final response = await verificationCodeLocalDataSource
+          .updateVerificationCode(data: data, paths: paths, context: context);
+      if (response != null) {
+        return Right(response);
+      }
+      return Left(GrpcError.notFound('Not found'));
+    } on DatabaseConnectionNotOpenException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on DatabaseTableNotExistsException {
+      return Left(GrpcError.internal('Internal server error'));
+    } on GrpcError catch (error) {
+      return Left(error);
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
+    }
+  }
 }

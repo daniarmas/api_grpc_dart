@@ -52,6 +52,7 @@ class PostgresqlDatabase implements Database {
       required String table,
       required Map<String, dynamic> data,
       required List<String> attributes}) async {
+    data.addAll({'createTime': DateTime.now(), 'updateTime': DateTime.now()});
     return await _connection.create(
         table: table, data: data, attributes: attributes, context: context);
   }
@@ -143,8 +144,34 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  Future<Map<String, dynamic>> update(dynamic object) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<Map<String, dynamic>?> update(
+      {required PostgreSQLExecutionContext context,
+      required String table,
+      required Map<String, dynamic> data,
+      required List<Where> where,
+      required List<String> attributes}) async {
+    try {
+      data.remove('id');
+      final response = await _connection.update(
+          context: context,
+          where: where,
+          table: table,
+          attributes: attributes,
+          data: data);
+      return response;
+    } catch (error) {
+      if (error.toString() ==
+          'Attempting to execute query, but connection is not open.') {
+        throw DatabaseConnectionNotOpenException();
+      } else if (error
+          .toString()
+          .contains('relation "$table" does not exist')) {
+        throw DatabaseTableNotExistsException();
+      } else if (error.toString().contains('NOT_FOUND')) {
+        throw GrpcError.notFound('Not found');
+      } else {
+        rethrow;
+      }
+    }
   }
 }

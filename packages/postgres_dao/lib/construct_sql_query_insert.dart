@@ -1,10 +1,7 @@
-import 'package:nanoid/nanoid.dart';
-
 String constructSqlQueryInsert(
     {required String table,
     required Map<String, dynamic> data,
     List<String>? attributes}) {
-  data.addAll({'id': nanoid()});
   String columns = '';
   String valuesResult = '';
   Iterable<String> keys = data.keys;

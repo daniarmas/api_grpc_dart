@@ -19,6 +19,11 @@ class StringUtils {
         .hasMatch(value!);
   }
 
+  static bool isNumeric(String? value) {
+    if (isEmpty(value)) return false;
+    return RegExp(r'^(0|[1-9][0-9]*)$').hasMatch(value!);
+  }
+
   static String generateNumber() {
     var randomNumber = Random();
     var next = randomNumber.nextDouble() * 1000000;

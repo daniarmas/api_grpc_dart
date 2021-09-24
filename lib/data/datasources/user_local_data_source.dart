@@ -38,16 +38,22 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     try {
       final result = await _database.create(
           context: context, table: 'User', data: data, attributes: paths);
-      String photo = result['photo'] ?? '';
+      String? photo = result['photo'];
       return User(
-          id: result['id'] ?? '',
-          email: result['email'] ?? '',
-          fullName: result['fullName'] ?? '',
+          id: result['id'],
+          email: result['email'],
+          fullName: result['fullName'],
           legalAge: result['legalAge'],
-          photo: result['photo'] ?? '',
-          photoUrl: (photo != '') ? 'https://192.168.1.3/oss/$photo' : '',
-          createTime: result['createTime'] ?? '',
-          updateTime: result['updateTime'] ?? '');
+          photo: result['photo'],
+          photoUrl: (photo != null && photo.isNotEmpty)
+              ? 'https://192.168.1.3/oss/$photo'
+              : null,
+          createTime: (result['createTime'] != null)
+              ? result['createTime'].toString()
+              : null,
+          updateTime: (result['updateTime'] != null)
+              ? result['updateTime'].toString()
+              : null);
     } catch (error) {
       rethrow;
     }
@@ -73,17 +79,22 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
           where: getWhereNormalAttributeList(data),
           attributes: paths);
       if (result != null) {
-        String photo = result['User']['photo'] ?? '';
+        String? photo = result['photo'];
         return User(
-            id: result['User']['id'] ?? '',
-            email: result['User']['email'] ?? '',
-            fullName: result['User']['fullName'] ?? '',
-            legalAge: result['User']['legalAge'] ?? false,
-            photo: result['User']['photo'] ?? '',
-            photoUrl:
-                (photo.isNotEmpty) ? 'https://192.168.1.3/oss/$photo' : '',
-            createTime: result['User']['createTime'] ?? '',
-            updateTime: result['User']['updateTime'] ?? '');
+            id: result['id'],
+            email: result['email'],
+            fullName: result['fullName'],
+            legalAge: result['legalAge'],
+            photo: result['photo'],
+            photoUrl: (photo != null && photo.isNotEmpty)
+                ? 'https://192.168.1.3/oss/$photo'
+                : null,
+            createTime: (result['createTime'] != null)
+                ? result['createTime'].toString()
+                : null,
+            updateTime: (result['updateTime'] != null)
+                ? result['updateTime'].toString()
+                : null);
       }
       return null;
     } catch (error) {
