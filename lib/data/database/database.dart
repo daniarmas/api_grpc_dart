@@ -1,27 +1,43 @@
+import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/where.dart';
 
 abstract class Database {
   Future<bool> connect();
+  void close();
 
-  /// Listing registries...
+  Future<PostgreSQLConnection> getConnection();
+
   Future<List<Map<String, dynamic>>> list(
-      {required String table,
-      List<String>? attributes,
+      {required PostgreSQLExecutionContext context,
+      required String table,
+      required List<String> attributes,
+      required List<Where> where,
       List<String>? agregationMethods,
       int? limit,
-      List<Where>? where,
       String? orderByAsc});
 
-  Future<Map<String, dynamic>> get(
-      {required String table,
-      List<String>? attributes,
-      List<String>? agregationMethods,
-      List<Where>? where});
+  Future<Map<String, dynamic>?> get(
+      {required PostgreSQLExecutionContext context,
+      required String table,
+      required List<String> attributes,
+      required List<Where> where,
+      List<String>? agregationMethods});
 
   Future<Map<String, dynamic>> create(
-      {required String table, required Map<String, dynamic> data});
+      {required PostgreSQLExecutionContext context,
+      required String table,
+      required Map<String, dynamic> data,
+      required List<String> attributes});
 
-  Future<Map<String, dynamic>> update(dynamic object);
+  Future<Map<String, dynamic>?> update(
+      {required PostgreSQLExecutionContext context,
+      required String table,
+      required Map<String, dynamic> data,
+      required List<Where> where,
+      required List<String> attributes});
 
-  void delete(String id);
+  Future<bool> delete(
+      {required PostgreSQLExecutionContext context,
+      required String table,
+      required List<Where> where});
 }

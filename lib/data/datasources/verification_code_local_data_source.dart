@@ -1,17 +1,37 @@
+import 'package:api_grpc_dart/core/utils/parse_enums.dart';
+import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
-import 'package:postgres_dao/where_normal_attribute.dart';
+import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/get_where_list.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 
 import '../../protos/protos/main.pb.dart';
 
-// ignore: one_member_abstracts
 abstract class VerificationCodeLocalDataSource {
   Future<VerificationCode> createVerificationCode(
-      {required Map<String, dynamic> data});
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths});
 
-  Future<List<VerificationCode>> listVerificationCode();
+  Future<List<VerificationCode>> listVerificationCode(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths});
 
-  Future<VerificationCode> getVerificationCode({required String id});
+  Future<VerificationCode?> getVerificationCode(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths});
+
+  Future<VerificationCode?> updateVerificationCode(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths});
+
+  Future<bool> deleteVerificationCode(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data});
 }
 
 @Injectable(as: VerificationCodeLocalDataSource)
@@ -23,69 +43,139 @@ class VerificationCodeLocalDataSourceImpl
 
   @override
   Future<VerificationCode> createVerificationCode(
-      {required Map<String, dynamic> data}) async {
-    final result =
-        await _database.create(table: 'VerificationCode', data: data);
-    return VerificationCode(
-        id: result['id'],
-        code: result['code'],
-        deviceId: result['deviceId'],
-        type: parseVerificationCodeTypeEnum(result['type']));
-  }
-
-  @override
-  Future<List<VerificationCode>> listVerificationCode() async {
-    List<VerificationCode> response = [];
-    final result = await _database.list(
-        table: 'VerificationCode',
-        attributes: [
-          'id',
-          'code',
-          'type',
-          'deviceId',
-        ],
-        limit: 100);
-    for (var e in result) {
-      response.add(VerificationCode(
-          id: e['VerificationCode']['id'],
-          code: e['VerificationCode']['code'],
-          type: parseVerificationCodeTypeEnum(e['VerificationCode']['type']),
-          deviceId: e['VerificationCode']['deviceId']));
-    }
-    return response;
-  }
-
-  @override
-  Future<VerificationCode> getVerificationCode({required String id}) async {
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths}) async {
     try {
-      final result = await _database.get(table: 'VerificationCode', where: [
-        WhereNormalAttribute(key: 'id', value: id),
-      ], attributes: [
-        'id',
-        'code',
-        'type',
-        'deviceId',
-      ]);
+      data.addAll({'code': StringUtils.generateNumber()});
+      final result = await _database.create(
+          context: context,
+          table: 'VerificationCode',
+          data: data,
+          attributes: paths);
       return VerificationCode(
-          id: result['VerificationCode']['id'],
-          code: result['VerificationCode']['code'],
-          type:
-              parseVerificationCodeTypeEnum(result['VerificationCode']['type']),
-          deviceId: result['VerificationCode']['deviceId']);
+          id: result['id'],
+          code: result['code'],
+          email: result['email'],
+          deviceId: result['deviceId'],
+          type: parseVerificationCodeTypeEnum(result['type']),
+          createTime: (result['createTime'] != null)
+              ? result['createTime'].toString()
+              : null,
+          updateTime: (result['updateTime'] != null)
+              ? result['updateTime'].toString()
+              : null);
     } catch (error) {
       rethrow;
     }
   }
-}
 
-VerificationCodeType parseVerificationCodeTypeEnum(String value) {
-  if (value == 'CHANGE_USER_EMAIL') {
-    return VerificationCodeType.CHANGE_USER_EMAIL;
-  } else if (value == 'SIGN_IN') {
-    return VerificationCodeType.SIGN_IN;
-  } else if (value == 'SIGN_UP') {
-    return VerificationCodeType.SIGN_UP;
-  } else {
-    return VerificationCodeType.UNSPECIFIED;
+  @override
+  Future<List<VerificationCode>> listVerificationCode({
+    required PostgreSQLExecutionContext context,
+    required List<String> paths,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      List<VerificationCode> response = [];
+      final result = await _database.list(
+          context: context,
+          table: 'VerificationCode',
+          attributes: paths,
+          where: getWhereNormalAttributeList(data),
+          limit: 100);
+      for (var e in result) {
+        response.add(VerificationCode(
+            id: e['id'],
+            code: e['code'],
+            email: e['email'],
+            type: parseVerificationCodeTypeEnum(e['type']),
+            deviceId: e['deviceId'],
+            createTime:
+                (e['createTime'] != null) ? e['createTime'].toString() : null,
+            updateTime:
+                (e['updateTime'] != null) ? e['updateTime'].toString() : null));
+      }
+      return response;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<VerificationCode?> getVerificationCode(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths}) async {
+    try {
+      final result = await _database.get(
+          context: context,
+          table: 'VerificationCode',
+          where: getWhereNormalAttributeList(data),
+          attributes: paths);
+      if (result != null) {
+        return VerificationCode(
+            id: result['id'],
+            code: result['code'],
+            email: result['email'],
+            type: parseVerificationCodeTypeEnum(result['type']),
+            deviceId: result['deviceId'],
+            createTime: (result['createTime'] != null)
+                ? result['createTime'].toString()
+                : null,
+            updateTime: (result['updateTime'] != null)
+                ? result['updateTime'].toString()
+                : null);
+      }
+      return null;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> deleteVerificationCode(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data}) async {
+    try {
+      return await _database.delete(
+          context: context,
+          table: 'VerificationCode',
+          where: getWhereNormalAttributeList(data));
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<VerificationCode?> updateVerificationCode(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths}) async {
+    try {
+      final result = await _database.update(
+          context: context,
+          table: 'VerificationCode',
+          data: data,
+          where: [WhereNormalAttribute(key: 'id', value: data['id'])],
+          attributes: paths);
+      if (result != null) {
+        return VerificationCode(
+            id: result['id'],
+            code: result['code'],
+            email: result['email'],
+            type: parseVerificationCodeTypeEnum(result['type']),
+            deviceId: result['deviceId'],
+            createTime: (result['createTime'] != null)
+                ? result['createTime'].toString()
+                : null,
+            updateTime: (result['updateTime'] != null)
+                ? result['updateTime'].toString()
+                : null);
+      }
+      return null;
+    } catch (error) {
+      rethrow;
+    }
   }
 }

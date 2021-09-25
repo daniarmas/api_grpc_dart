@@ -13,6 +13,7 @@ void configureDependenciesManual() {
   try {
     load();
     getIt.registerSingleton<EnvironmentApp>(EnvironmentApp(
+      jsonWebTokenSecretKey: env['JWT_SECRET_KEY']!,
       port: int.parse(env['PORT']!),
       databaseHost: env['DATABASE_HOST']!,
       databasePort: int.parse(env['DATABASE_PORT']!),
@@ -24,6 +25,7 @@ void configureDependenciesManual() {
     if (error.toString() == 'Null check operator used on a null value') {
       var env = Platform.environment;
       getIt.registerSingleton<EnvironmentApp>(EnvironmentApp(
+        jsonWebTokenSecretKey: env['JWT_SECRET_KEY']!,
         port: int.parse(env['PORT']!),
         databaseHost: env['DATABASE_HOST']!,
         databasePort: int.parse(env['DATABASE_PORT']!),
