@@ -413,17 +413,6 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      User user = User(
-          id: '1',
-          email: 'prueba1@app.nat.cu',
-          fullName: '1',
-          legalAge: true,
-          createTime: '1',
-          photo: '1',
-          permissions: null,
-          photoUrl: '1',
-          updateTime: '1',
-          userAddress: null);
       late Either<GrpcError, VerificationCode> result;
       // side effects
       when(mockBannedUserLocalDataSource.getBannedUser(

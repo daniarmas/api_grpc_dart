@@ -14,7 +14,6 @@ import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../core/error/exception.dart';
 import '../../protos/protos/main.pb.dart';
 import '../datasources/verification_code_local_data_source.dart';
 
@@ -44,7 +43,7 @@ class AuthenticationImpl implements AuthenticationRepository {
       required HeadersMetadata metadata,
       required List<String> paths}) async {
     try {
-      if (!StringUtils.isNumeric(data['code']) && data['code'.length == 6]) {
+      if (!StringUtils.isNumeric(data['code']) || data['code'].length != 6) {
         return Left(GrpcError.invalidArgument('Input `code` invalid'));
       } else if (!StringUtils.isEmail(data['email'])) {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
@@ -113,18 +112,15 @@ class AuthenticationImpl implements AuthenticationRepository {
             'model': metadata.model
           }, paths: []);
         } else {
-          final updateDeviceResponse = await deviceLocalDataSource.updateDevice(
-              context: context,
-              where: {
-                'id': getDeviceResponse.id,
-              },
-              data: {
-                'platform': metadata.platform,
-                'systemVersion': metadata.systemVersion,
-                'firebaseCloudMessagingId': metadata.firebaseCloudMessagingId,
-                'model': metadata.model,
-              },
-              paths: paths);
+          final updateDeviceResponse = await deviceLocalDataSource
+              .updateDevice(context: context, where: {
+            'id': getDeviceResponse.id,
+          }, data: {
+            'platform': metadata.platform,
+            'systemVersion': metadata.systemVersion,
+            'firebaseCloudMessagingId': metadata.firebaseCloudMessagingId,
+            'model': metadata.model,
+          }, paths: []);
           device = updateDeviceResponse!;
         }
         late RefreshToken refreshToken;
@@ -173,10 +169,6 @@ class AuthenticationImpl implements AuthenticationRepository {
             refreshToken: refreshToken.refreshToken,
             user: getUserResponse));
       }
-    } on DatabaseConnectionNotOpenException {
-      return Left(GrpcError.internal('Internal server error'));
-    } on DatabaseTableNotExistsException {
-      return Left(GrpcError.internal('Internal server error'));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception catch (error) {

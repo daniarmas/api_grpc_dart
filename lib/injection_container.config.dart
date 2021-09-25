@@ -10,19 +10,17 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'data/database/database.dart' as _i3;
 import 'data/database/postgresql.dart' as _i4;
 import 'data/datasources/authorization_token_local_data_source.dart' as _i9;
-import 'data/datasources/banned_device_local_data_source.dart' as _i12;
-import 'data/datasources/banned_user_local_data_source.dart' as _i13;
+import 'data/datasources/banned_device_local_data_source.dart' as _i10;
+import 'data/datasources/banned_user_local_data_source.dart' as _i11;
 import 'data/datasources/device_local_data_source.dart' as _i5;
 import 'data/datasources/refresh_token_local_data_source.dart' as _i6;
 import 'data/datasources/user_local_data_source.dart' as _i7;
 import 'data/datasources/verification_code_local_data_source.dart' as _i8;
-import 'data/repositories/authorization_token_impl.dart' as _i11;
-import 'data/repositories/sign_in_repository_impl.dart' as _i15;
-import 'data/repositories/verification_code_repository_impl.dart' as _i17;
-import 'domain/repositories/authorization_token.dart' as _i10;
+import 'data/repositories/authentication_repository_impl.dart' as _i15;
+import 'data/repositories/verification_code_repository_impl.dart' as _i13;
 import 'domain/repositories/sign_in_repository.dart' as _i14;
 import 'domain/repositories/verification_code_repository.dart'
-    as _i16; // ignore_for_file: unnecessary_lambdas
+    as _i12; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -40,29 +38,26 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i8.VerificationCodeLocalDataSourceImpl(get<_i3.Database>()));
   gh.factory<_i9.AuthorizationTokenLocalDataSource>(
       () => _i9.AuthorizationTokenLocalDataSourceImpl(get<_i3.Database>()));
-  gh.factory<_i10.AuthorizationTokenRepository>(() =>
-      _i11.AuthorizationTokenRepositoryImpl(
-          localDataSource: get<_i9.AuthorizationTokenLocalDataSource>()));
-  gh.factory<_i12.BannedDeviceLocalDataSource>(
-      () => _i12.BannedDeviceLocalDataSourceImpl(get<_i3.Database>()));
-  gh.factory<_i13.BannedUserLocalDataSource>(
-      () => _i13.BannedUserLocalDataSourceImpl(get<_i3.Database>()));
-  gh.factory<_i14.SignInRepository>(() => _i15.SignInRepositoryImpl(
+  gh.factory<_i10.BannedDeviceLocalDataSource>(
+      () => _i10.BannedDeviceLocalDataSourceImpl(get<_i3.Database>()));
+  gh.factory<_i11.BannedUserLocalDataSource>(
+      () => _i11.BannedUserLocalDataSourceImpl(get<_i3.Database>()));
+  gh.factory<_i12.VerificationCodeRepository>(() =>
+      _i13.VerificationCodeRepositoryImpl(
+          bannedUserLocalDataSource: get<_i11.BannedUserLocalDataSource>(),
+          bannedDeviceLocalDataSource: get<_i10.BannedDeviceLocalDataSource>(),
+          userLocalDataSource: get<_i7.UserLocalDataSource>(),
+          verificationCodeLocalDataSource:
+              get<_i8.VerificationCodeLocalDataSource>()));
+  gh.factory<_i14.AuthenticationRepository>(() => _i15.AuthenticationImpl(
       deviceLocalDataSource: get<_i5.DeviceLocalDataSource>(),
       authorizationTokenLocalDataSource:
           get<_i9.AuthorizationTokenLocalDataSource>(),
       refreshTokenLocalDataSource: get<_i6.RefreshTokenLocalDataSource>(),
-      bannedUserLocalDataSource: get<_i13.BannedUserLocalDataSource>(),
-      bannedDeviceLocalDataSource: get<_i12.BannedDeviceLocalDataSource>(),
+      bannedUserLocalDataSource: get<_i11.BannedUserLocalDataSource>(),
+      bannedDeviceLocalDataSource: get<_i10.BannedDeviceLocalDataSource>(),
       userLocalDataSource: get<_i7.UserLocalDataSource>(),
       verificationCodeLocalDataSource:
           get<_i8.VerificationCodeLocalDataSource>()));
-  gh.factory<_i16.VerificationCodeRepository>(() =>
-      _i17.VerificationCodeRepositoryImpl(
-          bannedUserLocalDataSource: get<_i13.BannedUserLocalDataSource>(),
-          bannedDeviceLocalDataSource: get<_i12.BannedDeviceLocalDataSource>(),
-          userLocalDataSource: get<_i7.UserLocalDataSource>(),
-          verificationCodeLocalDataSource:
-              get<_i8.VerificationCodeLocalDataSource>()));
   return get;
 }
