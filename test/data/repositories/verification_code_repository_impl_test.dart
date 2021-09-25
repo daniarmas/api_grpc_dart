@@ -6,8 +6,11 @@ import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dar
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart';
 import 'package:api_grpc_dart/data/repositories/verification_code_repository_impl.dart';
+import 'package:api_grpc_dart/environment.dart';
+import 'package:api_grpc_dart/injection_container.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
 import 'package:dartz/dartz.dart';
+import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -24,6 +27,7 @@ import './verification_code_repository_impl_test.mocks.dart';
   Database
 ])
 void main() {
+  late EnvironmentApp environment;
   late MockVerificationCodeLocalDataSource mockVerificationCodeLocalDataSource;
   late MockUserLocalDataSource mockUserLocalDataSource;
   late MockBannedDeviceLocalDataSource mockBannedDeviceLocalDataSource;
@@ -38,9 +42,16 @@ void main() {
   late PostgreSQLExecutionContext ctx;
   late HeadersMetadata metadata;
 
+  setUpAll(() {
+    configureDependencies();
+    environment = GetIt.I<EnvironmentApp>();
+  });
+
   setUp(() async {
-    connection = PostgreSQLConnection('192.168.1.3', 5432, 'postgres',
-        username: 'postgres', password: 'postgres');
+    connection = PostgreSQLConnection(environment.databaseHost,
+        environment.databasePort, environment.databaseDatabase,
+        username: environment.databaseUsername,
+        password: environment.databasePassword);
     await connection.open();
     await connection.transaction((context) async {
       ctx = context;

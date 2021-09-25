@@ -3,8 +3,45 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Dart
+# name: Dart
 
+# on:
+#   push:
+#     branches: [main, develop]
+#   pull_request:
+#     branches: [main, develop]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/checkout@v2
+
+#       # Note: This workflow uses the latest stable version of the Dart SDK.
+#       # You can specify other versions if desired, see documentation here:
+#       # https://github.com/dart-lang/setup-dart/blob/main/README.md
+#       - uses: dart-lang/setup-dart@v1
+#       # - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+
+#       - name: Install dependencies
+#         run: dart pub get
+
+#       # Uncomment this step to verify the use of 'dart format' on each commit.
+#       # - name: Verify formatting
+#       #   run: dart format --output=none --set-exit-if-changed .
+
+#       # Consider passing '--fatal-infos' for slightly stricter analysis.
+#       - name: Analyze project source
+#         run: dart analyze
+
+#       # Your project will need to have tests in test/ and a dependency on
+#       # package:test for this step to succeed. Note that Flutter projects will
+#       # want to change this to 'flutter test'.
+#       - name: Run tests
+#         run: dart test --chain-stack-traces
+
+name: Dart
 on:
   push:
     branches: [main, develop]
@@ -12,8 +49,55 @@ on:
     branches: [main, develop]
 
 jobs:
-  build:
+  # Label of the runner job
+  runner-job:
+    # You must use a Linux environment when using service containers or container jobs
     runs-on: ubuntu-latest
+
+    # Service containers to run with `runner-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgis/postgis:13-3.1-alpine
+        # Provide the password for postgres
+        env:
+          PGPASSWORD: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
+    # steps:
+    #   # Downloads a copy of the code in your repository before running CI tests
+    #   - name: Check out repository code
+    #     uses: actions/checkout@v2
+
+    #   # Performs a clean installation of all dependencies in the `package.json` file
+    #   # For more information, see https://docs.npmjs.com/cli/ci.html
+    #   - name: Install dependencies
+    #     run: npm ci
+
+    #   - name: Connect to PostgreSQL
+    #     # Runs a script that creates a PostgreSQL table, populates
+    #     # the table with data, and then retrieves the data
+    #     run: node client.js
+    #     # Environment variables used by the `client.js` script to create
+    #     # a new PostgreSQL table.
+    #     env:
+    #       DATABASE_DATABASE: "postgres"
+    #       DATABASE_HOST: "localhost"
+    #       DATABASE_PORT: 5432
+    #       DATABASE_USERNAME: "postgres"
+    #       DATABASE_PASSWORD: "postgres"
 
     steps:
       - uses: actions/checkout@v2
@@ -39,4 +123,10 @@ jobs:
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run tests
-        run: dart test
+        run: dart test --chain-stack-traces
+        env:
+          DATABASE_DATABASE: "postgres"
+          DATABASE_HOST: "localhost"
+          DATABASE_PORT: 5432
+          DATABASE_USERNAME: "postgres"
+          DATABASE_PASSWORD: "postgres"
