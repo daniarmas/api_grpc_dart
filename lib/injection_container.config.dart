@@ -47,12 +47,14 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i13.BannedUserLocalDataSourceImpl(get<_i3.Database>()));
   gh.factory<_i14.VerificationCodeRepository>(() =>
       _i15.VerificationCodeRepositoryImpl(
+          emailer: get<_i6.Emailer>(),
           bannedUserLocalDataSource: get<_i13.BannedUserLocalDataSource>(),
           bannedDeviceLocalDataSource: get<_i12.BannedDeviceLocalDataSource>(),
           userLocalDataSource: get<_i9.UserLocalDataSource>(),
           verificationCodeLocalDataSource:
               get<_i10.VerificationCodeLocalDataSource>()));
   gh.factory<_i16.AuthenticationRepository>(() => _i17.AuthenticationImpl(
+      emailer: get<_i6.Emailer>(),
       deviceLocalDataSource: get<_i5.DeviceLocalDataSource>(),
       authorizationTokenLocalDataSource:
           get<_i11.AuthorizationTokenLocalDataSource>(),

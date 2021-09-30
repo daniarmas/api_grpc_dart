@@ -13,11 +13,12 @@ import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dar
 import 'package:api_grpc_dart/data/datasources/device_local_data_source.dart'
     as _i7;
 import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart'
-    as _i11;
+    as _i12;
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart'
     as _i6;
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart'
     as _i3;
+import 'package:api_grpc_dart/data/email/emailer.dart' as _i11;
 import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:postgres/postgres.dart' as _i5;
@@ -381,11 +382,75 @@ class MockAuthorizationTokenLocalDataSource extends _i1.Mock
   String toString() => super.toString();
 }
 
+/// A class which mocks [Emailer].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockEmailer extends _i1.Mock implements _i11.Emailer {
+  MockEmailer() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<bool> connect() =>
+      (super.noSuchMethod(Invocation.method(#connect, []),
+          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
+  @override
+  void close() => super.noSuchMethod(Invocation.method(#close, []),
+      returnValueForMissingStub: null);
+  @override
+  _i4.Future<void> getConnection() =>
+      (super.noSuchMethod(Invocation.method(#getConnection, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<void> sendMail(
+          {String? body, String? recipient, String? subject}) =>
+      (super.noSuchMethod(
+          Invocation.method(#sendMail, [],
+              {#body: body, #recipient: recipient, #subject: subject}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<void> sendVerificationCodeMail(
+          {String? recipient,
+          String? code,
+          _i2.VerificationCodeType? verificationCodeType,
+          String? ip,
+          String? device,
+          DateTime? time}) =>
+      (super.noSuchMethod(
+          Invocation.method(#sendVerificationCodeMail, [], {
+            #recipient: recipient,
+            #code: code,
+            #verificationCodeType: verificationCodeType,
+            #ip: ip,
+            #device: device,
+            #time: time
+          }),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<void> sendSignInMail(
+          {String? recipient, String? ip, String? device, DateTime? time}) =>
+      (super.noSuchMethod(
+          Invocation.method(#sendSignInMail, [],
+              {#recipient: recipient, #ip: ip, #device: device, #time: time}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<void> sendSignUpMail({String? recipient}) => (super.noSuchMethod(
+      Invocation.method(#sendSignUpMail, [], {#recipient: recipient}),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  String toString() => super.toString();
+}
+
 /// A class which mocks [RefreshTokenLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRefreshTokenLocalDataSource extends _i1.Mock
-    implements _i11.RefreshTokenLocalDataSource {
+    implements _i12.RefreshTokenLocalDataSource {
   MockRefreshTokenLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }

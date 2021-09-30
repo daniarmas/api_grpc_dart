@@ -6,6 +6,7 @@ import 'package:api_grpc_dart/data/datasources/device_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart';
+import 'package:api_grpc_dart/data/email/emailer.dart';
 import 'package:api_grpc_dart/data/repositories/authentication_repository_impl.dart';
 import 'package:api_grpc_dart/environment.dart';
 import 'package:api_grpc_dart/injection_container.dart';
@@ -27,9 +28,11 @@ import './authentication_repository_impl_test.mocks.dart';
   BannedUserLocalDataSource,
   BannedDeviceLocalDataSource,
   AuthorizationTokenLocalDataSource,
+  Emailer,
   RefreshTokenLocalDataSource
 ])
 void main() {
+  late MockEmailer mockEmailer;
   late EnvironmentApp environment;
   late MockVerificationCodeLocalDataSource mockVerificationCodeLocalDataSource;
   late MockUserLocalDataSource mockUserLocalDataSource;
@@ -69,6 +72,7 @@ void main() {
         deviceId: '1',
         model: '1',
         firebaseCloudMessagingId: '1');
+    mockEmailer = MockEmailer();
     mockVerificationCodeLocalDataSource = MockVerificationCodeLocalDataSource();
     mockUserLocalDataSource = MockUserLocalDataSource();
     mockBannedUserLocalDataSource = MockBannedUserLocalDataSource();
@@ -78,6 +82,7 @@ void main() {
         MockAuthorizationTokenLocalDataSource();
     mockDeviceLocalDataSource = MockDeviceLocalDataSource();
     authenticationImpl = AuthenticationImpl(
+        emailer: mockEmailer,
         deviceLocalDataSource: mockDeviceLocalDataSource,
         authorizationTokenLocalDataSource:
             mockAuthorizationTokenLocalDataSource,
@@ -227,6 +232,12 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => authorizationToken);
+      when(mockEmailer.sendSignInMail(
+              device: anyNamed('device'),
+              ip: anyNamed('ip'),
+              recipient: anyNamed('recipient'),
+              time: anyNamed('time')))
+          .thenAnswer((_) async => null);
       result = await authenticationImpl.signIn(
           data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
@@ -278,6 +289,11 @@ void main() {
           data: anyNamed('data'),
           context: anyNamed('context'),
           paths: anyNamed('paths')));
+      verify(mockEmailer.sendSignInMail(
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time')));
       expect(result, Right(response));
     });
 
@@ -416,6 +432,12 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => authorizationToken);
+      when(mockEmailer.sendSignInMail(
+              device: anyNamed('device'),
+              ip: anyNamed('ip'),
+              recipient: anyNamed('recipient'),
+              time: anyNamed('time')))
+          .thenAnswer((_) async => null);
       result = await authenticationImpl.signIn(
           data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
@@ -468,6 +490,11 @@ void main() {
           data: anyNamed('data'),
           context: anyNamed('context'),
           paths: anyNamed('paths')));
+      verify(mockEmailer.sendSignInMail(
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time')));
       expect(result, Right(response));
     });
 
@@ -606,6 +633,12 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => authorizationToken);
+      when(mockEmailer.sendSignInMail(
+              device: anyNamed('device'),
+              ip: anyNamed('ip'),
+              recipient: anyNamed('recipient'),
+              time: anyNamed('time')))
+          .thenAnswer((_) async => null);
       result = await authenticationImpl.signIn(
           data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
@@ -658,6 +691,11 @@ void main() {
           data: anyNamed('data'),
           context: anyNamed('context'),
           paths: anyNamed('paths')));
+      verify(mockEmailer.sendSignInMail(
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time')));
       expect(result, Right(response));
     });
 
@@ -795,6 +833,12 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => authorizationToken);
+      when(mockEmailer.sendSignInMail(
+              device: anyNamed('device'),
+              ip: anyNamed('ip'),
+              recipient: anyNamed('recipient'),
+              time: anyNamed('time')))
+          .thenAnswer((_) async => null);
       result = await authenticationImpl.signIn(
           data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
@@ -847,6 +891,11 @@ void main() {
           data: anyNamed('data'),
           context: anyNamed('context'),
           paths: anyNamed('paths')));
+      verify(mockEmailer.sendSignInMail(
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time')));
       expect(result, Right(response));
     });
 
@@ -913,6 +962,11 @@ void main() {
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')));
+      verifyNever(mockEmailer.sendSignInMail(
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time')));
       expect(result, Left(GrpcError.invalidArgument('Input `code` invalid')));
     });
 
@@ -977,6 +1031,11 @@ void main() {
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')));
+      verifyNever(mockEmailer.sendSignInMail(
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time')));
       expect(result, Left(GrpcError.invalidArgument('Input `code` invalid')));
     });
 
@@ -1041,6 +1100,11 @@ void main() {
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')));
+      verifyNever(mockEmailer.sendSignInMail(
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time')));
       expect(result, Left(GrpcError.invalidArgument('Input `email` invalid')));
     });
 
@@ -1112,6 +1176,11 @@ void main() {
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')));
+      verifyNever(mockEmailer.sendSignInMail(
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time')));
       expect(result,
           Left(GrpcError.invalidArgument('VerificationCode Not found')));
     });
@@ -1201,6 +1270,11 @@ void main() {
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')));
+      verifyNever(mockEmailer.sendSignInMail(
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time')));
       expect(result, Left(GrpcError.invalidArgument('User Banned')));
     });
 
@@ -1295,6 +1369,11 @@ void main() {
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')));
+      verifyNever(mockEmailer.sendSignInMail(
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time')));
       expect(result, Left(GrpcError.invalidArgument('Device Banned')));
     });
 
@@ -1386,6 +1465,11 @@ void main() {
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')));
+      verifyNever(mockEmailer.sendSignInMail(
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time')));
       expect(result, Left(GrpcError.invalidArgument('User Not found')));
     });
   });
