@@ -65,4 +65,10 @@ jobs:
           DATABASE_USERNAME: "postgres"
           DATABASE_PASSWORD: "postgres"
           PORT: 8080
-          JWT_SECRET_KEY: "secretkey"
+          JWT_SECRET_KEY: "default"
+          EMAIL_HOST: "default"
+          EMAIL_PORT: "default"
+          EMAIL_FROM_CONTACT_NAME: "default"
+          EMAIL_FROM: "default"
+          EMAIL_PASSWORD: "default"
+          EMAIL_USERNAME: "default"
