@@ -7,5 +7,5 @@ void main(List<String> arguments) async {
   shutdown.triggerOnSigInt();
   shutdown.triggerOnSigHup();
   configureDependencies();
-  Server.init();
+  await Server.init();
 }

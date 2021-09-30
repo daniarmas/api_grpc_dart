@@ -7,10 +7,13 @@ import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dar
 import 'package:api_grpc_dart/data/datasources/device_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
+import 'package:api_grpc_dart/data/email/emailer.dart';
 import 'package:api_grpc_dart/domain/repositories/sign_in_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mailer/mailer.dart';
 import 'package:postgres/postgres.dart';
 import 'package:uuid/uuid.dart';
 
@@ -48,6 +51,7 @@ class AuthenticationImpl implements AuthenticationRepository {
       } else if (!StringUtils.isEmail(data['email'])) {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
       } else {
+        Emailer emailer = GetIt.I<Emailer>();
         final getVerificationCodeResponse =
             await verificationCodeLocalDataSource
                 .getVerificationCode(context: context, data: {
@@ -164,6 +168,12 @@ class AuthenticationImpl implements AuthenticationRepository {
           'app': metadata.app.toString(),
           'appVersion': metadata.appVersion
         }, paths: [], context: context);
+        await emailer.sendSignInMail(
+            recipient: getUserResponse.email,
+            ip: metadata.ipv4,
+            device:
+                '${metadata.model} - ${metadata.platform} ${metadata.systemVersion}',
+            time: DateTime.now());
         return Right(SignInResponse(
             authorizationToken: authorizationToken.authorizationToken,
             refreshToken: refreshToken.refreshToken,
@@ -171,7 +181,14 @@ class AuthenticationImpl implements AuthenticationRepository {
       }
     } on GrpcError catch (error) {
       return Left(error);
-    } on Exception {
+    } on Exception catch (error) {
+      if (error is SmtpClientCommunicationException) {
+        if (error.message
+            .contains('Response from server: < 550 Error: no such user')) {
+          return Left(GrpcError.invalidArgument(
+              'The mail server could not deliver the verification code email'));
+        }
+      }
       return Left(GrpcError.internal('Internal server error'));
     }
   }

@@ -6,9 +6,21 @@ class EnvironmentApp {
   final String databaseUsername;
   final String databasePassword;
   final String jsonWebTokenSecretKey;
+  final String emailHost;
+  final int emailPort;
+  final String emailUsername;
+  final String emailPassword;
+  final String emailFrom;
+  final String emailFromContactName;
 
   EnvironmentApp(
-      {required this.port,
+      {required this.emailHost,
+      required this.emailPort,
+      required this.emailFrom,
+      required this.emailFromContactName,
+      required this.emailPassword,
+      required this.emailUsername,
+      required this.port,
       required this.databaseHost,
       required this.databasePort,
       required this.databaseDatabase,

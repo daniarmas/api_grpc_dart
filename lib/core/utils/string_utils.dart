@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:intl/intl.dart';
+
 extension StringExtension on String {
   bool get isValidEmail {
     final emailRegExp = RegExp(
@@ -31,5 +33,35 @@ class StringUtils {
       next *= 10;
     }
     return next.toInt().toString();
+  }
+
+  static String formatDateTime(DateTime time) {
+    late String month;
+    if (time.month == 1) {
+      month = 'Enero';
+    } else if (time.month == 2) {
+      month = 'Febrero';
+    } else if (time.month == 3) {
+      month = 'Marzo';
+    } else if (time.month == 4) {
+      month = 'Abril';
+    } else if (time.month == 5) {
+      month = 'Mayo';
+    } else if (time.month == 6) {
+      month = 'Junio';
+    } else if (time.month == 7) {
+      month = 'Julio';
+    } else if (time.month == 8) {
+      month = 'Agosto';
+    } else if (time.month == 9) {
+      month = 'Septiembre';
+    } else if (time.month == 10) {
+      month = 'Octubre';
+    } else if (time.month == 11) {
+      month = 'Noviembre';
+    } else if (time.month == 12) {
+      month = 'Diciembre';
+    }
+    return '${time.day} de $month del ${time.year} a las ${DateFormat.jm().format(time)}';
   }
 }

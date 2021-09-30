@@ -17,6 +17,7 @@ dependencies:
   shutdown: ^0.4.3
   mailer: ^5.0.2
   stack_trace: ^1.10.0
+  intl: ^0.17.0
   postgres: ^2.4.0
   postgres_dao:
     path: packages/postgres_dao

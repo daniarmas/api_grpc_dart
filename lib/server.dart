@@ -7,6 +7,7 @@ import 'package:grpc/grpc.dart';
 import 'package:shutdown/shutdown.dart' as shutdown;
 
 import 'data/database/database.dart';
+import 'data/email/emailer.dart';
 import 'domain/services/authentication_service.dart';
 import 'domain/services/health_service.dart';
 import 'domain/services/hostname_service.dart';
@@ -14,11 +15,13 @@ import 'environment.dart';
 
 class Server {
   static final EnvironmentApp _environment = GetIt.I<EnvironmentApp>();
+  static final Emailer _emailer = GetIt.I<Emailer>();
   static final Database _database = GetIt.I<Database>();
 
   static Future<void> init() async {
     await _database.connect().then((value) async {
       if (value) {
+        await _emailer.connect();
         final server = grpc.Server([
           AuthenticationService(),
           HealthService(),
@@ -39,9 +42,12 @@ class Server {
         await server.serve(port: _environment.port);
         print('🚀 Server listening at port ${server.port}...');
       }
-    }).catchError((onError) {
-      throw Exception(onError);
+    }).catchError((error) {
+      throw Exception(error);
     });
-    shutdown.addHandler(() async => _database.close());
+    shutdown.addHandler(() async {
+      _database.close();
+      _emailer.close();
+    });
   }
 }
