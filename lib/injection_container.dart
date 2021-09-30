@@ -13,6 +13,12 @@ void configureDependenciesManual() {
   try {
     load();
     getIt.registerSingleton<EnvironmentApp>(EnvironmentApp(
+      emailHost: env['EMAIL_HOST']!,
+      emailPort: int.parse(env['EMAIL_PORT']!),
+      emailFromContactName: env['EMAIL_FROM_CONTACT_NAME']!,
+      emailFrom: env['EMAIL_FROM']!,
+      emailPassword: env['EMAIL_PASSWORD']!,
+      emailUsername: env['EMAIL_USERNAME']!,
       jsonWebTokenSecretKey: env['JWT_SECRET_KEY']!,
       port: int.parse(env['PORT']!),
       databaseHost: env['DATABASE_HOST']!,
@@ -25,6 +31,12 @@ void configureDependenciesManual() {
     if (error.toString() == 'Null check operator used on a null value') {
       var env = Platform.environment;
       getIt.registerSingleton<EnvironmentApp>(EnvironmentApp(
+        emailHost: env['EMAIL_HOST']!,
+        emailPort: int.parse(env['EMAIL_PORT']!),
+        emailFromContactName: env['EMAIL_FROM_CONTACT_NAME']!,
+        emailFrom: env['EMAIL_FROM']!,
+        emailPassword: env['EMAIL_PASSWORD']!,
+        emailUsername: env['EMAIL_USERNAME']!,
         jsonWebTokenSecretKey: env['JWT_SECRET_KEY']!,
         port: int.parse(env['PORT']!),
         databaseHost: env['DATABASE_HOST']!,

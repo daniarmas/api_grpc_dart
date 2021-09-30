@@ -3,9 +3,12 @@ import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import 'package:api_grpc_dart/data/datasources/banned_device_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
+import 'package:api_grpc_dart/data/email/emailer.dart';
 import 'package:dartz/dartz.dart';
+import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:mailer/mailer.dart';
 import 'package:postgres/postgres.dart';
 
 import '../../domain/repositories/verification_code_repository.dart';
@@ -38,6 +41,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       } else if (!StringUtils.isEmail(data['email'])) {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
       } else {
+        Emailer emailer = GetIt.I<Emailer>();
         final getBannedUserResponse = await bannedUserLocalDataSource
             .getBannedUser(
                 context: context,
@@ -69,7 +73,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
                 data: {
                   'email': data['email'],
                   'type': data['type'],
-                  'deviceId': data['deviceId']
+                  'deviceId': metadata.deviceId
                 },
                 context: context,
                 paths: ['id']);
@@ -77,16 +81,36 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
           await verificationCodeLocalDataSource.deleteVerificationCode(data: {
             'email': data['email'],
             'type': data['type'],
-            'deviceId': data['deviceId']
+            'deviceId': metadata.deviceId
           }, context: context);
         }
         final response = await verificationCodeLocalDataSource
             .createVerificationCode(data: data, paths: paths, context: context);
+        await emailer.sendVerificationCodeMail(
+            verificationCodeType: data['type'],
+            code: response.code,
+            recipient: response.email,
+            ip: metadata.ipv4,
+            device:
+                '${metadata.model} - ${metadata.platform} ${metadata.systemVersion}',
+            time: DateTime.parse(response.createTime));
         return Right(response);
       }
     } on GrpcError catch (error) {
       return Left(error);
-    } on Exception {
+    } on Exception catch (error) {
+      if (error is SmtpClientCommunicationException) {
+        if (error.message
+            .contains('Response from server: < 550 Error: no such user')) {
+          await verificationCodeLocalDataSource.deleteVerificationCode(data: {
+            'email': data['email'],
+            'type': data['type'],
+            'deviceId': metadata.deviceId
+          }, context: context);
+          return Left(GrpcError.invalidArgument(
+              'The mail server could not deliver the verification code email'));
+        }
+      }
       return Left(GrpcError.internal('Internal server error'));
     }
   }
