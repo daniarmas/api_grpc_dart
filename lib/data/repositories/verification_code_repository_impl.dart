@@ -21,9 +21,11 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   final UserLocalDataSource userLocalDataSource;
   final BannedUserLocalDataSource bannedUserLocalDataSource;
   final BannedDeviceLocalDataSource bannedDeviceLocalDataSource;
+  final Emailer emailer;
 
   VerificationCodeRepositoryImpl(
-      {required this.bannedUserLocalDataSource,
+      {required this.emailer,
+      required this.bannedUserLocalDataSource,
       required this.bannedDeviceLocalDataSource,
       required this.userLocalDataSource,
       required this.verificationCodeLocalDataSource});
@@ -41,7 +43,6 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       } else if (!StringUtils.isEmail(data['email'])) {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
       } else {
-        Emailer emailer = GetIt.I<Emailer>();
         final getBannedUserResponse = await bannedUserLocalDataSource
             .getBannedUser(
                 context: context,

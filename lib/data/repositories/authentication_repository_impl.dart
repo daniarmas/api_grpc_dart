@@ -22,6 +22,7 @@ import '../datasources/verification_code_local_data_source.dart';
 
 @Injectable(as: AuthenticationRepository)
 class AuthenticationImpl implements AuthenticationRepository {
+  final Emailer emailer;
   final VerificationCodeLocalDataSource verificationCodeLocalDataSource;
   final UserLocalDataSource userLocalDataSource;
   final DeviceLocalDataSource deviceLocalDataSource;
@@ -31,7 +32,8 @@ class AuthenticationImpl implements AuthenticationRepository {
   final RefreshTokenLocalDataSource refreshTokenLocalDataSource;
 
   AuthenticationImpl(
-      {required this.deviceLocalDataSource,
+      {required this.emailer,
+      required this.deviceLocalDataSource,
       required this.authorizationTokenLocalDataSource,
       required this.refreshTokenLocalDataSource,
       required this.bannedUserLocalDataSource,
@@ -51,7 +53,6 @@ class AuthenticationImpl implements AuthenticationRepository {
       } else if (!StringUtils.isEmail(data['email'])) {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
       } else {
-        Emailer emailer = GetIt.I<Emailer>();
         final getVerificationCodeResponse =
             await verificationCodeLocalDataSource
                 .getVerificationCode(context: context, data: {

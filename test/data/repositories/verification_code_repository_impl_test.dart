@@ -5,6 +5,7 @@ import 'package:api_grpc_dart/data/datasources/banned_device_local_data_source.d
 import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart';
+import 'package:api_grpc_dart/data/email/emailer.dart';
 import 'package:api_grpc_dart/data/repositories/verification_code_repository_impl.dart';
 import 'package:api_grpc_dart/environment.dart';
 import 'package:api_grpc_dart/injection_container.dart';
@@ -24,9 +25,11 @@ import './verification_code_repository_impl_test.mocks.dart';
   UserLocalDataSource,
   BannedUserLocalDataSource,
   BannedDeviceLocalDataSource,
+  Emailer,
   Database
 ])
 void main() {
+  late MockEmailer mockEmailer;
   late EnvironmentApp environment;
   late MockVerificationCodeLocalDataSource mockVerificationCodeLocalDataSource;
   late MockUserLocalDataSource mockUserLocalDataSource;
@@ -38,11 +41,14 @@ void main() {
       code: '432567',
       deviceId: '1',
       id: 'ashdk13721y3179kshad',
+      email: 'prueba1@corre.cup',
+      createTime: DateTime.now().toString(),
+      updateTime: DateTime.now().toString(),
       type: VerificationCodeType.SIGN_IN);
   late PostgreSQLExecutionContext ctx;
   late HeadersMetadata metadata;
 
-  setUpAll(() {
+  setUpAll(() async {
     configureDependencies();
     environment = GetIt.I<EnvironmentApp>();
   });
@@ -67,11 +73,13 @@ void main() {
         deviceId: '1',
         model: '1',
         firebaseCloudMessagingId: '1');
+    mockEmailer = MockEmailer();
     mockVerificationCodeLocalDataSource = MockVerificationCodeLocalDataSource();
     mockUserLocalDataSource = MockUserLocalDataSource();
     mockBannedUserLocalDataSource = MockBannedUserLocalDataSource();
     mockBannedDeviceLocalDataSource = MockBannedDeviceLocalDataSource();
     verificationCodeRepositoryImpl = VerificationCodeRepositoryImpl(
+        emailer: mockEmailer,
         bannedUserLocalDataSource: mockBannedUserLocalDataSource,
         bannedDeviceLocalDataSource: mockBannedDeviceLocalDataSource,
         verificationCodeLocalDataSource: mockVerificationCodeLocalDataSource,
@@ -83,79 +91,6 @@ void main() {
   });
 
   group('testing createVerificationCode', () {
-    test(
-        'Return data successfully when there is no verification codes generated before and everything is ok',
-        () async {
-      // setup
-      Map<String, dynamic> map = {
-        'deviceId': '1',
-        'email': 'daniel@estudiantes.uci.cu',
-        'type': VerificationCodeType.SIGN_IN
-      };
-      User user = User(
-          id: '1',
-          email: 'prueba1@app.nat.cu',
-          fullName: '1',
-          legalAge: true,
-          createTime: '1',
-          photo: '1',
-          permissions: null,
-          photoUrl: '1',
-          updateTime: '1',
-          userAddress: null);
-      late Either<GrpcError, VerificationCode> result;
-      when(mockBannedUserLocalDataSource.getBannedUser(
-              data: anyNamed('data'),
-              context: anyNamed('context'),
-              paths: anyNamed('paths')))
-          .thenAnswer((_) async => null);
-      when(mockBannedDeviceLocalDataSource.getBannedDevice(
-              data: anyNamed('data'),
-              context: anyNamed('context'),
-              paths: anyNamed('paths')))
-          .thenAnswer((_) async => null);
-      when(mockUserLocalDataSource.getUser(
-              data: anyNamed('data'),
-              context: anyNamed('context'),
-              paths: anyNamed('paths')))
-          .thenAnswer((_) async => user);
-      when(mockVerificationCodeLocalDataSource.listVerificationCode(
-              data: anyNamed('data'),
-              context: anyNamed('context'),
-              paths: anyNamed('paths')))
-          .thenAnswer((_) async => []);
-      when(mockVerificationCodeLocalDataSource.createVerificationCode(
-              data: anyNamed('data'),
-              context: anyNamed('context'),
-              paths: anyNamed('paths')))
-          .thenAnswer((_) async => verificationCode);
-      // side effects
-      result = await verificationCodeRepositoryImpl.createVerificationCode(
-          data: map, paths: [], context: ctx, metadata: metadata);
-      // expectations
-      verify(mockBannedUserLocalDataSource.getBannedUser(
-          data: anyNamed('data'),
-          context: anyNamed('context'),
-          paths: anyNamed('paths')));
-      verify(mockBannedDeviceLocalDataSource.getBannedDevice(
-          data: anyNamed('data'),
-          context: anyNamed('context'),
-          paths: anyNamed('paths')));
-      verify(mockUserLocalDataSource.getUser(
-          data: anyNamed('data'),
-          context: anyNamed('context'),
-          paths: anyNamed('paths')));
-      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
-          data: anyNamed('data'),
-          context: anyNamed('context'),
-          paths: anyNamed('paths')));
-      verifyNever(mockVerificationCodeLocalDataSource.deleteVerificationCode(
-          data: anyNamed('data'), context: anyNamed('context')));
-      verify(mockVerificationCodeLocalDataSource
-          .createVerificationCode(data: map, context: ctx, paths: []));
-      expect(result, Right(verificationCode));
-    });
-
     test(
         'Return data successfully when there is verification codes generated before and everything is ok',
         () async {
@@ -232,6 +167,14 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => verificationCode);
+      when(mockEmailer.sendVerificationCodeMail(
+              code: anyNamed('code'),
+              device: anyNamed('device'),
+              ip: anyNamed('ip'),
+              recipient: anyNamed('recipient'),
+              time: anyNamed('time'),
+              verificationCodeType: anyNamed('verificationCodeType')))
+          .thenAnswer((_) async => null);
       // side effects
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx, metadata: metadata);
@@ -256,6 +199,101 @@ void main() {
           data: anyNamed('data'), context: anyNamed('context')));
       verify(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
+      verify(mockEmailer.sendVerificationCodeMail(
+          code: anyNamed('code'),
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time'),
+          verificationCodeType: anyNamed('verificationCodeType')));
+      expect(result, Right(verificationCode));
+    });
+
+    test(
+        'Return data successfully when there is no verification codes generated before and everything is ok',
+        () async {
+      // setup
+      Map<String, dynamic> map = {
+        'deviceId': '1',
+        'email': 'daniel@estudiantes.uci.cu',
+        'type': VerificationCodeType.SIGN_IN
+      };
+      User user = User(
+          id: '1',
+          email: 'prueba1@app.nat.cu',
+          fullName: '1',
+          legalAge: true,
+          createTime: '1',
+          photo: '1',
+          permissions: null,
+          photoUrl: '1',
+          updateTime: '1',
+          userAddress: null);
+      late Either<GrpcError, VerificationCode> result;
+      when(mockBannedUserLocalDataSource.getBannedUser(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockBannedDeviceLocalDataSource.getBannedDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockUserLocalDataSource.getUser(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => user);
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => []);
+      when(mockVerificationCodeLocalDataSource.createVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => verificationCode);
+      when(mockEmailer.sendVerificationCodeMail(
+              code: anyNamed('code'),
+              device: anyNamed('device'),
+              ip: anyNamed('ip'),
+              recipient: anyNamed('recipient'),
+              time: anyNamed('time'),
+              verificationCodeType: anyNamed('verificationCodeType')))
+          .thenAnswer((_) async => null);
+      // side effects
+      result = await verificationCodeRepositoryImpl.createVerificationCode(
+          data: map, paths: [], context: ctx, metadata: metadata);
+      // expectations
+      verify(mockBannedUserLocalDataSource.getBannedUser(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockBannedDeviceLocalDataSource.getBannedDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockUserLocalDataSource.getUser(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verify(mockVerificationCodeLocalDataSource
+          .createVerificationCode(data: map, context: ctx, paths: []));
+      verify(mockEmailer.sendVerificationCodeMail(
+          code: anyNamed('code'),
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time'),
+          verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Right(verificationCode));
     });
 
@@ -290,6 +328,13 @@ void main() {
           data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
+      verifyNever(mockEmailer.sendVerificationCodeMail(
+          code: anyNamed('code'),
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time'),
+          verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.invalidArgument('Input `email` invalid')));
     });
 
@@ -325,10 +370,17 @@ void main() {
           data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
+      verifyNever(mockEmailer.sendVerificationCodeMail(
+          code: anyNamed('code'),
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time'),
+          verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.invalidArgument('Input `type` invalid')));
     });
 
-    // here
+    // // here
 
     test(
         'Return GrpcError.internal when getBannedUser throw DatabaseConnectionNotOpenException',
@@ -367,6 +419,13 @@ void main() {
           data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
+      verifyNever(mockEmailer.sendVerificationCodeMail(
+          code: anyNamed('code'),
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time'),
+          verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -412,6 +471,13 @@ void main() {
           data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
+      verifyNever(mockEmailer.sendVerificationCodeMail(
+          code: anyNamed('code'),
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time'),
+          verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -462,6 +528,13 @@ void main() {
           data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
+      verifyNever(mockEmailer.sendVerificationCodeMail(
+          code: anyNamed('code'),
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time'),
+          verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -532,6 +605,13 @@ void main() {
           data: map, context: ctx));
       verifyNever(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
+      verifyNever(mockEmailer.sendVerificationCodeMail(
+          code: anyNamed('code'),
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time'),
+          verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -617,6 +697,13 @@ void main() {
           data: map, context: ctx));
       verifyNever(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
+      verifyNever(mockEmailer.sendVerificationCodeMail(
+          code: anyNamed('code'),
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time'),
+          verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -707,6 +794,13 @@ void main() {
           data: map, context: ctx));
       verify(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
+      verifyNever(mockEmailer.sendVerificationCodeMail(
+          code: anyNamed('code'),
+          device: anyNamed('device'),
+          ip: anyNamed('ip'),
+          recipient: anyNamed('recipient'),
+          time: anyNamed('time'),
+          verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });
