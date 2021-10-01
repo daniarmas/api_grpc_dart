@@ -64,10 +64,10 @@ jobs:
           DATABASE_PORT: 5432
           DATABASE_USERNAME: "postgres"
           DATABASE_PASSWORD: "postgres"
-          PORT: 8080
+          PORT: 0
           JWT_SECRET_KEY: "default"
           EMAIL_HOST: "default"
-          EMAIL_PORT: "default"
+          EMAIL_PORT: 0
           EMAIL_FROM_CONTACT_NAME: "default"
           EMAIL_FROM: "default"
           EMAIL_PASSWORD: "default"
