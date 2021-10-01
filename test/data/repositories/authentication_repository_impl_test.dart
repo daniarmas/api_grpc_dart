@@ -47,12 +47,12 @@ void main() {
   late HeadersMetadata metadata;
   late AuthenticationImpl authenticationImpl;
 
-  setUpAll(() {
+  setUpAll(() async {
     configureDependencies();
+    environment = GetIt.I<EnvironmentApp>();
   });
 
   setUp(() async {
-    environment = GetIt.I<EnvironmentApp>();
     connection = PostgreSQLConnection(environment.databaseHost,
         environment.databasePort, environment.databaseDatabase,
         username: environment.databaseUsername,
