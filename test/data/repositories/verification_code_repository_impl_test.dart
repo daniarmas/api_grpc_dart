@@ -48,7 +48,7 @@ void main() {
   late PostgreSQLExecutionContext ctx;
   late HeadersMetadata metadata;
 
-  setUpAll(() async {
+  setUpAll(() {
     configureDependencies();
     environment = GetIt.I<EnvironmentApp>();
   });

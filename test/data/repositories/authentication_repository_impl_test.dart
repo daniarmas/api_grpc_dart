@@ -47,7 +47,7 @@ void main() {
   late HeadersMetadata metadata;
   late AuthenticationImpl authenticationImpl;
 
-  setUpAll(() async {
+  setUpAll(() {
     configureDependencies();
     environment = GetIt.I<EnvironmentApp>();
   });
