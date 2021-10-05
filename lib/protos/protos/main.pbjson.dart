@@ -45,6 +45,16 @@ const AppType$json = const {
 
 /// Descriptor for `AppType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhgKFEFQUF9UWVBFX1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
+@$core.Deprecated('Use userExistsRequestDescriptor instead')
+const UserExistsRequest$json = const {
+  '1': 'UserExistsRequest',
+  '2': const [
+    const {'1': 'email', '3': 1, '4': 1, '5': 9, '10': 'email'},
+  ],
+};
+
+/// Descriptor for `UserExistsRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userExistsRequestDescriptor = $convert.base64Decode('ChFVc2VyRXhpc3RzUmVxdWVzdBIUCgVlbWFpbBgBIAEoCVIFZW1haWw=');
 @$core.Deprecated('Use checkSessionResponseDescriptor instead')
 const CheckSessionResponse$json = const {
   '1': 'CheckSessionResponse',

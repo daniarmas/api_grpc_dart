@@ -25,7 +25,7 @@ class Server {
         final server = grpc.Server([
           AuthenticationService(),
           HealthService(),
-          HostnameService()
+          HostnameService(),
         ], [
           (ServiceCall call, ServiceMethod method) {
             var accessTokenValidResponse = accessTokenValid(call, method);
