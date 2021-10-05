@@ -26,10 +26,16 @@ class JsonWebToken {
       final jwt =
           JWT.verify(token, SecretKey(_environment.jsonWebTokenSecretKey));
       return jwt.payload;
-    } on JWTExpiredError {
-      throw GrpcError.internal('$tokenName expired');
-    } on JWTError catch (ex) {
-      throw GrpcError.internal('$tokenName with invalid signature');
+    } on JWTError catch (error) {
+      if (error.message.contains('jwt expired')) {
+        throw GrpcError.unauthenticated('$tokenName expired');
+      } else if (error.message.contains('invalid signature')) {
+        throw GrpcError.unauthenticated('$tokenName with invalid signature');
+      } else {
+        throw GrpcError.internal('Internal server error');
+      }
+    } on Exception {
+      throw GrpcError.internal('Internal server error');
     }
   }
 }
