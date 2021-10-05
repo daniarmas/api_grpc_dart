@@ -5,7 +5,6 @@ import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dar
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/email/emailer.dart';
 import 'package:dartz/dartz.dart';
-import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mailer/mailer.dart';

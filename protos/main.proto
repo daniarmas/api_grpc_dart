@@ -13,6 +13,8 @@ service AuthenticationService {
   rpc SignIn (SignInRequest) returns (SignInResponse) {}
 
   rpc CheckSession (CheckSessionRequest) returns (CheckSessionResponse) {}
+
+  rpc UserExists (UserExistsRequest) returns (google.protobuf.Empty) {}
 }
 
 service HostnameService {
@@ -24,6 +26,10 @@ service Health {
 }
 
 // Request & Response Message
+
+message UserExistsRequest {
+  string email = 1;
+}
 
 message CheckSessionResponse {
   repeated string ipAddresses = 1;

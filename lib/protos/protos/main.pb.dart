@@ -15,6 +15,53 @@ import 'main.pbenum.dart';
 
 export 'main.pbenum.dart';
 
+class UserExistsRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserExistsRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..hasRequiredFields = false
+  ;
+
+  UserExistsRequest._() : super();
+  factory UserExistsRequest({
+    $core.String? email,
+  }) {
+    final _result = create();
+    if (email != null) {
+      _result.email = email;
+    }
+    return _result;
+  }
+  factory UserExistsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserExistsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserExistsRequest clone() => UserExistsRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserExistsRequest copyWith(void Function(UserExistsRequest) updates) => super.copyWith((message) => updates(message as UserExistsRequest)) as UserExistsRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserExistsRequest create() => UserExistsRequest._();
+  UserExistsRequest createEmptyInstance() => create();
+  static $pb.PbList<UserExistsRequest> createRepeated() => $pb.PbList<UserExistsRequest>();
+  @$core.pragma('dart2js:noInline')
+  static UserExistsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserExistsRequest>(create);
+  static UserExistsRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get email => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set email($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEmail() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEmail() => clearField(1);
+}
+
 class CheckSessionResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CheckSessionResponse', createEmptyInstance: create)
     ..pPS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ipAddresses', protoName: 'ipAddresses')
