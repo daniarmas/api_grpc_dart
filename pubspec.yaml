@@ -25,6 +25,7 @@ dependencies:
   equatable: ^2.0.3
   dart_jsonwebtoken: ^2.3.2
   dio: ^4.0.0
+  http: ^0.13.3
 
 dev_dependencies:
   # dart run build_runner build

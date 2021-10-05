@@ -84,7 +84,9 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
         return RefreshToken(
             id: result['id'],
             userFk: result['userFk'],
-            expirationTime: result['expirationTime'],
+            expirationTime: (result['expirationTime'] != null)
+                ? result['expirationTime'].toString()
+                : null,
             refreshToken: result['refreshToken'],
             valid: result['valid'],
             createTime: (result['createTime'] != null)

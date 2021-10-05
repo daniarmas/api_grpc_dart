@@ -4,21 +4,24 @@
 
 import 'dart:async' as _i4;
 
+import 'package:api_grpc_dart/core/utils/json_web_token.dart' as _i8;
 import 'package:api_grpc_dart/data/datasources/authorization_token_local_data_source.dart'
-    as _i10;
+    as _i11;
 import 'package:api_grpc_dart/data/datasources/banned_device_local_data_source.dart'
-    as _i9;
+    as _i10;
 import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dart'
-    as _i8;
+    as _i9;
 import 'package:api_grpc_dart/data/datasources/device_local_data_source.dart'
     as _i7;
+import 'package:api_grpc_dart/data/datasources/kubernetes_data_source.dart'
+    as _i13;
 import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart'
-    as _i12;
+    as _i14;
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart'
     as _i6;
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart'
     as _i3;
-import 'package:api_grpc_dart/data/email/emailer.dart' as _i11;
+import 'package:api_grpc_dart/data/email/emailer.dart' as _i12;
 import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:postgres/postgres.dart' as _i5;
@@ -221,11 +224,38 @@ class MockDeviceLocalDataSource extends _i1.Mock
   String toString() => super.toString();
 }
 
+/// A class which mocks [JsonWebToken].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockJsonWebToken extends _i1.Mock implements _i8.JsonWebToken {
+  MockJsonWebToken() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String generateAuthorizationToken({Map<String, dynamic>? payload}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #generateAuthorizationToken, [], {#payload: payload}),
+          returnValue: '') as String);
+  @override
+  String generateRefreshToken({Map<String, dynamic>? payload}) =>
+      (super.noSuchMethod(
+          Invocation.method(#generateRefreshToken, [], {#payload: payload}),
+          returnValue: '') as String);
+  @override
+  Map<String, dynamic> verify(String? token, String? tokenName) =>
+      (super.noSuchMethod(Invocation.method(#verify, [token, tokenName]),
+          returnValue: <String, dynamic>{}) as Map<String, dynamic>);
+  @override
+  String toString() => super.toString();
+}
+
 /// A class which mocks [BannedUserLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockBannedUserLocalDataSource extends _i1.Mock
-    implements _i8.BannedUserLocalDataSource {
+    implements _i9.BannedUserLocalDataSource {
   MockBannedUserLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -278,7 +308,7 @@ class MockBannedUserLocalDataSource extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockBannedDeviceLocalDataSource extends _i1.Mock
-    implements _i9.BannedDeviceLocalDataSource {
+    implements _i10.BannedDeviceLocalDataSource {
   MockBannedDeviceLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -332,7 +362,7 @@ class MockBannedDeviceLocalDataSource extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthorizationTokenLocalDataSource extends _i1.Mock
-    implements _i10.AuthorizationTokenLocalDataSource {
+    implements _i11.AuthorizationTokenLocalDataSource {
   MockAuthorizationTokenLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -385,7 +415,7 @@ class MockAuthorizationTokenLocalDataSource extends _i1.Mock
 /// A class which mocks [Emailer].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEmailer extends _i1.Mock implements _i11.Emailer {
+class MockEmailer extends _i1.Mock implements _i12.Emailer {
   MockEmailer() {
     _i1.throwOnMissingStub(this);
   }
@@ -446,11 +476,29 @@ class MockEmailer extends _i1.Mock implements _i11.Emailer {
   String toString() => super.toString();
 }
 
+/// A class which mocks [KubernetesDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockKubernetesDataSource extends _i1.Mock
+    implements _i13.KubernetesDataSource {
+  MockKubernetesDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<List<String>> listNodes() =>
+      (super.noSuchMethod(Invocation.method(#listNodes, []),
+              returnValue: Future<List<String>>.value(<String>[]))
+          as _i4.Future<List<String>>);
+  @override
+  String toString() => super.toString();
+}
+
 /// A class which mocks [RefreshTokenLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRefreshTokenLocalDataSource extends _i1.Mock
-    implements _i12.RefreshTokenLocalDataSource {
+    implements _i14.RefreshTokenLocalDataSource {
   MockRefreshTokenLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }

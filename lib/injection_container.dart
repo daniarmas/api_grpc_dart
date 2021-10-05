@@ -13,6 +13,8 @@ void configureDependenciesManual() {
   try {
     load();
     getIt.registerSingleton<EnvironmentApp>(EnvironmentApp(
+      kubernetesApiService: env['KUBERNETES_API_SERVICE']!,
+      kubernetesApiToken: env['KUBERNETES_API_TOKEN']!,
       emailHost: env['EMAIL_HOST']!,
       emailPort: int.parse(env['EMAIL_PORT']!),
       emailFromContactName: env['EMAIL_FROM_CONTACT_NAME']!,
@@ -31,6 +33,8 @@ void configureDependenciesManual() {
     if (error.toString() == 'Null check operator used on a null value') {
       var env = Platform.environment;
       getIt.registerSingleton<EnvironmentApp>(EnvironmentApp(
+        kubernetesApiToken: env['KUBERNETES_API_TOKEN']!,
+        kubernetesApiService: env['KUBERNETES_API_SERVICE']!,
         emailHost: env['EMAIL_HOST']!,
         emailPort: int.parse(env['EMAIL_PORT']!),
         emailFromContactName: env['EMAIL_FROM_CONTACT_NAME']!,

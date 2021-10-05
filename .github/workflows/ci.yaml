@@ -72,3 +72,5 @@ jobs:
           EMAIL_FROM: "default"
           EMAIL_PASSWORD: "default"
           EMAIL_USERNAME: "default"
+          KUBERNETES_API_TOKEN: "default"
+          KUBERNETES_API_SERVICE: "default"

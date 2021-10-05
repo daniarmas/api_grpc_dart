@@ -11,6 +11,8 @@ service AuthenticationService {
   rpc DeleteVerificationCode (DeleteVerificationCodeRequest) returns (google.protobuf.Empty) {}
 
   rpc SignIn (SignInRequest) returns (SignInResponse) {}
+
+  rpc CheckSession (CheckSessionRequest) returns (CheckSessionResponse) {}
 }
 
 service HostnameService {
@@ -23,10 +25,19 @@ service Health {
 
 // Request & Response Message
 
+message CheckSessionResponse {
+  repeated string ipAddresses = 1;
+}
+
+message CheckSessionRequest {
+  optional string refreshToken = 1;
+  optional string authorizationToken = 2;
+}
+
 message CreateVerificationCodeRequest {
-    string email = 1;
-    VerificationCodeType type = 2;
-    google.protobuf.FieldMask fieldMask = 3;
+  string email = 1;
+  VerificationCodeType type = 2;
+  google.protobuf.FieldMask fieldMask = 3;
 }
 
 message CreateVerificationCodeResponse {

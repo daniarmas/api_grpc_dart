@@ -1,7 +1,7 @@
 import 'package:api_grpc_dart/core/utils/get_request_data.dart';
 import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
-import 'package:api_grpc_dart/domain/repositories/sign_in_repository.dart';
+import 'package:api_grpc_dart/domain/repositories/authentication_repository.dart';
 import 'package:api_grpc_dart/domain/repositories/verification_code_repository.dart';
 import 'package:api_grpc_dart/protos/google/protobuf/empty.pb.dart';
 import 'package:dartz/dartz.dart';
@@ -182,6 +182,32 @@ class AuthenticationService extends AuthenticationServiceBase {
                 response =
                     UpdateVerificationCodeResponse(verificationCode: right)
               });
+      return response;
+    } catch (error) {
+      if (error is GrpcError) {
+        rethrow;
+      } else {
+        throw GrpcError.internal('Internal server error');
+      }
+    }
+  }
+
+  @override
+  Future<CheckSessionResponse> checkSession(
+      ServiceCall call, CheckSessionRequest request) async {
+    try {
+      late CheckSessionResponse response;
+      AuthenticationRepository authenticationRepository =
+          GetIt.I<AuthenticationRepository>();
+      late Either<GrpcError, CheckSessionResponse> result;
+      var connection = await database.getConnection();
+      await connection.transaction((context) async {
+        result = await authenticationRepository.checkSession(
+            metadata: HeadersMetadata.fromServiceCall(call),
+            data: getRequestData(request),
+            context: context);
+      });
+      result.fold((left) => {throw left}, (right) => {response = right});
       return response;
     } catch (error) {
       if (error is GrpcError) {

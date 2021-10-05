@@ -6,6 +6,8 @@ class EnvironmentApp {
   final String databaseUsername;
   final String databasePassword;
   final String jsonWebTokenSecretKey;
+  final String kubernetesApiToken;
+  final String kubernetesApiService;
   final String emailHost;
   final int emailPort;
   final String emailUsername;
@@ -20,6 +22,8 @@ class EnvironmentApp {
       required this.emailFromContactName,
       required this.emailPassword,
       required this.emailUsername,
+      required this.kubernetesApiToken,
+      required this.kubernetesApiService,
       required this.port,
       required this.databaseHost,
       required this.databasePort,

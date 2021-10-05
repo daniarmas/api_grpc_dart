@@ -45,6 +45,31 @@ const AppType$json = const {
 
 /// Descriptor for `AppType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhgKFEFQUF9UWVBFX1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
+@$core.Deprecated('Use checkSessionResponseDescriptor instead')
+const CheckSessionResponse$json = const {
+  '1': 'CheckSessionResponse',
+  '2': const [
+    const {'1': 'ipAddresses', '3': 1, '4': 3, '5': 9, '10': 'ipAddresses'},
+  ],
+};
+
+/// Descriptor for `CheckSessionResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List checkSessionResponseDescriptor = $convert.base64Decode('ChRDaGVja1Nlc3Npb25SZXNwb25zZRIgCgtpcEFkZHJlc3NlcxgBIAMoCVILaXBBZGRyZXNzZXM=');
+@$core.Deprecated('Use checkSessionRequestDescriptor instead')
+const CheckSessionRequest$json = const {
+  '1': 'CheckSessionRequest',
+  '2': const [
+    const {'1': 'refreshToken', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'refreshToken', '17': true},
+    const {'1': 'authorizationToken', '3': 2, '4': 1, '5': 9, '9': 1, '10': 'authorizationToken', '17': true},
+  ],
+  '8': const [
+    const {'1': '_refreshToken'},
+    const {'1': '_authorizationToken'},
+  ],
+};
+
+/// Descriptor for `CheckSessionRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List checkSessionRequestDescriptor = $convert.base64Decode('ChNDaGVja1Nlc3Npb25SZXF1ZXN0EicKDHJlZnJlc2hUb2tlbhgBIAEoCUgAUgxyZWZyZXNoVG9rZW6IAQESMwoSYXV0aG9yaXphdGlvblRva2VuGAIgASgJSAFSEmF1dGhvcml6YXRpb25Ub2tlbogBAUIPCg1fcmVmcmVzaFRva2VuQhUKE19hdXRob3JpemF0aW9uVG9rZW4=');
 @$core.Deprecated('Use createVerificationCodeRequestDescriptor instead')
 const CreateVerificationCodeRequest$json = const {
   '1': 'CreateVerificationCodeRequest',

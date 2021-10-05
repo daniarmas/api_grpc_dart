@@ -49,6 +49,12 @@ class AuthenticationServiceClient extends $grpc.Client {
           '/AuthenticationService/SignIn',
           ($0.SignInRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.SignInResponse.fromBuffer(value));
+  static final _$checkSession =
+      $grpc.ClientMethod<$0.CheckSessionRequest, $0.CheckSessionResponse>(
+          '/AuthenticationService/CheckSession',
+          ($0.CheckSessionRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.CheckSessionResponse.fromBuffer(value));
 
   AuthenticationServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -91,6 +97,12 @@ class AuthenticationServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.SignInResponse> signIn($0.SignInRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$signIn, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.CheckSessionResponse> checkSession(
+      $0.CheckSessionRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$checkSession, request, options: options);
   }
 }
 
@@ -149,6 +161,15 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.SignInRequest.fromBuffer(value),
         ($0.SignInResponse value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.CheckSessionRequest, $0.CheckSessionResponse>(
+            'CheckSession',
+            checkSession_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.CheckSessionRequest.fromBuffer(value),
+            ($0.CheckSessionResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CreateVerificationCodeResponse> createVerificationCode_Pre(
@@ -185,6 +206,12 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
     return signIn(call, await request);
   }
 
+  $async.Future<$0.CheckSessionResponse> checkSession_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.CheckSessionRequest> request) async {
+    return checkSession(call, await request);
+  }
+
   $async.Future<$0.CreateVerificationCodeResponse> createVerificationCode(
       $grpc.ServiceCall call, $0.CreateVerificationCodeRequest request);
   $async.Future<$0.ListVerificationCodeResponse> listVerificationCode(
@@ -197,6 +224,8 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.DeleteVerificationCodeRequest request);
   $async.Future<$0.SignInResponse> signIn(
       $grpc.ServiceCall call, $0.SignInRequest request);
+  $async.Future<$0.CheckSessionResponse> checkSession(
+      $grpc.ServiceCall call, $0.CheckSessionRequest request);
 }
 
 class HostnameServiceClient extends $grpc.Client {

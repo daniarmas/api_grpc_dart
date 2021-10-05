@@ -5,12 +5,12 @@ import 'package:api_grpc_dart/data/datasources/authorization_token_local_data_so
 import 'package:api_grpc_dart/data/datasources/banned_device_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/device_local_data_source.dart';
+import 'package:api_grpc_dart/data/datasources/kubernetes_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/email/emailer.dart';
-import 'package:api_grpc_dart/domain/repositories/sign_in_repository.dart';
+import 'package:api_grpc_dart/domain/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mailer/mailer.dart';
@@ -22,6 +22,8 @@ import '../datasources/verification_code_local_data_source.dart';
 
 @Injectable(as: AuthenticationRepository)
 class AuthenticationImpl implements AuthenticationRepository {
+  final KubernetesDataSource kubernetesDataSource;
+  final JsonWebToken jsonWebToken;
   final Emailer emailer;
   final VerificationCodeLocalDataSource verificationCodeLocalDataSource;
   final UserLocalDataSource userLocalDataSource;
@@ -33,6 +35,8 @@ class AuthenticationImpl implements AuthenticationRepository {
 
   AuthenticationImpl(
       {required this.emailer,
+      required this.jsonWebToken,
+      required this.kubernetesDataSource,
       required this.deviceLocalDataSource,
       required this.authorizationTokenLocalDataSource,
       required this.refreshTokenLocalDataSource,
@@ -148,7 +152,7 @@ class AuthenticationImpl implements AuthenticationRepository {
           'id': refreshTokenId,
           'userFk': getUserResponse.id,
           'deviceFk': device.id,
-          'refreshToken': JsonWebToken().generateRefreshToken(
+          'refreshToken': jsonWebToken.generateRefreshToken(
               payload: {'refreshTokenFk': refreshTokenId}),
           'expirationTime': DateTime.now().add(Duration(hours: 24)),
         }, paths: [
@@ -160,7 +164,7 @@ class AuthenticationImpl implements AuthenticationRepository {
             .createAuthorizationToken(data: {
           'id': id,
           'authorizationToken':
-              JsonWebToken().generateAuthorizationToken(payload: {
+              jsonWebToken.generateAuthorizationToken(payload: {
             'authorizationTokenFk': id,
           }),
           'refreshTokenFk': refreshToken.id,
@@ -180,6 +184,110 @@ class AuthenticationImpl implements AuthenticationRepository {
             refreshToken: refreshToken.refreshToken,
             user: getUserResponse));
       }
+    } on GrpcError catch (error) {
+      return Left(error);
+    } on Exception catch (error) {
+      if (error is SmtpClientCommunicationException) {
+        if (error.message
+            .contains('Response from server: < 550 Error: no such user')) {
+          return Left(GrpcError.invalidArgument(
+              'The mail server could not deliver the verification code email'));
+        }
+      }
+      return Left(GrpcError.internal('Internal server error'));
+    }
+  }
+
+  @override
+  Future<Either<GrpcError, CheckSessionResponse>> checkSession(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required HeadersMetadata metadata}) async {
+    try {
+      late AuthorizationToken? authorizationToken;
+      late RefreshToken? refreshToken;
+      late Device? device;
+      late User? user;
+      if (data['authorizationToken'] != null && data['refreshToken'] != null) {
+        device = await deviceLocalDataSource.getDevice(
+            context: context, data: {'deviceId': metadata.deviceId}, paths: []);
+        if (device == null) {
+          return Left(GrpcError.unauthenticated('Unauthenticated'));
+        }
+        await deviceLocalDataSource.updateDevice(context: context, where: {
+          'deviceId': metadata.deviceId,
+        }, data: {
+          'platform': metadata.platform,
+          'systemVersion': metadata.systemVersion,
+          'firebaseCloudMessagingId': metadata.firebaseCloudMessagingId,
+          'model': metadata.model,
+        }, paths: []);
+        final getBannedDeviceResponse = await bannedDeviceLocalDataSource
+            .getBannedDevice(
+                context: context,
+                data: {'deviceId': metadata.deviceId},
+                paths: ['id']);
+        if (getBannedDeviceResponse != null) {
+          return Left(GrpcError.invalidArgument('Device Banned'));
+        }
+        final authorizationTokenPayload = jsonWebToken.verify(
+            data['authorizationToken'], 'AuthorizationToken');
+        final refreshTokenPayload =
+            jsonWebToken.verify(data['refreshToken'], 'RefreshToken');
+        authorizationToken = await authorizationTokenLocalDataSource
+            .getAuthorizationToken(context: context, data: {
+          'id': authorizationTokenPayload['authorizationTokenFk'],
+          'deviceFk': device.id
+        }, paths: []);
+        refreshToken = await refreshTokenLocalDataSource.getRefreshToken(
+            context: context,
+            data: {
+              'id': refreshTokenPayload['refreshTokenFk'],
+              'deviceFk': device.id
+            },
+            paths: []);
+        if (authorizationToken == null || refreshToken == null) {
+          return Left(GrpcError.unauthenticated('Unauthenticated'));
+        }
+        user = await userLocalDataSource.getUser(
+            context: context,
+            data: {'id': authorizationToken.userFk},
+            paths: []);
+        if (user == null) {
+          return Left(GrpcError.unauthenticated('Unauthenticated'));
+        }
+        final getBannedUserResponse = await bannedUserLocalDataSource
+            .getBannedUser(
+                context: context,
+                data: {'userFk': authorizationToken.userFk},
+                paths: ['id']);
+        if (getBannedUserResponse != null) {
+          return Left(GrpcError.invalidArgument('User Banned'));
+        }
+      } else {
+        device = await deviceLocalDataSource.getDevice(
+            context: context, data: {'deviceId': metadata.deviceId}, paths: []);
+        if (device != null) {
+          await deviceLocalDataSource.updateDevice(context: context, where: {
+            'deviceId': metadata.deviceId,
+          }, data: {
+            'platform': metadata.platform,
+            'systemVersion': metadata.systemVersion,
+            'firebaseCloudMessagingId': metadata.firebaseCloudMessagingId,
+            'model': metadata.model,
+          }, paths: []);
+        }
+        final getBannedDeviceResponse = await bannedDeviceLocalDataSource
+            .getBannedDevice(
+                context: context,
+                data: {'deviceId': metadata.deviceId},
+                paths: ['id']);
+        if (getBannedDeviceResponse != null) {
+          return Left(GrpcError.invalidArgument('Device Banned'));
+        }
+      }
+      final ips = await kubernetesDataSource.listNodes();
+      return Right(CheckSessionResponse(ipAddresses: ips));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception catch (error) {
