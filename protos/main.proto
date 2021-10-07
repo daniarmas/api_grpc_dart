@@ -15,6 +15,7 @@ service AuthenticationService {
   rpc CheckSession (CheckSessionRequest) returns (CheckSessionResponse) {}
 
   rpc UserExists (UserExistsRequest) returns (google.protobuf.Empty) {}
+  rpc UserAliasGenerator (stream UserAliasGeneratorRequest) returns (stream UserAliasGeneratorResponse) {}
 }
 
 service HostnameService {
@@ -26,6 +27,15 @@ service Health {
 }
 
 // Request & Response Message
+
+message UserAliasGeneratorRequest {
+  string alias = 1;
+  string birthday = 2;
+}
+
+message UserAliasGeneratorResponse {
+  repeated string alias = 1;
+}
 
 message UserExistsRequest {
   string email = 1;
@@ -124,14 +134,15 @@ message HealthCheckResponse {
 message User {
   string id = 1;
   string fullName = 2; 
-  string photo = 3;
-  string photoUrl = 4;
-  repeated UserAddress userAddress = 5;
-  bool legalAge = 6;
-  string email = 7; 
-  repeated UserPermission permissions = 8;
-  string createTime = 9;
-  string updateTime = 10;
+  string alias = 3;
+  string photo = 4;
+  string photoUrl = 5;
+  repeated UserAddress userAddress = 6;
+  string birthday = 7;
+  string email = 8; 
+  repeated UserPermission permissions = 9;
+  string createTime = 10;
+  string updateTime = 11;
 }
 
 message BannedUser {

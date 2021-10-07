@@ -45,6 +45,27 @@ const AppType$json = const {
 
 /// Descriptor for `AppType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhgKFEFQUF9UWVBFX1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
+@$core.Deprecated('Use userAliasGeneratorRequestDescriptor instead')
+const UserAliasGeneratorRequest$json = const {
+  '1': 'UserAliasGeneratorRequest',
+  '2': const [
+    const {'1': 'alias', '3': 1, '4': 1, '5': 9, '10': 'alias'},
+    const {'1': 'birthday', '3': 2, '4': 1, '5': 9, '10': 'birthday'},
+  ],
+};
+
+/// Descriptor for `UserAliasGeneratorRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userAliasGeneratorRequestDescriptor = $convert.base64Decode('ChlVc2VyQWxpYXNHZW5lcmF0b3JSZXF1ZXN0EhQKBWFsaWFzGAEgASgJUgVhbGlhcxIaCghiaXJ0aGRheRgCIAEoCVIIYmlydGhkYXk=');
+@$core.Deprecated('Use userAliasGeneratorResponseDescriptor instead')
+const UserAliasGeneratorResponse$json = const {
+  '1': 'UserAliasGeneratorResponse',
+  '2': const [
+    const {'1': 'alias', '3': 1, '4': 3, '5': 9, '10': 'alias'},
+  ],
+};
+
+/// Descriptor for `UserAliasGeneratorResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userAliasGeneratorResponseDescriptor = $convert.base64Decode('ChpVc2VyQWxpYXNHZW5lcmF0b3JSZXNwb25zZRIUCgVhbGlhcxgBIAMoCVIFYWxpYXM=');
 @$core.Deprecated('Use userExistsRequestDescriptor instead')
 const UserExistsRequest$json = const {
   '1': 'UserExistsRequest',
@@ -257,19 +278,20 @@ const User$json = const {
   '2': const [
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     const {'1': 'fullName', '3': 2, '4': 1, '5': 9, '10': 'fullName'},
-    const {'1': 'photo', '3': 3, '4': 1, '5': 9, '10': 'photo'},
-    const {'1': 'photoUrl', '3': 4, '4': 1, '5': 9, '10': 'photoUrl'},
-    const {'1': 'userAddress', '3': 5, '4': 3, '5': 11, '6': '.UserAddress', '10': 'userAddress'},
-    const {'1': 'legalAge', '3': 6, '4': 1, '5': 8, '10': 'legalAge'},
-    const {'1': 'email', '3': 7, '4': 1, '5': 9, '10': 'email'},
-    const {'1': 'permissions', '3': 8, '4': 3, '5': 11, '6': '.UserPermission', '10': 'permissions'},
-    const {'1': 'createTime', '3': 9, '4': 1, '5': 9, '10': 'createTime'},
-    const {'1': 'updateTime', '3': 10, '4': 1, '5': 9, '10': 'updateTime'},
+    const {'1': 'alias', '3': 3, '4': 1, '5': 9, '10': 'alias'},
+    const {'1': 'photo', '3': 4, '4': 1, '5': 9, '10': 'photo'},
+    const {'1': 'photoUrl', '3': 5, '4': 1, '5': 9, '10': 'photoUrl'},
+    const {'1': 'userAddress', '3': 6, '4': 3, '5': 11, '6': '.UserAddress', '10': 'userAddress'},
+    const {'1': 'birthday', '3': 7, '4': 1, '5': 9, '10': 'birthday'},
+    const {'1': 'email', '3': 8, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'permissions', '3': 9, '4': 3, '5': 11, '6': '.UserPermission', '10': 'permissions'},
+    const {'1': 'createTime', '3': 10, '4': 1, '5': 9, '10': 'createTime'},
+    const {'1': 'updateTime', '3': 11, '4': 1, '5': 9, '10': 'updateTime'},
   ],
 };
 
 /// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userDescriptor = $convert.base64Decode('CgRVc2VyEg4KAmlkGAEgASgJUgJpZBIaCghmdWxsTmFtZRgCIAEoCVIIZnVsbE5hbWUSFAoFcGhvdG8YAyABKAlSBXBob3RvEhoKCHBob3RvVXJsGAQgASgJUghwaG90b1VybBIuCgt1c2VyQWRkcmVzcxgFIAMoCzIMLlVzZXJBZGRyZXNzUgt1c2VyQWRkcmVzcxIaCghsZWdhbEFnZRgGIAEoCFIIbGVnYWxBZ2USFAoFZW1haWwYByABKAlSBWVtYWlsEjEKC3Blcm1pc3Npb25zGAggAygLMg8uVXNlclBlcm1pc3Npb25SC3Blcm1pc3Npb25zEh4KCmNyZWF0ZVRpbWUYCSABKAlSCmNyZWF0ZVRpbWUSHgoKdXBkYXRlVGltZRgKIAEoCVIKdXBkYXRlVGltZQ==');
+final $typed_data.Uint8List userDescriptor = $convert.base64Decode('CgRVc2VyEg4KAmlkGAEgASgJUgJpZBIaCghmdWxsTmFtZRgCIAEoCVIIZnVsbE5hbWUSFAoFYWxpYXMYAyABKAlSBWFsaWFzEhQKBXBob3RvGAQgASgJUgVwaG90bxIaCghwaG90b1VybBgFIAEoCVIIcGhvdG9VcmwSLgoLdXNlckFkZHJlc3MYBiADKAsyDC5Vc2VyQWRkcmVzc1ILdXNlckFkZHJlc3MSGgoIYmlydGhkYXkYByABKAlSCGJpcnRoZGF5EhQKBWVtYWlsGAggASgJUgVlbWFpbBIxCgtwZXJtaXNzaW9ucxgJIAMoCzIPLlVzZXJQZXJtaXNzaW9uUgtwZXJtaXNzaW9ucxIeCgpjcmVhdGVUaW1lGAogASgJUgpjcmVhdGVUaW1lEh4KCnVwZGF0ZVRpbWUYCyABKAlSCnVwZGF0ZVRpbWU=');
 @$core.Deprecated('Use bannedUserDescriptor instead')
 const BannedUser$json = const {
   '1': 'BannedUser',

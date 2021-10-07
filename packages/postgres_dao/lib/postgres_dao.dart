@@ -4,3 +4,4 @@ export 'or.dart' show Or;
 export 'postgresql_dao.dart' show PostgresqlDao;
 export 'where.dart' show Where;
 export 'where_normal_attribute.dart' show WhereNormalAttribute;
+export 'where_normal_attribute_in.dart' show WhereNormalAttributeIn;

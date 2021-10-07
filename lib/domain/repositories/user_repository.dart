@@ -22,6 +22,10 @@ abstract class UserRepository {
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
       required List<String> paths});
+  Future<Either<GrpcError, List<String>>> userAliasGenerator(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required HeadersMetadata metadata});
   // Future<Either<GrpcError, void>> deleteUser(
   //     {required PostgreSQLExecutionContext context,
   //     required HeadersMetadata metadata,

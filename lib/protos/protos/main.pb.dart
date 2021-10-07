@@ -15,6 +15,108 @@ import 'main.pbenum.dart';
 
 export 'main.pbenum.dart';
 
+class UserAliasGeneratorRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserAliasGeneratorRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alias')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'birthday')
+    ..hasRequiredFields = false
+  ;
+
+  UserAliasGeneratorRequest._() : super();
+  factory UserAliasGeneratorRequest({
+    $core.String? alias,
+    $core.String? birthday,
+  }) {
+    final _result = create();
+    if (alias != null) {
+      _result.alias = alias;
+    }
+    if (birthday != null) {
+      _result.birthday = birthday;
+    }
+    return _result;
+  }
+  factory UserAliasGeneratorRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserAliasGeneratorRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserAliasGeneratorRequest clone() => UserAliasGeneratorRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserAliasGeneratorRequest copyWith(void Function(UserAliasGeneratorRequest) updates) => super.copyWith((message) => updates(message as UserAliasGeneratorRequest)) as UserAliasGeneratorRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserAliasGeneratorRequest create() => UserAliasGeneratorRequest._();
+  UserAliasGeneratorRequest createEmptyInstance() => create();
+  static $pb.PbList<UserAliasGeneratorRequest> createRepeated() => $pb.PbList<UserAliasGeneratorRequest>();
+  @$core.pragma('dart2js:noInline')
+  static UserAliasGeneratorRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserAliasGeneratorRequest>(create);
+  static UserAliasGeneratorRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get alias => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set alias($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAlias() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAlias() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get birthday => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set birthday($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasBirthday() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearBirthday() => clearField(2);
+}
+
+class UserAliasGeneratorResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserAliasGeneratorResponse', createEmptyInstance: create)
+    ..pPS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alias')
+    ..hasRequiredFields = false
+  ;
+
+  UserAliasGeneratorResponse._() : super();
+  factory UserAliasGeneratorResponse({
+    $core.Iterable<$core.String>? alias,
+  }) {
+    final _result = create();
+    if (alias != null) {
+      _result.alias.addAll(alias);
+    }
+    return _result;
+  }
+  factory UserAliasGeneratorResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserAliasGeneratorResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserAliasGeneratorResponse clone() => UserAliasGeneratorResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserAliasGeneratorResponse copyWith(void Function(UserAliasGeneratorResponse) updates) => super.copyWith((message) => updates(message as UserAliasGeneratorResponse)) as UserAliasGeneratorResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserAliasGeneratorResponse create() => UserAliasGeneratorResponse._();
+  UserAliasGeneratorResponse createEmptyInstance() => create();
+  static $pb.PbList<UserAliasGeneratorResponse> createRepeated() => $pb.PbList<UserAliasGeneratorResponse>();
+  @$core.pragma('dart2js:noInline')
+  static UserAliasGeneratorResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserAliasGeneratorResponse>(create);
+  static UserAliasGeneratorResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.String> get alias => $_getList(0);
+}
+
 class UserExistsRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserExistsRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
@@ -1049,14 +1151,15 @@ class User extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'User', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fullName', protoName: 'fullName')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photo')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photoUrl', protoName: 'photoUrl')
-    ..pc<UserAddress>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userAddress', $pb.PbFieldType.PM, protoName: 'userAddress', subBuilder: UserAddress.create)
-    ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'legalAge', protoName: 'legalAge')
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..pc<UserPermission>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'permissions', $pb.PbFieldType.PM, subBuilder: UserPermission.create)
-    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
-    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alias')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photo')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photoUrl', protoName: 'photoUrl')
+    ..pc<UserAddress>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userAddress', $pb.PbFieldType.PM, protoName: 'userAddress', subBuilder: UserAddress.create)
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'birthday')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..pc<UserPermission>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'permissions', $pb.PbFieldType.PM, subBuilder: UserPermission.create)
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -1064,10 +1167,11 @@ class User extends $pb.GeneratedMessage {
   factory User({
     $core.String? id,
     $core.String? fullName,
+    $core.String? alias,
     $core.String? photo,
     $core.String? photoUrl,
     $core.Iterable<UserAddress>? userAddress,
-    $core.bool? legalAge,
+    $core.String? birthday,
     $core.String? email,
     $core.Iterable<UserPermission>? permissions,
     $core.String? createTime,
@@ -1080,6 +1184,9 @@ class User extends $pb.GeneratedMessage {
     if (fullName != null) {
       _result.fullName = fullName;
     }
+    if (alias != null) {
+      _result.alias = alias;
+    }
     if (photo != null) {
       _result.photo = photo;
     }
@@ -1089,8 +1196,8 @@ class User extends $pb.GeneratedMessage {
     if (userAddress != null) {
       _result.userAddress.addAll(userAddress);
     }
-    if (legalAge != null) {
-      _result.legalAge = legalAge;
+    if (birthday != null) {
+      _result.birthday = birthday;
     }
     if (email != null) {
       _result.email = email;
@@ -1146,64 +1253,73 @@ class User extends $pb.GeneratedMessage {
   void clearFullName() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get photo => $_getSZ(2);
+  $core.String get alias => $_getSZ(2);
   @$pb.TagNumber(3)
-  set photo($core.String v) { $_setString(2, v); }
+  set alias($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasPhoto() => $_has(2);
+  $core.bool hasAlias() => $_has(2);
   @$pb.TagNumber(3)
-  void clearPhoto() => clearField(3);
+  void clearAlias() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get photoUrl => $_getSZ(3);
+  $core.String get photo => $_getSZ(3);
   @$pb.TagNumber(4)
-  set photoUrl($core.String v) { $_setString(3, v); }
+  set photo($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasPhotoUrl() => $_has(3);
+  $core.bool hasPhoto() => $_has(3);
   @$pb.TagNumber(4)
-  void clearPhotoUrl() => clearField(4);
+  void clearPhoto() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.List<UserAddress> get userAddress => $_getList(4);
+  $core.String get photoUrl => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set photoUrl($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasPhotoUrl() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearPhotoUrl() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.bool get legalAge => $_getBF(5);
-  @$pb.TagNumber(6)
-  set legalAge($core.bool v) { $_setBool(5, v); }
-  @$pb.TagNumber(6)
-  $core.bool hasLegalAge() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearLegalAge() => clearField(6);
+  $core.List<UserAddress> get userAddress => $_getList(5);
 
   @$pb.TagNumber(7)
-  $core.String get email => $_getSZ(6);
+  $core.String get birthday => $_getSZ(6);
   @$pb.TagNumber(7)
-  set email($core.String v) { $_setString(6, v); }
+  set birthday($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasEmail() => $_has(6);
+  $core.bool hasBirthday() => $_has(6);
   @$pb.TagNumber(7)
-  void clearEmail() => clearField(7);
+  void clearBirthday() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.List<UserPermission> get permissions => $_getList(7);
+  $core.String get email => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set email($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasEmail() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearEmail() => clearField(8);
 
   @$pb.TagNumber(9)
-  $core.String get createTime => $_getSZ(8);
-  @$pb.TagNumber(9)
-  set createTime($core.String v) { $_setString(8, v); }
-  @$pb.TagNumber(9)
-  $core.bool hasCreateTime() => $_has(8);
-  @$pb.TagNumber(9)
-  void clearCreateTime() => clearField(9);
+  $core.List<UserPermission> get permissions => $_getList(8);
 
   @$pb.TagNumber(10)
-  $core.String get updateTime => $_getSZ(9);
+  $core.String get createTime => $_getSZ(9);
   @$pb.TagNumber(10)
-  set updateTime($core.String v) { $_setString(9, v); }
+  set createTime($core.String v) { $_setString(9, v); }
   @$pb.TagNumber(10)
-  $core.bool hasUpdateTime() => $_has(9);
+  $core.bool hasCreateTime() => $_has(9);
   @$pb.TagNumber(10)
-  void clearUpdateTime() => clearField(10);
+  void clearCreateTime() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.String get updateTime => $_getSZ(10);
+  @$pb.TagNumber(11)
+  set updateTime($core.String v) { $_setString(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasUpdateTime() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearUpdateTime() => clearField(11);
 }
 
 class BannedUser extends $pb.GeneratedMessage {

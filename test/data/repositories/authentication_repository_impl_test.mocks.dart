@@ -135,11 +135,21 @@ class MockUserLocalDataSource extends _i1.Mock
   @override
   _i4.Future<List<_i2.User>> listUser(
           {_i5.PostgreSQLExecutionContext? context,
-          List<String>? paths,
-          Map<String, dynamic>? data}) =>
+          Map<String, dynamic>? data,
+          List<String>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#listUser, [],
-                  {#context: context, #paths: paths, #data: data}),
+                  {#context: context, #data: data, #paths: paths}),
+              returnValue: Future<List<_i2.User>>.value(<_i2.User>[]))
+          as _i4.Future<List<_i2.User>>);
+  @override
+  _i4.Future<List<_i2.User>> listUserInAliases(
+          {_i5.PostgreSQLExecutionContext? context,
+          List<String>? data,
+          List<String>? paths}) =>
+      (super.noSuchMethod(
+              Invocation.method(#listUserInAliases, [],
+                  {#context: context, #data: data, #paths: paths}),
               returnValue: Future<List<_i2.User>>.value(<_i2.User>[]))
           as _i4.Future<List<_i2.User>>);
   @override

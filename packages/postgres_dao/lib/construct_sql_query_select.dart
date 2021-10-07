@@ -2,6 +2,7 @@ import 'package:postgres_dao/and.dart';
 import 'package:postgres_dao/normal_attribute.dart';
 import 'package:postgres_dao/or.dart';
 import 'package:postgres_dao/where_attribute.dart';
+import 'package:postgres_dao/where_normal_attribute_in.dart';
 import 'package:postgres_dao/where_normal_attribute_not_in.dart';
 
 import 'where.dart';
@@ -61,6 +62,11 @@ String constructSqlQuerySelect({
                 whereString += '"$table".${item.key} ${item.value}';
               } else if (where[y] is WhereNormalAttributeNotIn &&
                   item.value == '') {
+              } else if (where[y] is WhereNormalAttributeIn &&
+                  item.value != '') {
+                whereString += '"$table".${item.key} ${item.value}';
+              } else if (where[y] is WhereNormalAttributeIn &&
+                  item.value == '') {
               } else {
                 whereString += '${item.key} = \'${item.value}\'';
               }
@@ -72,6 +78,9 @@ String constructSqlQuerySelect({
                 whereString += ' AND "$table".${item.key} ${item.value}';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value == '') {
+              } else if (item is WhereNormalAttributeIn && item.value != '') {
+                whereString += ' AND "$table".${item.key} ${item.value}';
+              } else if (item is WhereNormalAttributeIn && item.value == '') {
               } else {
                 whereString += ' AND ${item.key} = \'${item.value}\'';
               }
@@ -89,6 +98,11 @@ String constructSqlQuerySelect({
                 whereString += '"$table".${item.key} ${item.value}';
               } else if (where[y] is WhereNormalAttributeNotIn &&
                   item.value == '') {
+              } else if (where[y] is WhereNormalAttributeIn &&
+                  item.value != '') {
+                whereString += '"$table".${item.key} ${item.value}';
+              } else if (where[y] is WhereNormalAttributeIn &&
+                  item.value == '') {
               } else {
                 whereString += '${item.key} = \'${item.value}\'';
               }
@@ -100,6 +114,9 @@ String constructSqlQuerySelect({
                 whereString += ' OR "$table".${item.key} ${item.value}';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value == '') {
+              } else if (item is WhereNormalAttributeIn && item.value != '') {
+                whereString += ' OR "$table".${item.key} ${item.value}';
+              } else if (item is WhereNormalAttributeIn && item.value == '') {
               } else {
                 whereString += ' OR ${item.key} = \'${item.value}\'';
               }
@@ -112,6 +129,9 @@ String constructSqlQuerySelect({
           } else if (item is WhereNormalAttributeNotIn && item.value != '') {
             whereString += '"$table".${item.key} ${item.value}';
           } else if (item is WhereNormalAttributeNotIn && item.value == '') {
+          } else if (item is WhereNormalAttributeIn && item.value != '') {
+            whereString += '"$table".${item.key} ${item.value}';
+          } else if (item is WhereNormalAttributeIn && item.value == '') {
           } else {
             whereString += '${item.key} = \'${item.value}\'';
           }
@@ -130,6 +150,9 @@ String constructSqlQuerySelect({
                 whereString += '"$table".${item.key} ${item.value} ';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value == '') {
+              } else if (item is WhereNormalAttributeIn && item.value != '') {
+                whereString += '"$table".${item.key} ${item.value} ';
+              } else if (item is WhereNormalAttributeIn && item.value == '') {
               } else {
                 whereString += '${item.key} = \'${item.value}\' ';
               }
@@ -141,6 +164,9 @@ String constructSqlQuerySelect({
                 whereString += ' AND "$table".${item.key} ${item.value} ';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value == '') {
+              } else if (item is WhereNormalAttributeIn && item.value != '') {
+                whereString += ' AND "$table".${item.key} ${item.value} ';
+              } else if (item is WhereNormalAttributeIn && item.value == '') {
               } else {
                 whereString += ' AND ${item.key} = \'${item.value}\' ';
               }
@@ -158,6 +184,9 @@ String constructSqlQuerySelect({
                 whereString += '"$table".${item.key} ${item.value} ';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value == '') {
+              } else if (item is WhereNormalAttributeIn && item.value != '') {
+                whereString += '"$table".${item.key} ${item.value} ';
+              } else if (item is WhereNormalAttributeIn && item.value == '') {
               } else {
                 whereString += '${item.key} = \'${item.value}\' ';
               }
@@ -169,6 +198,9 @@ String constructSqlQuerySelect({
                 whereString += ' OR "$table".${item.key} ${item.value} ';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value == '') {
+              } else if (item is WhereNormalAttributeIn && item.value != '') {
+                whereString += ' OR "$table".${item.key} ${item.value} ';
+              } else if (item is WhereNormalAttributeIn && item.value == '') {
               } else {
                 whereString += ' OR ${item.key} = \'${item.value}\' ';
               }
@@ -181,6 +213,9 @@ String constructSqlQuerySelect({
           } else if (item is WhereNormalAttributeNotIn && item.value != '') {
             whereString += ' AND "$table".${item.key} ${item.value} ';
           } else if (item is WhereNormalAttributeNotIn && item.value == '') {
+          } else if (item is WhereNormalAttributeIn && item.value != '') {
+            whereString += ' AND "$table".${item.key} ${item.value} ';
+          } else if (item is WhereNormalAttributeIn && item.value == '') {
           } else {
             whereString += ' AND ${item.key} = \'${item.value}\' ';
           }
