@@ -1,4 +1,5 @@
 import 'package:api_grpc_dart/core/utils/metadata.dart';
+import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import 'package:api_grpc_dart/core/utils/username_generator.dart';
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/domain/repositories/user_repository.dart';
@@ -23,7 +24,7 @@ class UserRepositoryImpl implements UserRepository {
       required Map<String, dynamic> data,
       required List<String> paths}) async {
     try {
-      if (data['email'] == null) {
+      if (data['email'] == null || !StringUtils.isEmail(data['email'])) {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
       } else {
         final response = await userLocalDataSource.getUser(

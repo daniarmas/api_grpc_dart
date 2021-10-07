@@ -4,6 +4,7 @@
 
 import 'dart:async' as _i5;
 
+import 'package:api_grpc_dart/core/utils/username_generator.dart' as _i8;
 import 'package:api_grpc_dart/data/database/database.dart' as _i6;
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart'
     as _i4;
@@ -187,6 +188,114 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
           Invocation.method(
               #delete, [], {#context: context, #table: table, #where: where}),
           returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [UsernameGenerator].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUsernameGenerator extends _i1.Mock implements _i8.UsernameGenerator {
+  MockUsernameGenerator() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get separator =>
+      (super.noSuchMethod(Invocation.getter(#separator), returnValue: '')
+          as String);
+  @override
+  set separator(String? _separator) =>
+      super.noSuchMethod(Invocation.setter(#separator, _separator),
+          returnValueForMissingStub: null);
+  @override
+  List<String> get splitDate => (super
+          .noSuchMethod(Invocation.getter(#splitDate), returnValue: <String>[])
+      as List<String>);
+  @override
+  set splitDate(List<String>? _splitDate) =>
+      super.noSuchMethod(Invocation.setter(#splitDate, _splitDate),
+          returnValueForMissingStub: null);
+  @override
+  String generate(String? emailOrName,
+          {List<String>? adjectives = const [],
+          DateTime? date,
+          bool? hasNumbers = true,
+          int? numberSeed = 9999,
+          String? prefix = r'',
+          String? suffix = r'',
+          bool? shortYear = true}) =>
+      (super.noSuchMethod(
+          Invocation.method(#generate, [
+            emailOrName
+          ], {
+            #adjectives: adjectives,
+            #date: date,
+            #hasNumbers: hasNumbers,
+            #numberSeed: numberSeed,
+            #prefix: prefix,
+            #suffix: suffix,
+            #shortYear: shortYear
+          }),
+          returnValue: '') as String);
+  @override
+  String generateForName(String? firstName,
+          {String? lastName = r'',
+          List<String>? adjectives = const [],
+          bool? hasNumbers = true,
+          int? numberSeed = 100}) =>
+      (super.noSuchMethod(
+          Invocation.method(#generateForName, [
+            firstName
+          ], {
+            #lastName: lastName,
+            #adjectives: adjectives,
+            #hasNumbers: hasNumbers,
+            #numberSeed: numberSeed
+          }),
+          returnValue: '') as String);
+  @override
+  Set<String> generateList(String? emailOrName,
+          {List<String>? adjectives = const [],
+          DateTime? date,
+          bool? hasNumbers = true,
+          int? numberSeed = 100,
+          String? prefix = r'',
+          String? suffix = r'',
+          bool? shortYear = true,
+          int? length = 1}) =>
+      (super.noSuchMethod(
+          Invocation.method(#generateList, [
+            emailOrName
+          ], {
+            #adjectives: adjectives,
+            #date: date,
+            #hasNumbers: hasNumbers,
+            #numberSeed: numberSeed,
+            #prefix: prefix,
+            #suffix: suffix,
+            #shortYear: shortYear,
+            #length: length
+          }),
+          returnValue: <String>{}) as Set<String>);
+  @override
+  List<String> generateListForName(String? firstName,
+          {String? lastName = r'',
+          List<String>? adjectives = const [],
+          bool? hasNumbers = true,
+          int? numberSeed = 100,
+          int? length = 1}) =>
+      (super.noSuchMethod(
+          Invocation.method(#generateListForName, [
+            firstName
+          ], {
+            #lastName: lastName,
+            #adjectives: adjectives,
+            #hasNumbers: hasNumbers,
+            #numberSeed: numberSeed,
+            #length: length
+          }),
+          returnValue: <String>[]) as List<String>);
   @override
   String toString() => super.toString();
 }
