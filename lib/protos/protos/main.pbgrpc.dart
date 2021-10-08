@@ -60,6 +60,12 @@ class AuthenticationServiceClient extends $grpc.Client {
           '/AuthenticationService/UserExists',
           ($0.UserExistsRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$userAliasGenerator = $grpc.ClientMethod<
+          $0.UserAliasGeneratorRequest, $0.UserAliasGeneratorResponse>(
+      '/AuthenticationService/UserAliasGenerator',
+      ($0.UserAliasGeneratorRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.UserAliasGeneratorResponse.fromBuffer(value));
 
   AuthenticationServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -113,6 +119,13 @@ class AuthenticationServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$1.Empty> userExists($0.UserExistsRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$userExists, request, options: options);
+  }
+
+  $grpc.ResponseStream<$0.UserAliasGeneratorResponse> userAliasGenerator(
+      $async.Stream<$0.UserAliasGeneratorRequest> request,
+      {$grpc.CallOptions? options}) {
+    return $createStreamingCall(_$userAliasGenerator, request,
+        options: options);
   }
 }
 
@@ -187,6 +200,15 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.UserExistsRequest.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UserAliasGeneratorRequest,
+            $0.UserAliasGeneratorResponse>(
+        'UserAliasGenerator',
+        userAliasGenerator,
+        true,
+        true,
+        ($core.List<$core.int> value) =>
+            $0.UserAliasGeneratorRequest.fromBuffer(value),
+        ($0.UserAliasGeneratorResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CreateVerificationCodeResponse> createVerificationCode_Pre(
@@ -250,6 +272,9 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.CheckSessionRequest request);
   $async.Future<$1.Empty> userExists(
       $grpc.ServiceCall call, $0.UserExistsRequest request);
+  $async.Stream<$0.UserAliasGeneratorResponse> userAliasGenerator(
+      $grpc.ServiceCall call,
+      $async.Stream<$0.UserAliasGeneratorRequest> request);
 }
 
 class HostnameServiceClient extends $grpc.Client {

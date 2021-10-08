@@ -220,8 +220,7 @@ class AuthenticationService extends AuthenticationServiceBase {
   }
 
   @override
-  Future<Empty> userExists(
-      ServiceCall call, UserExistsRequest request) async {
+  Future<Empty> userExists(ServiceCall call, UserExistsRequest request) async {
     try {
       late Empty response;
       UserRepository userRepository = GetIt.I<UserRepository>();
@@ -234,9 +233,36 @@ class AuthenticationService extends AuthenticationServiceBase {
             paths: ['id'],
             context: context);
       });
-      result.fold((left) => {throw left},
-          (right) => {response = Empty()});
+      result.fold((left) => {throw left}, (right) => {response = Empty()});
       return response;
+    } catch (error) {
+      if (error is GrpcError) {
+        rethrow;
+      } else {
+        throw GrpcError.internal('Internal server error');
+      }
+    }
+  }
+
+  @override
+  Stream<UserAliasGeneratorResponse> userAliasGenerator(
+      ServiceCall call, Stream<UserAliasGeneratorRequest> request) async* {
+    try {
+      List<String> response = [];
+      UserRepository userRepository = GetIt.I<UserRepository>();
+      late Either<GrpcError, List<String>> result;
+      var connection = await database.getConnection();
+      await for (var item in request) {
+        response.clear();
+        await connection.transaction((context) async {
+          result = await userRepository.userAliasGenerator(
+              metadata: HeadersMetadata.fromServiceCall(call),
+              data: {'alias': item.alias, 'birthday': item.birthday},
+              context: context);
+          result.fold((left) => {throw left}, (right) => {response = right});
+        });
+        yield UserAliasGeneratorResponse(alias: response);
+      }
     } catch (error) {
       if (error is GrpcError) {
         rethrow;

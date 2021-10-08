@@ -6,13 +6,15 @@ import 'package:postgres/postgres.dart';
 import '../../protos/protos/main.pb.dart';
 
 abstract class AuthenticationRepository {
-  Future<Either<GrpcError, SignInResponse>> signIn(
-      {required PostgreSQLExecutionContext context,
-      required Map<String, dynamic> data,
-      required HeadersMetadata metadata,
-      required List<String> paths});
-  Future<Either<GrpcError, CheckSessionResponse>> checkSession(
-      {required PostgreSQLExecutionContext context,
-      required Map<String, dynamic> data,
-      required HeadersMetadata metadata});
+  Future<Either<GrpcError, SignInResponse>> signIn({
+    required PostgreSQLExecutionContext context,
+    required Map<String, dynamic> data,
+    required HeadersMetadata metadata,
+    required List<String> paths,
+  });
+  Future<Either<GrpcError, CheckSessionResponse>> checkSession({
+    required PostgreSQLExecutionContext context,
+    required Map<String, dynamic> data,
+    required HeadersMetadata metadata,
+  });
 }
