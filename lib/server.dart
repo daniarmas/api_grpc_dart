@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:api_grpc_dart/domain/services/object_storage_service.dart';
 import 'package:api_grpc_dart/interceptors.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart' as grpc;
@@ -26,6 +27,7 @@ class Server {
           AuthenticationService(),
           HealthService(),
           HostnameService(),
+          ObjectStorageService(),
         ], [
           (ServiceCall call, ServiceMethod method) {
             var accessTokenValidResponse = accessTokenValid(call, method);

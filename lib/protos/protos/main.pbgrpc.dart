@@ -49,6 +49,11 @@ class AuthenticationServiceClient extends $grpc.Client {
           '/AuthenticationService/SignIn',
           ($0.SignInRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.SignInResponse.fromBuffer(value));
+  static final _$signUp =
+      $grpc.ClientMethod<$0.SignUpRequest, $0.SignUpResponse>(
+          '/AuthenticationService/SignUp',
+          ($0.SignUpRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.SignUpResponse.fromBuffer(value));
   static final _$checkSession =
       $grpc.ClientMethod<$0.CheckSessionRequest, $0.CheckSessionResponse>(
           '/AuthenticationService/CheckSession',
@@ -108,6 +113,11 @@ class AuthenticationServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.SignInResponse> signIn($0.SignInRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$signIn, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.SignUpResponse> signUp($0.SignUpRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$signUp, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CheckSessionResponse> checkSession(
@@ -184,6 +194,13 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.SignInRequest.fromBuffer(value),
         ($0.SignInResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SignUpRequest, $0.SignUpResponse>(
+        'SignUp',
+        signUp_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.SignUpRequest.fromBuffer(value),
+        ($0.SignUpResponse value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.CheckSessionRequest, $0.CheckSessionResponse>(
             'CheckSession',
@@ -245,6 +262,11 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
     return signIn(call, await request);
   }
 
+  $async.Future<$0.SignUpResponse> signUp_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SignUpRequest> request) async {
+    return signUp(call, await request);
+  }
+
   $async.Future<$0.CheckSessionResponse> checkSession_Pre(
       $grpc.ServiceCall call,
       $async.Future<$0.CheckSessionRequest> request) async {
@@ -268,6 +290,8 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.DeleteVerificationCodeRequest request);
   $async.Future<$0.SignInResponse> signIn(
       $grpc.ServiceCall call, $0.SignInRequest request);
+  $async.Future<$0.SignUpResponse> signUp(
+      $grpc.ServiceCall call, $0.SignUpRequest request);
   $async.Future<$0.CheckSessionResponse> checkSession(
       $grpc.ServiceCall call, $0.CheckSessionRequest request);
   $async.Future<$1.Empty> userExists(
@@ -275,6 +299,55 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
   $async.Stream<$0.UserAliasGeneratorResponse> userAliasGenerator(
       $grpc.ServiceCall call,
       $async.Stream<$0.UserAliasGeneratorRequest> request);
+}
+
+class ObjectStorageServiceClient extends $grpc.Client {
+  static final _$getPresignedPutObjectUserAvatar = $grpc.ClientMethod<
+          $0.GetPresignedPutUserAvatarRequest,
+          $0.GetPresignedPutUserAvatarResponse>(
+      '/ObjectStorageService/GetPresignedPutObjectUserAvatar',
+      ($0.GetPresignedPutUserAvatarRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.GetPresignedPutUserAvatarResponse.fromBuffer(value));
+
+  ObjectStorageServiceClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions? options,
+      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+      : super(channel, options: options, interceptors: interceptors);
+
+  $grpc.ResponseFuture<$0.GetPresignedPutUserAvatarResponse>
+      getPresignedPutObjectUserAvatar(
+          $0.GetPresignedPutUserAvatarRequest request,
+          {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getPresignedPutObjectUserAvatar, request,
+        options: options);
+  }
+}
+
+abstract class ObjectStorageServiceBase extends $grpc.Service {
+  $core.String get $name => 'ObjectStorageService';
+
+  ObjectStorageServiceBase() {
+    $addMethod($grpc.ServiceMethod<$0.GetPresignedPutUserAvatarRequest,
+            $0.GetPresignedPutUserAvatarResponse>(
+        'GetPresignedPutObjectUserAvatar',
+        getPresignedPutObjectUserAvatar_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.GetPresignedPutUserAvatarRequest.fromBuffer(value),
+        ($0.GetPresignedPutUserAvatarResponse value) => value.writeToBuffer()));
+  }
+
+  $async.Future<$0.GetPresignedPutUserAvatarResponse>
+      getPresignedPutObjectUserAvatar_Pre($grpc.ServiceCall call,
+          $async.Future<$0.GetPresignedPutUserAvatarRequest> request) async {
+    return getPresignedPutObjectUserAvatar(call, await request);
+  }
+
+  $async.Future<$0.GetPresignedPutUserAvatarResponse>
+      getPresignedPutObjectUserAvatar(
+          $grpc.ServiceCall call, $0.GetPresignedPutUserAvatarRequest request);
 }
 
 class HostnameServiceClient extends $grpc.Client {

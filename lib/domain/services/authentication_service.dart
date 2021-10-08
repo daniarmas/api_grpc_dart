@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:api_grpc_dart/core/utils/get_request_data.dart';
 import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
@@ -270,5 +272,14 @@ class AuthenticationService extends AuthenticationServiceBase {
         throw GrpcError.internal('Internal server error');
       }
     }
+  }
+
+  @override
+  Future<SignUpResponse> signUp(ServiceCall call, SignUpRequest request) async {
+    var sadsa = request;
+    print(request);
+    var file = request.photo;
+    return SignUpResponse(
+        authorizationToken: null, refreshToken: null, user: null);
   }
 }

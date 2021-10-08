@@ -74,3 +74,10 @@ jobs:
           EMAIL_USERNAME: "default"
           KUBERNETES_API_TOKEN: "default"
           KUBERNETES_API_SERVICE: "default"
+          OBJECT_STORAGE_ENDPOINT: "default"
+          OBJECT_STORAGE_ACCESS_KEY: "default"
+          OBJECT_STORAGE_SECRET_KEY: "default"
+          OBJECT_STORAGE_PORT: 0
+          OBJECT_STORAGE_USER_AVATAR_BUCKET: "default"
+          OBJECT_STORAGE_PATH_PREFIX: "oss"
+          DEBUG: "true"

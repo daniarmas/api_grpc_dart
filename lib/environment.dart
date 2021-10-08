@@ -1,4 +1,5 @@
 class EnvironmentApp {
+  final bool debug;
   final int port;
   final String databaseHost;
   final int databasePort;
@@ -14,9 +15,22 @@ class EnvironmentApp {
   final String emailPassword;
   final String emailFrom;
   final String emailFromContactName;
+  final String objectStorageEndpoint;
+  final String objectStorageAccessKey;
+  final String objectStorageSecretKey;
+  final int objectStoragePort;
+  final String objectStorageUserAvatarBucket;
+  final String objectStoragePathPrefix;
 
   EnvironmentApp(
-      {required this.emailHost,
+      {required this.objectStoragePathPrefix,
+      required this.objectStorageUserAvatarBucket,
+      required this.debug,
+      required this.objectStoragePort,
+      required this.objectStorageEndpoint,
+      required this.objectStorageAccessKey,
+      required this.objectStorageSecretKey,
+      required this.emailHost,
       required this.emailPort,
       required this.emailFrom,
       required this.emailFromContactName,

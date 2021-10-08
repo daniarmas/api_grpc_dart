@@ -13,6 +13,13 @@ void configureDependenciesManual() {
   try {
     load();
     getIt.registerSingleton<EnvironmentApp>(EnvironmentApp(
+      objectStoragePathPrefix: env['OBJECT_STORAGE_PATH_PREFIX']!,
+      debug: (env['DEBUG']! == 'true') ? true : false,
+      objectStoragePort: int.parse(env['OBJECT_STORAGE_PORT']!),
+      objectStorageAccessKey: env['OBJECT_STORAGE_ACCESS_KEY']!,
+      objectStorageEndpoint: env['OBJECT_STORAGE_ENDPOINT']!,
+      objectStorageSecretKey: env['OBJECT_STORAGE_SECRET_KEY']!,
+      objectStorageUserAvatarBucket: env['OBJECT_STORAGE_USER_AVATAR_BUCKET']!,
       kubernetesApiService: env['KUBERNETES_API_SERVICE']!,
       kubernetesApiToken: env['KUBERNETES_API_TOKEN']!,
       emailHost: env['EMAIL_HOST']!,
@@ -33,6 +40,14 @@ void configureDependenciesManual() {
     if (error.toString() == 'Null check operator used on a null value') {
       var env = Platform.environment;
       getIt.registerSingleton<EnvironmentApp>(EnvironmentApp(
+        objectStoragePathPrefix: env['OBJECT_STORAGE_PATH_PREFIX']!,
+        debug: (env['DEBUG']! == 'true') ? true : false,
+        objectStoragePort: int.parse(env['OBJECT_STORAGE_PORT']!),
+        objectStorageAccessKey: env['OBJECT_STORAGE_ACCESS_KEY']!,
+        objectStorageEndpoint: env['OBJECT_STORAGE_ENDPOINT']!,
+        objectStorageSecretKey: env['OBJECT_STORAGE_SECRET_KEY']!,
+        objectStorageUserAvatarBucket:
+            env['OBJECT_STORAGE_USER_AVATAR_BUCKET']!,
         kubernetesApiToken: env['KUBERNETES_API_TOKEN']!,
         kubernetesApiService: env['KUBERNETES_API_SERVICE']!,
         emailHost: env['EMAIL_HOST']!,
