@@ -35,6 +35,11 @@ class StringUtils {
     return next.toInt().toString();
   }
 
+  static bool isAlias(String? value) {
+    if (isEmpty(value)) return false;
+    return RegExp(r'^[\w\.\_]+$').hasMatch(value!);
+  }
+
   static String formatDateTime(DateTime time) {
     late String month;
     if (time.month == 1) {

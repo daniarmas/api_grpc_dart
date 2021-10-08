@@ -4,6 +4,8 @@ library username_generator;
 
 import 'dart:math';
 
+import 'package:injectable/injectable.dart';
+
 extension StringExtension on String {
   String get twoNumber {
     if (length == 1) return '0' + this;
@@ -12,6 +14,7 @@ extension StringExtension on String {
 }
 
 /// A Username Generator.
+@Injectable()
 class UsernameGenerator {
   /// A separator for the username
   String separator = '_';
@@ -123,7 +126,7 @@ class UsernameGenerator {
   }
 
   /// Generates a list of username for first and lastname
-  Set<String> generateList(String emailOrName,
+  List<String> generateList(String emailOrName,
       {List<String> adjectives = const [],
       DateTime? date,
       bool hasNumbers = true,
@@ -146,7 +149,7 @@ class UsernameGenerator {
       );
     }
 
-    return usernames;
+    return usernames.toList();
   }
 
   /// Generates a list of username for first and lastname

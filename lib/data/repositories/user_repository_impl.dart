@@ -1,6 +1,7 @@
 import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import 'package:api_grpc_dart/core/utils/username_generator.dart';
+import 'package:api_grpc_dart/core/utils/validation.dart';
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/domain/repositories/user_repository.dart';
 import 'package:dartz/dartz.dart';
@@ -13,9 +14,10 @@ import '../../protos/protos/main.pb.dart';
 @Injectable(as: UserRepository)
 class UserRepositoryImpl implements UserRepository {
   final UserLocalDataSource userLocalDataSource;
-  final UsernameGenerator generator = UsernameGenerator();
+  final UsernameGenerator generator;
 
-  UserRepositoryImpl({required this.userLocalDataSource});
+  UserRepositoryImpl(
+      {required this.generator, required this.userLocalDataSource});
 
   @override
   Future<Either<GrpcError, User>> getUser(
@@ -47,17 +49,21 @@ class UserRepositoryImpl implements UserRepository {
       required Map<String, dynamic> data,
       required HeadersMetadata metadata}) async {
     try {
-      Set<String> response = generator.generateList(data['alias'],
-          date: DateTime.parse(data['birthday']), length: 10);
-      final listUserInAliasesResponse = await userLocalDataSource
-          .listUserInAliases(
-              paths: ['alias'], context: context, data: response.toList());
-      for (var item in listUserInAliasesResponse) {
-        if (response.contains(item.alias)) {
-          response.remove(item.alias);
+      if (StringUtils.isAlias(data['alias']) &&
+          Validation.alias(data['alias'])) {
+        List<String> response = generator.generateList(data['alias'],
+            date: DateTime.parse(data['birthday']), length: 10);
+        final listUserInAliasesResponse = await userLocalDataSource
+            .listUserInAliases(
+                paths: ['alias'], context: context, data: response.toList());
+        for (var item in listUserInAliasesResponse) {
+          if (response.contains(item.alias)) {
+            response.remove(item.alias);
+          }
         }
+        return Right(response);
       }
-      return Right(response.toList());
+      return Left(GrpcError.invalidArgument('Input `alias` invalid'));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception {

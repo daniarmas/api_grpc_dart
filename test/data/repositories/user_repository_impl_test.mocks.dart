@@ -255,7 +255,7 @@ class MockUsernameGenerator extends _i1.Mock implements _i8.UsernameGenerator {
           }),
           returnValue: '') as String);
   @override
-  Set<String> generateList(String? emailOrName,
+  List<String> generateList(String? emailOrName,
           {List<String>? adjectives = const [],
           DateTime? date,
           bool? hasNumbers = true,
@@ -277,7 +277,7 @@ class MockUsernameGenerator extends _i1.Mock implements _i8.UsernameGenerator {
             #shortYear: shortYear,
             #length: length
           }),
-          returnValue: <String>{}) as Set<String>);
+          returnValue: <String>[]) as List<String>);
   @override
   List<String> generateListForName(String? firstName,
           {String? lastName = r'',
