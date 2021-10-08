@@ -26,6 +26,7 @@ dependencies:
   dart_jsonwebtoken: ^2.3.2
   dio: ^4.0.0
   http: ^0.13.3
+  minio: ^3.0.0
 
 dev_dependencies:
   # dart run build_runner build

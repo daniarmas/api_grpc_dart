@@ -5,10 +5,7 @@ import "google/protobuf/field_mask.proto";
 
 service AuthenticationService {
   rpc CreateVerificationCode (CreateVerificationCodeRequest) returns (CreateVerificationCodeResponse) {}
-  rpc ListVerificationCode (ListVerificationCodeRequest) returns (ListVerificationCodeResponse) {}
   rpc GetVerificationCode (GetVerificationCodeRequest) returns (GetVerificationCodeResponse) {}
-  rpc UpdateVerificationCode (UpdateVerificationCodeRequest) returns (UpdateVerificationCodeResponse) {}
-  rpc DeleteVerificationCode (DeleteVerificationCodeRequest) returns (google.protobuf.Empty) {}
 
   rpc SignIn (SignInRequest) returns (SignInResponse) {}
   rpc SignUp (SignUpRequest) returns (SignUpResponse) {}
@@ -19,34 +16,14 @@ service AuthenticationService {
   rpc UserAliasGenerator (stream UserAliasGeneratorRequest) returns (stream UserAliasGeneratorResponse) {}
 }
 
-service ObjectStorageService {
-  rpc GetPresignedPutObjectUserAvatar (GetPresignedPutUserAvatarRequest) returns (GetPresignedPutUserAvatarResponse) {}
-}
-
-service HostnameService {
-  rpc hostname(HostnameRequest) returns (HostnameResponse) {}
-}
-
-service Health {
-  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
-}
-
 // Request & Response Message
-
-message GetPresignedPutUserAvatarRequest {
-  string objectName = 1;
-}
-
-message GetPresignedPutUserAvatarResponse {
-  string objectUrl = 1;
-}
 
 message SignUpRequest {
   string email = 1;
   string alias = 2;
   string fullName = 3;
   string birthday = 4;
-  string photo = 5;
+  bytes photo = 5;
 }
 
 message SignUpResponse {
@@ -290,40 +267,6 @@ enum AppType  {
   APP = 1;
   BUSINESS_APP = 2;
 }
-
-// 'Sign_In', 'Sign_Up', 'Change_User_Email'
-
-// message BusinessSchedule {
-//   string id = 1;
-//   google.protobuf.Timestamp opening_time_sunday = 2;
-//   google.protobuf.Timestamp closing_time_sunday = 3;
-//   google.protobuf.Timestamp opening_time_monday = 4;
-//   google.protobuf.Timestamp closing_time_monday = 5;
-//   google.protobuf.Timestamp opening_time_tuesday = 6;
-//   google.protobuf.Timestamp closing_time_tuesday = 7;
-//   google.protobuf.Timestamp opening_time_wednesday = 8;
-//   google.protobuf.Timestamp closing_time_wednesday = 9;
-//   google.protobuf.Timestamp opening_time_thursday = 10;
-//   google.protobuf.Timestamp closing_time_thursday = 11;
-//   google.protobuf.Timestamp opening_time_friday = 12;
-//   google.protobuf.Timestamp closing_time_friday = 13;
-//   google.protobuf.Timestamp opening_time_saturday = 14;
-//   google.protobuf.Timestamp closing_time_saturday = 15;
-//   google.protobuf.Timestamp opening_time_delivery_sunday = 16;
-//   google.protobuf.Timestamp closing_time_delivery_sunday = 17;
-//   google.protobuf.Timestamp opening_time_delivery_monday = 18;
-//   google.protobuf.Timestamp closing_time_delivery_monday = 19;
-//   google.protobuf.Timestamp opening_time_delivery_tuesday = 20;
-//   google.protobuf.Timestamp closing_time_deliveryTuesday = 21;
-//   google.protobuf.Timestamp opening_time_delivery_wednesday = 22;
-//   google.protobuf.Timestamp closing_time_delivery_wednesday = 23;
-//   google.protobuf.Timestamp opening_time_delivery_thursday = 24;
-//   google.protobuf.Timestamp closing_time_delivery_thursday = 25;
-//   google.protobuf.Timestamp opening_time_delivery_friday = 26;
-//   google.protobuf.Timestamp closing_time_delivery_friday = 27;
-//   google.protobuf.Timestamp opening_time_delivery_saturday = 28;
-//   google.protobuf.Timestamp closing_time_delivery_saturday = 29;
-// }
 
 message LatLng {
   // The latitude in degrees. It must be in the range [-90.0, +90.0].

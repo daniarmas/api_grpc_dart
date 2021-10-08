@@ -45,6 +45,52 @@ const AppType$json = const {
 
 /// Descriptor for `AppType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhgKFEFQUF9UWVBFX1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
+@$core.Deprecated('Use getPresignedPutUserAvatarRequestDescriptor instead')
+const GetPresignedPutUserAvatarRequest$json = const {
+  '1': 'GetPresignedPutUserAvatarRequest',
+  '2': const [
+    const {'1': 'objectName', '3': 1, '4': 1, '5': 9, '10': 'objectName'},
+  ],
+};
+
+/// Descriptor for `GetPresignedPutUserAvatarRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getPresignedPutUserAvatarRequestDescriptor = $convert.base64Decode('CiBHZXRQcmVzaWduZWRQdXRVc2VyQXZhdGFyUmVxdWVzdBIeCgpvYmplY3ROYW1lGAEgASgJUgpvYmplY3ROYW1l');
+@$core.Deprecated('Use getPresignedPutUserAvatarResponseDescriptor instead')
+const GetPresignedPutUserAvatarResponse$json = const {
+  '1': 'GetPresignedPutUserAvatarResponse',
+  '2': const [
+    const {'1': 'objectUrl', '3': 1, '4': 1, '5': 9, '10': 'objectUrl'},
+  ],
+};
+
+/// Descriptor for `GetPresignedPutUserAvatarResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getPresignedPutUserAvatarResponseDescriptor = $convert.base64Decode('CiFHZXRQcmVzaWduZWRQdXRVc2VyQXZhdGFyUmVzcG9uc2USHAoJb2JqZWN0VXJsGAEgASgJUglvYmplY3RVcmw=');
+@$core.Deprecated('Use signUpRequestDescriptor instead')
+const SignUpRequest$json = const {
+  '1': 'SignUpRequest',
+  '2': const [
+    const {'1': 'email', '3': 1, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'alias', '3': 2, '4': 1, '5': 9, '10': 'alias'},
+    const {'1': 'fullName', '3': 3, '4': 1, '5': 9, '10': 'fullName'},
+    const {'1': 'birthday', '3': 4, '4': 1, '5': 9, '10': 'birthday'},
+    const {'1': 'photo', '3': 5, '4': 1, '5': 9, '10': 'photo'},
+  ],
+};
+
+/// Descriptor for `SignUpRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List signUpRequestDescriptor = $convert.base64Decode('Cg1TaWduVXBSZXF1ZXN0EhQKBWVtYWlsGAEgASgJUgVlbWFpbBIUCgVhbGlhcxgCIAEoCVIFYWxpYXMSGgoIZnVsbE5hbWUYAyABKAlSCGZ1bGxOYW1lEhoKCGJpcnRoZGF5GAQgASgJUghiaXJ0aGRheRIUCgVwaG90bxgFIAEoCVIFcGhvdG8=');
+@$core.Deprecated('Use signUpResponseDescriptor instead')
+const SignUpResponse$json = const {
+  '1': 'SignUpResponse',
+  '2': const [
+    const {'1': 'refreshToken', '3': 1, '4': 1, '5': 9, '10': 'refreshToken'},
+    const {'1': 'authorizationToken', '3': 2, '4': 1, '5': 9, '10': 'authorizationToken'},
+    const {'1': 'user', '3': 3, '4': 1, '5': 11, '6': '.User', '10': 'user'},
+  ],
+};
+
+/// Descriptor for `SignUpResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List signUpResponseDescriptor = $convert.base64Decode('Cg5TaWduVXBSZXNwb25zZRIiCgxyZWZyZXNoVG9rZW4YASABKAlSDHJlZnJlc2hUb2tlbhIuChJhdXRob3JpemF0aW9uVG9rZW4YAiABKAlSEmF1dGhvcml6YXRpb25Ub2tlbhIZCgR1c2VyGAMgASgLMgUuVXNlclIEdXNlcg==');
 @$core.Deprecated('Use userAliasGeneratorRequestDescriptor instead')
 const UserAliasGeneratorRequest$json = const {
   '1': 'UserAliasGeneratorRequest',

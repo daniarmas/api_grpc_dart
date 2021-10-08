@@ -379,6 +379,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  minio:
+    dependency: "direct main"
+    description:
+      name: minio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   mockito:
     dependency: "direct dev"
     description:
@@ -414,6 +421,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.11.1"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.0"
   pointycastle:
     dependency: transitive
     description:
@@ -652,6 +666,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.2.0"
   yaml:
     dependency: transitive
     description:
