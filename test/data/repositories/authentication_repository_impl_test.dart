@@ -2601,4 +2601,800 @@ void main() {
       });
     });
   });
+  group('testing signUp', () {
+    test(
+        'Return data successfully when this is the first signUp of the user and the device is not register in the system and everything is ok',
+        () async {
+      // setup
+      Map<String, dynamic> map = {
+        'email': 'prueba4@correo.cup',
+        'alias': 'pepito04',
+        'fullName': 'Pepito Gonzales',
+        'birthday': '2020-06-06',
+        'code': '389686'
+      };
+      Device device = Device(
+          id: '1',
+          createTime: '1',
+          deviceId: '1',
+          firebaseCloudMessagingId: '1',
+          model: '1',
+          platform: PlatformType.ANDROID,
+          systemVersion: '1',
+          updateTime: '1');
+      AuthorizationToken authorizationToken = AuthorizationToken(
+          id: '1',
+          app: AppType.APP,
+          appVersion: '1',
+          authorizationToken: '1',
+          createTime: '1',
+          deviceFk: '1',
+          refreshTokenFk: '1',
+          updateTime: '1',
+          userFk: '1',
+          valid: true);
+      RefreshToken refreshToken = RefreshToken(
+          id: '1',
+          createTime: '1',
+          expirationTime: '1',
+          refreshToken: '1',
+          updateTime: '1',
+          userFk: '1',
+          valid: true);
+      User user = User(
+          id: '1',
+          email: 'prueba1@app.nat.cu',
+          fullName: '1',
+          birthday: DateTime.now().toString(),
+          createTime: '1',
+          photo: '1',
+          permissions: null,
+          photoUrl: '1',
+          updateTime: '1',
+          userAddress: null);
+      VerificationCode verificationCode = VerificationCode(
+          id: '1',
+          code: '123456',
+          createTime: '1',
+          deviceId: '1',
+          email: 'prueba2@app.nat.cu',
+          type: VerificationCodeType.SIGN_IN,
+          updateTime: '1');
+      late Either<GrpcError, SignUpResponse> result;
+      SignUpResponse response = SignUpResponse(
+          authorizationToken: authorizationToken.authorizationToken,
+          refreshToken: refreshToken.refreshToken,
+          user: user);
+      // side effects
+      when(mockVerificationCodeLocalDataSource.getVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => verificationCode);
+      when(mockBannedUserLocalDataSource.getBannedUser(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockBannedDeviceLocalDataSource.getBannedDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockUserLocalDataSource.getUser(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => [
+                VerificationCode(
+                    id: '1',
+                    code: '123456',
+                    createTime: '1',
+                    deviceId: '1',
+                    email: 'prueba2@app.nat.cu',
+                    type: VerificationCodeType.SIGN_IN,
+                    updateTime: '1'),
+                VerificationCode(
+                    id: '1',
+                    code: '123456',
+                    createTime: '1',
+                    deviceId: '1',
+                    email: 'prueba2@app.nat.cu',
+                    type: VerificationCodeType.SIGN_IN,
+                    updateTime: '1')
+              ]);
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+              data: anyNamed('data'), context: anyNamed('context')))
+          .thenAnswer((_) async => true);
+      when(mockDeviceLocalDataSource.getDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockDeviceLocalDataSource.createDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => device);
+      when(mockRefreshTokenLocalDataSource.getRefreshToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+              data: anyNamed('data'), context: anyNamed('context')))
+          .thenAnswer((_) async => true);
+      when(mockUserLocalDataSource.createUser(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => user);
+      when(mockRefreshTokenLocalDataSource.createRefreshToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => refreshToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateAuthorizationToken(
+              payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      result = await authenticationImpl.signUp(
+          data: map, paths: [], context: ctx, metadata: metadata);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockBannedUserLocalDataSource.getBannedUser(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockBannedDeviceLocalDataSource.getBannedDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockUserLocalDataSource.getUser(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verify(mockDeviceLocalDataSource.getDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockDeviceLocalDataSource.createDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockDeviceLocalDataSource.updateDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockUserLocalDataSource.createUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verify(mockRefreshTokenLocalDataSource.createRefreshToken(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      expect(result, Right(response));
+    });
+    test(
+        'Return data successfully when this is the first signUp of the user and the device is register in the system and everything is ok',
+        () async {
+      // setup
+      Map<String, dynamic> map = {
+        'email': 'prueba4@correo.cup',
+        'alias': 'pepito04',
+        'fullName': 'Pepito Gonzales',
+        'birthday': '2020-06-06',
+        'code': '389686'
+      };
+      Device device = Device(
+          id: '1',
+          createTime: '1',
+          deviceId: '1',
+          firebaseCloudMessagingId: '1',
+          model: '1',
+          platform: PlatformType.ANDROID,
+          systemVersion: '1',
+          updateTime: '1');
+      AuthorizationToken authorizationToken = AuthorizationToken(
+          id: '1',
+          app: AppType.APP,
+          appVersion: '1',
+          authorizationToken: '1',
+          createTime: '1',
+          deviceFk: '1',
+          refreshTokenFk: '1',
+          updateTime: '1',
+          userFk: '1',
+          valid: true);
+      RefreshToken refreshToken = RefreshToken(
+          id: '1',
+          createTime: '1',
+          expirationTime: '1',
+          refreshToken: '1',
+          updateTime: '1',
+          userFk: '1',
+          valid: true);
+      User user = User(
+          id: '1',
+          email: 'prueba1@app.nat.cu',
+          fullName: '1',
+          birthday: DateTime.now().toString(),
+          createTime: '1',
+          photo: '1',
+          permissions: null,
+          photoUrl: '1',
+          updateTime: '1',
+          userAddress: null);
+      VerificationCode verificationCode = VerificationCode(
+          id: '1',
+          code: '123456',
+          createTime: '1',
+          deviceId: '1',
+          email: 'prueba2@app.nat.cu',
+          type: VerificationCodeType.SIGN_IN,
+          updateTime: '1');
+      late Either<GrpcError, SignUpResponse> result;
+      SignUpResponse response = SignUpResponse(
+          authorizationToken: authorizationToken.authorizationToken,
+          refreshToken: refreshToken.refreshToken,
+          user: user);
+      // side effects
+      when(mockVerificationCodeLocalDataSource.getVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => verificationCode);
+      when(mockBannedUserLocalDataSource.getBannedUser(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockBannedDeviceLocalDataSource.getBannedDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockUserLocalDataSource.getUser(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => [
+                VerificationCode(
+                    id: '1',
+                    code: '123456',
+                    createTime: '1',
+                    deviceId: '1',
+                    email: 'prueba2@app.nat.cu',
+                    type: VerificationCodeType.SIGN_IN,
+                    updateTime: '1'),
+                VerificationCode(
+                    id: '1',
+                    code: '123456',
+                    createTime: '1',
+                    deviceId: '1',
+                    email: 'prueba2@app.nat.cu',
+                    type: VerificationCodeType.SIGN_IN,
+                    updateTime: '1')
+              ]);
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+              data: anyNamed('data'), context: anyNamed('context')))
+          .thenAnswer((_) async => true);
+      when(mockDeviceLocalDataSource.getDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => device);
+      when(mockDeviceLocalDataSource.updateDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              where: anyNamed('where'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => device);
+      when(mockRefreshTokenLocalDataSource.getRefreshToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+              data: anyNamed('data'), context: anyNamed('context')))
+          .thenAnswer((_) async => true);
+      when(mockUserLocalDataSource.createUser(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => user);
+      when(mockRefreshTokenLocalDataSource.createRefreshToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => refreshToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateAuthorizationToken(
+              payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      result = await authenticationImpl.signUp(
+          data: map, paths: [], context: ctx, metadata: metadata);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockBannedUserLocalDataSource.getBannedUser(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockBannedDeviceLocalDataSource.getBannedDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockUserLocalDataSource.getUser(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verify(mockDeviceLocalDataSource.getDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockDeviceLocalDataSource.createDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockDeviceLocalDataSource.updateDevice(
+          data: anyNamed('data'),
+          where: anyNamed('where'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockUserLocalDataSource.createUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verify(mockRefreshTokenLocalDataSource.createRefreshToken(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      expect(result, Right(response));
+    });
+    test('Return GrpcError.invalidArgument() when exist a user with the email',
+        () async {
+      // setup
+      Map<String, dynamic> map = {
+        'email': 'prueba4@correo.cup',
+        'alias': 'pepito04',
+        'fullName': 'Pepito Gonzales',
+        'birthday': '2020-06-06',
+        'code': '389686'
+      };
+      Device device = Device(
+          id: '1',
+          createTime: '1',
+          deviceId: '1',
+          firebaseCloudMessagingId: '1',
+          model: '1',
+          platform: PlatformType.ANDROID,
+          systemVersion: '1',
+          updateTime: '1');
+      AuthorizationToken authorizationToken = AuthorizationToken(
+          id: '1',
+          app: AppType.APP,
+          appVersion: '1',
+          authorizationToken: '1',
+          createTime: '1',
+          deviceFk: '1',
+          refreshTokenFk: '1',
+          updateTime: '1',
+          userFk: '1',
+          valid: true);
+      RefreshToken refreshToken = RefreshToken(
+          id: '1',
+          createTime: '1',
+          expirationTime: '1',
+          refreshToken: '1',
+          updateTime: '1',
+          userFk: '1',
+          valid: true);
+      User user = User(
+          id: '1',
+          email: 'prueba1@app.nat.cu',
+          fullName: '1',
+          birthday: DateTime.now().toString(),
+          createTime: '1',
+          photo: '1',
+          permissions: null,
+          photoUrl: '1',
+          updateTime: '1',
+          userAddress: null);
+      VerificationCode verificationCode = VerificationCode(
+          id: '1',
+          code: '123456',
+          createTime: '1',
+          deviceId: '1',
+          email: 'prueba2@app.nat.cu',
+          type: VerificationCodeType.SIGN_IN,
+          updateTime: '1');
+      late Either<GrpcError, SignUpResponse> result;
+      SignUpResponse response = SignUpResponse(
+          authorizationToken: authorizationToken.authorizationToken,
+          refreshToken: refreshToken.refreshToken,
+          user: user);
+      // side effects
+      when(mockVerificationCodeLocalDataSource.getVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => verificationCode);
+      when(mockBannedUserLocalDataSource.getBannedUser(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockBannedDeviceLocalDataSource.getBannedDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockUserLocalDataSource.getUser(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => user);
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => [
+                VerificationCode(
+                    id: '1',
+                    code: '123456',
+                    createTime: '1',
+                    deviceId: '1',
+                    email: 'prueba2@app.nat.cu',
+                    type: VerificationCodeType.SIGN_IN,
+                    updateTime: '1'),
+                VerificationCode(
+                    id: '1',
+                    code: '123456',
+                    createTime: '1',
+                    deviceId: '1',
+                    email: 'prueba2@app.nat.cu',
+                    type: VerificationCodeType.SIGN_IN,
+                    updateTime: '1')
+              ]);
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+              data: anyNamed('data'), context: anyNamed('context')))
+          .thenAnswer((_) async => true);
+      when(mockDeviceLocalDataSource.getDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockDeviceLocalDataSource.createDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => device);
+      when(mockRefreshTokenLocalDataSource.getRefreshToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+              data: anyNamed('data'), context: anyNamed('context')))
+          .thenAnswer((_) async => true);
+      when(mockUserLocalDataSource.createUser(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => user);
+      when(mockRefreshTokenLocalDataSource.createRefreshToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => refreshToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateAuthorizationToken(
+              payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      result = await authenticationImpl.signUp(
+          data: map, paths: [], context: ctx, metadata: metadata);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockBannedUserLocalDataSource.getBannedUser(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockBannedDeviceLocalDataSource.getBannedDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockUserLocalDataSource.getUser(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verify(mockDeviceLocalDataSource.getDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockDeviceLocalDataSource.createDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockDeviceLocalDataSource.updateDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockUserLocalDataSource.createUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verifyNever(mockRefreshTokenLocalDataSource.createRefreshToken(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(
+          mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')));
+      expect(result, Left(GrpcError.invalidArgument('User exists')));
+    });
+    test('Return GrpcError.internal() when the code throw a Exception',
+        () async {
+      // setup
+      Map<String, dynamic> map = {
+        'email': 'prueba4@correo.cup',
+        'alias': 'pepito04',
+        'fullName': 'Pepito Gonzales',
+        'birthday': '2020-06-06',
+        'code': '389686'
+      };
+      Device device = Device(
+          id: '1',
+          createTime: '1',
+          deviceId: '1',
+          firebaseCloudMessagingId: '1',
+          model: '1',
+          platform: PlatformType.ANDROID,
+          systemVersion: '1',
+          updateTime: '1');
+      AuthorizationToken authorizationToken = AuthorizationToken(
+          id: '1',
+          app: AppType.APP,
+          appVersion: '1',
+          authorizationToken: '1',
+          createTime: '1',
+          deviceFk: '1',
+          refreshTokenFk: '1',
+          updateTime: '1',
+          userFk: '1',
+          valid: true);
+      RefreshToken refreshToken = RefreshToken(
+          id: '1',
+          createTime: '1',
+          expirationTime: '1',
+          refreshToken: '1',
+          updateTime: '1',
+          userFk: '1',
+          valid: true);
+      User user = User(
+          id: '1',
+          email: 'prueba1@app.nat.cu',
+          fullName: '1',
+          birthday: DateTime.now().toString(),
+          createTime: '1',
+          photo: '1',
+          permissions: null,
+          photoUrl: '1',
+          updateTime: '1',
+          userAddress: null);
+      VerificationCode verificationCode = VerificationCode(
+          id: '1',
+          code: '123456',
+          createTime: '1',
+          deviceId: '1',
+          email: 'prueba2@app.nat.cu',
+          type: VerificationCodeType.SIGN_IN,
+          updateTime: '1');
+      late Either<GrpcError, SignUpResponse> result;
+      SignUpResponse response = SignUpResponse(
+          authorizationToken: authorizationToken.authorizationToken,
+          refreshToken: refreshToken.refreshToken,
+          user: user);
+      // side effects
+      when(mockVerificationCodeLocalDataSource.getVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => verificationCode);
+      when(mockBannedUserLocalDataSource.getBannedUser(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockBannedDeviceLocalDataSource.getBannedDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockUserLocalDataSource.getUser(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockVerificationCodeLocalDataSource.listVerificationCode(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => [
+                VerificationCode(
+                    id: '1',
+                    code: '123456',
+                    createTime: '1',
+                    deviceId: '1',
+                    email: 'prueba2@app.nat.cu',
+                    type: VerificationCodeType.SIGN_IN,
+                    updateTime: '1'),
+                VerificationCode(
+                    id: '1',
+                    code: '123456',
+                    createTime: '1',
+                    deviceId: '1',
+                    email: 'prueba2@app.nat.cu',
+                    type: VerificationCodeType.SIGN_IN,
+                    updateTime: '1')
+              ]);
+      when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+              data: anyNamed('data'), context: anyNamed('context')))
+          .thenAnswer((_) async => true);
+      when(mockDeviceLocalDataSource.getDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockDeviceLocalDataSource.createDevice(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => device);
+      when(mockRefreshTokenLocalDataSource.getRefreshToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      when(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+              data: anyNamed('data'), context: anyNamed('context')))
+          .thenAnswer((_) async => true);
+      when(mockUserLocalDataSource.createUser(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => user);
+      when(mockRefreshTokenLocalDataSource.createRefreshToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => refreshToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')))
+          .thenThrow(Exception());
+      when(mockJsonWebToken.generateAuthorizationToken(
+              payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      result = await authenticationImpl.signUp(
+          data: map, paths: [], context: ctx, metadata: metadata);
+      // expectations
+      verify(mockVerificationCodeLocalDataSource.getVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockBannedUserLocalDataSource.getBannedUser(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockBannedDeviceLocalDataSource.getBannedDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockUserLocalDataSource.getUser(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.listVerificationCode(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+          data: anyNamed('data'), context: anyNamed('context')));
+      verify(mockDeviceLocalDataSource.getDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockDeviceLocalDataSource.createDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verifyNever(mockDeviceLocalDataSource.updateDevice(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(mockUserLocalDataSource.createUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verify(mockRefreshTokenLocalDataSource.createRefreshToken(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
+      verify(
+          mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+              data: anyNamed('data'),
+              context: anyNamed('context'),
+              paths: anyNamed('paths')));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+  });
 }

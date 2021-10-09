@@ -47,6 +47,7 @@ message SignUpRequest {
   string fullName = 3;
   string birthday = 4;
   string photo = 5;
+  string code = 6;
 }
 
 message SignUpResponse {
