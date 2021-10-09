@@ -21,5 +21,9 @@ abstract class Emailer {
       required String ip,
       required String device,
       required DateTime time});
-  Future<void> sendSignUpMail({required String recipient});
+  Future<void> sendSignUpMail(
+      {required String recipient,
+      required String ip,
+      required String device,
+      required DateTime time});
 }

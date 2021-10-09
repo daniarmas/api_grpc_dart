@@ -148,8 +148,32 @@ Si fuiste tú, puedes ignorar este correo.""";
   }
 
   @override
-  Future<void> sendSignUpMail({required String recipient}) async {
-    // TODO: implement sendSignUpMail
-    throw UnimplementedError();
+  Future<void> sendSignUpMail(
+      {required String recipient,
+      required String ip,
+      required String device,
+      required DateTime time}) async {
+    try {
+      final message = Message()
+        ..from =
+            Address(_environment.emailFrom, _environment.emailFromContactName)
+        ..recipients.add(recipient)
+        ..subject =
+            'Nuevo inicio de sesión en tu cuenta de ${_environment.emailFromContactName}'
+        ..text = """
+
+Hemos detectado un nuevo inicio de sesión en tu cuenta de ${_environment.emailFromContactName}.
+
+Fecha: ${StringUtils.formatDateTime(time)}
+Dispositivo: $device
+IP: $ip
+
+Si no reconoces este inicio de sesión, puedes cerrar todas las sesiones en los dispositivos que usen tu cuenta, navegando a la sección “Dispositivos” en la página de configuraciones en la app y seleccionar “Cerrar las demas sesiones”.
+
+Si fuiste tú, puedes ignorar este correo.""";
+      await _connection.send(message);
+    } catch (error) {
+      rethrow;
+    }
   }
 }

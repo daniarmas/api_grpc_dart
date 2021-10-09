@@ -116,6 +116,7 @@ class SignUpRequest extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fullName', protoName: 'fullName')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'birthday')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photo')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
     ..hasRequiredFields = false
   ;
 
@@ -126,6 +127,7 @@ class SignUpRequest extends $pb.GeneratedMessage {
     $core.String? fullName,
     $core.String? birthday,
     $core.String? photo,
+    $core.String? code,
   }) {
     final _result = create();
     if (email != null) {
@@ -142,6 +144,9 @@ class SignUpRequest extends $pb.GeneratedMessage {
     }
     if (photo != null) {
       _result.photo = photo;
+    }
+    if (code != null) {
+      _result.code = code;
     }
     return _result;
   }
@@ -210,6 +215,15 @@ class SignUpRequest extends $pb.GeneratedMessage {
   $core.bool hasPhoto() => $_has(4);
   @$pb.TagNumber(5)
   void clearPhoto() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get code => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set code($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasCode() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearCode() => clearField(6);
 }
 
 class SignUpResponse extends $pb.GeneratedMessage {

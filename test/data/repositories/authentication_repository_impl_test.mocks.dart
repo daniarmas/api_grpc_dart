@@ -478,10 +478,13 @@ class MockEmailer extends _i1.Mock implements _i12.Emailer {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  _i4.Future<void> sendSignUpMail({String? recipient}) => (super.noSuchMethod(
-      Invocation.method(#sendSignUpMail, [], {#recipient: recipient}),
-      returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  _i4.Future<void> sendSignUpMail(
+          {String? recipient, String? ip, String? device, DateTime? time}) =>
+      (super.noSuchMethod(
+          Invocation.method(#sendSignUpMail, [],
+              {#recipient: recipient, #ip: ip, #device: device, #time: time}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
   String toString() => super.toString();
 }

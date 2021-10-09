@@ -276,10 +276,27 @@ class AuthenticationService extends AuthenticationServiceBase {
 
   @override
   Future<SignUpResponse> signUp(ServiceCall call, SignUpRequest request) async {
-    var sadsa = request;
-    print(request);
-    var file = request.photo;
-    return SignUpResponse(
-        authorizationToken: null, refreshToken: null, user: null);
+    try {
+      late SignUpResponse response;
+      AuthenticationRepository authenticationRepository =
+          GetIt.I<AuthenticationRepository>();
+      late Either<GrpcError, SignUpResponse> result;
+      var connection = await database.getConnection();
+      await connection.transaction((context) async {
+        result = await authenticationRepository.signUp(
+            metadata: HeadersMetadata.fromServiceCall(call),
+            data: getRequestData(request),
+            paths: [],
+            context: context);
+      });
+      result.fold((left) => {throw left}, (right) => {response = right});
+      return response;
+    } catch (error) {
+      if (error is GrpcError) {
+        rethrow;
+      } else {
+        throw GrpcError.internal('Internal server error');
+      }
+    }
   }
 }

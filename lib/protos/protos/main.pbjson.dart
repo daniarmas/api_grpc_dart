@@ -74,11 +74,12 @@ const SignUpRequest$json = const {
     const {'1': 'fullName', '3': 3, '4': 1, '5': 9, '10': 'fullName'},
     const {'1': 'birthday', '3': 4, '4': 1, '5': 9, '10': 'birthday'},
     const {'1': 'photo', '3': 5, '4': 1, '5': 9, '10': 'photo'},
+    const {'1': 'code', '3': 6, '4': 1, '5': 9, '10': 'code'},
   ],
 };
 
 /// Descriptor for `SignUpRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List signUpRequestDescriptor = $convert.base64Decode('Cg1TaWduVXBSZXF1ZXN0EhQKBWVtYWlsGAEgASgJUgVlbWFpbBIUCgVhbGlhcxgCIAEoCVIFYWxpYXMSGgoIZnVsbE5hbWUYAyABKAlSCGZ1bGxOYW1lEhoKCGJpcnRoZGF5GAQgASgJUghiaXJ0aGRheRIUCgVwaG90bxgFIAEoCVIFcGhvdG8=');
+final $typed_data.Uint8List signUpRequestDescriptor = $convert.base64Decode('Cg1TaWduVXBSZXF1ZXN0EhQKBWVtYWlsGAEgASgJUgVlbWFpbBIUCgVhbGlhcxgCIAEoCVIFYWxpYXMSGgoIZnVsbE5hbWUYAyABKAlSCGZ1bGxOYW1lEhoKCGJpcnRoZGF5GAQgASgJUghiaXJ0aGRheRIUCgVwaG90bxgFIAEoCVIFcGhvdG8SEgoEY29kZRgGIAEoCVIEY29kZQ==');
 @$core.Deprecated('Use signUpResponseDescriptor instead')
 const SignUpResponse$json = const {
   '1': 'SignUpResponse',

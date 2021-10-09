@@ -16,14 +16,27 @@ service AuthenticationService {
   rpc UserAliasGenerator (stream UserAliasGeneratorRequest) returns (stream UserAliasGeneratorResponse) {}
 }
 
+service ObjectStorageService {
+  rpc GetPresignedPutObjectUserAvatar (GetPresignedPutUserAvatarRequest) returns (GetPresignedPutUserAvatarResponse) {}
+}
+
 // Request & Response Message
+
+message GetPresignedPutUserAvatarRequest {
+  string objectName = 1;
+}
+
+message GetPresignedPutUserAvatarResponse {
+  string objectUrl = 1;
+}
 
 message SignUpRequest {
   string email = 1;
   string alias = 2;
   string fullName = 3;
   string birthday = 4;
-  bytes photo = 5;
+  string photo = 5;
+  string code = 6;
 }
 
 message SignUpResponse {

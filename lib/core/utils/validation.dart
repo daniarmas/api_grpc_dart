@@ -24,6 +24,11 @@ class Validation {
     return true;
   }
 
+  static bool name(String value) {
+    if (!StringUtils.isName(value)) return false;
+    return true;
+  }
+
   // static String? code(String value) {
   //   if (StringUtils.isEmpty(value)) return emptyCode;
   //   if (!StringUtils.isCode(value)) return invalidCode;
