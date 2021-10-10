@@ -97,22 +97,21 @@ const UserAliasGeneratorRequest$json = const {
   '1': 'UserAliasGeneratorRequest',
   '2': const [
     const {'1': 'alias', '3': 1, '4': 1, '5': 9, '10': 'alias'},
-    const {'1': 'birthday', '3': 2, '4': 1, '5': 9, '10': 'birthday'},
   ],
 };
 
 /// Descriptor for `UserAliasGeneratorRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userAliasGeneratorRequestDescriptor = $convert.base64Decode('ChlVc2VyQWxpYXNHZW5lcmF0b3JSZXF1ZXN0EhQKBWFsaWFzGAEgASgJUgVhbGlhcxIaCghiaXJ0aGRheRgCIAEoCVIIYmlydGhkYXk=');
+final $typed_data.Uint8List userAliasGeneratorRequestDescriptor = $convert.base64Decode('ChlVc2VyQWxpYXNHZW5lcmF0b3JSZXF1ZXN0EhQKBWFsaWFzGAEgASgJUgVhbGlhcw==');
 @$core.Deprecated('Use userAliasGeneratorResponseDescriptor instead')
 const UserAliasGeneratorResponse$json = const {
   '1': 'UserAliasGeneratorResponse',
   '2': const [
-    const {'1': 'alias', '3': 1, '4': 3, '5': 9, '10': 'alias'},
+    const {'1': 'isValid', '3': 1, '4': 1, '5': 8, '10': 'isValid'},
   ],
 };
 
 /// Descriptor for `UserAliasGeneratorResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userAliasGeneratorResponseDescriptor = $convert.base64Decode('ChpVc2VyQWxpYXNHZW5lcmF0b3JSZXNwb25zZRIUCgVhbGlhcxgBIAMoCVIFYWxpYXM=');
+final $typed_data.Uint8List userAliasGeneratorResponseDescriptor = $convert.base64Decode('ChpVc2VyQWxpYXNHZW5lcmF0b3JSZXNwb25zZRIYCgdpc1ZhbGlkGAEgASgIUgdpc1ZhbGlk');
 @$core.Deprecated('Use userExistsRequestDescriptor instead')
 const UserExistsRequest$json = const {
   '1': 'UserExistsRequest',
