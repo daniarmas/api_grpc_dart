@@ -78,7 +78,7 @@ class AuthenticationImpl implements AuthenticationRepository {
                 data: {'email': data['email']},
                 paths: ['id']);
         if (getBannedUserResponse != null) {
-          return Left(GrpcError.invalidArgument('User Banned'));
+          return Left(GrpcError.invalidArgument('User banned'));
         }
         final getBannedDeviceResponse = await bannedDeviceLocalDataSource
             .getBannedDevice(
@@ -86,12 +86,12 @@ class AuthenticationImpl implements AuthenticationRepository {
                 data: {'deviceId': metadata.deviceId},
                 paths: ['id']);
         if (getBannedDeviceResponse != null) {
-          return Left(GrpcError.invalidArgument('Device Banned'));
+          return Left(GrpcError.invalidArgument('Device banned'));
         }
         final getUserResponse = await userLocalDataSource.getUser(
             context: context, data: {'email': data['email']}, paths: []);
         if (getUserResponse == null) {
-          return Left(GrpcError.invalidArgument('User Not found'));
+          return Left(GrpcError.invalidArgument('User not found'));
         }
         final verificationCodeListResponse =
             await verificationCodeLocalDataSource.listVerificationCode(

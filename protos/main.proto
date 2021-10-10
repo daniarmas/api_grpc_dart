@@ -58,11 +58,10 @@ message SignUpResponse {
 
 message UserAliasGeneratorRequest {
   string alias = 1;
-  string birthday = 2;
 }
 
 message UserAliasGeneratorResponse {
-  repeated string alias = 1;
+  bool isValid = 1;
 }
 
 message UserExistsRequest {

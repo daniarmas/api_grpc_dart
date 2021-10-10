@@ -170,55 +170,68 @@ void main() {
   });
 
   group('testing userAliasGenerator', () {
-    test('Return data successfully when everything is ok', () async {
+    test('Return isValid true when not exists a user with that alias',
+        () async {
       // setup
-      List<String> list = ['prueba', 'prueba3'];
-      List<User> listOfUsers = [
-        User(
-            id: '1',
-            email: 'prueba1@app.nat.cu',
-            fullName: '1',
-            birthday: DateTime.now().toString(),
-            createTime: '1',
-            photo: '1',
-            permissions: null,
-            photoUrl: '1',
-            updateTime: '1',
-            userAddress: null),
-        User(
-            id: '1',
-            email: 'prueba1@app.nat.cu',
-            fullName: '1',
-            birthday: DateTime.now().toString(),
-            createTime: '1',
-            photo: '1',
-            permissions: null,
-            photoUrl: '1',
-            updateTime: '1',
-            userAddress: null)
-      ];
+      User user = User(
+          id: '1',
+          email: 'prueba1@app.nat.cu',
+          fullName: '1',
+          birthday: DateTime.now().toString(),
+          createTime: '1',
+          photo: '1',
+          permissions: null,
+          photoUrl: '1',
+          updateTime: '1',
+          userAddress: null);
       final date = DateTime.now();
       // side effects
-      when(mockUsernameGenerator.generateList(any,
-              date: anyNamed('date'), length: anyNamed('length')))
-          .thenReturn(list);
-      when(mockUserLocalDataSource.listUserInAliases(
+      when(mockUserLocalDataSource.getUser(
               context: anyNamed('context'),
               data: anyNamed('data'),
               paths: anyNamed('paths')))
-          .thenAnswer((_) async => listOfUsers);
+          .thenAnswer((_) async => null);
       final result = await userRepositoryImpl.userAliasGenerator(
           context: ctx,
           data: {'alias': 'prueba', 'birthday': date.toString()},
           metadata: metadata);
       // expectations
-      verify(mockUsernameGenerator.generateList(any,
-          date: anyNamed('date'), length: anyNamed('length')));
-      verify(mockUserLocalDataSource.listUserInAliases(
+      verify(mockUserLocalDataSource.getUser(
           context: anyNamed('context'),
           data: anyNamed('data'),
           paths: anyNamed('paths')));
-      expect(result, Right(list));
+      expect(result, Right(UserAliasGeneratorResponse(isValid: true)));
+    });
+    test('Return isValid false when exists a user with that alias', () async {
+      // setup
+      User user = User(
+          id: '1',
+          email: 'prueba1@app.nat.cu',
+          fullName: '1',
+          birthday: DateTime.now().toString(),
+          createTime: '1',
+          photo: '1',
+          permissions: null,
+          photoUrl: '1',
+          updateTime: '1',
+          userAddress: null);
+      final date = DateTime.now();
+      // side effects
+      when(mockUserLocalDataSource.getUser(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => user);
+      final result = await userRepositoryImpl.userAliasGenerator(
+          context: ctx,
+          data: {'alias': 'prueba', 'birthday': date.toString()},
+          metadata: metadata);
+      // expectations
+      verify(mockUserLocalDataSource.getUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result, Right(UserAliasGeneratorResponse(isValid: false)));
     });
     test(
         'Return GrpcError.invalidArgument when the alias in only numbers, and that is invalid',
@@ -231,9 +244,7 @@ void main() {
           data: {'alias': '123213', 'birthday': date.toString()},
           metadata: metadata);
       // expectations
-      verifyNever(mockUsernameGenerator.generateList(any,
-          date: anyNamed('date'), length: anyNamed('length')));
-      verifyNever(mockUserLocalDataSource.listUserInAliases(
+      verifyNever(mockUserLocalDataSource.getUser(
           context: anyNamed('context'),
           data: anyNamed('data'),
           paths: anyNamed('paths')));
@@ -242,13 +253,9 @@ void main() {
     test('Return GrpcError.internal() when the code throw a Exception',
         () async {
       // setup
-      List<String> list = ['prueba', 'prueba3'];
       final date = DateTime.now();
       // side effects
-      when(mockUsernameGenerator.generateList(any,
-              date: anyNamed('date'), length: anyNamed('length')))
-          .thenReturn(list);
-      when(mockUserLocalDataSource.listUserInAliases(
+      when(mockUserLocalDataSource.getUser(
               context: anyNamed('context'),
               data: anyNamed('data'),
               paths: anyNamed('paths')))
@@ -258,9 +265,7 @@ void main() {
           data: {'alias': 'prueba', 'birthday': date.toString()},
           metadata: metadata);
       // expectations
-      verify(mockUsernameGenerator.generateList(any,
-          date: anyNamed('date'), length: anyNamed('length')));
-      verify(mockUserLocalDataSource.listUserInAliases(
+      verify(mockUserLocalDataSource.getUser(
           context: anyNamed('context'),
           data: anyNamed('data'),
           paths: anyNamed('paths')));

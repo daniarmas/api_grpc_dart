@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:api_grpc_dart/core/utils/get_request_data.dart';
 import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
@@ -250,20 +248,19 @@ class AuthenticationService extends AuthenticationServiceBase {
   Stream<UserAliasGeneratorResponse> userAliasGenerator(
       ServiceCall call, Stream<UserAliasGeneratorRequest> request) async* {
     try {
-      List<String> response = [];
       UserRepository userRepository = GetIt.I<UserRepository>();
-      late Either<GrpcError, List<String>> result;
+      late UserAliasGeneratorResponse response;
+      late Either<GrpcError, UserAliasGeneratorResponse> result;
       var connection = await database.getConnection();
       await for (var item in request) {
-        response.clear();
         await connection.transaction((context) async {
           result = await userRepository.userAliasGenerator(
               metadata: HeadersMetadata.fromServiceCall(call),
-              data: {'alias': item.alias, 'birthday': item.birthday},
+              data: getRequestData(item),
               context: context);
           result.fold((left) => {throw left}, (right) => {response = right});
         });
-        yield UserAliasGeneratorResponse(alias: response);
+        yield response;
       }
     } catch (error) {
       if (error is GrpcError) {

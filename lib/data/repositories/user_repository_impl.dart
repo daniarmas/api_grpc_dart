@@ -44,26 +44,20 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<GrpcError, List<String>>> userAliasGenerator(
+  Future<Either<GrpcError, UserAliasGeneratorResponse>> userAliasGenerator(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata}) async {
     try {
       if (StringUtils.isAlias(data['alias']) &&
           Validation.alias(data['alias'])) {
-        List<String> response = generator.generateList(data['alias'],
-            date: DateTime.parse(data['birthday']), length: 10);
-        final listUserInAliasesResponse = await userLocalDataSource
-            .listUserInAliases(
-                paths: ['alias'], context: context, data: response.toList());
-        for (var item in listUserInAliasesResponse) {
-          if (response.contains(item.alias)) {
-            response.remove(item.alias);
-          }
-        }
-        return Right(response);
+        final response = await userLocalDataSource
+            .getUser(paths: ['alias'], context: context, data: data);
+        return Right(UserAliasGeneratorResponse(
+            isValid: (response == null) ? true : false));
+      } else {
+        return Left(GrpcError.invalidArgument('Input `alias` invalid'));
       }
-      return Left(GrpcError.invalidArgument('Input `alias` invalid'));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception {

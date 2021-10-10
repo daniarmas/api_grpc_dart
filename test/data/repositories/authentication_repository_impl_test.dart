@@ -1305,7 +1305,7 @@ void main() {
           ip: anyNamed('ip'),
           recipient: anyNamed('recipient'),
           time: anyNamed('time')));
-      expect(result, Left(GrpcError.invalidArgument('User Banned')));
+      expect(result, Left(GrpcError.invalidArgument('User banned')));
     });
 
     test('Return GrpcError.invalidArgument when the device is banned',
@@ -1404,7 +1404,7 @@ void main() {
           ip: anyNamed('ip'),
           recipient: anyNamed('recipient'),
           time: anyNamed('time')));
-      expect(result, Left(GrpcError.invalidArgument('Device Banned')));
+      expect(result, Left(GrpcError.invalidArgument('Device banned')));
     });
 
     test('Return GrpcError.invalidArgument when the user not exists', () async {
@@ -1500,7 +1500,7 @@ void main() {
           ip: anyNamed('ip'),
           recipient: anyNamed('recipient'),
           time: anyNamed('time')));
-      expect(result, Left(GrpcError.invalidArgument('User Not found')));
+      expect(result, Left(GrpcError.invalidArgument('User not found')));
     });
   });
 
@@ -1554,14 +1554,6 @@ void main() {
             photoUrl: '1',
             updateTime: '1',
             userAddress: null);
-        BannedUser bannedUser = BannedUser(
-            id: '1',
-            email: '1',
-            createTime: '1',
-            description: '1',
-            moderatorAuthorizationTokenFk: '1',
-            updateTime: '1',
-            userFk: '1');
         // side effects
         when(mockDeviceLocalDataSource.getDevice(
                 data: anyNamed('data'),
@@ -1979,17 +1971,6 @@ void main() {
             updateTime: '1',
             userFk: '1',
             valid: true);
-        User user = User(
-            id: '1',
-            email: 'prueba1@app.nat.cu',
-            fullName: '1',
-            birthday: DateTime.now().toString(),
-            createTime: '1',
-            photo: '1',
-            permissions: null,
-            photoUrl: '1',
-            updateTime: '1',
-            userAddress: null);
         // side effects
         when(mockDeviceLocalDataSource.getDevice(
                 data: anyNamed('data'),
@@ -3058,10 +3039,6 @@ void main() {
           type: VerificationCodeType.SIGN_IN,
           updateTime: '1');
       late Either<GrpcError, SignUpResponse> result;
-      SignUpResponse response = SignUpResponse(
-          authorizationToken: authorizationToken.authorizationToken,
-          refreshToken: refreshToken.refreshToken,
-          user: user);
       // side effects
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
               data: anyNamed('data'),
@@ -3217,17 +3194,6 @@ void main() {
           platform: PlatformType.ANDROID,
           systemVersion: '1',
           updateTime: '1');
-      AuthorizationToken authorizationToken = AuthorizationToken(
-          id: '1',
-          app: AppType.APP,
-          appVersion: '1',
-          authorizationToken: '1',
-          createTime: '1',
-          deviceFk: '1',
-          refreshTokenFk: '1',
-          updateTime: '1',
-          userFk: '1',
-          valid: true);
       RefreshToken refreshToken = RefreshToken(
           id: '1',
           createTime: '1',
@@ -3256,10 +3222,6 @@ void main() {
           type: VerificationCodeType.SIGN_IN,
           updateTime: '1');
       late Either<GrpcError, SignUpResponse> result;
-      SignUpResponse response = SignUpResponse(
-          authorizationToken: authorizationToken.authorizationToken,
-          refreshToken: refreshToken.refreshToken,
-          user: user);
       // side effects
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
               data: anyNamed('data'),
@@ -3389,11 +3351,10 @@ void main() {
           data: anyNamed('data'),
           context: anyNamed('context'),
           paths: anyNamed('paths')));
-      verify(
-          mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
-              data: anyNamed('data'),
-              context: anyNamed('context'),
-              paths: anyNamed('paths')));
+      verify(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+          data: anyNamed('data'),
+          context: anyNamed('context'),
+          paths: anyNamed('paths')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });

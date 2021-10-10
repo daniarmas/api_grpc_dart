@@ -1,11 +1,9 @@
 import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:api_grpc_dart/data/datasources/object_storage_data_source.dart';
 import 'package:api_grpc_dart/data/repositories/object_storage_repository_impl.dart';
-import 'package:api_grpc_dart/environment.dart';
 import 'package:api_grpc_dart/injection_container.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
 import 'package:dartz/dartz.dart';
-import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -15,14 +13,12 @@ import 'object_storage_repository_impl_test.mocks.dart';
 
 @GenerateMocks([ObjectStorageDataSource])
 void main() {
-  late EnvironmentApp environment;
   late MockObjectStorageDataSource mockObjectStorageDataSource;
   late ObjectStorageRepositoryImpl objectStorageRepositoryImpl;
   late HeadersMetadata metadata;
 
   setUpAll(() {
     configureDependencies();
-    environment = GetIt.I<EnvironmentApp>();
   });
 
   setUp(() async {

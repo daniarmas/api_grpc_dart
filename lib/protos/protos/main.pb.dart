@@ -306,21 +306,16 @@ class SignUpResponse extends $pb.GeneratedMessage {
 class UserAliasGeneratorRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserAliasGeneratorRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alias')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'birthday')
     ..hasRequiredFields = false
   ;
 
   UserAliasGeneratorRequest._() : super();
   factory UserAliasGeneratorRequest({
     $core.String? alias,
-    $core.String? birthday,
   }) {
     final _result = create();
     if (alias != null) {
       _result.alias = alias;
-    }
-    if (birthday != null) {
-      _result.birthday = birthday;
     }
     return _result;
   }
@@ -353,30 +348,21 @@ class UserAliasGeneratorRequest extends $pb.GeneratedMessage {
   $core.bool hasAlias() => $_has(0);
   @$pb.TagNumber(1)
   void clearAlias() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get birthday => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set birthday($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasBirthday() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearBirthday() => clearField(2);
 }
 
 class UserAliasGeneratorResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserAliasGeneratorResponse', createEmptyInstance: create)
-    ..pPS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alias')
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isValid', protoName: 'isValid')
     ..hasRequiredFields = false
   ;
 
   UserAliasGeneratorResponse._() : super();
   factory UserAliasGeneratorResponse({
-    $core.Iterable<$core.String>? alias,
+    $core.bool? isValid,
   }) {
     final _result = create();
-    if (alias != null) {
-      _result.alias.addAll(alias);
+    if (isValid != null) {
+      _result.isValid = isValid;
     }
     return _result;
   }
@@ -402,7 +388,13 @@ class UserAliasGeneratorResponse extends $pb.GeneratedMessage {
   static UserAliasGeneratorResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.String> get alias => $_getList(0);
+  $core.bool get isValid => $_getBF(0);
+  @$pb.TagNumber(1)
+  set isValid($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasIsValid() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearIsValid() => clearField(1);
 }
 
 class UserExistsRequest extends $pb.GeneratedMessage {
