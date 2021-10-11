@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:api_grpc_dart/domain/services/business_service.dart';
 import 'package:api_grpc_dart/domain/services/object_storage_service.dart';
 import 'package:api_grpc_dart/interceptors.dart';
 import 'package:get_it/get_it.dart';
@@ -28,6 +29,7 @@ class Server {
           HealthService(),
           HostnameService(),
           ObjectStorageService(),
+          BusinessService(),
         ], [
           (ServiceCall call, ServiceMethod method) {
             var accessTokenValidResponse = accessTokenValid(call, method);

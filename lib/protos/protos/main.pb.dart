@@ -15,6 +15,208 @@ import 'main.pbenum.dart';
 
 export 'main.pbenum.dart';
 
+class ListBusinessRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListBusinessRequest', createEmptyInstance: create)
+    ..aOM<$2.FieldMask>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..hasRequiredFields = false
+  ;
+
+  ListBusinessRequest._() : super();
+  factory ListBusinessRequest({
+    $2.FieldMask? fieldMask,
+  }) {
+    final _result = create();
+    if (fieldMask != null) {
+      _result.fieldMask = fieldMask;
+    }
+    return _result;
+  }
+  factory ListBusinessRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListBusinessRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListBusinessRequest clone() => ListBusinessRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListBusinessRequest copyWith(void Function(ListBusinessRequest) updates) => super.copyWith((message) => updates(message as ListBusinessRequest)) as ListBusinessRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListBusinessRequest create() => ListBusinessRequest._();
+  ListBusinessRequest createEmptyInstance() => create();
+  static $pb.PbList<ListBusinessRequest> createRepeated() => $pb.PbList<ListBusinessRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ListBusinessRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListBusinessRequest>(create);
+  static ListBusinessRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $2.FieldMask get fieldMask => $_getN(0);
+  @$pb.TagNumber(1)
+  set fieldMask($2.FieldMask v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasFieldMask() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFieldMask() => clearField(1);
+  @$pb.TagNumber(1)
+  $2.FieldMask ensureFieldMask() => $_ensure(0);
+}
+
+class ListBusinessResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListBusinessResponse', createEmptyInstance: create)
+    ..pc<Business>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businesses', $pb.PbFieldType.PM, subBuilder: Business.create)
+    ..hasRequiredFields = false
+  ;
+
+  ListBusinessResponse._() : super();
+  factory ListBusinessResponse({
+    $core.Iterable<Business>? businesses,
+  }) {
+    final _result = create();
+    if (businesses != null) {
+      _result.businesses.addAll(businesses);
+    }
+    return _result;
+  }
+  factory ListBusinessResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListBusinessResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListBusinessResponse clone() => ListBusinessResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListBusinessResponse copyWith(void Function(ListBusinessResponse) updates) => super.copyWith((message) => updates(message as ListBusinessResponse)) as ListBusinessResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListBusinessResponse create() => ListBusinessResponse._();
+  ListBusinessResponse createEmptyInstance() => create();
+  static $pb.PbList<ListBusinessResponse> createRepeated() => $pb.PbList<ListBusinessResponse>();
+  @$core.pragma('dart2js:noInline')
+  static ListBusinessResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListBusinessResponse>(create);
+  static ListBusinessResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Business> get businesses => $_getList(0);
+}
+
+class GetBusinessRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetBusinessRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetBusinessRequest._() : super();
+  factory GetBusinessRequest({
+    $core.String? id,
+    $2.FieldMask? fieldMask,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    if (fieldMask != null) {
+      _result.fieldMask = fieldMask;
+    }
+    return _result;
+  }
+  factory GetBusinessRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetBusinessRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetBusinessRequest clone() => GetBusinessRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetBusinessRequest copyWith(void Function(GetBusinessRequest) updates) => super.copyWith((message) => updates(message as GetBusinessRequest)) as GetBusinessRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetBusinessRequest create() => GetBusinessRequest._();
+  GetBusinessRequest createEmptyInstance() => create();
+  static $pb.PbList<GetBusinessRequest> createRepeated() => $pb.PbList<GetBusinessRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetBusinessRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetBusinessRequest>(create);
+  static GetBusinessRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $2.FieldMask get fieldMask => $_getN(1);
+  @$pb.TagNumber(2)
+  set fieldMask($2.FieldMask v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasFieldMask() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFieldMask() => clearField(2);
+  @$pb.TagNumber(2)
+  $2.FieldMask ensureFieldMask() => $_ensure(1);
+}
+
+class GetBusinessResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetBusinessResponse', createEmptyInstance: create)
+    ..aOM<Business>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'business', subBuilder: Business.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetBusinessResponse._() : super();
+  factory GetBusinessResponse({
+    Business? business,
+  }) {
+    final _result = create();
+    if (business != null) {
+      _result.business = business;
+    }
+    return _result;
+  }
+  factory GetBusinessResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetBusinessResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetBusinessResponse clone() => GetBusinessResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetBusinessResponse copyWith(void Function(GetBusinessResponse) updates) => super.copyWith((message) => updates(message as GetBusinessResponse)) as GetBusinessResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetBusinessResponse create() => GetBusinessResponse._();
+  GetBusinessResponse createEmptyInstance() => create();
+  static $pb.PbList<GetBusinessResponse> createRepeated() => $pb.PbList<GetBusinessResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetBusinessResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetBusinessResponse>(create);
+  static GetBusinessResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Business get business => $_getN(0);
+  @$pb.TagNumber(1)
+  set business(Business v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasBusiness() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearBusiness() => clearField(1);
+  @$pb.TagNumber(1)
+  Business ensureBusiness() => $_ensure(0);
+}
+
 class GetPresignedPutUserAvatarRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPresignedPutUserAvatarRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'objectName', protoName: 'objectName')
@@ -723,17 +925,17 @@ class ListVerificationCodeRequest extends $pb.GeneratedMessage {
 
 class ListVerificationCodeResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListVerificationCodeResponse', createEmptyInstance: create)
-    ..pc<VerificationCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'verificationCode', $pb.PbFieldType.PM, protoName: 'verificationCode', subBuilder: VerificationCode.create)
+    ..pc<VerificationCode>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'verificationCodes', $pb.PbFieldType.PM, protoName: 'verificationCodes', subBuilder: VerificationCode.create)
     ..hasRequiredFields = false
   ;
 
   ListVerificationCodeResponse._() : super();
   factory ListVerificationCodeResponse({
-    $core.Iterable<VerificationCode>? verificationCode,
+    $core.Iterable<VerificationCode>? verificationCodes,
   }) {
     final _result = create();
-    if (verificationCode != null) {
-      _result.verificationCode.addAll(verificationCode);
+    if (verificationCodes != null) {
+      _result.verificationCodes.addAll(verificationCodes);
     }
     return _result;
   }
@@ -759,7 +961,7 @@ class ListVerificationCodeResponse extends $pb.GeneratedMessage {
   static ListVerificationCodeResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<VerificationCode> get verificationCode => $_getList(0);
+  $core.List<VerificationCode> get verificationCodes => $_getList(0);
 }
 
 class DeleteVerificationCodeRequest extends $pb.GeneratedMessage {
@@ -1602,6 +1804,323 @@ class User extends $pb.GeneratedMessage {
   void clearUpdateTime() => clearField(11);
 }
 
+class Business extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Business', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'address')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phone')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photo')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photoUrl', protoName: 'photoUrl')
+    ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isOpen', protoName: 'isOpen')
+    ..a<$core.double>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deliveryPrice', $pb.PbFieldType.OD, protoName: 'deliveryPrice')
+    ..aOM<Polygon>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'polygon', subBuilder: Polygon.create)
+    ..aOM<Point>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', subBuilder: Point.create)
+    ..a<$core.int>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'leadDayTime', $pb.PbFieldType.O3, protoName: 'leadDayTime')
+    ..a<$core.int>(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'leadHoursTime', $pb.PbFieldType.O3, protoName: 'leadHoursTime')
+    ..a<$core.int>(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'leadMinutesTime', $pb.PbFieldType.O3, protoName: 'leadMinutesTime')
+    ..aOB(16, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'toPickUp', protoName: 'toPickUp')
+    ..aOB(17, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'homeDelivery', protoName: 'homeDelivery')
+    ..aOS(18, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessBrandFk', protoName: 'businessBrandFk')
+    ..aOS(19, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provinceFk', protoName: 'provinceFk')
+    ..aOS(20, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'municipalityFk', protoName: 'municipalityFk')
+    ..hasRequiredFields = false
+  ;
+
+  Business._() : super();
+  factory Business({
+    $core.String? id,
+    $core.String? name,
+    $core.String? description,
+    $core.String? address,
+    $core.String? phone,
+    $core.String? email,
+    $core.String? photo,
+    $core.String? photoUrl,
+    $core.bool? isOpen,
+    $core.double? deliveryPrice,
+    Polygon? polygon,
+    Point? coordinates,
+    $core.int? leadDayTime,
+    $core.int? leadHoursTime,
+    $core.int? leadMinutesTime,
+    $core.bool? toPickUp,
+    $core.bool? homeDelivery,
+    $core.String? businessBrandFk,
+    $core.String? provinceFk,
+    $core.String? municipalityFk,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    if (name != null) {
+      _result.name = name;
+    }
+    if (description != null) {
+      _result.description = description;
+    }
+    if (address != null) {
+      _result.address = address;
+    }
+    if (phone != null) {
+      _result.phone = phone;
+    }
+    if (email != null) {
+      _result.email = email;
+    }
+    if (photo != null) {
+      _result.photo = photo;
+    }
+    if (photoUrl != null) {
+      _result.photoUrl = photoUrl;
+    }
+    if (isOpen != null) {
+      _result.isOpen = isOpen;
+    }
+    if (deliveryPrice != null) {
+      _result.deliveryPrice = deliveryPrice;
+    }
+    if (polygon != null) {
+      _result.polygon = polygon;
+    }
+    if (coordinates != null) {
+      _result.coordinates = coordinates;
+    }
+    if (leadDayTime != null) {
+      _result.leadDayTime = leadDayTime;
+    }
+    if (leadHoursTime != null) {
+      _result.leadHoursTime = leadHoursTime;
+    }
+    if (leadMinutesTime != null) {
+      _result.leadMinutesTime = leadMinutesTime;
+    }
+    if (toPickUp != null) {
+      _result.toPickUp = toPickUp;
+    }
+    if (homeDelivery != null) {
+      _result.homeDelivery = homeDelivery;
+    }
+    if (businessBrandFk != null) {
+      _result.businessBrandFk = businessBrandFk;
+    }
+    if (provinceFk != null) {
+      _result.provinceFk = provinceFk;
+    }
+    if (municipalityFk != null) {
+      _result.municipalityFk = municipalityFk;
+    }
+    return _result;
+  }
+  factory Business.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Business.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Business clone() => Business()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Business copyWith(void Function(Business) updates) => super.copyWith((message) => updates(message as Business)) as Business; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Business create() => Business._();
+  Business createEmptyInstance() => create();
+  static $pb.PbList<Business> createRepeated() => $pb.PbList<Business>();
+  @$core.pragma('dart2js:noInline')
+  static Business getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Business>(create);
+  static Business? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get name => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set name($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearName() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get description => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set description($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasDescription() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDescription() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get address => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set address($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasAddress() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearAddress() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get phone => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set phone($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasPhone() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearPhone() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get email => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set email($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasEmail() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearEmail() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get photo => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set photo($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasPhoto() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearPhoto() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get photoUrl => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set photoUrl($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasPhotoUrl() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearPhotoUrl() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.bool get isOpen => $_getBF(8);
+  @$pb.TagNumber(9)
+  set isOpen($core.bool v) { $_setBool(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasIsOpen() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearIsOpen() => clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.double get deliveryPrice => $_getN(9);
+  @$pb.TagNumber(10)
+  set deliveryPrice($core.double v) { $_setDouble(9, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasDeliveryPrice() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearDeliveryPrice() => clearField(10);
+
+  @$pb.TagNumber(11)
+  Polygon get polygon => $_getN(10);
+  @$pb.TagNumber(11)
+  set polygon(Polygon v) { setField(11, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasPolygon() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearPolygon() => clearField(11);
+  @$pb.TagNumber(11)
+  Polygon ensurePolygon() => $_ensure(10);
+
+  @$pb.TagNumber(12)
+  Point get coordinates => $_getN(11);
+  @$pb.TagNumber(12)
+  set coordinates(Point v) { setField(12, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasCoordinates() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearCoordinates() => clearField(12);
+  @$pb.TagNumber(12)
+  Point ensureCoordinates() => $_ensure(11);
+
+  @$pb.TagNumber(13)
+  $core.int get leadDayTime => $_getIZ(12);
+  @$pb.TagNumber(13)
+  set leadDayTime($core.int v) { $_setSignedInt32(12, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasLeadDayTime() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearLeadDayTime() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.int get leadHoursTime => $_getIZ(13);
+  @$pb.TagNumber(14)
+  set leadHoursTime($core.int v) { $_setSignedInt32(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasLeadHoursTime() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearLeadHoursTime() => clearField(14);
+
+  @$pb.TagNumber(15)
+  $core.int get leadMinutesTime => $_getIZ(14);
+  @$pb.TagNumber(15)
+  set leadMinutesTime($core.int v) { $_setSignedInt32(14, v); }
+  @$pb.TagNumber(15)
+  $core.bool hasLeadMinutesTime() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearLeadMinutesTime() => clearField(15);
+
+  @$pb.TagNumber(16)
+  $core.bool get toPickUp => $_getBF(15);
+  @$pb.TagNumber(16)
+  set toPickUp($core.bool v) { $_setBool(15, v); }
+  @$pb.TagNumber(16)
+  $core.bool hasToPickUp() => $_has(15);
+  @$pb.TagNumber(16)
+  void clearToPickUp() => clearField(16);
+
+  @$pb.TagNumber(17)
+  $core.bool get homeDelivery => $_getBF(16);
+  @$pb.TagNumber(17)
+  set homeDelivery($core.bool v) { $_setBool(16, v); }
+  @$pb.TagNumber(17)
+  $core.bool hasHomeDelivery() => $_has(16);
+  @$pb.TagNumber(17)
+  void clearHomeDelivery() => clearField(17);
+
+  @$pb.TagNumber(18)
+  $core.String get businessBrandFk => $_getSZ(17);
+  @$pb.TagNumber(18)
+  set businessBrandFk($core.String v) { $_setString(17, v); }
+  @$pb.TagNumber(18)
+  $core.bool hasBusinessBrandFk() => $_has(17);
+  @$pb.TagNumber(18)
+  void clearBusinessBrandFk() => clearField(18);
+
+  @$pb.TagNumber(19)
+  $core.String get provinceFk => $_getSZ(18);
+  @$pb.TagNumber(19)
+  set provinceFk($core.String v) { $_setString(18, v); }
+  @$pb.TagNumber(19)
+  $core.bool hasProvinceFk() => $_has(18);
+  @$pb.TagNumber(19)
+  void clearProvinceFk() => clearField(19);
+
+  @$pb.TagNumber(20)
+  $core.String get municipalityFk => $_getSZ(19);
+  @$pb.TagNumber(20)
+  set municipalityFk($core.String v) { $_setString(19, v); }
+  @$pb.TagNumber(20)
+  $core.bool hasMunicipalityFk() => $_has(19);
+  @$pb.TagNumber(20)
+  void clearMunicipalityFk() => clearField(20);
+}
+
 class BannedUser extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'BannedUser', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
@@ -2320,7 +2839,7 @@ class UserAddress extends $pb.GeneratedMessage {
     ..e<UserAddress_UserAddressType>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'residenceType', $pb.PbFieldType.OE, protoName: 'residenceType', defaultOrMaker: UserAddress_UserAddressType.UNSPECIFIED, valueOf: UserAddress_UserAddressType.valueOf, enumValues: UserAddress_UserAddressType.values)
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'buildingNumber', protoName: 'buildingNumber')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'houseNumber', protoName: 'houseNumber')
-    ..aOM<LatLng>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', subBuilder: LatLng.create)
+    ..aOM<Point>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', subBuilder: Point.create)
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provinceFk', protoName: 'provinceFk')
@@ -2337,7 +2856,7 @@ class UserAddress extends $pb.GeneratedMessage {
     UserAddress_UserAddressType? residenceType,
     $core.String? buildingNumber,
     $core.String? houseNumber,
-    LatLng? coordinates,
+    Point? coordinates,
     $core.String? description,
     $core.String? userFk,
     $core.String? provinceFk,
@@ -2451,15 +2970,15 @@ class UserAddress extends $pb.GeneratedMessage {
   void clearHouseNumber() => clearField(5);
 
   @$pb.TagNumber(6)
-  LatLng get coordinates => $_getN(5);
+  Point get coordinates => $_getN(5);
   @$pb.TagNumber(6)
-  set coordinates(LatLng v) { setField(6, v); }
+  set coordinates(Point v) { setField(6, v); }
   @$pb.TagNumber(6)
   $core.bool hasCoordinates() => $_has(5);
   @$pb.TagNumber(6)
   void clearCoordinates() => clearField(6);
   @$pb.TagNumber(6)
-  LatLng ensureCoordinates() => $_ensure(5);
+  Point ensureCoordinates() => $_ensure(5);
 
   @$pb.TagNumber(7)
   $core.String get description => $_getSZ(6);
@@ -2819,15 +3338,15 @@ class VerificationCode extends $pb.GeneratedMessage {
   void clearUpdateTime() => clearField(7);
 }
 
-class LatLng extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'LatLng', createEmptyInstance: create)
+class Point extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Point', createEmptyInstance: create)
     ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'latitude', $pb.PbFieldType.OD)
     ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longitude', $pb.PbFieldType.OD)
     ..hasRequiredFields = false
   ;
 
-  LatLng._() : super();
-  factory LatLng({
+  Point._() : super();
+  factory Point({
     $core.double? latitude,
     $core.double? longitude,
   }) {
@@ -2840,26 +3359,26 @@ class LatLng extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory LatLng.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory LatLng.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory Point.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Point.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  LatLng clone() => LatLng()..mergeFromMessage(this);
+  Point clone() => Point()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  LatLng copyWith(void Function(LatLng) updates) => super.copyWith((message) => updates(message as LatLng)) as LatLng; // ignore: deprecated_member_use
+  Point copyWith(void Function(Point) updates) => super.copyWith((message) => updates(message as Point)) as Point; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static LatLng create() => LatLng._();
-  LatLng createEmptyInstance() => create();
-  static $pb.PbList<LatLng> createRepeated() => $pb.PbList<LatLng>();
+  static Point create() => Point._();
+  Point createEmptyInstance() => create();
+  static $pb.PbList<Point> createRepeated() => $pb.PbList<Point>();
   @$core.pragma('dart2js:noInline')
-  static LatLng getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LatLng>(create);
-  static LatLng? _defaultInstance;
+  static Point getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Point>(create);
+  static Point? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.double get latitude => $_getN(0);

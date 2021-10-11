@@ -126,7 +126,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
     try {
       final response = await verificationCodeLocalDataSource
           .listVerificationCode(paths: paths, context: context, data: data);
-      return Right(ListVerificationCodeResponse(verificationCode: response));
+      return Right(ListVerificationCodeResponse(verificationCodes: response));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception {
