@@ -16,7 +16,7 @@ service AuthenticationService {
   rpc CheckSession (CheckSessionRequest) returns (CheckSessionResponse) {}
 
   rpc UserExists (UserExistsRequest) returns (google.protobuf.Empty) {}
-  rpc UserAliasGenerator (stream UserAliasGeneratorRequest) returns (stream UserAliasGeneratorResponse) {}
+  rpc UserExistsStream (stream UserExistsStreamRequest) returns (stream UserExistsStreamResponse) {}
 }
 
 service ObjectStorageService {
@@ -56,11 +56,11 @@ message SignUpResponse {
   User user = 3;
 }
 
-message UserAliasGeneratorRequest {
+message UserExistsStreamRequest {
   string alias = 1;
 }
 
-message UserAliasGeneratorResponse {
+message UserExistsStreamResponse {
   bool isValid = 1;
 }
 

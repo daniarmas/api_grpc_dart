@@ -100,6 +100,8 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
+      CreateVerificationCodeResponse createVerificationCodeResponse =
+          CreateVerificationCodeResponse(verificationCode: verificationCode);
       User user = User(
           id: '1',
           email: 'prueba1@app.nat.cu',
@@ -111,15 +113,7 @@ void main() {
           photoUrl: '1',
           updateTime: '1',
           userAddress: null);
-      // BannedDevice device = BannedDevice(
-      //     id: '1',
-      //     deviceId: '1',
-      //     createTime: '1',
-      //     updateTime: '1',
-      //     description: '1',
-      //     deviceFk: '1',
-      //     moderatorAuthorizationTokenFk: '1');
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, CreateVerificationCodeResponse> result;
       when(mockBannedUserLocalDataSource.getBannedUser(
               data: anyNamed('data'),
               context: anyNamed('context'),
@@ -206,7 +200,7 @@ void main() {
           recipient: anyNamed('recipient'),
           time: anyNamed('time'),
           verificationCodeType: anyNamed('verificationCodeType')));
-      expect(result, Right(verificationCode));
+      expect(result, Right(createVerificationCodeResponse));
     });
 
     test(
@@ -218,6 +212,8 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
+      CreateVerificationCodeResponse createVerificationCodeResponse =
+          CreateVerificationCodeResponse(verificationCode: verificationCode);
       User user = User(
           id: '1',
           email: 'prueba1@app.nat.cu',
@@ -229,7 +225,7 @@ void main() {
           photoUrl: '1',
           updateTime: '1',
           userAddress: null);
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, CreateVerificationCodeResponse> result;
       when(mockBannedUserLocalDataSource.getBannedUser(
               data: anyNamed('data'),
               context: anyNamed('context'),
@@ -294,7 +290,7 @@ void main() {
           recipient: anyNamed('recipient'),
           time: anyNamed('time'),
           verificationCodeType: anyNamed('verificationCodeType')));
-      expect(result, Right(verificationCode));
+      expect(result, Right(createVerificationCodeResponse));
     });
 
     test('Return GrpcError.invalidArgument when email value is not valid',
@@ -306,7 +302,7 @@ void main() {
         'type': VerificationCodeType.SIGN_IN
       };
       // side effects
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, CreateVerificationCodeResponse> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
@@ -348,7 +344,7 @@ void main() {
         'type': VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED
       };
       // side effects
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, CreateVerificationCodeResponse> result;
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx, metadata: metadata);
       // expectations
@@ -391,7 +387,7 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, CreateVerificationCodeResponse> result;
       // side effects
       when(mockBannedUserLocalDataSource.getBannedUser(
               data: anyNamed('data'),
@@ -438,7 +434,7 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, CreateVerificationCodeResponse> result;
       // side effects
       when(mockBannedUserLocalDataSource.getBannedUser(
               data: anyNamed('data'),
@@ -490,7 +486,7 @@ void main() {
         'email': 'daniel@estudiantes.uci.cu',
         'type': VerificationCodeType.SIGN_IN
       };
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, CreateVerificationCodeResponse> result;
       // side effects
       when(mockBannedUserLocalDataSource.getBannedUser(
               data: anyNamed('data'),
@@ -560,7 +556,7 @@ void main() {
           photoUrl: '1',
           updateTime: '1',
           userAddress: null);
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, CreateVerificationCodeResponse> result;
       // side effects
       when(mockBannedUserLocalDataSource.getBannedUser(
               data: anyNamed('data'),
@@ -635,7 +631,7 @@ void main() {
           photoUrl: '1',
           updateTime: '1',
           userAddress: null);
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, CreateVerificationCodeResponse> result;
       // side effects
       when(mockBannedUserLocalDataSource.getBannedUser(
               data: anyNamed('data'),
@@ -727,7 +723,7 @@ void main() {
           photoUrl: '1',
           updateTime: '1',
           userAddress: null);
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, CreateVerificationCodeResponse> result;
       // side effects
       when(mockBannedUserLocalDataSource.getBannedUser(
               data: anyNamed('data'),
@@ -810,6 +806,9 @@ void main() {
         () async {
       // setup
       List<VerificationCode> listOfVerificationCode = [];
+      ListVerificationCodeResponse listVerificationCodeResponse =
+          ListVerificationCodeResponse(
+              verificationCode: listOfVerificationCode);
       when(mockVerificationCodeLocalDataSource.listVerificationCode(
               context: anyNamed('context'),
               paths: anyNamed('paths'),
@@ -823,7 +822,7 @@ void main() {
           context: anyNamed('context'),
           paths: anyNamed('paths'),
           data: anyNamed('data')));
-      expect(result, Right(listOfVerificationCode));
+      expect(result, Right(listVerificationCodeResponse));
     });
     test(
         'Return GrpcError.internal when listVerificationCode throw any Exception',
@@ -894,6 +893,8 @@ void main() {
           email: '1',
           id: '1',
           type: VerificationCodeType.SIGN_IN);
+      GetVerificationCodeResponse getVerificationCodeResponse =
+          GetVerificationCodeResponse(verificationCode: verificationCode);
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
               data: anyNamed('data'),
               context: anyNamed('context'),
@@ -905,7 +906,7 @@ void main() {
       // expectations
       verify(mockVerificationCodeLocalDataSource.getVerificationCode(
           data: {'id': '1'}, context: ctx, paths: []));
-      expect(result, Right(verificationCode));
+      expect(result, Right(getVerificationCodeResponse));
     });
     test(
         'Return GrpcError.notFound when everything is ok and dosnt exists a verificationCode with the provided id',

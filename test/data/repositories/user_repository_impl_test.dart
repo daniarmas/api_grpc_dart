@@ -191,7 +191,7 @@ void main() {
               data: anyNamed('data'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => null);
-      final result = await userRepositoryImpl.userAliasGenerator(
+      final result = await userRepositoryImpl.userExistsStream(
           context: ctx,
           data: {'alias': 'prueba', 'birthday': date.toString()},
           metadata: metadata);
@@ -200,7 +200,7 @@ void main() {
           context: anyNamed('context'),
           data: anyNamed('data'),
           paths: anyNamed('paths')));
-      expect(result, Right(UserAliasGeneratorResponse(isValid: true)));
+      expect(result, Right(UserExistsStreamResponse(isValid: true)));
     });
     test('Return isValid false when exists a user with that alias', () async {
       // setup
@@ -222,7 +222,7 @@ void main() {
               data: anyNamed('data'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => user);
-      final result = await userRepositoryImpl.userAliasGenerator(
+      final result = await userRepositoryImpl.userExistsStream(
           context: ctx,
           data: {'alias': 'prueba', 'birthday': date.toString()},
           metadata: metadata);
@@ -231,7 +231,7 @@ void main() {
           context: anyNamed('context'),
           data: anyNamed('data'),
           paths: anyNamed('paths')));
-      expect(result, Right(UserAliasGeneratorResponse(isValid: false)));
+      expect(result, Right(UserExistsStreamResponse(isValid: false)));
     });
     test(
         'Return GrpcError.invalidArgument when the alias in only numbers, and that is invalid',
@@ -239,7 +239,7 @@ void main() {
       // setup
       final date = DateTime.now();
       // side effects
-      final result = await userRepositoryImpl.userAliasGenerator(
+      final result = await userRepositoryImpl.userExistsStream(
           context: ctx,
           data: {'alias': '123213', 'birthday': date.toString()},
           metadata: metadata);
@@ -260,7 +260,7 @@ void main() {
               data: anyNamed('data'),
               paths: anyNamed('paths')))
           .thenThrow(Exception());
-      final result = await userRepositoryImpl.userAliasGenerator(
+      final result = await userRepositoryImpl.userExistsStream(
           context: ctx,
           data: {'alias': 'prueba', 'birthday': date.toString()},
           metadata: metadata);

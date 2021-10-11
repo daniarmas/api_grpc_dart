@@ -65,12 +65,12 @@ class AuthenticationServiceClient extends $grpc.Client {
           '/AuthenticationService/UserExists',
           ($0.UserExistsRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
-  static final _$userAliasGenerator = $grpc.ClientMethod<
-          $0.UserAliasGeneratorRequest, $0.UserAliasGeneratorResponse>(
-      '/AuthenticationService/UserAliasGenerator',
-      ($0.UserAliasGeneratorRequest value) => value.writeToBuffer(),
+  static final _$userExistsStream = $grpc.ClientMethod<
+          $0.UserExistsStreamRequest, $0.UserExistsStreamResponse>(
+      '/AuthenticationService/UserExistsStream',
+      ($0.UserExistsStreamRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
-          $0.UserAliasGeneratorResponse.fromBuffer(value));
+          $0.UserExistsStreamResponse.fromBuffer(value));
 
   AuthenticationServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -131,11 +131,10 @@ class AuthenticationServiceClient extends $grpc.Client {
     return $createUnaryCall(_$userExists, request, options: options);
   }
 
-  $grpc.ResponseStream<$0.UserAliasGeneratorResponse> userAliasGenerator(
-      $async.Stream<$0.UserAliasGeneratorRequest> request,
+  $grpc.ResponseStream<$0.UserExistsStreamResponse> userExistsStream(
+      $async.Stream<$0.UserExistsStreamRequest> request,
       {$grpc.CallOptions? options}) {
-    return $createStreamingCall(_$userAliasGenerator, request,
-        options: options);
+    return $createStreamingCall(_$userExistsStream, request, options: options);
   }
 }
 
@@ -217,15 +216,15 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.UserExistsRequest.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.UserAliasGeneratorRequest,
-            $0.UserAliasGeneratorResponse>(
-        'UserAliasGenerator',
-        userAliasGenerator,
+    $addMethod($grpc.ServiceMethod<$0.UserExistsStreamRequest,
+            $0.UserExistsStreamResponse>(
+        'UserExistsStream',
+        userExistsStream,
         true,
         true,
         ($core.List<$core.int> value) =>
-            $0.UserAliasGeneratorRequest.fromBuffer(value),
-        ($0.UserAliasGeneratorResponse value) => value.writeToBuffer()));
+            $0.UserExistsStreamRequest.fromBuffer(value),
+        ($0.UserExistsStreamResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CreateVerificationCodeResponse> createVerificationCode_Pre(
@@ -296,9 +295,9 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.CheckSessionRequest request);
   $async.Future<$1.Empty> userExists(
       $grpc.ServiceCall call, $0.UserExistsRequest request);
-  $async.Stream<$0.UserAliasGeneratorResponse> userAliasGenerator(
+  $async.Stream<$0.UserExistsStreamResponse> userExistsStream(
       $grpc.ServiceCall call,
-      $async.Stream<$0.UserAliasGeneratorRequest> request);
+      $async.Stream<$0.UserExistsStreamRequest> request);
 }
 
 class ObjectStorageServiceClient extends $grpc.Client {

@@ -92,26 +92,26 @@ const SignUpResponse$json = const {
 
 /// Descriptor for `SignUpResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List signUpResponseDescriptor = $convert.base64Decode('Cg5TaWduVXBSZXNwb25zZRIiCgxyZWZyZXNoVG9rZW4YASABKAlSDHJlZnJlc2hUb2tlbhIuChJhdXRob3JpemF0aW9uVG9rZW4YAiABKAlSEmF1dGhvcml6YXRpb25Ub2tlbhIZCgR1c2VyGAMgASgLMgUuVXNlclIEdXNlcg==');
-@$core.Deprecated('Use userAliasGeneratorRequestDescriptor instead')
-const UserAliasGeneratorRequest$json = const {
-  '1': 'UserAliasGeneratorRequest',
+@$core.Deprecated('Use userExistsStreamRequestDescriptor instead')
+const UserExistsStreamRequest$json = const {
+  '1': 'UserExistsStreamRequest',
   '2': const [
     const {'1': 'alias', '3': 1, '4': 1, '5': 9, '10': 'alias'},
   ],
 };
 
-/// Descriptor for `UserAliasGeneratorRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userAliasGeneratorRequestDescriptor = $convert.base64Decode('ChlVc2VyQWxpYXNHZW5lcmF0b3JSZXF1ZXN0EhQKBWFsaWFzGAEgASgJUgVhbGlhcw==');
-@$core.Deprecated('Use userAliasGeneratorResponseDescriptor instead')
-const UserAliasGeneratorResponse$json = const {
-  '1': 'UserAliasGeneratorResponse',
+/// Descriptor for `UserExistsStreamRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userExistsStreamRequestDescriptor = $convert.base64Decode('ChdVc2VyRXhpc3RzU3RyZWFtUmVxdWVzdBIUCgVhbGlhcxgBIAEoCVIFYWxpYXM=');
+@$core.Deprecated('Use userExistsStreamResponseDescriptor instead')
+const UserExistsStreamResponse$json = const {
+  '1': 'UserExistsStreamResponse',
   '2': const [
     const {'1': 'isValid', '3': 1, '4': 1, '5': 8, '10': 'isValid'},
   ],
 };
 
-/// Descriptor for `UserAliasGeneratorResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userAliasGeneratorResponseDescriptor = $convert.base64Decode('ChpVc2VyQWxpYXNHZW5lcmF0b3JSZXNwb25zZRIYCgdpc1ZhbGlkGAEgASgIUgdpc1ZhbGlk');
+/// Descriptor for `UserExistsStreamResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userExistsStreamResponseDescriptor = $convert.base64Decode('ChhVc2VyRXhpc3RzU3RyZWFtUmVzcG9uc2USGAoHaXNWYWxpZBgBIAEoCFIHaXNWYWxpZA==');
 @$core.Deprecated('Use userExistsRequestDescriptor instead')
 const UserExistsRequest$json = const {
   '1': 'UserExistsRequest',

@@ -30,11 +30,12 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       required this.verificationCodeLocalDataSource});
 
   @override
-  Future<Either<GrpcError, VerificationCode>> createVerificationCode(
-      {required PostgreSQLExecutionContext context,
-      required Map<String, dynamic> data,
-      required HeadersMetadata metadata,
-      required List<String> paths}) async {
+  Future<Either<GrpcError, CreateVerificationCodeResponse>>
+      createVerificationCode(
+          {required PostgreSQLExecutionContext context,
+          required Map<String, dynamic> data,
+          required HeadersMetadata metadata,
+          required List<String> paths}) async {
     try {
       if (data['type'] ==
           VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED) {
@@ -94,7 +95,8 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
             device:
                 '${metadata.model} - ${metadata.platform} ${metadata.systemVersion}',
             time: DateTime.parse(response.createTime));
-        return Right(response);
+        return Right(
+            CreateVerificationCodeResponse(verificationCode: response));
       }
     } on GrpcError catch (error) {
       return Left(error);
@@ -116,7 +118,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   }
 
   @override
-  Future<Either<GrpcError, Iterable<VerificationCode>>> listVerificationCode(
+  Future<Either<GrpcError, ListVerificationCodeResponse>> listVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
@@ -124,7 +126,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
     try {
       final response = await verificationCodeLocalDataSource
           .listVerificationCode(paths: paths, context: context, data: data);
-      return Right(response);
+      return Right(ListVerificationCodeResponse(verificationCode: response));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception {
@@ -133,7 +135,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   }
 
   @override
-  Future<Either<GrpcError, VerificationCode>> getVerificationCode(
+  Future<Either<GrpcError, GetVerificationCodeResponse>> getVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
@@ -142,7 +144,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       final response = await verificationCodeLocalDataSource
           .getVerificationCode(data: data, paths: paths, context: context);
       if (response != null) {
-        return Right(response);
+        return Right(GetVerificationCodeResponse(verificationCode: response));
       }
       return Left(GrpcError.notFound('Not found'));
     } on GrpcError catch (error) {
@@ -173,16 +175,18 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
   }
 
   @override
-  Future<Either<GrpcError, VerificationCode>> updateVerificationCode(
-      {required PostgreSQLExecutionContext context,
-      required Map<String, dynamic> data,
-      required HeadersMetadata metadata,
-      required List<String> paths}) async {
+  Future<Either<GrpcError, UpdateVerificationCodeResponse>>
+      updateVerificationCode(
+          {required PostgreSQLExecutionContext context,
+          required Map<String, dynamic> data,
+          required HeadersMetadata metadata,
+          required List<String> paths}) async {
     try {
       final response = await verificationCodeLocalDataSource
           .updateVerificationCode(data: data, paths: paths, context: context);
       if (response != null) {
-        return Right(response);
+        return Right(
+            UpdateVerificationCodeResponse(verificationCode: response));
       }
       return Left(GrpcError.notFound('Not found'));
     } on GrpcError catch (error) {
