@@ -21,7 +21,7 @@ class AuthenticationService extends AuthenticationServiceBase {
       late CreateVerificationCodeResponse response;
       VerificationCodeRepository verificationCodeRepository =
           GetIt.I<VerificationCodeRepository>();
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, CreateVerificationCodeResponse> result;
       var connection = await database.getConnection();
       HeadersMetadata metadata = HeadersMetadata.fromServiceCall(call);
       await connection.transaction((context) async {
@@ -31,12 +31,7 @@ class AuthenticationService extends AuthenticationServiceBase {
             paths: request.fieldMask.paths,
             context: context);
       });
-      result.fold(
-          (left) => {throw left},
-          (right) => {
-                response =
-                    CreateVerificationCodeResponse(verificationCode: right)
-              });
+      result.fold((left) => {throw left}, (right) => {response = right});
       return response;
     } catch (error) {
       if (error is GrpcError) {
@@ -54,7 +49,7 @@ class AuthenticationService extends AuthenticationServiceBase {
       late ListVerificationCodeResponse response;
       VerificationCodeRepository verificationCodeRepository =
           GetIt.I<VerificationCodeRepository>();
-      late Either<GrpcError, Iterable<VerificationCode>> result;
+      late Either<GrpcError, ListVerificationCodeResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
         result = await verificationCodeRepository.listVerificationCode(
@@ -64,11 +59,7 @@ class AuthenticationService extends AuthenticationServiceBase {
           data: getRequestData(request),
         );
       });
-      result.fold(
-          (left) => {throw left},
-          (right) => {
-                response = ListVerificationCodeResponse(verificationCode: right)
-              });
+      result.fold((left) => {throw left}, (right) => {response = right});
       return response;
     } catch (error) {
       if (error is GrpcError) {
@@ -86,7 +77,7 @@ class AuthenticationService extends AuthenticationServiceBase {
       late GetVerificationCodeResponse response;
       VerificationCodeRepository verificationCodeRepository =
           GetIt.I<VerificationCodeRepository>();
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, GetVerificationCodeResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
         result = await verificationCodeRepository.getVerificationCode(
@@ -95,11 +86,7 @@ class AuthenticationService extends AuthenticationServiceBase {
             paths: request.fieldMask.paths,
             context: context);
       });
-      result.fold(
-          (left) => {throw left},
-          (right) => {
-                response = GetVerificationCodeResponse(verificationCode: right)
-              });
+      result.fold((left) => {throw left}, (right) => {response = right});
       return response;
     } catch (error) {
       if (error is GrpcError) {
@@ -168,7 +155,7 @@ class AuthenticationService extends AuthenticationServiceBase {
       late UpdateVerificationCodeResponse response;
       VerificationCodeRepository verificationCodeRepository =
           GetIt.I<VerificationCodeRepository>();
-      late Either<GrpcError, VerificationCode> result;
+      late Either<GrpcError, UpdateVerificationCodeResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
         result = await verificationCodeRepository.updateVerificationCode(
@@ -177,12 +164,7 @@ class AuthenticationService extends AuthenticationServiceBase {
             paths: request.fieldMask.paths,
             context: context);
       });
-      result.fold(
-          (left) => {throw left},
-          (right) => {
-                response =
-                    UpdateVerificationCodeResponse(verificationCode: right)
-              });
+      result.fold((left) => {throw left}, (right) => {response = right});
       return response;
     } catch (error) {
       if (error is GrpcError) {
@@ -245,16 +227,16 @@ class AuthenticationService extends AuthenticationServiceBase {
   }
 
   @override
-  Stream<UserAliasGeneratorResponse> userAliasGenerator(
-      ServiceCall call, Stream<UserAliasGeneratorRequest> request) async* {
+  Stream<UserExistsStreamResponse> userExistsStream(
+      ServiceCall call, Stream<UserExistsStreamRequest> request) async* {
     try {
       UserRepository userRepository = GetIt.I<UserRepository>();
-      late UserAliasGeneratorResponse response;
-      late Either<GrpcError, UserAliasGeneratorResponse> result;
+      late UserExistsStreamResponse response;
+      late Either<GrpcError, UserExistsStreamResponse> result;
       var connection = await database.getConnection();
       await for (var item in request) {
         await connection.transaction((context) async {
-          result = await userRepository.userAliasGenerator(
+          result = await userRepository.userExistsStream(
               metadata: HeadersMetadata.fromServiceCall(call),
               data: getRequestData(item),
               context: context);

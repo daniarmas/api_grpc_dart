@@ -303,14 +303,14 @@ class SignUpResponse extends $pb.GeneratedMessage {
   User ensureUser() => $_ensure(2);
 }
 
-class UserAliasGeneratorRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserAliasGeneratorRequest', createEmptyInstance: create)
+class UserExistsStreamRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserExistsStreamRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alias')
     ..hasRequiredFields = false
   ;
 
-  UserAliasGeneratorRequest._() : super();
-  factory UserAliasGeneratorRequest({
+  UserExistsStreamRequest._() : super();
+  factory UserExistsStreamRequest({
     $core.String? alias,
   }) {
     final _result = create();
@@ -319,26 +319,26 @@ class UserAliasGeneratorRequest extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory UserAliasGeneratorRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UserAliasGeneratorRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory UserExistsStreamRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserExistsStreamRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  UserAliasGeneratorRequest clone() => UserAliasGeneratorRequest()..mergeFromMessage(this);
+  UserExistsStreamRequest clone() => UserExistsStreamRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  UserAliasGeneratorRequest copyWith(void Function(UserAliasGeneratorRequest) updates) => super.copyWith((message) => updates(message as UserAliasGeneratorRequest)) as UserAliasGeneratorRequest; // ignore: deprecated_member_use
+  UserExistsStreamRequest copyWith(void Function(UserExistsStreamRequest) updates) => super.copyWith((message) => updates(message as UserExistsStreamRequest)) as UserExistsStreamRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static UserAliasGeneratorRequest create() => UserAliasGeneratorRequest._();
-  UserAliasGeneratorRequest createEmptyInstance() => create();
-  static $pb.PbList<UserAliasGeneratorRequest> createRepeated() => $pb.PbList<UserAliasGeneratorRequest>();
+  static UserExistsStreamRequest create() => UserExistsStreamRequest._();
+  UserExistsStreamRequest createEmptyInstance() => create();
+  static $pb.PbList<UserExistsStreamRequest> createRepeated() => $pb.PbList<UserExistsStreamRequest>();
   @$core.pragma('dart2js:noInline')
-  static UserAliasGeneratorRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserAliasGeneratorRequest>(create);
-  static UserAliasGeneratorRequest? _defaultInstance;
+  static UserExistsStreamRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserExistsStreamRequest>(create);
+  static UserExistsStreamRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get alias => $_getSZ(0);
@@ -350,14 +350,14 @@ class UserAliasGeneratorRequest extends $pb.GeneratedMessage {
   void clearAlias() => clearField(1);
 }
 
-class UserAliasGeneratorResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserAliasGeneratorResponse', createEmptyInstance: create)
+class UserExistsStreamResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserExistsStreamResponse', createEmptyInstance: create)
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isValid', protoName: 'isValid')
     ..hasRequiredFields = false
   ;
 
-  UserAliasGeneratorResponse._() : super();
-  factory UserAliasGeneratorResponse({
+  UserExistsStreamResponse._() : super();
+  factory UserExistsStreamResponse({
     $core.bool? isValid,
   }) {
     final _result = create();
@@ -366,26 +366,26 @@ class UserAliasGeneratorResponse extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory UserAliasGeneratorResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UserAliasGeneratorResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory UserExistsStreamResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserExistsStreamResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  UserAliasGeneratorResponse clone() => UserAliasGeneratorResponse()..mergeFromMessage(this);
+  UserExistsStreamResponse clone() => UserExistsStreamResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  UserAliasGeneratorResponse copyWith(void Function(UserAliasGeneratorResponse) updates) => super.copyWith((message) => updates(message as UserAliasGeneratorResponse)) as UserAliasGeneratorResponse; // ignore: deprecated_member_use
+  UserExistsStreamResponse copyWith(void Function(UserExistsStreamResponse) updates) => super.copyWith((message) => updates(message as UserExistsStreamResponse)) as UserExistsStreamResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static UserAliasGeneratorResponse create() => UserAliasGeneratorResponse._();
-  UserAliasGeneratorResponse createEmptyInstance() => create();
-  static $pb.PbList<UserAliasGeneratorResponse> createRepeated() => $pb.PbList<UserAliasGeneratorResponse>();
+  static UserExistsStreamResponse create() => UserExistsStreamResponse._();
+  UserExistsStreamResponse createEmptyInstance() => create();
+  static $pb.PbList<UserExistsStreamResponse> createRepeated() => $pb.PbList<UserExistsStreamResponse>();
   @$core.pragma('dart2js:noInline')
-  static UserAliasGeneratorResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserAliasGeneratorResponse>(create);
-  static UserAliasGeneratorResponse? _defaultInstance;
+  static UserExistsStreamResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserExistsStreamResponse>(create);
+  static UserExistsStreamResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get isValid => $_getBF(0);

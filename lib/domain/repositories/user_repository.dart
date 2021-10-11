@@ -22,7 +22,7 @@ abstract class UserRepository {
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
       required List<String> paths});
-  Future<Either<GrpcError, UserAliasGeneratorResponse>> userAliasGenerator(
+  Future<Either<GrpcError, UserExistsStreamResponse>> userExistsStream(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata});

@@ -44,7 +44,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<GrpcError, UserAliasGeneratorResponse>> userAliasGenerator(
+  Future<Either<GrpcError, UserExistsStreamResponse>> userExistsStream(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata}) async {
@@ -53,7 +53,7 @@ class UserRepositoryImpl implements UserRepository {
           Validation.alias(data['alias'])) {
         final response = await userLocalDataSource
             .getUser(paths: ['alias'], context: context, data: data);
-        return Right(UserAliasGeneratorResponse(
+        return Right(UserExistsStreamResponse(
             isValid: (response == null) ? true : false));
       } else {
         return Left(GrpcError.invalidArgument('Input `alias` invalid'));
