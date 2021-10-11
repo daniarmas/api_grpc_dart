@@ -39,7 +39,8 @@ service Health {
 // Request & Response Message
 
 message ListBusinessRequest {
-  google.protobuf.FieldMask fieldMask = 1;
+  Point location = 1;
+  google.protobuf.FieldMask fieldMask = 2;
 }
 
 message ListBusinessResponse {
@@ -215,6 +216,7 @@ message Business {
   string businessBrandFk = 18;
   string provinceFk = 19;
   string municipalityFk = 20;
+  double distance = 21;
 }
 
 message BannedUser {

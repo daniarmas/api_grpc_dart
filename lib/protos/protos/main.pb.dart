@@ -17,15 +17,20 @@ export 'main.pbenum.dart';
 
 class ListBusinessRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListBusinessRequest', createEmptyInstance: create)
-    ..aOM<$2.FieldMask>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..aOM<Point>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'location', subBuilder: Point.create)
+    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
   ListBusinessRequest._() : super();
   factory ListBusinessRequest({
+    Point? location,
     $2.FieldMask? fieldMask,
   }) {
     final _result = create();
+    if (location != null) {
+      _result.location = location;
+    }
     if (fieldMask != null) {
       _result.fieldMask = fieldMask;
     }
@@ -53,15 +58,26 @@ class ListBusinessRequest extends $pb.GeneratedMessage {
   static ListBusinessRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $2.FieldMask get fieldMask => $_getN(0);
+  Point get location => $_getN(0);
   @$pb.TagNumber(1)
-  set fieldMask($2.FieldMask v) { setField(1, v); }
+  set location(Point v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasFieldMask() => $_has(0);
+  $core.bool hasLocation() => $_has(0);
   @$pb.TagNumber(1)
-  void clearFieldMask() => clearField(1);
+  void clearLocation() => clearField(1);
   @$pb.TagNumber(1)
-  $2.FieldMask ensureFieldMask() => $_ensure(0);
+  Point ensureLocation() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $2.FieldMask get fieldMask => $_getN(1);
+  @$pb.TagNumber(2)
+  set fieldMask($2.FieldMask v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasFieldMask() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFieldMask() => clearField(2);
+  @$pb.TagNumber(2)
+  $2.FieldMask ensureFieldMask() => $_ensure(1);
 }
 
 class ListBusinessResponse extends $pb.GeneratedMessage {
@@ -1826,6 +1842,7 @@ class Business extends $pb.GeneratedMessage {
     ..aOS(18, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessBrandFk', protoName: 'businessBrandFk')
     ..aOS(19, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provinceFk', protoName: 'provinceFk')
     ..aOS(20, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'municipalityFk', protoName: 'municipalityFk')
+    ..a<$core.double>(21, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'distance', $pb.PbFieldType.OD)
     ..hasRequiredFields = false
   ;
 
@@ -1851,6 +1868,7 @@ class Business extends $pb.GeneratedMessage {
     $core.String? businessBrandFk,
     $core.String? provinceFk,
     $core.String? municipalityFk,
+    $core.double? distance,
   }) {
     final _result = create();
     if (id != null) {
@@ -1912,6 +1930,9 @@ class Business extends $pb.GeneratedMessage {
     }
     if (municipalityFk != null) {
       _result.municipalityFk = municipalityFk;
+    }
+    if (distance != null) {
+      _result.distance = distance;
     }
     return _result;
   }
@@ -2119,6 +2140,15 @@ class Business extends $pb.GeneratedMessage {
   $core.bool hasMunicipalityFk() => $_has(19);
   @$pb.TagNumber(20)
   void clearMunicipalityFk() => clearField(20);
+
+  @$pb.TagNumber(21)
+  $core.double get distance => $_getN(20);
+  @$pb.TagNumber(21)
+  set distance($core.double v) { $_setDouble(20, v); }
+  @$pb.TagNumber(21)
+  $core.bool hasDistance() => $_has(20);
+  @$pb.TagNumber(21)
+  void clearDistance() => clearField(21);
 }
 
 class BannedUser extends $pb.GeneratedMessage {

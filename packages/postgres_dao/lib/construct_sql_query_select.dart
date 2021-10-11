@@ -137,7 +137,7 @@ String constructSqlQuerySelect({
           }
         }
       } else {
-        // whereString += ' AND ';
+        whereString += ' AND ';
         if (where[i] is And) {
           var and = where[i] as And;
           for (var y = 0; y < and.attributes.length; y++) {
