@@ -67,49 +67,6 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
     }
   }
 
-  // @override
-  // Future<List<Business>> listBusiness(
-  //     {required PostgreSQLExecutionContext context,
-  //     required Map<String, dynamic> data,
-  //     required List<String> paths}) async {
-  //   try {
-  //     List<Business> response = [];
-  //     final result = await _database.list(
-  //         context: context,
-  //         table: _table,
-  //         attributes: paths,
-  //         where: getWhereNormalAttributeList(data),
-  //         limit: 100);
-  //     for (var result in result) {
-  //       response.add(Business(
-  //         id: result['id'],
-  //         name: result['name'],
-  //         email: result['email'],
-  //         address: result['address'],
-  //         coordinates: null,
-  //         deliveryPrice: result['deliveryPrice'],
-  //         description: result['description'],
-  //         homeDelivery: result['homeDelivery'],
-  //         isOpen: result['isOpen'],
-  //         leadDayTime: result['leadDayTime'],
-  //         leadHoursTime: result['leadHoursTime'],
-  //         leadMinutesTime: result['leadMinutesTime'],
-  //         phone: result['phone'],
-  //         photo: result['photo'],
-  //         photoUrl: result['photoUrl'],
-  //         polygon: null,
-  //         provinceFk: result['provinceFk'],
-  //         municipalityFk: result['municipalityFk'],
-  //         businessBrandFk: result['businessBrandFk'],
-  //         toPickUp: result['toPickUp'],
-  //       ));
-  //     }
-  //     return response;
-  //   } catch (error) {
-  //     rethrow;
-  //   }
-  // }
-
   @override
   Future<List<Business>> listBusiness({
     required PostgreSQLExecutionContext context,
@@ -147,38 +104,22 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
           ]),
         ],
         limit: 10);
-    List<Business> responseList = [];
+    List<Business> response = [];
     for (var e in result) {
-      responseList.add(Business(
-          id: e['id'],
-          name: e['name'],
-          description: e['description'],
-          address: e['address'],
-          phone: e['phone'],
-          email: e['email'],
-          photo: e['photo'],
-          photoUrl: e['photoUrl'],
-          // polygon: parsePolygon(result[0]['']['polygon']),
-          distance: e['distance'],
-          coordinates:
-              Point(latitude: e['latitude'], longitude: e['longitude'])));
+      response.add(Business(
+          id: e[_table]['id'],
+          name: e[_table]['name'],
+          description: e[_table]['description'],
+          address: e[_table]['address'],
+          phone: e[_table]['phone'],
+          email: e[_table]['email'],
+          photo: e[_table]['photo'],
+          photoUrl: e[_table]['photoUrl'],
+          // polygon: parsePolygon(e['']['polygon'][0]),
+          distance: e[_table]['distance'],
+          coordinates: Point(
+              latitude: e['']['latitude'], longitude: e['']['longitude'])));
     }
-    var response = result.map((e) {
-      return Business(
-          id: e['id'],
-          name: e['name'],
-          description: e['description'],
-          address: e['address'],
-          phone: e['phone'],
-          email: e['email'],
-          photo: e['photo'],
-          photoUrl: e['photoUrl'],
-          // polygon: parsePolygon(result[0]['']['polygon']),
-          distance: e['distance'],
-          coordinates:
-              Point(latitude: e['latitude'], longitude: e['longitude']));
-    });
-    print(response.runtimeType);
-    return responseList;
+    return response;
   }
 }

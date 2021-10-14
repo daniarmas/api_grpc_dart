@@ -206,7 +206,7 @@ message Business {
   string photoUrl = 8;
   bool isOpen = 9;
   double deliveryPrice = 10;
-  Polygon polygon = 11;
+  repeated Polygon polygon = 11;
   Point coordinates = 12;
   int32 leadDayTime = 13;
   int32 leadHoursTime = 14;

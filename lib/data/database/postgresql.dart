@@ -52,7 +52,10 @@ class PostgresqlDatabase implements Database {
       required String table,
       required Map<String, dynamic> data,
       required List<String> attributes}) async {
-    data.addAll({'createTime': DateTime.now(), 'updateTime': DateTime.now()});
+    data.addAll({
+      'createTime': DateTime.now().toUtc(),
+      'updateTime': DateTime.now().toUtc()
+    });
     return await _connection.create(
         table: table, data: data, attributes: attributes, context: context);
   }

@@ -209,15 +209,15 @@ String constructSqlQuerySelect({
         } else {
           var item = where[i] as WhereAttribute;
           if (item is WhereNormalAttribute) {
-            whereString += ' AND "$table".${item.key} = \'${item.value}\' ';
+            whereString += ' "$table".${item.key} = \'${item.value}\' ';
           } else if (item is WhereNormalAttributeNotIn && item.value != '') {
-            whereString += ' AND "$table".${item.key} ${item.value} ';
+            whereString += ' "$table".${item.key} ${item.value} ';
           } else if (item is WhereNormalAttributeNotIn && item.value == '') {
           } else if (item is WhereNormalAttributeIn && item.value != '') {
-            whereString += ' AND "$table".${item.key} ${item.value} ';
+            whereString += ' "$table".${item.key} ${item.value} ';
           } else if (item is WhereNormalAttributeIn && item.value == '') {
           } else {
-            whereString += ' AND ${item.key} = \'${item.value}\' ';
+            whereString += ' ${item.key} = \'${item.value}\' ';
           }
         }
       }

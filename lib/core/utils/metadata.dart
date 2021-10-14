@@ -1,4 +1,4 @@
-import 'package:api_grpc_dart/core/utils/parse_enums.dart';
+import 'package:api_grpc_dart/core/utils/parse.dart';
 import 'package:grpc/grpc.dart';
 
 import '../../protos/protos/main.pb.dart';

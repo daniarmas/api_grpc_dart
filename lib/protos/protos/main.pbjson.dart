@@ -394,7 +394,7 @@ const Business$json = const {
     const {'1': 'photoUrl', '3': 8, '4': 1, '5': 9, '10': 'photoUrl'},
     const {'1': 'isOpen', '3': 9, '4': 1, '5': 8, '10': 'isOpen'},
     const {'1': 'deliveryPrice', '3': 10, '4': 1, '5': 1, '10': 'deliveryPrice'},
-    const {'1': 'polygon', '3': 11, '4': 1, '5': 11, '6': '.Polygon', '10': 'polygon'},
+    const {'1': 'polygon', '3': 11, '4': 3, '5': 11, '6': '.Polygon', '10': 'polygon'},
     const {'1': 'coordinates', '3': 12, '4': 1, '5': 11, '6': '.Point', '10': 'coordinates'},
     const {'1': 'leadDayTime', '3': 13, '4': 1, '5': 5, '10': 'leadDayTime'},
     const {'1': 'leadHoursTime', '3': 14, '4': 1, '5': 5, '10': 'leadHoursTime'},
@@ -409,7 +409,7 @@ const Business$json = const {
 };
 
 /// Descriptor for `Business`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List businessDescriptor = $convert.base64Decode('CghCdXNpbmVzcxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVzY3JpcHRpb24SGAoHYWRkcmVzcxgEIAEoCVIHYWRkcmVzcxIUCgVwaG9uZRgFIAEoCVIFcGhvbmUSFAoFZW1haWwYBiABKAlSBWVtYWlsEhQKBXBob3RvGAcgASgJUgVwaG90bxIaCghwaG90b1VybBgIIAEoCVIIcGhvdG9VcmwSFgoGaXNPcGVuGAkgASgIUgZpc09wZW4SJAoNZGVsaXZlcnlQcmljZRgKIAEoAVINZGVsaXZlcnlQcmljZRIiCgdwb2x5Z29uGAsgASgLMgguUG9seWdvblIHcG9seWdvbhIoCgtjb29yZGluYXRlcxgMIAEoCzIGLlBvaW50Ugtjb29yZGluYXRlcxIgCgtsZWFkRGF5VGltZRgNIAEoBVILbGVhZERheVRpbWUSJAoNbGVhZEhvdXJzVGltZRgOIAEoBVINbGVhZEhvdXJzVGltZRIoCg9sZWFkTWludXRlc1RpbWUYDyABKAVSD2xlYWRNaW51dGVzVGltZRIaCgh0b1BpY2tVcBgQIAEoCFIIdG9QaWNrVXASIgoMaG9tZURlbGl2ZXJ5GBEgASgIUgxob21lRGVsaXZlcnkSKAoPYnVzaW5lc3NCcmFuZEZrGBIgASgJUg9idXNpbmVzc0JyYW5kRmsSHgoKcHJvdmluY2VGaxgTIAEoCVIKcHJvdmluY2VGaxImCg5tdW5pY2lwYWxpdHlGaxgUIAEoCVIObXVuaWNpcGFsaXR5RmsSGgoIZGlzdGFuY2UYFSABKAFSCGRpc3RhbmNl');
+final $typed_data.Uint8List businessDescriptor = $convert.base64Decode('CghCdXNpbmVzcxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVzY3JpcHRpb24SGAoHYWRkcmVzcxgEIAEoCVIHYWRkcmVzcxIUCgVwaG9uZRgFIAEoCVIFcGhvbmUSFAoFZW1haWwYBiABKAlSBWVtYWlsEhQKBXBob3RvGAcgASgJUgVwaG90bxIaCghwaG90b1VybBgIIAEoCVIIcGhvdG9VcmwSFgoGaXNPcGVuGAkgASgIUgZpc09wZW4SJAoNZGVsaXZlcnlQcmljZRgKIAEoAVINZGVsaXZlcnlQcmljZRIiCgdwb2x5Z29uGAsgAygLMgguUG9seWdvblIHcG9seWdvbhIoCgtjb29yZGluYXRlcxgMIAEoCzIGLlBvaW50Ugtjb29yZGluYXRlcxIgCgtsZWFkRGF5VGltZRgNIAEoBVILbGVhZERheVRpbWUSJAoNbGVhZEhvdXJzVGltZRgOIAEoBVINbGVhZEhvdXJzVGltZRIoCg9sZWFkTWludXRlc1RpbWUYDyABKAVSD2xlYWRNaW51dGVzVGltZRIaCgh0b1BpY2tVcBgQIAEoCFIIdG9QaWNrVXASIgoMaG9tZURlbGl2ZXJ5GBEgASgIUgxob21lRGVsaXZlcnkSKAoPYnVzaW5lc3NCcmFuZEZrGBIgASgJUg9idXNpbmVzc0JyYW5kRmsSHgoKcHJvdmluY2VGaxgTIAEoCVIKcHJvdmluY2VGaxImCg5tdW5pY2lwYWxpdHlGaxgUIAEoCVIObXVuaWNpcGFsaXR5RmsSGgoIZGlzdGFuY2UYFSABKAFSCGRpc3RhbmNl');
 @$core.Deprecated('Use bannedUserDescriptor instead')
 const BannedUser$json = const {
   '1': 'BannedUser',

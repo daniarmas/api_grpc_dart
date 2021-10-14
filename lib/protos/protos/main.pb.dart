@@ -1832,7 +1832,7 @@ class Business extends $pb.GeneratedMessage {
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photoUrl', protoName: 'photoUrl')
     ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isOpen', protoName: 'isOpen')
     ..a<$core.double>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deliveryPrice', $pb.PbFieldType.OD, protoName: 'deliveryPrice')
-    ..aOM<Polygon>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'polygon', subBuilder: Polygon.create)
+    ..pc<Polygon>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'polygon', $pb.PbFieldType.PM, subBuilder: Polygon.create)
     ..aOM<Point>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', subBuilder: Point.create)
     ..a<$core.int>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'leadDayTime', $pb.PbFieldType.O3, protoName: 'leadDayTime')
     ..a<$core.int>(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'leadHoursTime', $pb.PbFieldType.O3, protoName: 'leadHoursTime')
@@ -1858,7 +1858,7 @@ class Business extends $pb.GeneratedMessage {
     $core.String? photoUrl,
     $core.bool? isOpen,
     $core.double? deliveryPrice,
-    Polygon? polygon,
+    $core.Iterable<Polygon>? polygon,
     Point? coordinates,
     $core.int? leadDayTime,
     $core.int? leadHoursTime,
@@ -1902,7 +1902,7 @@ class Business extends $pb.GeneratedMessage {
       _result.deliveryPrice = deliveryPrice;
     }
     if (polygon != null) {
-      _result.polygon = polygon;
+      _result.polygon.addAll(polygon);
     }
     if (coordinates != null) {
       _result.coordinates = coordinates;
@@ -2048,15 +2048,7 @@ class Business extends $pb.GeneratedMessage {
   void clearDeliveryPrice() => clearField(10);
 
   @$pb.TagNumber(11)
-  Polygon get polygon => $_getN(10);
-  @$pb.TagNumber(11)
-  set polygon(Polygon v) { setField(11, v); }
-  @$pb.TagNumber(11)
-  $core.bool hasPolygon() => $_has(10);
-  @$pb.TagNumber(11)
-  void clearPolygon() => clearField(11);
-  @$pb.TagNumber(11)
-  Polygon ensurePolygon() => $_ensure(10);
+  $core.List<Polygon> get polygon => $_getList(10);
 
   @$pb.TagNumber(12)
   Point get coordinates => $_getN(11);

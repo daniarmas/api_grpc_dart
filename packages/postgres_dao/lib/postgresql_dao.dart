@@ -130,12 +130,7 @@ class PostgresqlDao {
       print(query);
       var result = await context.mappedResultsQuery(query);
       for (var item in result) {
-        Map<String, dynamic> map = {};
-        if (item[''] != null) {
-          map.addAll(item['']!);
-        }
-        map.addAll(item[table]!);
-        response.add(map);
+        response.add(item);
       }
       return response;
     } catch (error) {
