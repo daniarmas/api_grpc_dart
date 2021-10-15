@@ -127,7 +127,7 @@ class PostgresqlDatabase implements Database {
     try {
       return await _connection.list(
           context: context,
-          limit: limit,
+          limit: (limit != null) ? limit + 1 : limit,
           where: where,
           table: table,
           attributes: attributes,

@@ -18,18 +18,23 @@ export 'main.pbenum.dart';
 class ListBusinessRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListBusinessRequest', createEmptyInstance: create)
     ..aOM<Point>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'location', subBuilder: Point.create)
-    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
+    ..aOM<$2.FieldMask>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
   ListBusinessRequest._() : super();
   factory ListBusinessRequest({
     Point? location,
+    $core.String? nextPage,
     $2.FieldMask? fieldMask,
   }) {
     final _result = create();
     if (location != null) {
       _result.location = location;
+    }
+    if (nextPage != null) {
+      _result.nextPage = nextPage;
     }
     if (fieldMask != null) {
       _result.fieldMask = fieldMask;
@@ -68,31 +73,45 @@ class ListBusinessRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   Point ensureLocation() => $_ensure(0);
 
-  @$pb.TagNumber(2)
-  $2.FieldMask get fieldMask => $_getN(1);
-  @$pb.TagNumber(2)
-  set fieldMask($2.FieldMask v) { setField(2, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasFieldMask() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearFieldMask() => clearField(2);
-  @$pb.TagNumber(2)
-  $2.FieldMask ensureFieldMask() => $_ensure(1);
+  @$pb.TagNumber(3)
+  $core.String get nextPage => $_getSZ(1);
+  @$pb.TagNumber(3)
+  set nextPage($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasNextPage() => $_has(1);
+  @$pb.TagNumber(3)
+  void clearNextPage() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $2.FieldMask get fieldMask => $_getN(2);
+  @$pb.TagNumber(4)
+  set fieldMask($2.FieldMask v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasFieldMask() => $_has(2);
+  @$pb.TagNumber(4)
+  void clearFieldMask() => clearField(4);
+  @$pb.TagNumber(4)
+  $2.FieldMask ensureFieldMask() => $_ensure(2);
 }
 
 class ListBusinessResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListBusinessResponse', createEmptyInstance: create)
     ..pc<Business>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businesses', $pb.PbFieldType.PM, subBuilder: Business.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
     ..hasRequiredFields = false
   ;
 
   ListBusinessResponse._() : super();
   factory ListBusinessResponse({
     $core.Iterable<Business>? businesses,
+    $core.String? nextPage,
   }) {
     final _result = create();
     if (businesses != null) {
       _result.businesses.addAll(businesses);
+    }
+    if (nextPage != null) {
+      _result.nextPage = nextPage;
     }
     return _result;
   }
@@ -119,6 +138,15 @@ class ListBusinessResponse extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<Business> get businesses => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.String get nextPage => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set nextPage($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasNextPage() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearNextPage() => clearField(2);
 }
 
 class GetBusinessRequest extends $pb.GeneratedMessage {

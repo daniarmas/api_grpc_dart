@@ -50,22 +50,24 @@ const ListBusinessRequest$json = const {
   '1': 'ListBusinessRequest',
   '2': const [
     const {'1': 'location', '3': 1, '4': 1, '5': 11, '6': '.Point', '10': 'location'},
-    const {'1': 'fieldMask', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+    const {'1': 'nextPage', '3': 3, '4': 1, '5': 9, '10': 'nextPage'},
+    const {'1': 'fieldMask', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
   ],
 };
 
 /// Descriptor for `ListBusinessRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List listBusinessRequestDescriptor = $convert.base64Decode('ChNMaXN0QnVzaW5lc3NSZXF1ZXN0EiIKCGxvY2F0aW9uGAEgASgLMgYuUG9pbnRSCGxvY2F0aW9uEjgKCWZpZWxkTWFzaxgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5GaWVsZE1hc2tSCWZpZWxkTWFzaw==');
+final $typed_data.Uint8List listBusinessRequestDescriptor = $convert.base64Decode('ChNMaXN0QnVzaW5lc3NSZXF1ZXN0EiIKCGxvY2F0aW9uGAEgASgLMgYuUG9pbnRSCGxvY2F0aW9uEhoKCG5leHRQYWdlGAMgASgJUghuZXh0UGFnZRI4CglmaWVsZE1hc2sYBCABKAsyGi5nb29nbGUucHJvdG9idWYuRmllbGRNYXNrUglmaWVsZE1hc2s=');
 @$core.Deprecated('Use listBusinessResponseDescriptor instead')
 const ListBusinessResponse$json = const {
   '1': 'ListBusinessResponse',
   '2': const [
     const {'1': 'businesses', '3': 1, '4': 3, '5': 11, '6': '.Business', '10': 'businesses'},
+    const {'1': 'nextPage', '3': 2, '4': 1, '5': 9, '10': 'nextPage'},
   ],
 };
 
 /// Descriptor for `ListBusinessResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List listBusinessResponseDescriptor = $convert.base64Decode('ChRMaXN0QnVzaW5lc3NSZXNwb25zZRIpCgpidXNpbmVzc2VzGAEgAygLMgkuQnVzaW5lc3NSCmJ1c2luZXNzZXM=');
+final $typed_data.Uint8List listBusinessResponseDescriptor = $convert.base64Decode('ChRMaXN0QnVzaW5lc3NSZXNwb25zZRIpCgpidXNpbmVzc2VzGAEgAygLMgkuQnVzaW5lc3NSCmJ1c2luZXNzZXMSGgoIbmV4dFBhZ2UYAiABKAlSCG5leHRQYWdl');
 @$core.Deprecated('Use getBusinessRequestDescriptor instead')
 const GetBusinessRequest$json = const {
   '1': 'GetBusinessRequest',

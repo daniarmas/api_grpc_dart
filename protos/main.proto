@@ -40,11 +40,13 @@ service Health {
 
 message ListBusinessRequest {
   Point location = 1;
-  google.protobuf.FieldMask fieldMask = 2;
+  string nextPage = 3;
+  google.protobuf.FieldMask fieldMask = 4;
 }
 
 message ListBusinessResponse {
   repeated Business businesses = 1;
+  string nextPage = 2;
 }
 
 message GetBusinessRequest {
