@@ -31,3 +31,11 @@ AppType parseAppTypeEnum(String? value) {
     return AppType.APP_TYPE_UNSPECIFIED;
   }
 }
+
+List<Polygon> parsePolygon(List<dynamic> parameter) {
+    List<Polygon> list = [];
+    for (var item in parameter) {
+      list.add(Polygon(coordinates: [item[0], item[1]]));
+    }
+    return list;
+  }

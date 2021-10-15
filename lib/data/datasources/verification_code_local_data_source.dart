@@ -1,4 +1,4 @@
-import 'package:api_grpc_dart/core/utils/parse_enums.dart';
+import 'package:api_grpc_dart/core/utils/parse.dart';
 import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
@@ -38,6 +38,7 @@ abstract class VerificationCodeLocalDataSource {
 class VerificationCodeLocalDataSourceImpl
     implements VerificationCodeLocalDataSource {
   final Database _database;
+  final String _table = 'VerificationCode';
 
   VerificationCodeLocalDataSourceImpl(this._database);
 
@@ -49,10 +50,7 @@ class VerificationCodeLocalDataSourceImpl
     try {
       data.addAll({'code': StringUtils.generateNumber()});
       final result = await _database.create(
-          context: context,
-          table: 'VerificationCode',
-          data: data,
-          attributes: paths);
+          context: context, table: _table, data: data, attributes: paths);
       return VerificationCode(
           id: result['id'],
           code: result['code'],
@@ -80,21 +78,23 @@ class VerificationCodeLocalDataSourceImpl
       List<VerificationCode> response = [];
       final result = await _database.list(
           context: context,
-          table: 'VerificationCode',
+          table: _table,
           attributes: paths,
           where: getWhereNormalAttributeList(data),
           limit: 100);
       for (var e in result) {
         response.add(VerificationCode(
-            id: e['id'],
-            code: e['code'],
-            email: e['email'],
-            type: parseVerificationCodeTypeEnum(e['type']),
-            deviceId: e['deviceId'],
-            createTime:
-                (e['createTime'] != null) ? e['createTime'].toString() : null,
-            updateTime:
-                (e['updateTime'] != null) ? e['updateTime'].toString() : null));
+            id: e[_table]['id'],
+            code: e[_table]['code'],
+            email: e[_table]['email'],
+            type: parseVerificationCodeTypeEnum(e[_table]['type']),
+            deviceId: e[_table]['deviceId'],
+            createTime: (e[_table]['createTime'] != null)
+                ? e[_table]['createTime'].toString()
+                : null,
+            updateTime: (e[_table]['updateTime'] != null)
+                ? e[_table]['updateTime'].toString()
+                : null));
       }
       return response;
     } catch (error) {
@@ -110,7 +110,7 @@ class VerificationCodeLocalDataSourceImpl
     try {
       final result = await _database.get(
           context: context,
-          table: 'VerificationCode',
+          table: _table,
           where: getWhereNormalAttributeList(data),
           attributes: paths);
       if (result != null) {
@@ -140,7 +140,7 @@ class VerificationCodeLocalDataSourceImpl
     try {
       return await _database.delete(
           context: context,
-          table: 'VerificationCode',
+          table: _table,
           where: getWhereNormalAttributeList(data));
     } catch (error) {
       rethrow;
@@ -155,7 +155,7 @@ class VerificationCodeLocalDataSourceImpl
     try {
       final result = await _database.update(
           context: context,
-          table: 'VerificationCode',
+          table: _table,
           data: data,
           where: [WhereNormalAttribute(key: 'id', value: data['id'])],
           attributes: paths);

@@ -19,6 +19,11 @@ service AuthenticationService {
   rpc UserExistsStream (stream UserExistsStreamRequest) returns (stream UserExistsStreamResponse) {}
 }
 
+service BusinessService {
+  rpc ListBusiness (ListBusinessRequest) returns (ListBusinessResponse) {}
+  rpc GetBusiness (GetBusinessRequest) returns (GetBusinessResponse) {}
+}
+
 service ObjectStorageService {
   rpc GetPresignedPutObjectUserAvatar (GetPresignedPutUserAvatarRequest) returns (GetPresignedPutUserAvatarResponse) {}
 }
@@ -32,6 +37,26 @@ service Health {
 }
 
 // Request & Response Message
+
+message ListBusinessRequest {
+  Point location = 1;
+  string nextPage = 3;
+  google.protobuf.FieldMask fieldMask = 4;
+}
+
+message ListBusinessResponse {
+  repeated Business businesses = 1;
+  string nextPage = 2;
+}
+
+message GetBusinessRequest {
+  string id = 1;
+  google.protobuf.FieldMask fieldMask = 2;
+}
+
+message GetBusinessResponse {
+  Business business = 1;
+}
 
 message GetPresignedPutUserAvatarRequest {
   string objectName = 1;
@@ -92,7 +117,7 @@ message ListVerificationCodeRequest {
 }
 
 message ListVerificationCodeResponse {
-  repeated VerificationCode verificationCode = 1;
+  repeated VerificationCode verificationCodes = 1;
 }
 
 message DeleteVerificationCodeRequest {
@@ -172,6 +197,30 @@ message User {
   string updateTime = 11;
 }
 
+message Business {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string address = 4;
+  string phone = 5;
+  string email = 6;
+  string photo = 7;
+  string photoUrl = 8;
+  bool isOpen = 9;
+  double deliveryPrice = 10;
+  repeated Polygon polygon = 11;
+  Point coordinates = 12;
+  int32 leadDayTime = 13;
+  int32 leadHoursTime = 14;
+  int32 leadMinutesTime = 15;
+  bool toPickUp = 16;
+  bool homeDelivery = 17;
+  string businessBrandFk = 18;
+  string provinceFk = 19;
+  string municipalityFk = 20;
+  double distance = 21;
+}
+
 message BannedUser {
   string id = 1;
   string description = 2;
@@ -237,7 +286,7 @@ message UserAddress {
   UserAddressType residenceType = 3;
   string buildingNumber = 4;
   string houseNumber = 5;
-  LatLng coordinates = 6;
+  Point coordinates = 6;
   string description = 7;
   string userFk = 8;
   string provinceFk = 9;
@@ -325,10 +374,7 @@ enum AppType  {
 //   google.protobuf.Timestamp closing_time_delivery_saturday = 29;
 // }
 
-message LatLng {
-  // The latitude in degrees. It must be in the range [-90.0, +90.0].
+message Point {
   double latitude = 1;
-
-  // The longitude in degrees. It must be in the range [-180.0, +180.0].
   double longitude = 2;
 }

@@ -808,7 +808,7 @@ void main() {
       List<VerificationCode> listOfVerificationCode = [];
       ListVerificationCodeResponse listVerificationCodeResponse =
           ListVerificationCodeResponse(
-              verificationCode: listOfVerificationCode);
+              verificationCodes: listOfVerificationCode);
       when(mockVerificationCodeLocalDataSource.listVerificationCode(
               context: anyNamed('context'),
               paths: anyNamed('paths'),

@@ -300,6 +300,79 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
       $async.Stream<$0.UserExistsStreamRequest> request);
 }
 
+class BusinessServiceClient extends $grpc.Client {
+  static final _$listBusiness =
+      $grpc.ClientMethod<$0.ListBusinessRequest, $0.ListBusinessResponse>(
+          '/BusinessService/ListBusiness',
+          ($0.ListBusinessRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.ListBusinessResponse.fromBuffer(value));
+  static final _$getBusiness =
+      $grpc.ClientMethod<$0.GetBusinessRequest, $0.GetBusinessResponse>(
+          '/BusinessService/GetBusiness',
+          ($0.GetBusinessRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.GetBusinessResponse.fromBuffer(value));
+
+  BusinessServiceClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions? options,
+      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+      : super(channel, options: options, interceptors: interceptors);
+
+  $grpc.ResponseFuture<$0.ListBusinessResponse> listBusiness(
+      $0.ListBusinessRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$listBusiness, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetBusinessResponse> getBusiness(
+      $0.GetBusinessRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getBusiness, request, options: options);
+  }
+}
+
+abstract class BusinessServiceBase extends $grpc.Service {
+  $core.String get $name => 'BusinessService';
+
+  BusinessServiceBase() {
+    $addMethod(
+        $grpc.ServiceMethod<$0.ListBusinessRequest, $0.ListBusinessResponse>(
+            'ListBusiness',
+            listBusiness_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.ListBusinessRequest.fromBuffer(value),
+            ($0.ListBusinessResponse value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.GetBusinessRequest, $0.GetBusinessResponse>(
+            'GetBusiness',
+            getBusiness_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.GetBusinessRequest.fromBuffer(value),
+            ($0.GetBusinessResponse value) => value.writeToBuffer()));
+  }
+
+  $async.Future<$0.ListBusinessResponse> listBusiness_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.ListBusinessRequest> request) async {
+    return listBusiness(call, await request);
+  }
+
+  $async.Future<$0.GetBusinessResponse> getBusiness_Pre($grpc.ServiceCall call,
+      $async.Future<$0.GetBusinessRequest> request) async {
+    return getBusiness(call, await request);
+  }
+
+  $async.Future<$0.ListBusinessResponse> listBusiness(
+      $grpc.ServiceCall call, $0.ListBusinessRequest request);
+  $async.Future<$0.GetBusinessResponse> getBusiness(
+      $grpc.ServiceCall call, $0.GetBusinessRequest request);
+}
+
 class ObjectStorageServiceClient extends $grpc.Client {
   static final _$getPresignedPutObjectUserAvatar = $grpc.ClientMethod<
           $0.GetPresignedPutUserAvatarRequest,

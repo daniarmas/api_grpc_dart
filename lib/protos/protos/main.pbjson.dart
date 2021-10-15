@@ -45,6 +45,50 @@ const AppType$json = const {
 
 /// Descriptor for `AppType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhgKFEFQUF9UWVBFX1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
+@$core.Deprecated('Use listBusinessRequestDescriptor instead')
+const ListBusinessRequest$json = const {
+  '1': 'ListBusinessRequest',
+  '2': const [
+    const {'1': 'location', '3': 1, '4': 1, '5': 11, '6': '.Point', '10': 'location'},
+    const {'1': 'nextPage', '3': 3, '4': 1, '5': 9, '10': 'nextPage'},
+    const {'1': 'fieldMask', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+  ],
+};
+
+/// Descriptor for `ListBusinessRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List listBusinessRequestDescriptor = $convert.base64Decode('ChNMaXN0QnVzaW5lc3NSZXF1ZXN0EiIKCGxvY2F0aW9uGAEgASgLMgYuUG9pbnRSCGxvY2F0aW9uEhoKCG5leHRQYWdlGAMgASgJUghuZXh0UGFnZRI4CglmaWVsZE1hc2sYBCABKAsyGi5nb29nbGUucHJvdG9idWYuRmllbGRNYXNrUglmaWVsZE1hc2s=');
+@$core.Deprecated('Use listBusinessResponseDescriptor instead')
+const ListBusinessResponse$json = const {
+  '1': 'ListBusinessResponse',
+  '2': const [
+    const {'1': 'businesses', '3': 1, '4': 3, '5': 11, '6': '.Business', '10': 'businesses'},
+    const {'1': 'nextPage', '3': 2, '4': 1, '5': 9, '10': 'nextPage'},
+  ],
+};
+
+/// Descriptor for `ListBusinessResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List listBusinessResponseDescriptor = $convert.base64Decode('ChRMaXN0QnVzaW5lc3NSZXNwb25zZRIpCgpidXNpbmVzc2VzGAEgAygLMgkuQnVzaW5lc3NSCmJ1c2luZXNzZXMSGgoIbmV4dFBhZ2UYAiABKAlSCG5leHRQYWdl');
+@$core.Deprecated('Use getBusinessRequestDescriptor instead')
+const GetBusinessRequest$json = const {
+  '1': 'GetBusinessRequest',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'fieldMask', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+  ],
+};
+
+/// Descriptor for `GetBusinessRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getBusinessRequestDescriptor = $convert.base64Decode('ChJHZXRCdXNpbmVzc1JlcXVlc3QSDgoCaWQYASABKAlSAmlkEjgKCWZpZWxkTWFzaxgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5GaWVsZE1hc2tSCWZpZWxkTWFzaw==');
+@$core.Deprecated('Use getBusinessResponseDescriptor instead')
+const GetBusinessResponse$json = const {
+  '1': 'GetBusinessResponse',
+  '2': const [
+    const {'1': 'business', '3': 1, '4': 1, '5': 11, '6': '.Business', '10': 'business'},
+  ],
+};
+
+/// Descriptor for `GetBusinessResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getBusinessResponseDescriptor = $convert.base64Decode('ChNHZXRCdXNpbmVzc1Jlc3BvbnNlEiUKCGJ1c2luZXNzGAEgASgLMgkuQnVzaW5lc3NSCGJ1c2luZXNz');
 @$core.Deprecated('Use getPresignedPutUserAvatarRequestDescriptor instead')
 const GetPresignedPutUserAvatarRequest$json = const {
   '1': 'GetPresignedPutUserAvatarRequest',
@@ -183,12 +227,12 @@ final $typed_data.Uint8List listVerificationCodeRequestDescriptor = $convert.bas
 const ListVerificationCodeResponse$json = const {
   '1': 'ListVerificationCodeResponse',
   '2': const [
-    const {'1': 'verificationCode', '3': 1, '4': 3, '5': 11, '6': '.VerificationCode', '10': 'verificationCode'},
+    const {'1': 'verificationCodes', '3': 1, '4': 3, '5': 11, '6': '.VerificationCode', '10': 'verificationCodes'},
   ],
 };
 
 /// Descriptor for `ListVerificationCodeResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List listVerificationCodeResponseDescriptor = $convert.base64Decode('ChxMaXN0VmVyaWZpY2F0aW9uQ29kZVJlc3BvbnNlEj0KEHZlcmlmaWNhdGlvbkNvZGUYASADKAsyES5WZXJpZmljYXRpb25Db2RlUhB2ZXJpZmljYXRpb25Db2Rl');
+final $typed_data.Uint8List listVerificationCodeResponseDescriptor = $convert.base64Decode('ChxMaXN0VmVyaWZpY2F0aW9uQ29kZVJlc3BvbnNlEj8KEXZlcmlmaWNhdGlvbkNvZGVzGAEgAygLMhEuVmVyaWZpY2F0aW9uQ29kZVIRdmVyaWZpY2F0aW9uQ29kZXM=');
 @$core.Deprecated('Use deleteVerificationCodeRequestDescriptor instead')
 const DeleteVerificationCodeRequest$json = const {
   '1': 'DeleteVerificationCodeRequest',
@@ -338,6 +382,36 @@ const User$json = const {
 
 /// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List userDescriptor = $convert.base64Decode('CgRVc2VyEg4KAmlkGAEgASgJUgJpZBIaCghmdWxsTmFtZRgCIAEoCVIIZnVsbE5hbWUSFAoFYWxpYXMYAyABKAlSBWFsaWFzEhQKBXBob3RvGAQgASgJUgVwaG90bxIaCghwaG90b1VybBgFIAEoCVIIcGhvdG9VcmwSLgoLdXNlckFkZHJlc3MYBiADKAsyDC5Vc2VyQWRkcmVzc1ILdXNlckFkZHJlc3MSGgoIYmlydGhkYXkYByABKAlSCGJpcnRoZGF5EhQKBWVtYWlsGAggASgJUgVlbWFpbBIxCgtwZXJtaXNzaW9ucxgJIAMoCzIPLlVzZXJQZXJtaXNzaW9uUgtwZXJtaXNzaW9ucxIeCgpjcmVhdGVUaW1lGAogASgJUgpjcmVhdGVUaW1lEh4KCnVwZGF0ZVRpbWUYCyABKAlSCnVwZGF0ZVRpbWU=');
+@$core.Deprecated('Use businessDescriptor instead')
+const Business$json = const {
+  '1': 'Business',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
+    const {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
+    const {'1': 'address', '3': 4, '4': 1, '5': 9, '10': 'address'},
+    const {'1': 'phone', '3': 5, '4': 1, '5': 9, '10': 'phone'},
+    const {'1': 'email', '3': 6, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'photo', '3': 7, '4': 1, '5': 9, '10': 'photo'},
+    const {'1': 'photoUrl', '3': 8, '4': 1, '5': 9, '10': 'photoUrl'},
+    const {'1': 'isOpen', '3': 9, '4': 1, '5': 8, '10': 'isOpen'},
+    const {'1': 'deliveryPrice', '3': 10, '4': 1, '5': 1, '10': 'deliveryPrice'},
+    const {'1': 'polygon', '3': 11, '4': 3, '5': 11, '6': '.Polygon', '10': 'polygon'},
+    const {'1': 'coordinates', '3': 12, '4': 1, '5': 11, '6': '.Point', '10': 'coordinates'},
+    const {'1': 'leadDayTime', '3': 13, '4': 1, '5': 5, '10': 'leadDayTime'},
+    const {'1': 'leadHoursTime', '3': 14, '4': 1, '5': 5, '10': 'leadHoursTime'},
+    const {'1': 'leadMinutesTime', '3': 15, '4': 1, '5': 5, '10': 'leadMinutesTime'},
+    const {'1': 'toPickUp', '3': 16, '4': 1, '5': 8, '10': 'toPickUp'},
+    const {'1': 'homeDelivery', '3': 17, '4': 1, '5': 8, '10': 'homeDelivery'},
+    const {'1': 'businessBrandFk', '3': 18, '4': 1, '5': 9, '10': 'businessBrandFk'},
+    const {'1': 'provinceFk', '3': 19, '4': 1, '5': 9, '10': 'provinceFk'},
+    const {'1': 'municipalityFk', '3': 20, '4': 1, '5': 9, '10': 'municipalityFk'},
+    const {'1': 'distance', '3': 21, '4': 1, '5': 1, '10': 'distance'},
+  ],
+};
+
+/// Descriptor for `Business`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List businessDescriptor = $convert.base64Decode('CghCdXNpbmVzcxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVzY3JpcHRpb24SGAoHYWRkcmVzcxgEIAEoCVIHYWRkcmVzcxIUCgVwaG9uZRgFIAEoCVIFcGhvbmUSFAoFZW1haWwYBiABKAlSBWVtYWlsEhQKBXBob3RvGAcgASgJUgVwaG90bxIaCghwaG90b1VybBgIIAEoCVIIcGhvdG9VcmwSFgoGaXNPcGVuGAkgASgIUgZpc09wZW4SJAoNZGVsaXZlcnlQcmljZRgKIAEoAVINZGVsaXZlcnlQcmljZRIiCgdwb2x5Z29uGAsgAygLMgguUG9seWdvblIHcG9seWdvbhIoCgtjb29yZGluYXRlcxgMIAEoCzIGLlBvaW50Ugtjb29yZGluYXRlcxIgCgtsZWFkRGF5VGltZRgNIAEoBVILbGVhZERheVRpbWUSJAoNbGVhZEhvdXJzVGltZRgOIAEoBVINbGVhZEhvdXJzVGltZRIoCg9sZWFkTWludXRlc1RpbWUYDyABKAVSD2xlYWRNaW51dGVzVGltZRIaCgh0b1BpY2tVcBgQIAEoCFIIdG9QaWNrVXASIgoMaG9tZURlbGl2ZXJ5GBEgASgIUgxob21lRGVsaXZlcnkSKAoPYnVzaW5lc3NCcmFuZEZrGBIgASgJUg9idXNpbmVzc0JyYW5kRmsSHgoKcHJvdmluY2VGaxgTIAEoCVIKcHJvdmluY2VGaxImCg5tdW5pY2lwYWxpdHlGaxgUIAEoCVIObXVuaWNpcGFsaXR5RmsSGgoIZGlzdGFuY2UYFSABKAFSCGRpc3RhbmNl');
 @$core.Deprecated('Use bannedUserDescriptor instead')
 const BannedUser$json = const {
   '1': 'BannedUser',
@@ -431,7 +505,7 @@ const UserAddress$json = const {
     const {'1': 'residenceType', '3': 3, '4': 1, '5': 14, '6': '.UserAddress.UserAddressType', '10': 'residenceType'},
     const {'1': 'buildingNumber', '3': 4, '4': 1, '5': 9, '10': 'buildingNumber'},
     const {'1': 'houseNumber', '3': 5, '4': 1, '5': 9, '10': 'houseNumber'},
-    const {'1': 'coordinates', '3': 6, '4': 1, '5': 11, '6': '.LatLng', '10': 'coordinates'},
+    const {'1': 'coordinates', '3': 6, '4': 1, '5': 11, '6': '.Point', '10': 'coordinates'},
     const {'1': 'description', '3': 7, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'userFk', '3': 8, '4': 1, '5': 9, '10': 'userFk'},
     const {'1': 'provinceFk', '3': 9, '4': 1, '5': 9, '10': 'provinceFk'},
@@ -453,7 +527,7 @@ const UserAddress_UserAddressType$json = const {
 };
 
 /// Descriptor for `UserAddress`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userAddressDescriptor = $convert.base64Decode('CgtVc2VyQWRkcmVzcxIOCgJpZBgBIAEoCVICaWQSEAoDdGFnGAIgASgJUgN0YWcSQgoNcmVzaWRlbmNlVHlwZRgDIAEoDjIcLlVzZXJBZGRyZXNzLlVzZXJBZGRyZXNzVHlwZVINcmVzaWRlbmNlVHlwZRImCg5idWlsZGluZ051bWJlchgEIAEoCVIOYnVpbGRpbmdOdW1iZXISIAoLaG91c2VOdW1iZXIYBSABKAlSC2hvdXNlTnVtYmVyEikKC2Nvb3JkaW5hdGVzGAYgASgLMgcuTGF0TG5nUgtjb29yZGluYXRlcxIgCgtkZXNjcmlwdGlvbhgHIAEoCVILZGVzY3JpcHRpb24SFgoGdXNlckZrGAggASgJUgZ1c2VyRmsSHgoKcHJvdmluY2VGaxgJIAEoCVIKcHJvdmluY2VGaxImCg5tdW5pY2lwYWxpdHlGaxgKIAEoCVIObXVuaWNpcGFsaXR5RmsSHgoKY3JlYXRlVGltZRgLIAEoCVIKY3JlYXRlVGltZRIeCgp1cGRhdGVUaW1lGAwgASgJUgp1cGRhdGVUaW1lIj0KD1VzZXJBZGRyZXNzVHlwZRIPCgtVTlNQRUNJRklFRBAAEgkKBUhPVVNFEAESDgoKQVBBUlRBTUVOVBAC');
+final $typed_data.Uint8List userAddressDescriptor = $convert.base64Decode('CgtVc2VyQWRkcmVzcxIOCgJpZBgBIAEoCVICaWQSEAoDdGFnGAIgASgJUgN0YWcSQgoNcmVzaWRlbmNlVHlwZRgDIAEoDjIcLlVzZXJBZGRyZXNzLlVzZXJBZGRyZXNzVHlwZVINcmVzaWRlbmNlVHlwZRImCg5idWlsZGluZ051bWJlchgEIAEoCVIOYnVpbGRpbmdOdW1iZXISIAoLaG91c2VOdW1iZXIYBSABKAlSC2hvdXNlTnVtYmVyEigKC2Nvb3JkaW5hdGVzGAYgASgLMgYuUG9pbnRSC2Nvb3JkaW5hdGVzEiAKC2Rlc2NyaXB0aW9uGAcgASgJUgtkZXNjcmlwdGlvbhIWCgZ1c2VyRmsYCCABKAlSBnVzZXJGaxIeCgpwcm92aW5jZUZrGAkgASgJUgpwcm92aW5jZUZrEiYKDm11bmljaXBhbGl0eUZrGAogASgJUg5tdW5pY2lwYWxpdHlGaxIeCgpjcmVhdGVUaW1lGAsgASgJUgpjcmVhdGVUaW1lEh4KCnVwZGF0ZVRpbWUYDCABKAlSCnVwZGF0ZVRpbWUiPQoPVXNlckFkZHJlc3NUeXBlEg8KC1VOU1BFQ0lGSUVEEAASCQoFSE9VU0UQARIOCgpBUEFSVEFNRU5UEAI=');
 @$core.Deprecated('Use userPermissionDescriptor instead')
 const UserPermission$json = const {
   '1': 'UserPermission',
@@ -496,14 +570,14 @@ const VerificationCode$json = const {
 
 /// Descriptor for `VerificationCode`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List verificationCodeDescriptor = $convert.base64Decode('ChBWZXJpZmljYXRpb25Db2RlEg4KAmlkGAEgASgJUgJpZBISCgRjb2RlGAIgASgJUgRjb2RlEhQKBWVtYWlsGAMgASgJUgVlbWFpbBIpCgR0eXBlGAQgASgOMhUuVmVyaWZpY2F0aW9uQ29kZVR5cGVSBHR5cGUSGgoIZGV2aWNlSWQYBSABKAlSCGRldmljZUlkEh4KCmNyZWF0ZVRpbWUYBiABKAlSCmNyZWF0ZVRpbWUSHgoKdXBkYXRlVGltZRgHIAEoCVIKdXBkYXRlVGltZQ==');
-@$core.Deprecated('Use latLngDescriptor instead')
-const LatLng$json = const {
-  '1': 'LatLng',
+@$core.Deprecated('Use pointDescriptor instead')
+const Point$json = const {
+  '1': 'Point',
   '2': const [
     const {'1': 'latitude', '3': 1, '4': 1, '5': 1, '10': 'latitude'},
     const {'1': 'longitude', '3': 2, '4': 1, '5': 1, '10': 'longitude'},
   ],
 };
 
-/// Descriptor for `LatLng`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List latLngDescriptor = $convert.base64Decode('CgZMYXRMbmcSGgoIbGF0aXR1ZGUYASABKAFSCGxhdGl0dWRlEhwKCWxvbmdpdHVkZRgCIAEoAVIJbG9uZ2l0dWRl');
+/// Descriptor for `Point`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List pointDescriptor = $convert.base64Decode('CgVQb2ludBIaCghsYXRpdHVkZRgBIAEoAVIIbGF0aXR1ZGUSHAoJbG9uZ2l0dWRlGAIgASgBUglsb25naXR1ZGU=');
