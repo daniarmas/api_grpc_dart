@@ -6,6 +6,7 @@ import 'package:api_grpc_dart/injection_container.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
+import 'package:grpc/grpc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:postgres/postgres.dart';
@@ -183,5 +184,170 @@ void main() {
     //       paths: anyNamed('paths')));
     //   expect(result, Right(listBusinessResponse));
     // });
+  });
+
+  group('testing getBusiness', () {
+    test('Return data sucessful when everything is ok', () async {
+      // setup
+      Business business = Business(
+          address: '',
+          businessBrandFk: '',
+          coordinates: Point(latitude: 0.0, longitude: 0.0),
+          deliveryPrice: 0.0,
+          description: '',
+          distance: 0.0,
+          email: '',
+          homeDelivery: true,
+          id: '',
+          isOpen: true,
+          leadDayTime: 1,
+          leadHoursTime: 1,
+          leadMinutesTime: 1,
+          municipalityFk: '',
+          name: '',
+          phone: '',
+          photo: '',
+          photoUrl: '',
+          polygon: [
+            Polygon(coordinates: [0.0, 0.0])
+          ],
+          provinceFk: '',
+          toPickUp: true);
+      GetBusinessResponse getBusinessResponse =
+          GetBusinessResponse(business: business);
+      // side effects
+      when(mockBusinessLocalDataSource.getBusiness(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => business);
+      final result = await businessRepositoryImpl.getBusiness(
+          context: ctx,
+          data: {
+            'id': 'id',
+          },
+          paths: [],
+          metadata: metadata);
+      // expectations
+      verify(mockBusinessLocalDataSource.getBusiness(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result, Right(getBusinessResponse));
+    });
+    test('Return GrpcError.invalidArgument when the client not send id',
+        () async {
+      // setup
+      Business business = Business(
+          address: '',
+          businessBrandFk: '',
+          coordinates: Point(latitude: 0.0, longitude: 0.0),
+          deliveryPrice: 0.0,
+          description: '',
+          distance: 0.0,
+          email: '',
+          homeDelivery: true,
+          id: '',
+          isOpen: true,
+          leadDayTime: 1,
+          leadHoursTime: 1,
+          leadMinutesTime: 1,
+          municipalityFk: '',
+          name: '',
+          phone: '',
+          photo: '',
+          photoUrl: '',
+          polygon: [
+            Polygon(coordinates: [0.0, 0.0])
+          ],
+          provinceFk: '',
+          toPickUp: true);
+      GetBusinessResponse getBusinessResponse =
+          GetBusinessResponse(business: business);
+      // side effects
+      final result = await businessRepositoryImpl.getBusiness(
+          context: ctx,
+          data: {
+            'id': '',
+          },
+          paths: [],
+          metadata: metadata);
+      // expectations
+      verifyNever(mockBusinessLocalDataSource.getBusiness(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result, Left(GrpcError.invalidArgument('Input `id` invalid')));
+    });
+    test('Return GrpcError.notFound when everything not exists', () async {
+      // setup
+      // side effects
+      when(mockBusinessLocalDataSource.getBusiness(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      final result = await businessRepositoryImpl.getBusiness(
+          context: ctx,
+          data: {
+            'id': 'id',
+          },
+          paths: [],
+          metadata: metadata);
+      // expectations
+      verify(mockBusinessLocalDataSource.getBusiness(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result, Left(GrpcError.notFound('Not found')));
+    });
+    test('Return GrpcError.internal when the code throw a Exception', () async {
+      // setup
+      Business business = Business(
+          address: '',
+          businessBrandFk: '',
+          coordinates: Point(latitude: 0.0, longitude: 0.0),
+          deliveryPrice: 0.0,
+          description: '',
+          distance: 0.0,
+          email: '',
+          homeDelivery: true,
+          id: '',
+          isOpen: true,
+          leadDayTime: 1,
+          leadHoursTime: 1,
+          leadMinutesTime: 1,
+          municipalityFk: '',
+          name: '',
+          phone: '',
+          photo: '',
+          photoUrl: '',
+          polygon: [
+            Polygon(coordinates: [0.0, 0.0])
+          ],
+          provinceFk: '',
+          toPickUp: true);
+      GetBusinessResponse getBusinessResponse =
+          GetBusinessResponse(business: business);
+      // side effects
+      when(mockBusinessLocalDataSource.getBusiness(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenThrow(Exception());
+      final result = await businessRepositoryImpl.getBusiness(
+          context: ctx,
+          data: {
+            'id': 'id',
+          },
+          paths: [],
+          metadata: metadata);
+      // expectations
+      verify(mockBusinessLocalDataSource.getBusiness(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
   });
 }
