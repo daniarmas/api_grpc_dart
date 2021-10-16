@@ -37,6 +37,7 @@ abstract class DeviceLocalDataSource {
 @Injectable(as: DeviceLocalDataSource)
 class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
   final Database _database;
+  final String _table = 'Device';
 
   DeviceLocalDataSourceImpl(this._database);
 
@@ -47,7 +48,7 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
       required List<String> paths}) async {
     try {
       final result = await _database.create(
-          context: context, table: 'Device', data: data, attributes: paths);
+          context: context, table: _table, data: data, attributes: paths);
       return Device(
           id: result['id'],
           deviceId: result['deviceId'],
@@ -76,7 +77,7 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
       List<Device> response = [];
       final result = await _database.list(
           context: context,
-          table: 'Device',
+          table: _table,
           attributes: paths,
           where: getWhereNormalAttributeList(data),
           limit: 100);
@@ -109,22 +110,23 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
     try {
       final result = await _database.get(
           context: context,
-          table: 'Device',
+          table: _table,
           where: getWhereNormalAttributeList(data),
           attributes: paths);
       if (result != null) {
         return Device(
-            id: result['id'],
-            deviceId: result['deviceId'],
-            firebaseCloudMessagingId: result['firebaseCloudMessagingId'],
-            model: result['model'],
-            platform: parsePlatformTypeEnum(result['platform']),
-            systemVersion: result['systemVersion'],
-            createTime: (result['createTime'] != null)
-                ? result['createTime'].toString()
+            id: result[_table]['id'],
+            deviceId: result[_table]['deviceId'],
+            firebaseCloudMessagingId: result[_table]
+                ['firebaseCloudMessagingId'],
+            model: result[_table]['model'],
+            platform: parsePlatformTypeEnum(result[_table]['platform']),
+            systemVersion: result[_table]['systemVersion'],
+            createTime: (result[_table]['createTime'] != null)
+                ? result[_table]['createTime'].toString()
                 : null,
-            updateTime: (result['updateTime'] != null)
-                ? result['updateTime'].toString()
+            updateTime: (result[_table]['updateTime'] != null)
+                ? result[_table]['updateTime'].toString()
                 : null);
       }
       return null;
@@ -140,7 +142,7 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
     try {
       await _database.delete(
           context: context,
-          table: 'Device',
+          table: _table,
           where: getWhereNormalAttributeList(data));
     } catch (error) {
       rethrow;
@@ -156,7 +158,7 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
     try {
       final result = await _database.update(
           context: context,
-          table: 'Device',
+          table: _table,
           data: data,
           where: getWhereNormalAttributeList(where),
           attributes: paths);

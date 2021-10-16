@@ -102,7 +102,7 @@ class PostgresqlDao {
       print(query);
       final response = await context.mappedResultsQuery(query);
       if (response.isNotEmpty) {
-        return response[0][table];
+        return response[0];
       }
       return null;
     } catch (error) {

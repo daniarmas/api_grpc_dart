@@ -38,30 +38,37 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
           context: context,
           table: _table,
           where: getWhereNormalAttributeList(data),
+          agregationMethods: [
+            'ST_X("Business"."coordinates") AS longitude',
+            'ST_Y("Business"."coordinates") AS latitude',
+            'ST_AsGeoJSON("Business"."polygon") :: json->\'coordinates\' AS polygon',
+          ],
           attributes: paths);
       if (result != null) {
         return Business(
-          id: result['id'],
-          name: result['name'],
-          email: result['email'],
-          address: result['address'],
-          coordinates: null,
-          deliveryPrice: result['deliveryPrice'],
-          description: result['description'],
-          homeDelivery: result['homeDelivery'],
-          isOpen: result['isOpen'],
-          leadDayTime: result['leadDayTime'],
-          leadHoursTime: result['leadHoursTime'],
-          leadMinutesTime: result['leadMinutesTime'],
-          phone: result['phone'],
-          photo: result['photo'],
-          photoUrl: result['photoUrl'],
-          polygon: null,
-          provinceFk: result['provinceFk'],
-          municipalityFk: result['municipalityFk'],
-          businessBrandFk: result['businessBrandFk'],
-          toPickUp: result['toPickUp'],
-        );
+            id: result[_table]['id'],
+            name: result[_table]['name'],
+            description: result[_table]['description'],
+            isOpen: result[_table]['isOpen'],
+            businessBrandFk: result[_table]['businessBrandFk'],
+            deliveryPrice: result[_table]['deliveryPrice'],
+            homeDelivery: result[_table]['homeDelivery'],
+            leadDayTime: result[_table]['leadDayTime'],
+            leadHoursTime: result[_table]['leadHoursTime'],
+            leadMinutesTime: result[_table]['leadMinutesTime'],
+            municipalityFk: result[_table]['municipalityFk'],
+            provinceFk: result[_table]['provinceFk'],
+            toPickUp: result[_table]['toPickUp'],
+            address: result[_table]['address'],
+            phone: result[_table]['phone'],
+            email: result[_table]['email'],
+            photo: result[_table]['photo'],
+            photoUrl: result[_table]['photoUrl'],
+            // polygon: parsePolygon(result['']['polygon'][0]),
+            distance: result['']['distance'],
+            coordinates: Point(
+                latitude: result['']['latitude'],
+                longitude: result['']['longitude']));
       }
       return null;
     } catch (error) {
