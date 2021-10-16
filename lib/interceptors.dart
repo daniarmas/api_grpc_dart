@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:api_grpc_dart/core/utils/json_web_token.dart';
+import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:dotenv/dotenv.dart' show env;
 
@@ -16,6 +18,30 @@ FutureOr<GrpcError?> accessTokenValid(ServiceCall call, ServiceMethod method) {
       return null;
     }
     return GrpcError.unauthenticated('Client unauthenticated');
+  }
+}
+
+FutureOr<GrpcError?> authorizationTokenValid(
+    ServiceCall call, ServiceMethod method, List<String> methods) {
+  JsonWebToken jsonWebToken = GetIt.I<JsonWebToken>();
+  try {
+    if (methods.contains(method.name)) {
+      if (call.clientMetadata!['authorization'] != null &&
+          call.clientMetadata!['authorization'] != '') {
+        jsonWebToken.verify(
+            call.clientMetadata!['authorization']!, 'AuthorizationToken');
+        return null;
+      }
+      return GrpcError.unauthenticated('Unauthenticated');
+    } else {
+      return null;
+    }
+  } catch (error) {
+    if (error is GrpcError) {
+      return error;
+    } else {
+      return GrpcError.internal('Internal server error');
+    }
   }
 }
 

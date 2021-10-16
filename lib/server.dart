@@ -42,6 +42,9 @@ class Server {
               return null;
             }
           },
+          (ServiceCall call, ServiceMethod method) {
+            return authorizationTokenValid(call, method, ['ListBusiness']);
+          }
         ]);
         await server.serve(port: _environment.port);
         print('🚀 Server listening at port ${server.port}...');
