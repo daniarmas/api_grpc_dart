@@ -34,6 +34,7 @@ abstract class UserLocalDataSource {
 @Injectable(as: UserLocalDataSource)
 class UserLocalDataSourceImpl implements UserLocalDataSource {
   final Database _database;
+  final String _table = 'User';
 
   UserLocalDataSourceImpl(this._database);
   @override
@@ -43,7 +44,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
       required List<String> paths}) async {
     try {
       final result = await _database.create(
-          context: context, table: 'User', data: data, attributes: paths);
+          context: context, table: _table, data: data, attributes: paths);
       String? photo = result['photo'];
       return User(
           id: result['id'],
@@ -84,28 +85,28 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     try {
       final result = await _database.get(
           context: context,
-          table: 'User',
+          table: _table,
           where: getWhereNormalAttributeList(data),
           attributes: paths);
       if (result != null) {
-        String? photo = result['photo'];
+        String? photo = result[_table]['photo'];
         return User(
-            id: result['id'],
-            email: result['email'],
-            fullName: result['fullName'],
-            alias: result['alias'],
-            birthday: (result['birthday'] != null)
-                ? result['birthday'].toString()
+            id: result[_table]['id'],
+            email: result[_table]['email'],
+            fullName: result[_table]['fullName'],
+            alias: result[_table]['alias'],
+            birthday: (result[_table]['birthday'] != null)
+                ? result[_table]['birthday'].toString()
                 : null,
-            photo: result['photo'],
+            photo: result[_table]['photo'],
             photoUrl: (photo != null && photo.isNotEmpty)
                 ? 'https://192.168.1.3/oss/$photo'
                 : null,
-            createTime: (result['createTime'] != null)
-                ? result['createTime'].toString()
+            createTime: (result[_table]['createTime'] != null)
+                ? result[_table]['createTime'].toString()
                 : null,
-            updateTime: (result['updateTime'] != null)
-                ? result['updateTime'].toString()
+            updateTime: (result[_table]['updateTime'] != null)
+                ? result[_table]['updateTime'].toString()
                 : null);
       }
       return null;
@@ -123,7 +124,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
       List<User> response = [];
       final result = await _database.list(
           context: context,
-          table: 'User',
+          table: _table,
           attributes: paths,
           where: getWhereNormalAttributeList(data),
           limit: 100);
@@ -159,7 +160,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
       List<User> response = [];
       final result = await _database.list(
           context: context,
-          table: 'User',
+          table: _table,
           attributes: paths,
           where: [WhereNormalAttributeIn(key: 'alias', value: data)],
           limit: 100);

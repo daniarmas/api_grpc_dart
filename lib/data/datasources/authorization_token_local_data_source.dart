@@ -30,6 +30,7 @@ abstract class AuthorizationTokenLocalDataSource {
 class AuthorizationTokenLocalDataSourceImpl
     implements AuthorizationTokenLocalDataSource {
   final Database _database;
+  final String _table = 'AuthorizationToken';
 
   AuthorizationTokenLocalDataSourceImpl(this._database);
 
@@ -40,10 +41,7 @@ class AuthorizationTokenLocalDataSourceImpl
       required List<String> paths}) async {
     try {
       final result = await _database.create(
-          context: context,
-          table: 'AuthorizationToken',
-          data: data,
-          attributes: paths);
+          context: context, table: _table, data: data, attributes: paths);
       return AuthorizationToken(
           id: result['id'],
           authorizationToken: result['authorizationToken'],
@@ -80,25 +78,25 @@ class AuthorizationTokenLocalDataSourceImpl
     try {
       final result = await _database.get(
         context: context,
-        table: 'AuthorizationToken',
+        table: _table,
         where: getWhereNormalAttributeList(data),
         attributes: paths,
       );
       if (result != null) {
         return AuthorizationToken(
-            id: result['id'],
-            authorizationToken: result['authorizationToken'],
-            refreshTokenFk: result['refreshTokenFk'],
-            appVersion: result['appVersion'],
-            app: parseAppTypeEnum(result['app']),
-            userFk: result['userFk'],
-            valid: result['valid'],
-            deviceFk: result['deviceFk'],
-            createTime: (result['createTime'] != null)
-                ? result['createTime'].toString()
+            id: result[_table]['id'],
+            authorizationToken: result[_table]['authorizationToken'],
+            refreshTokenFk: result[_table]['refreshTokenFk'],
+            appVersion: result[_table]['appVersion'],
+            app: parseAppTypeEnum(result[_table]['app']),
+            userFk: result[_table]['userFk'],
+            valid: result[_table]['valid'],
+            deviceFk: result[_table]['deviceFk'],
+            createTime: (result[_table]['createTime'] != null)
+                ? result[_table]['createTime'].toString()
                 : null,
-            updateTime: (result['updateTime'] != null)
-                ? result['updateTime'].toString()
+            updateTime: (result[_table]['updateTime'] != null)
+                ? result[_table]['updateTime'].toString()
                 : null);
       }
       return null;
@@ -114,7 +112,7 @@ class AuthorizationTokenLocalDataSourceImpl
     try {
       await _database.delete(
           context: context,
-          table: 'AuthorizationToken',
+          table: _table,
           where: getWhereNormalAttributeList(data));
     } catch (error) {
       rethrow;

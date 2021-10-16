@@ -24,12 +24,16 @@ class BusinessRepositoryImpl implements BusinessRepository {
       required HeadersMetadata metadata,
       required List<String> paths}) async {
     try {
-      final response = await businessLocalDataSource.getBusiness(
-          data: data, paths: paths, context: context);
-      if (response != null) {
-        return Right(GetBusinessResponse(business: response));
+      if (data['id'] == null || data['id'] == '') {
+        return Left(GrpcError.invalidArgument('Input `id` invalid'));
+      } else {
+        final response = await businessLocalDataSource.getBusiness(
+            data: data, paths: paths, context: context);
+        if (response != null) {
+          return Right(GetBusinessResponse(business: response));
+        }
+        return Left(GrpcError.notFound('Not found'));
       }
-      return Left(GrpcError.notFound('Not found'));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception {

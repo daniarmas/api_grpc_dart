@@ -28,6 +28,7 @@ abstract class BannedUserLocalDataSource {
 @Injectable(as: BannedUserLocalDataSource)
 class BannedUserLocalDataSourceImpl implements BannedUserLocalDataSource {
   final Database _database;
+  final String _table = 'BannedUser';
 
   BannedUserLocalDataSourceImpl(this._database);
 
@@ -56,22 +57,22 @@ class BannedUserLocalDataSourceImpl implements BannedUserLocalDataSource {
     try {
       final result = await _database.get(
           context: context,
-          table: 'BannedUser',
+          table: _table,
           where: getWhereNormalAttributeList(data),
           attributes: paths);
       if (result != null) {
         return BannedUser(
-            id: result['id'],
-            description: result['description'],
-            moderatorAuthorizationTokenFk:
-                result['moderatorAuthorizationTokenFk'],
-            userFk: result['userFk'],
-            email: result['email'],
-            createTime: (result['createTime'] != null)
-                ? result['createTime'].toString()
+            id: result[_table]['id'],
+            description: result[_table]['description'],
+            moderatorAuthorizationTokenFk: result[_table]
+                ['moderatorAuthorizationTokenFk'],
+            userFk: result[_table]['userFk'],
+            email: result[_table]['email'],
+            createTime: (result[_table]['createTime'] != null)
+                ? result[_table]['createTime'].toString()
                 : null,
-            updateTime: (result['updateTime'] != null)
-                ? result['updateTime'].toString()
+            updateTime: (result[_table]['updateTime'] != null)
+                ? result[_table]['updateTime'].toString()
                 : null);
       }
       return null;

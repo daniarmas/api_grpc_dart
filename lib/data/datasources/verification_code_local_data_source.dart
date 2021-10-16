@@ -115,16 +115,16 @@ class VerificationCodeLocalDataSourceImpl
           attributes: paths);
       if (result != null) {
         return VerificationCode(
-            id: result['id'],
-            code: result['code'],
-            email: result['email'],
-            type: parseVerificationCodeTypeEnum(result['type']),
-            deviceId: result['deviceId'],
-            createTime: (result['createTime'] != null)
-                ? result['createTime'].toString()
+            id: result[_table]['id'],
+            code: result[_table]['code'],
+            email: result[_table]['email'],
+            type: parseVerificationCodeTypeEnum(result[_table]['type']),
+            deviceId: result[_table]['deviceId'],
+            createTime: (result[_table]['createTime'] != null)
+                ? result[_table]['createTime'].toString()
                 : null,
-            updateTime: (result['updateTime'] != null)
-                ? result['updateTime'].toString()
+            updateTime: (result[_table]['updateTime'] != null)
+                ? result[_table]['updateTime'].toString()
                 : null);
       }
       return null;

@@ -29,6 +29,7 @@ abstract class RefreshTokenLocalDataSource {
 @Injectable(as: RefreshTokenLocalDataSource)
 class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
   final Database _database;
+  final String _table = 'RefreshToken';
 
   RefreshTokenLocalDataSourceImpl(this._database);
 
@@ -39,10 +40,7 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
       required List<String> paths}) async {
     try {
       final result = await _database.create(
-          context: context,
-          table: 'RefreshToken',
-          data: data,
-          attributes: paths);
+          context: context, table: _table, data: data, attributes: paths);
       return RefreshToken(
           id: result['id'],
           expirationTime: result['expirationTime'].toString(),
@@ -76,24 +74,24 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
     try {
       final result = await _database.get(
         context: context,
-        table: 'RefreshToken',
+        table: _table,
         where: getWhereNormalAttributeList(data),
         attributes: paths,
       );
       if (result != null) {
         return RefreshToken(
-            id: result['id'],
-            userFk: result['userFk'],
-            expirationTime: (result['expirationTime'] != null)
-                ? result['expirationTime'].toString()
+            id: result[_table]['id'],
+            userFk: result[_table]['userFk'],
+            expirationTime: (result[_table]['expirationTime'] != null)
+                ? result[_table]['expirationTime'].toString()
                 : null,
-            refreshToken: result['refreshToken'],
-            valid: result['valid'],
-            createTime: (result['createTime'] != null)
-                ? result['createTime'].toString()
+            refreshToken: result[_table]['refreshToken'],
+            valid: result[_table]['valid'],
+            createTime: (result[_table]['createTime'] != null)
+                ? result[_table]['createTime'].toString()
                 : null,
-            updateTime: (result['updateTime'] != null)
-                ? result['updateTime'].toString()
+            updateTime: (result[_table]['updateTime'] != null)
+                ? result[_table]['updateTime'].toString()
                 : null);
       }
       return null;
@@ -109,7 +107,7 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
     try {
       await _database.delete(
           context: context,
-          table: 'RefreshToken',
+          table: _table,
           where: getWhereNormalAttributeList(data));
     } catch (error) {
       rethrow;

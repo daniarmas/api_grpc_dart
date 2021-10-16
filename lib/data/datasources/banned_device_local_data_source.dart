@@ -28,6 +28,7 @@ abstract class BannedDeviceLocalDataSource {
 @Injectable(as: BannedDeviceLocalDataSource)
 class BannedDeviceLocalDataSourceImpl implements BannedDeviceLocalDataSource {
   final Database _database;
+  final String _table = 'BannedDevice';
 
   BannedDeviceLocalDataSourceImpl(this._database);
 
@@ -56,22 +57,22 @@ class BannedDeviceLocalDataSourceImpl implements BannedDeviceLocalDataSource {
     try {
       final result = await _database.get(
           context: context,
-          table: 'BannedDevice',
+          table: _table,
           where: getWhereNormalAttributeList(data),
           attributes: paths);
       if (result != null) {
         return BannedDevice(
-            id: result['id'],
-            description: result['description'],
-            deviceFk: result['deviceFk'],
-            deviceId: result['deviceId'],
-            moderatorAuthorizationTokenFk:
-                result['moderatorAuthorizationTokenFk'],
-            createTime: (result['createTime'] != null)
-                ? result['createTime'].toString()
+            id: result[_table]['id'],
+            description: result[_table]['description'],
+            deviceFk: result[_table]['deviceFk'],
+            deviceId: result[_table]['deviceId'],
+            moderatorAuthorizationTokenFk: result[_table]
+                ['moderatorAuthorizationTokenFk'],
+            createTime: (result[_table]['createTime'] != null)
+                ? result[_table]['createTime'].toString()
                 : null,
-            updateTime: (result['updateTime'] != null)
-                ? result['updateTime'].toString()
+            updateTime: (result[_table]['updateTime'] != null)
+                ? result[_table]['updateTime'].toString()
                 : null);
       }
       return null;
