@@ -18,7 +18,7 @@ class JsonWebToken {
   String generateRefreshToken({required Map<String, dynamic> payload}) {
     final jwt = JWT(payload);
     return jwt.sign(SecretKey(_environment.jsonWebTokenSecretKey),
-        expiresIn: Duration(days: 7));
+        expiresIn: Duration(days: 30));
   }
 
   Map<String, dynamic> verify(String token, String tokenName) {
@@ -30,10 +30,12 @@ class JsonWebToken {
       if (error.message.contains('jwt expired')) {
         throw GrpcError.unauthenticated('$tokenName expired');
       } else if (error.message.contains('invalid signature')) {
-        throw GrpcError.unauthenticated('$tokenName with invalid signature');
+        throw GrpcError.unauthenticated('$tokenName invalid');
       } else {
         throw GrpcError.internal('Internal server error');
       }
+    } on FormatException {
+      throw GrpcError.unauthenticated('$tokenName invalid');
     } on Exception {
       throw GrpcError.internal('Internal server error');
     }
