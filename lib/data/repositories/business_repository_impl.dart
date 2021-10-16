@@ -44,23 +44,29 @@ class BusinessRepositoryImpl implements BusinessRepository {
       required HeadersMetadata metadata,
       required List<String> paths}) async {
     try {
-      final response = await businessLocalDataSource.listBusiness(
-          paths: paths, context: context, data: data);
-      if (response.length <= 1) {
-        response.shuffle();
-        return Right(ListBusinessResponse(
-          businesses: response,
-          nextPage: '',
-        ));
+      if (data['location'] == null ||
+          data['location'].latitude == 0.0 &&
+              data['location'].longitude == 0.0) {
+        return Left(GrpcError.invalidArgument('Input `location` invalid'));
       } else {
-        response.removeLast();
-        response.shuffle();
-        return Right(
-          ListBusinessResponse(
-              businesses: response,
-              nextPage:
-                  base64.encode(utf8.encode(response.last.name.toString()))),
-        );
+        final response = await businessLocalDataSource.listBusiness(
+            paths: paths, context: context, data: data);
+        if (response.length <= 1) {
+          response.shuffle();
+          return Right(ListBusinessResponse(
+            businesses: response,
+            nextPage: '',
+          ));
+        } else {
+          response.removeLast();
+          response.shuffle();
+          return Right(
+            ListBusinessResponse(
+                businesses: response,
+                nextPage:
+                    base64.encode(utf8.encode(response.last.name.toString()))),
+          );
+        }
       }
     } on GrpcError catch (error) {
       return Left(error);
