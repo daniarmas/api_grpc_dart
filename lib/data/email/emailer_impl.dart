@@ -67,7 +67,7 @@ class EmailerImpl implements Emailer {
 
 Tú código de verificación es $code. No le des este código a nadie, aunque diga que es de ${_environment.emailFromContactName}.
 
-Fecha: ${StringUtils.formatDateTime(time)}
+Fecha: ${StringUtils.formatDateTime(time.toLocal())}
 Dispositivo: $device
 IP: $ip
 
@@ -134,7 +134,7 @@ Si no solicitaste este código al intentar iniciar sesión en otro dispositivo, 
 
 Hemos detectado un nuevo inicio de sesión en tu cuenta de ${_environment.emailFromContactName}.
 
-Fecha: ${StringUtils.formatDateTime(time)}
+Fecha: ${StringUtils.formatDateTime(time.toLocal())}
 Dispositivo: $device
 IP: $ip
 
@@ -164,7 +164,7 @@ Si fuiste tú, puedes ignorar este correo.""";
 
 Hemos detectado un nuevo inicio de sesión en tu cuenta de ${_environment.emailFromContactName}.
 
-Fecha: ${StringUtils.formatDateTime(time)}
+Fecha: ${StringUtils.formatDateTime(time.toLocal())}
 Dispositivo: $device
 IP: $ip
 
