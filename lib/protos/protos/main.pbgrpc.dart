@@ -373,6 +373,72 @@ abstract class BusinessServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.GetBusinessRequest request);
 }
 
+class ItemServiceClient extends $grpc.Client {
+  static final _$listItem =
+      $grpc.ClientMethod<$0.ListItemRequest, $0.ListItemResponse>(
+          '/ItemService/ListItem',
+          ($0.ListItemRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.ListItemResponse.fromBuffer(value));
+  static final _$getItem =
+      $grpc.ClientMethod<$0.GetItemRequest, $0.GetItemResponse>(
+          '/ItemService/GetItem',
+          ($0.GetItemRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.GetItemResponse.fromBuffer(value));
+
+  ItemServiceClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions? options,
+      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+      : super(channel, options: options, interceptors: interceptors);
+
+  $grpc.ResponseFuture<$0.ListItemResponse> listItem($0.ListItemRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$listItem, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetItemResponse> getItem($0.GetItemRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getItem, request, options: options);
+  }
+}
+
+abstract class ItemServiceBase extends $grpc.Service {
+  $core.String get $name => 'ItemService';
+
+  ItemServiceBase() {
+    $addMethod($grpc.ServiceMethod<$0.ListItemRequest, $0.ListItemResponse>(
+        'ListItem',
+        listItem_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ListItemRequest.fromBuffer(value),
+        ($0.ListItemResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.GetItemRequest, $0.GetItemResponse>(
+        'GetItem',
+        getItem_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.GetItemRequest.fromBuffer(value),
+        ($0.GetItemResponse value) => value.writeToBuffer()));
+  }
+
+  $async.Future<$0.ListItemResponse> listItem_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.ListItemRequest> request) async {
+    return listItem(call, await request);
+  }
+
+  $async.Future<$0.GetItemResponse> getItem_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.GetItemRequest> request) async {
+    return getItem(call, await request);
+  }
+
+  $async.Future<$0.ListItemResponse> listItem(
+      $grpc.ServiceCall call, $0.ListItemRequest request);
+  $async.Future<$0.GetItemResponse> getItem(
+      $grpc.ServiceCall call, $0.GetItemRequest request);
+}
+
 class ObjectStorageServiceClient extends $grpc.Client {
   static final _$getPresignedPutObjectUserAvatar = $grpc.ClientMethod<
           $0.GetPresignedPutUserAvatarRequest,

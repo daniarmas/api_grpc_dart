@@ -247,7 +247,7 @@ String constructSqlQuerySelect({
   }
   // OrderBy
   String orderByAscResult =
-      orderByAsc != null ? 'ORDER BY  $orderByAsc ASC ' : '';
+      orderByAsc != null ? 'ORDER BY  "$table"."$orderByAsc" ASC ' : '';
   // Limit
   String limitResult = limit != null ? 'LIMIT $limit;' : '';
   return 'SELECT $attributesResult '

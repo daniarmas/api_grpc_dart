@@ -24,6 +24,11 @@ service BusinessService {
   rpc GetBusiness (GetBusinessRequest) returns (GetBusinessResponse) {}
 }
 
+service ItemService {
+  rpc ListItem (ListItemRequest) returns (ListItemResponse) {}
+  rpc GetItem (GetItemRequest) returns (GetItemResponse) {}
+}
+
 service ObjectStorageService {
   rpc GetPresignedPutObjectUserAvatar (GetPresignedPutUserAvatarRequest) returns (GetPresignedPutUserAvatarResponse) {}
 }
@@ -37,6 +42,25 @@ service Health {
 }
 
 // Request & Response Message
+
+message ListItemRequest {
+  string nextPage = 1;
+  google.protobuf.FieldMask fieldMask = 2;
+}
+
+message ListItemResponse {
+  repeated Item items = 1;
+  string nextPage = 2;
+}
+
+message GetItemRequest {
+  string id = 1;
+  google.protobuf.FieldMask fieldMask = 2;
+}
+
+message GetItemResponse {
+  Item item = 1;
+}
 
 message ListBusinessRequest {
   Point location = 1;
@@ -219,6 +243,32 @@ message Business {
   string provinceFk = 19;
   string municipalityFk = 20;
   double distance = 21;
+}
+
+message Item {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  bool isAvailable = 5;
+  int32 availability = 6;
+  string businessFk = 7;
+  string businessItemCategoryFk = 8;
+  repeated ItemPhoto photos = 9;
+  string createTime = 10;
+  string updateTime = 11;
+}
+
+message ItemPhoto {
+  string id = 1;
+  string itemFk = 2;
+  string highQualityPhoto = 3;
+  string highQualityPhotoUrl = 4;
+  string lowQualityPhoto = 5;
+  string lowQualityPhotoUrl = 6;
+  string blurHash = 7;
+  string createTime = 8;
+  string updateTime = 9;
 }
 
 message BannedUser {

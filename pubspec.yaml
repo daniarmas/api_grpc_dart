@@ -28,6 +28,8 @@ dependencies:
   http: ^0.13.3
   minio: ^3.0.0
 
+  blurhash_dart: ^1.0.2
+
 dev_dependencies:
   # dart run build_runner build
   injectable_generator: ^1.4.1
