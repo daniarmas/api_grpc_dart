@@ -93,17 +93,17 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
       required Map<String, dynamic> data,
       required List<String> paths}) async {
     try {
-      List<String> getPath = [];
+      List<String> listPath = [];
       List<String> ids = [];
-      getPath.addAll(paths);
-      getPath.removeWhere((element) => element == 'photos');
+      listPath.addAll(paths);
+      listPath.removeWhere((element) => element == 'photos');
       var nextPage = data['nextPage'];
       late List<Map<String, dynamic>> result;
       if (nextPage == null) {
         result = await _database.list(
             context: context,
             table: _table,
-            attributes: paths,
+            attributes: listPath,
             orderByAsc: 'name',
             where: [
               WhereNormalAttribute(key: 'isAvailable', value: 'true'),
