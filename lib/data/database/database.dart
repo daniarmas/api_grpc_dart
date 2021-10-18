@@ -1,4 +1,5 @@
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 import 'package:postgres_dao/where.dart';
 
 abstract class Database {
@@ -12,6 +13,7 @@ abstract class Database {
       required String table,
       required List<String> attributes,
       required List<Where> where,
+      InnerJoin? innerJoin,
       List<String>? agregationMethods,
       int? limit,
       String? orderByAsc});
@@ -21,6 +23,7 @@ abstract class Database {
       required String table,
       required List<String> attributes,
       required List<Where> where,
+      InnerJoin? innerJoin,
       List<String>? agregationMethods});
 
   Future<Map<String, dynamic>> create(

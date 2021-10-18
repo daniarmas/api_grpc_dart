@@ -1,6 +1,7 @@
 import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/construct_sql_query_delete.dart';
 import 'package:postgres_dao/construct_sql_query_insert.dart';
+import 'package:postgres_dao/inner_join.dart';
 
 import 'construct_sql_query_select.dart';
 import 'construct_sql_query_update.dart';
@@ -90,6 +91,7 @@ class PostgresqlDao {
       required String table,
       List<String>? attributes,
       List<String>? agregationMethods,
+      InnerJoin? innerJoin,
       List<Where>? where}) async {
     try {
       String? query = constructSqlQuerySelect(
@@ -97,6 +99,7 @@ class PostgresqlDao {
           where: where,
           table: table,
           attributes: attributes,
+          innerJoin: innerJoin,
           agregationAttributes: agregationMethods,
           orderByAsc: 'id');
       print(query);
@@ -114,6 +117,7 @@ class PostgresqlDao {
       {required PostgreSQLExecutionContext context,
       required String table,
       List<String>? attributes,
+      InnerJoin? innerJoin,
       List<String>? agregationAttributes,
       int? limit,
       List<Where>? where,

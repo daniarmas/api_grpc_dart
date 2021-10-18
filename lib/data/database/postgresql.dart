@@ -90,12 +90,14 @@ class PostgresqlDatabase implements Database {
       required String table,
       required List<String> attributes,
       required List<Where> where,
+      InnerJoin? innerJoin,
       List<String>? agregationMethods}) async {
     try {
       final response = await _connection.get(
           context: context,
           where: where,
           table: table,
+          innerJoin: innerJoin,
           attributes: attributes,
           agregationMethods: agregationMethods);
       return response;
@@ -121,6 +123,7 @@ class PostgresqlDatabase implements Database {
       required String table,
       required List<Where> where,
       required List<String> attributes,
+      InnerJoin? innerJoin,
       List<String>? agregationMethods,
       int? limit,
       String? orderByAsc}) async {

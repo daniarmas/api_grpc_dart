@@ -113,6 +113,7 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
           String? table,
           List<String>? attributes,
           List<_i7.Where>? where,
+          _i7.InnerJoin? innerJoin,
           List<String>? agregationMethods,
           int? limit,
           String? orderByAsc}) =>
@@ -122,6 +123,7 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
                 #table: table,
                 #attributes: attributes,
                 #where: where,
+                #innerJoin: innerJoin,
                 #agregationMethods: agregationMethods,
                 #limit: limit,
                 #orderByAsc: orderByAsc
@@ -135,6 +137,7 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
           String? table,
           List<String>? attributes,
           List<_i7.Where>? where,
+          _i7.InnerJoin? innerJoin,
           List<String>? agregationMethods}) =>
       (super.noSuchMethod(
               Invocation.method(#get, [], {
@@ -142,6 +145,7 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
                 #table: table,
                 #attributes: attributes,
                 #where: where,
+                #innerJoin: innerJoin,
                 #agregationMethods: agregationMethods
               }),
               returnValue: Future<Map<String, dynamic>?>.value())

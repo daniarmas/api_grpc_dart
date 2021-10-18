@@ -31,19 +31,45 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
       required Map<String, dynamic> data,
       required List<String> paths}) async {
     try {
+      List<String> getPath = [];
+      getPath.addAll(paths);
+      getPath.removeWhere((element) => element == 'photos');
       final result = await _database.get(
           context: context,
           table: _table,
           where: getWhereNormalAttributeList(data),
-          attributes: paths);
+          attributes: getPath);
       if (result != null) {
+        List<ItemPhoto> listItemPhoto = [];
+        if (paths.isEmpty || paths.contains('photos')) {
+          final photos = await _database
+              .list(context: context, table: 'ItemPhoto', where: [
+            WhereNormalAttribute(
+              key: 'itemFk',
+              value: result[_table]['id'],
+            )
+          ], attributes: []);
+          for (var item in photos) {
+            listItemPhoto.add(ItemPhoto(
+              id: item['ItemPhoto']['id'],
+              itemFk: item['ItemPhoto']['itemFk'],
+              blurHash: item['ItemPhoto']['blurHash'],
+              highQualityPhoto: item['ItemPhoto']['highQualityPhoto'],
+              highQualityPhotoUrl: item['ItemPhoto']['highQualityPhotoUrl'],
+              lowQualityPhoto: item['ItemPhoto']['lowQualityPhoto'],
+              lowQualityPhotoUrl: item['ItemPhoto']['lowQualityPhotoUrl'],
+              createTime: item['ItemPhoto']['createTime'].toString(),
+              updateTime: item['ItemPhoto']['updateTime'].toString(),
+            ));
+          }
+        }
         return Item(
           id: result[_table]['id'],
           name: result[_table]['name'],
           description: result[_table]['description'],
           availability: result[_table]['availability'],
           businessFk: result[_table]['businessFk'],
-          photos: null,
+          photos: listItemPhoto,
           businessItemCategoryFk: result[_table]['businessItemCategoryFk'],
           isAvailable: result[_table]['isAvailable'],
           price: result[_table]['price'],
@@ -67,6 +93,10 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
       required Map<String, dynamic> data,
       required List<String> paths}) async {
     try {
+      List<String> getPath = [];
+      List<String> ids = [];
+      getPath.addAll(paths);
+      getPath.removeWhere((element) => element == 'photos');
       var nextPage = data['nextPage'];
       late List<Map<String, dynamic>> result;
       if (nextPage == null) {
@@ -95,6 +125,7 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
       }
       List<Item> response = [];
       for (var item in result) {
+        ids.add(item[_table]['id']);
         response.add(Item(
             id: item[_table]['id'],
             name: item[_table]['name'],
@@ -111,6 +142,38 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
             updateTime: (item[_table]['updateTime'] != null)
                 ? item[_table]['updateTime'].toString()
                 : null));
+      }
+      if (response.length > 5) {
+        ids.removeLast();
+      }
+      List<ItemPhoto> listItemPhoto = [];
+      if (paths.isEmpty || paths.contains('photos')) {
+        final photos =
+            await _database.list(context: context, table: 'ItemPhoto', where: [
+          WhereNormalAttributeIn(key: 'itemFk', value: ids),
+        ], attributes: []);
+        for (var item in photos) {
+          listItemPhoto.add(ItemPhoto(
+            id: item['ItemPhoto']['id'],
+            itemFk: item['ItemPhoto']['itemFk'],
+            blurHash: item['ItemPhoto']['blurHash'],
+            highQualityPhoto: item['ItemPhoto']['highQualityPhoto'],
+            highQualityPhotoUrl: item['ItemPhoto']['highQualityPhotoUrl'],
+            lowQualityPhoto: item['ItemPhoto']['lowQualityPhoto'],
+            lowQualityPhotoUrl: item['ItemPhoto']['lowQualityPhotoUrl'],
+            createTime: item['ItemPhoto']['createTime'].toString(),
+            updateTime: item['ItemPhoto']['updateTime'].toString(),
+          ));
+        }
+      }
+      for (var item in response) {
+        List<ItemPhoto> listOfPhotos = [];
+        for (var itemPhoto in listItemPhoto) {
+          if (item.id == itemPhoto.itemFk) {
+            listOfPhotos.add(itemPhoto);
+          }
+        }
+        item.photos.addAll(listOfPhotos);
       }
       return response;
     } catch (error) {
