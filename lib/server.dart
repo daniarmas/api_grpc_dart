@@ -13,6 +13,7 @@ import 'data/email/emailer.dart';
 import 'domain/services/authentication_service.dart';
 import 'domain/services/health_service.dart';
 import 'domain/services/hostname_service.dart';
+import 'domain/services/item_service.dart';
 import 'environment.dart';
 
 class Server {
@@ -30,6 +31,7 @@ class Server {
           HostnameService(),
           ObjectStorageService(),
           BusinessService(),
+          ItemService(),
         ], [
           (ServiceCall call, ServiceMethod method) {
             var accessTokenValidResponse = accessTokenValid(call, method);
@@ -43,7 +45,8 @@ class Server {
             }
           },
           (ServiceCall call, ServiceMethod method) {
-            return authorizationTokenValid(call, method, ['ListBusiness', 'GetBusiness']);
+            return authorizationTokenValid(call, method,
+                ['ListBusiness', 'GetBusiness', 'ListItem', 'GetItem']);
           }
         ]);
         await server.serve(port: _environment.port);

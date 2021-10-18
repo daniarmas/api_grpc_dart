@@ -1,6 +1,7 @@
 import 'package:postgres_dao/and.dart';
 import 'package:postgres_dao/normal_attribute.dart';
 import 'package:postgres_dao/or.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 import 'package:postgres_dao/where_attribute.dart';
 import 'package:postgres_dao/where_normal_attribute_higher.dart';
 import 'package:postgres_dao/where_normal_attribute_in.dart';
@@ -13,6 +14,7 @@ String constructSqlQuerySelect({
   required String table,
   List<String>? attributes,
   List<String>? agregationAttributes,
+  InnerJoin? innerJoin,
   int? limit,
   List<Where>? where,
   String? orderByAsc,
@@ -245,13 +247,16 @@ String constructSqlQuerySelect({
     }
     whereResult = 'WHERE $whereString';
   }
+  // InnerJoin
+  String innerJoinResult = (innerJoin != null) ? '$innerJoin' : '';
   // OrderBy
   String orderByAscResult =
-      orderByAsc != null ? 'ORDER BY  $orderByAsc ASC ' : '';
+      orderByAsc != null ? 'ORDER BY  "$table"."$orderByAsc" ASC ' : '';
   // Limit
   String limitResult = limit != null ? 'LIMIT $limit;' : '';
   return 'SELECT $attributesResult '
       'FROM "$table" '
+      '$innerJoinResult'
       '$whereResult'
       '$orderByAscResult'
       '$limitResult ';
