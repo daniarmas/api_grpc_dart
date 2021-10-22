@@ -60,4 +60,42 @@ class ItemRepositoryImpl implements ItemRepository {
       return Left(GrpcError.internal('Internal server error'));
     }
   }
+
+  @override
+  Future<Either<GrpcError, SearchItemResponse>> searchItem(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required HeadersMetadata metadata,
+      required List<String> paths}) async {
+    try {
+      if (data['nextPage'] == null) {
+        return Left(GrpcError.invalidArgument('Input `nextPage` invalid'));
+      } else if (data['location'] == null ||
+          data['location'].latitude == 0.0 ||
+          data['location'].longitude == 0.0) {
+        return Left(GrpcError.invalidArgument('Input `location` invalid'));
+      } else if (data['name'] == null || data['name'] == '') {
+        return Left(GrpcError.invalidArgument('Input `name` invalid'));
+      } else if (data['provinceFk'] == null || data['provinceFk'] == '') {
+        return Left(GrpcError.invalidArgument('Input `provinceFk` invalid'));
+      } else if (data['municipalityFk'] == null ||
+          data['municipalityFk'] == '') {
+        return Left(
+            GrpcError.invalidArgument('Input `municipalityFk` invalid'));
+      } else if (data['searchMunicipalityType'] == null ||
+          data['searchMunicipalityType'] ==
+              SearchMunicipalityType.SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED) {
+        return Left(GrpcError.invalidArgument(
+            'Input `searchMunicipalityType` invalid'));
+      } else {
+        final response = await itemLocalDataSource.searchItem(
+            paths: paths, context: context, data: data);
+        return Right(response);
+      }
+    } on GrpcError catch (error) {
+      return Left(error);
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
+    }
+  }
 }

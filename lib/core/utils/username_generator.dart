@@ -45,11 +45,6 @@ class UsernameGenerator {
           .replaceAll(RegExp(r'[^a-zA-Z\d]'), '');
     }
 
-    String name = '';
-    String sNameOrflName = '';
-    String flName = '';
-    String slName = '';
-
     if (date != null) {
       String day = date.day.toString().twoNumber;
       String month = date.month.toString().twoNumber;

@@ -41,7 +41,7 @@ class BusinessRepositoryImpl implements BusinessRepository {
   }
 
   @override
-  Future<Either<GrpcError, ListBusinessResponse>> listBusiness(
+  Future<Either<GrpcError, FeedResponse>> feed(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
@@ -56,7 +56,7 @@ class BusinessRepositoryImpl implements BusinessRepository {
             paths: paths, context: context, data: data);
         if (response.length <= 1) {
           response.shuffle();
-          return Right(ListBusinessResponse(
+          return Right(FeedResponse(
             businesses: response,
             nextPage: '',
           ));
@@ -64,7 +64,7 @@ class BusinessRepositoryImpl implements BusinessRepository {
           response.removeLast();
           response.shuffle();
           return Right(
-            ListBusinessResponse(
+            FeedResponse(
                 businesses: response,
                 nextPage:
                     base64.encode(utf8.encode(response.last.name.toString()))),

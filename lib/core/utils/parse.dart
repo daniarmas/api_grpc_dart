@@ -12,6 +12,18 @@ VerificationCodeType parseVerificationCodeTypeEnum(String? value) {
   }
 }
 
+ItemStatusType parseItemStatusTypeEnum(String? value) {
+  if (value == 'AVAILABLE') {
+    return ItemStatusType.AVAILABLE;
+  } else if (value == 'UNAVAILABLE') {
+    return ItemStatusType.UNAVAILABLE;
+  } else if (value == 'DEPRECATED') {
+    return ItemStatusType.DEPRECATED;
+  } else {
+    return ItemStatusType.ITEM_STATUS_TYPE_UNSPECIFIED;
+  }
+}
+
 PlatformType parsePlatformTypeEnum(String? value) {
   if (value == 'ANDROID') {
     return PlatformType.ANDROID;
@@ -33,9 +45,9 @@ AppType parseAppTypeEnum(String? value) {
 }
 
 List<Polygon> parsePolygon(List<dynamic> parameter) {
-    List<Polygon> list = [];
-    for (var item in parameter) {
-      list.add(Polygon(coordinates: [item[0], item[1]]));
-    }
-    return list;
+  List<Polygon> list = [];
+  for (var item in parameter) {
+    list.add(Polygon(coordinates: [item[0], item[1]]));
   }
+  return list;
+}

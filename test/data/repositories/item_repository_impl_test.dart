@@ -1,10 +1,6 @@
 import 'package:api_grpc_dart/core/utils/metadata.dart';
-import 'package:api_grpc_dart/core/utils/username_generator.dart';
-import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:api_grpc_dart/data/datasources/item_local_data_source.dart';
-import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/repositories/item_repository_impl.dart';
-import 'package:api_grpc_dart/data/repositories/user_repository_impl.dart';
 import 'package:api_grpc_dart/environment.dart';
 import 'package:api_grpc_dart/injection_container.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
@@ -69,17 +65,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -112,17 +106,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -135,17 +127,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -158,17 +148,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -181,17 +169,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -204,17 +190,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -227,17 +211,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -288,17 +270,15 @@ void main() {
         businessFk: 'businessFk',
         businessItemCategoryFk: 'businessItemCategoryFk',
         description: 'description',
-        isAvailable: true,
+        status: ItemStatusType.AVAILABLE,
         name: 'name',
         photos: [
           ItemPhoto(
               createTime: 'createTime',
               highQualityPhoto: 'highQualityPhoto',
-              highQualityPhotoUrl: 'highQualityPhotoUrl',
               id: 'id',
               itemFk: 'itemFk',
               lowQualityPhoto: 'lowQualityPhoto',
-              lowQualityPhotoUrl: 'lowQualityPhotoUrl',
               updateTime: 'updateTime')
         ],
         price: 20.0,
@@ -349,6 +329,148 @@ void main() {
           data: anyNamed('data'),
           paths: anyNamed('paths')));
       expect(result, Left(GrpcError.invalidArgument('Input `id` invalid')));
+    });
+  });
+  group('testing searchItem', () {
+    test('Return data sucessfull when is the first request and have nextPage',
+        () async {
+      // setup
+      List<SearchItem> listOfItem = [
+        SearchItem(
+          id: '1',
+          businessFk: 'businessFk',
+          status: ItemStatusType.AVAILABLE,
+          name: 'name',
+          price: 20.0,
+        ),
+        SearchItem(
+          id: '2',
+          businessFk: 'businessFk',
+          status: ItemStatusType.AVAILABLE,
+          name: 'name',
+          price: 20.0,
+        ),
+        SearchItem(
+          id: '3',
+          businessFk: 'businessFk',
+          status: ItemStatusType.AVAILABLE,
+          name: 'name',
+          price: 20.0,
+        ),
+        SearchItem(
+          id: '4',
+          businessFk: 'businessFk',
+          status: ItemStatusType.AVAILABLE,
+          name: 'name',
+          price: 20.0,
+        ),
+        SearchItem(
+          id: '5',
+          businessFk: 'businessFk',
+          status: ItemStatusType.AVAILABLE,
+          name: 'name',
+          price: 20.0,
+        ),
+        SearchItem(
+          id: '6',
+          businessFk: 'businessFk',
+          status: ItemStatusType.AVAILABLE,
+          name: 'name',
+          price: 20.0,
+        ),
+      ];
+      // side effects
+      when(mockItemLocalDataSource.searchItem(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => listOfItem);
+      final result = await itemRepositoryImpl.searchItem(
+          context: ctx, data: {}, metadata: metadata, paths: []);
+      // expectations
+      verify(mockItemLocalDataSource.searchItem(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result, Right(listOfItem));
+    });
+    test(
+        'Return data sucessfull when is the first request and dont have nextPage',
+        () async {
+      // setup
+      List<SearchItem> listOfItem = [
+        SearchItem(
+          id: '1',
+          businessFk: 'businessFk',
+          status: ItemStatusType.AVAILABLE,
+          name: 'name',
+          price: 20.0,
+        ),
+        SearchItem(
+          id: '2',
+          businessFk: 'businessFk',
+          status: ItemStatusType.AVAILABLE,
+          name: 'name',
+          price: 20.0,
+        ),
+        SearchItem(
+          id: '3',
+          businessFk: 'businessFk',
+          status: ItemStatusType.AVAILABLE,
+          name: 'name',
+          price: 20.0,
+        ),
+      ];
+      // side effects
+      when(mockItemLocalDataSource.searchItem(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => listOfItem);
+      final result = await itemRepositoryImpl.searchItem(
+          context: ctx, data: {}, metadata: metadata, paths: []);
+      // expectations
+      verify(mockItemLocalDataSource.searchItem(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result, Right(listOfItem));
+    });
+    test('Return data sucessfull when is the first request and dont have data',
+        () async {
+      // setup
+      List<SearchItem> listOfItem = [];
+      // side effects
+      when(mockItemLocalDataSource.searchItem(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => listOfItem);
+      final result = await itemRepositoryImpl.searchItem(
+          context: ctx, data: {}, metadata: metadata, paths: []);
+      // expectations
+      verify(mockItemLocalDataSource.searchItem(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result, Right(listOfItem));
+    });
+    test('Return GrpcError.internal when the code throw a Exception', () async {
+      // setup
+      // side effects
+      when(mockItemLocalDataSource.searchItem(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenThrow(Exception());
+      final result = await itemRepositoryImpl.searchItem(
+          context: ctx, data: {}, metadata: metadata, paths: []);
+      // expectations
+      verify(mockItemLocalDataSource.searchItem(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });
 }

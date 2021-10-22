@@ -1,3 +1,4 @@
+import 'package:api_grpc_dart/core/utils/parse.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
@@ -8,6 +9,11 @@ import '../../protos/protos/main.pb.dart';
 
 abstract class ItemLocalDataSource {
   Future<List<Item>> listItem(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths});
+
+  Future<SearchItemResponse> searchItem(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<String> paths});
@@ -44,7 +50,7 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
         if (paths.isEmpty || paths.contains('photos')) {
           final photos = await _database
               .list(context: context, table: 'ItemPhoto', where: [
-            WhereNormalAttribute(
+            WhereNormalAttributeEqual(
               key: 'itemFk',
               value: result[_table]['id'],
             )
@@ -55,9 +61,7 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
               itemFk: item['ItemPhoto']['itemFk'],
               blurHash: item['ItemPhoto']['blurHash'],
               highQualityPhoto: item['ItemPhoto']['highQualityPhoto'],
-              highQualityPhotoUrl: item['ItemPhoto']['highQualityPhotoUrl'],
               lowQualityPhoto: item['ItemPhoto']['lowQualityPhoto'],
-              lowQualityPhotoUrl: item['ItemPhoto']['lowQualityPhotoUrl'],
               createTime: item['ItemPhoto']['createTime'].toString(),
               updateTime: item['ItemPhoto']['updateTime'].toString(),
             ));
@@ -69,9 +73,12 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
           description: result[_table]['description'],
           availability: result[_table]['availability'],
           businessFk: result[_table]['businessFk'],
+          blurHash: result[_table]['blurHash'],
+          highQualityPhoto: result[_table]['highQualityPhoto'],
+          lowQualityPhoto: result[_table]['lowQualityPhoto'],
           photos: listItemPhoto,
           businessItemCategoryFk: result[_table]['businessItemCategoryFk'],
-          isAvailable: result[_table]['isAvailable'],
+          status: parseItemStatusTypeEnum(result[_table]['status']),
           price: result[_table]['price'],
           createTime: (result[_table]['createTime'] != null)
               ? result[_table]['createTime'].toString()
@@ -106,8 +113,8 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
             attributes: listPath,
             orderByAsc: 'name',
             where: [
-              WhereNormalAttribute(key: 'isAvailable', value: 'true'),
-              WhereNormalAttributeHigher(key: 'availability', value: '0'),
+              WhereNormalAttributeNotEqual(key: 'status', value: 'DEPRECATED'),
+              WhereNormalAttributeHigher(key: 'availability', value: '-1'),
             ],
             limit: 5);
       } else {
@@ -118,8 +125,8 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
             orderByAsc: 'name',
             where: [
               WhereNormalAttributeHigher(key: 'name', value: data['nextPage']),
-              WhereNormalAttribute(key: 'isAvailable', value: 'true'),
-              WhereNormalAttributeHigher(key: 'availability', value: '0'),
+              WhereNormalAttributeNotEqual(key: 'status', value: 'DEPRECATED'),
+              WhereNormalAttributeHigher(key: 'availability', value: '-1'),
             ],
             limit: 5);
       }
@@ -132,9 +139,12 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
             description: item[_table]['description'],
             availability: item[_table]['availability'],
             businessFk: item[_table]['businessFk'],
+            blurHash: item[_table]['blurHash'],
+            highQualityPhoto: item[_table]['highQualityPhoto'],
+            lowQualityPhoto: item[_table]['lowQualityPhoto'],
             photos: null,
             businessItemCategoryFk: item[_table]['businessItemCategoryFk'],
-            isAvailable: item[_table]['isAvailable'],
+            status: parseItemStatusTypeEnum(item['Item']['status']),
             price: item[_table]['price'],
             createTime: (item[_table]['createTime'] != null)
                 ? item[_table]['createTime'].toString()
@@ -158,9 +168,7 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
             itemFk: item['ItemPhoto']['itemFk'],
             blurHash: item['ItemPhoto']['blurHash'],
             highQualityPhoto: item['ItemPhoto']['highQualityPhoto'],
-            highQualityPhotoUrl: item['ItemPhoto']['highQualityPhotoUrl'],
             lowQualityPhoto: item['ItemPhoto']['lowQualityPhoto'],
-            lowQualityPhotoUrl: item['ItemPhoto']['lowQualityPhotoUrl'],
             createTime: item['ItemPhoto']['createTime'].toString(),
             updateTime: item['ItemPhoto']['updateTime'].toString(),
           ));
@@ -175,6 +183,213 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
         }
         item.photos.addAll(listOfPhotos);
       }
+      return response;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<SearchItemResponse> searchItem(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required List<String> paths}) async {
+    try {
+      late List<Map<String, dynamic>> itemsResult;
+      late List<Map<String, dynamic>> businessResult;
+      var nextPage = data['nextPage'];
+      var latLng = data['location'];
+      SearchItemResponse response = SearchItemResponse();
+      List<String> businessIds = [];
+      List<SearchItem> searchItemsList = [];
+      if (nextPage == 0) {
+        businessResult = await _database.list(
+          context: context,
+          table: 'Business',
+          attributes: ['id'],
+          agregationMethods: [
+            'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
+          ],
+          where: [
+            WhereNormalAttributeEqual(
+                key: 'provinceFk', value: data['provinceFk']),
+            WhereNormalAttributeEqual(
+                key: 'municipalityFk', value: data['municipalityFk']),
+          ],
+        );
+        for (var item in businessResult) {
+          businessIds.add(item['Business']['id']);
+        }
+        itemsResult = await _database.search(
+            context: context,
+            table: 'Item',
+            attributes: [
+              'id',
+              'name',
+              'price',
+              'status',
+              'highQualityPhoto',
+              'lowQualityPhoto',
+              'blurHash',
+              'businessFk',
+              'cursor'
+            ],
+            where: [
+              WhereNormalSearch(key: 'name', value: data['name']),
+              WhereNormalAttributeIn(key: 'businessFk', value: businessIds),
+              WhereNormalAttributeNotEqual(key: 'status', value: 'DEPRECATED'),
+              WhereNormalAttributeHigher(key: 'availability', value: '-1'),
+              WhereNormalAttributeHigher(key: 'cursor', value: nextPage),
+            ],
+            limit: 5);
+        if (itemsResult.length >= 5) {
+          itemsResult.removeLast();
+          response.nextPage =
+              response.nextPage = itemsResult.last['Item']['cursor'];
+          response.searchMunicipalityType = SearchMunicipalityType.MORE;
+        } else if (itemsResult.length <= 5 && itemsResult.isNotEmpty) {
+          response.nextPage =
+              response.nextPage = itemsResult.last['Item']['cursor'];
+          response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+        } else if (itemsResult.isEmpty) {
+          businessIds.clear();
+          businessResult = await _database.list(
+            context: context,
+            table: 'Business',
+            attributes: ['id'],
+            agregationMethods: [
+              'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
+            ],
+            where: [
+              WhereNormalAttributeEqual(
+                  key: 'provinceFk', value: data['provinceFk']),
+              (data['searchMunicipalityType'] == SearchMunicipalityType.MORE)
+                  ? WhereNormalAttributeNotEqual(
+                      key: 'municipalityFk', value: data['municipalityFk'])
+                  : WhereNormalAttributeEqual(
+                      key: 'municipalityFk', value: data['municipalityFk']),
+            ],
+          );
+          for (var item in businessResult) {
+            businessIds.add(item['Business']['id']);
+          }
+          itemsResult = await _database.search(
+              context: context,
+              table: 'Item',
+              attributes: [
+                'id',
+                'name',
+                'price',
+                'status',
+                'highQualityPhoto',
+                'lowQualityPhoto',
+                'blurHash',
+                'businessFk',
+                'cursor'
+              ],
+              where: [
+                WhereNormalSearch(key: 'name', value: data['name']),
+                WhereNormalAttributeIn(key: 'businessFk', value: businessIds),
+                WhereNormalAttributeNotEqual(
+                    key: 'status', value: 'DEPRECATED'),
+                WhereNormalAttributeHigher(key: 'cursor', value: nextPage),
+              ],
+              limit: 5);
+          if (itemsResult.length >= 5) {
+            itemsResult.removeLast();
+            response.nextPage = itemsResult.last['Item']['cursor'];
+            response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+          } else if (itemsResult.length <= 5 && itemsResult.isNotEmpty) {
+            response.nextPage =
+                response.nextPage = itemsResult.last['Item']['cursor'];
+            response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+          } else {
+            response.nextPage = response.nextPage = 0;
+            response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+          }
+        }
+      } else {
+        businessResult = await _database.list(
+          context: context,
+          table: 'Business',
+          attributes: ['id'],
+          agregationMethods: [
+            'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
+          ],
+          where: [
+            WhereNormalAttributeEqual(
+                key: 'provinceFk', value: data['provinceFk']),
+            (data['searchMunicipalityType'] == SearchMunicipalityType.MORE)
+                ? WhereNormalAttributeEqual(
+                    key: 'municipalityFk', value: data['municipalityFk'])
+                : WhereNormalAttributeNotEqual(
+                    key: 'municipalityFk', value: data['municipalityFk']),
+          ],
+        );
+        for (var item in businessResult) {
+          businessIds.add(item['Business']['id']);
+        }
+        itemsResult = await _database.search(
+            context: context,
+            table: 'Item',
+            attributes: [
+              'id',
+              'name',
+              'price',
+              'status',
+              'highQualityPhoto',
+              'lowQualityPhoto',
+              'blurHash',
+              'businessFk',
+              'cursor'
+            ],
+            where: [
+              WhereNormalSearch(key: 'name', value: data['name']),
+              WhereNormalAttributeIn(key: 'businessFk', value: businessIds),
+              WhereNormalAttributeNotEqual(key: 'status', value: 'DEPRECATED'),
+              WhereNormalAttributeHigher(key: 'cursor', value: nextPage),
+            ],
+            limit: 5);
+        if (itemsResult.length >= 5) {
+          itemsResult.removeLast();
+          response.nextPage = itemsResult.last['Item']['cursor'];
+          response.searchMunicipalityType =
+              (data['searchMunicipalityType'] == SearchMunicipalityType.MORE)
+                  ? SearchMunicipalityType.MORE
+                  : SearchMunicipalityType.NO_MORE;
+        } else if (itemsResult.length <= 5 && itemsResult.isNotEmpty) {
+          response.nextPage = itemsResult.last['Item']['cursor'];
+          response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+        } else if (itemsResult.isEmpty) {
+          response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+          response.nextPage = 0;
+        }
+      }
+      for (var itemBusiness in businessResult) {
+        for (var item in itemsResult) {
+          if (itemBusiness['Business']['id'] == item['Item']['businessFk']) {
+            searchItemsList.add(SearchItem(
+              id: item['Item']['id'],
+              name: item['Item']['name'],
+              price: item['Item']['price'],
+              businessName: itemBusiness['Business']['name'],
+              highQualityPhoto: item['Item']['highQualityPhoto'],
+              lowQualityPhoto: item['Item']['lowQualityPhoto'],
+              blurHash: item['Item']['blurHash'],
+              cursor: item['Item']['cursor'],
+              businessFk: itemBusiness['Business']['id'],
+              status: (parseItemStatusTypeEnum(
+                            item['Item']['status'],
+                          ) ==
+                          ItemStatusType.AVAILABLE &&
+                      itemBusiness['']['isInRange'])
+                  ? ItemStatusType.AVAILABLE
+                  : ItemStatusType.UNAVAILABLE,
+            ));
+          }
+        }
+      }
+      response.items.addAll(searchItemsList);
       return response;
     } catch (error) {
       rethrow;

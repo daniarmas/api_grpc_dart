@@ -6,7 +6,7 @@ import 'package:postgres/postgres.dart';
 import '../../protos/protos/main.pb.dart';
 
 abstract class BusinessRepository {
-  Future<Either<GrpcError, ListBusinessResponse>> listBusiness({
+  Future<Either<GrpcError, FeedResponse>> feed({
     required PostgreSQLExecutionContext context,
     required Map<String, dynamic> data,
     required HeadersMetadata metadata,

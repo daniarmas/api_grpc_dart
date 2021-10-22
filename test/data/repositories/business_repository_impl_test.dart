@@ -82,15 +82,15 @@ void main() {
             provinceFk: '',
             toPickUp: true),
       ];
-      ListBusinessResponse listBusinessResponse =
-          ListBusinessResponse(businesses: listOfBusiness, nextPage: '');
+      FeedResponse listBusinessResponse =
+          FeedResponse(businesses: listOfBusiness, nextPage: '');
       // side effects
       when(mockBusinessLocalDataSource.listBusiness(
               context: anyNamed('context'),
               data: anyNamed('data'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => listOfBusiness);
-      final result = await businessRepositoryImpl.listBusiness(
+      final result = await businessRepositoryImpl.feed(
           context: ctx,
           data: {
             'location': Point(

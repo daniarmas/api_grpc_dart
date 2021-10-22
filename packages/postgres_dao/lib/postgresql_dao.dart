@@ -1,7 +1,9 @@
 import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/construct_sql_query_delete.dart';
 import 'package:postgres_dao/construct_sql_query_insert.dart';
+import 'package:postgres_dao/construct_sql_query_search.dart';
 import 'package:postgres_dao/inner_join.dart';
+import 'package:postgres_dao/where_search.dart';
 
 import 'construct_sql_query_select.dart';
 import 'construct_sql_query_update.dart';
@@ -130,6 +132,33 @@ class PostgresqlDao {
           table: table,
           attributes: attributes,
           agregationAttributes: agregationAttributes,
+          orderByAsc: orderByAsc);
+      print(query);
+      var result = await context.mappedResultsQuery(query);
+      for (var item in result) {
+        response.add(item);
+      }
+      return response;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> search({
+    required PostgreSQLExecutionContext context,
+    required String table,
+    required List<Where> where,
+    List<String>? attributes,
+    int? limit,
+    String? orderByAsc,
+  }) async {
+    try {
+      List<Map<String, dynamic>> response = [];
+      String? query = constructSqlQuerySearch(
+          limit: limit,
+          where: where,
+          table: table,
+          attributes: attributes,
           orderByAsc: orderByAsc);
       print(query);
       var result = await context.mappedResultsQuery(query);

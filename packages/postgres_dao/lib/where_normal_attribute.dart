@@ -1,6 +1,11 @@
 import 'where_attribute.dart';
 
-class WhereNormalAttribute extends WhereAttribute {
-  WhereNormalAttribute({required String key, required dynamic value})
+class WhereNormalAttributeEqual extends WhereAttribute {
+  WhereNormalAttributeEqual({required String key, required dynamic value})
+      : super(key: '"$key"', value: value);
+}
+
+class WhereNormalAttributeNotEqual extends WhereAttribute {
+  WhereNormalAttributeNotEqual({required String key, required dynamic value})
       : super(key: '"$key"', value: value);
 }

@@ -132,6 +132,26 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
                   <Map<String, dynamic>>[]))
           as _i5.Future<List<Map<String, dynamic>>>);
   @override
+  _i5.Future<List<Map<String, dynamic>>> search(
+          {_i3.PostgreSQLExecutionContext? context,
+          String? table,
+          List<_i7.Where>? where,
+          List<String>? attributes,
+          int? limit,
+          String? orderByAsc}) =>
+      (super.noSuchMethod(
+              Invocation.method(#search, [], {
+                #context: context,
+                #table: table,
+                #where: where,
+                #attributes: attributes,
+                #limit: limit,
+                #orderByAsc: orderByAsc
+              }),
+              returnValue: Future<List<Map<String, dynamic>>>.value(
+                  <Map<String, dynamic>>[]))
+          as _i5.Future<List<Map<String, dynamic>>>);
+  @override
   _i5.Future<Map<String, dynamic>?> get(
           {_i3.PostgreSQLExecutionContext? context,
           String? table,

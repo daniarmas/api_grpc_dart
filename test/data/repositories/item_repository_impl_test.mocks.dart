@@ -2,11 +2,11 @@
 // in api_grpc_dart/test/data/repositories/item_repository_impl_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
 import 'package:api_grpc_dart/data/datasources/item_local_data_source.dart'
-    as _i2;
-import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i4;
+    as _i3;
+import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:postgres/postgres.dart' as _i5;
 
@@ -18,34 +18,48 @@ import 'package:postgres/postgres.dart' as _i5;
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: unnecessary_parenthesis
 
+class _FakeSearchItemResponse_0 extends _i1.Fake
+    implements _i2.SearchItemResponse {}
+
 /// A class which mocks [ItemLocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockItemLocalDataSource extends _i1.Mock
-    implements _i2.ItemLocalDataSource {
+    implements _i3.ItemLocalDataSource {
   MockItemLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<List<_i4.Item>> listItem(
+  _i4.Future<List<_i2.Item>> listItem(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
           List<String>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#listItem, [],
                   {#context: context, #data: data, #paths: paths}),
-              returnValue: Future<List<_i4.Item>>.value(<_i4.Item>[]))
-          as _i3.Future<List<_i4.Item>>);
+              returnValue: Future<List<_i2.Item>>.value(<_i2.Item>[]))
+          as _i4.Future<List<_i2.Item>>);
   @override
-  _i3.Future<_i4.Item?> getItem(
+  _i4.Future<_i2.SearchItemResponse> searchItem(
+          {_i5.PostgreSQLExecutionContext? context,
+          Map<String, dynamic>? data,
+          List<String>? paths}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #searchItem, [], {#context: context, #data: data, #paths: paths}),
+          returnValue: Future<_i2.SearchItemResponse>.value(
+              _FakeSearchItemResponse_0())) as _i4
+          .Future<_i2.SearchItemResponse>);
+  @override
+  _i4.Future<_i2.Item?> getItem(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
           List<String>? paths}) =>
       (super.noSuchMethod(
           Invocation.method(
               #getItem, [], {#context: context, #data: data, #paths: paths}),
-          returnValue: Future<_i4.Item?>.value()) as _i3.Future<_i4.Item?>);
+          returnValue: Future<_i2.Item?>.value()) as _i4.Future<_i2.Item?>);
   @override
   String toString() => super.toString();
 }

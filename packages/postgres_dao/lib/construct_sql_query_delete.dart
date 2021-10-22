@@ -21,7 +21,7 @@ String constructSqlQueryDelete({
           for (var y = 0; y < and.attributes.length; y++) {
             var item = and.attributes[y];
             if (y == 0) {
-              if (item is WhereNormalAttribute) {
+              if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\'';
               } else if (where[y] is WhereNormalAttributeNotIn &&
                   item.value != '') {
@@ -32,7 +32,7 @@ String constructSqlQueryDelete({
                 whereString += '${item.key} = \'${item.value}\'';
               }
             } else {
-              if (item is WhereNormalAttribute) {
+              if (item is WhereNormalAttributeEqual) {
                 whereString += ' AND "$table".${item.key} = \'${item.value}\'';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value != '') {
@@ -49,7 +49,7 @@ String constructSqlQueryDelete({
           for (var y = 0; y < and.attributes.length; y++) {
             var item = and.attributes[y];
             if (y == 0) {
-              if (item is WhereNormalAttribute) {
+              if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\'';
               } else if (where[y] is WhereNormalAttributeNotIn &&
                   item.value != '') {
@@ -60,7 +60,7 @@ String constructSqlQueryDelete({
                 whereString += '${item.key} = \'${item.value}\'';
               }
             } else {
-              if (item is WhereNormalAttribute) {
+              if (item is WhereNormalAttributeEqual) {
                 whereString += ' OR "$table".${item.key} = \'${item.value}\'';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value != '') {
@@ -74,7 +74,7 @@ String constructSqlQueryDelete({
           }
         } else {
           var item = where[i] as WhereAttribute;
-          if (item is WhereNormalAttribute) {
+          if (item is WhereNormalAttributeEqual) {
             whereString += '"$table".${item.key} = \'${item.value}\'';
           } else if (item is WhereNormalAttributeNotIn && item.value != '') {
             whereString += '"$table".${item.key} ${item.value}';
@@ -90,7 +90,7 @@ String constructSqlQueryDelete({
           for (var y = 0; y < and.attributes.length; y++) {
             var item = and.attributes[y];
             if (y == 0) {
-              if (item is WhereNormalAttribute) {
+              if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value != '') {
@@ -101,7 +101,7 @@ String constructSqlQueryDelete({
                 whereString += '${item.key} = \'${item.value}\' ';
               }
             } else {
-              if (item is WhereNormalAttribute) {
+              if (item is WhereNormalAttributeEqual) {
                 whereString += ' AND "$table".${item.key} = \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value != '') {
@@ -118,7 +118,7 @@ String constructSqlQueryDelete({
           for (var y = 0; y < and.attributes.length; y++) {
             var item = and.attributes[y];
             if (y == 0) {
-              if (item is WhereNormalAttribute) {
+              if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value != '') {
@@ -129,7 +129,7 @@ String constructSqlQueryDelete({
                 whereString += '${item.key} = \'${item.value}\' ';
               }
             } else {
-              if (item is WhereNormalAttribute) {
+              if (item is WhereNormalAttributeEqual) {
                 whereString += ' OR "$table".${item.key} = \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
                   item.value != '') {
@@ -143,7 +143,7 @@ String constructSqlQueryDelete({
           }
         } else {
           var item = where[i] as WhereAttribute;
-          if (item is WhereNormalAttribute) {
+          if (item is WhereNormalAttributeEqual) {
             whereString += ' AND "$table".${item.key} = \'${item.value}\' ';
           } else if (item is WhereNormalAttributeNotIn && item.value != '') {
             whereString += ' AND "$table".${item.key} ${item.value} ';

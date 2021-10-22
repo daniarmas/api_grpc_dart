@@ -18,6 +18,15 @@ abstract class Database {
       int? limit,
       String? orderByAsc});
 
+  Future<List<Map<String, dynamic>>> search({
+    required PostgreSQLExecutionContext context,
+    required String table,
+    required List<Where> where,
+    List<String>? attributes,
+    int? limit,
+    String? orderByAsc,
+  });
+
   Future<Map<String, dynamic>?> get(
       {required PostgreSQLExecutionContext context,
       required String table,

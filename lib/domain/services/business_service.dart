@@ -42,15 +42,14 @@ class BusinessService extends BusinessServiceBase {
   }
 
   @override
-  Future<ListBusinessResponse> listBusiness(
-      ServiceCall call, ListBusinessRequest request) async {
+  Future<FeedResponse> feed(ServiceCall call, FeedRequest request) async {
     try {
-      late ListBusinessResponse response;
+      late FeedResponse response;
       BusinessRepository businessRepository = GetIt.I<BusinessRepository>();
-      late Either<GrpcError, ListBusinessResponse> result;
+      late Either<GrpcError, FeedResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
-        result = await businessRepository.listBusiness(
+        result = await businessRepository.feed(
           metadata: HeadersMetadata.fromServiceCall(call),
           paths: request.fieldMask.paths,
           context: context,

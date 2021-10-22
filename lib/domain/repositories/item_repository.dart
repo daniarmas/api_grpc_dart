@@ -12,6 +12,12 @@ abstract class ItemRepository {
     required HeadersMetadata metadata,
     required List<String> paths,
   });
+  Future<Either<GrpcError, SearchItemResponse>> searchItem({
+    required PostgreSQLExecutionContext context,
+    required Map<String, dynamic> data,
+    required HeadersMetadata metadata,
+    required List<String> paths,
+  });
   Future<Either<GrpcError, Item>> getItem({
     required PostgreSQLExecutionContext context,
     required Map<String, dynamic> data,
