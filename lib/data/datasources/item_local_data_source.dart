@@ -1,3 +1,4 @@
+import 'package:api_grpc_dart/core/utils/parse.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
@@ -44,7 +45,7 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
         if (paths.isEmpty || paths.contains('photos')) {
           final photos = await _database
               .list(context: context, table: 'ItemPhoto', where: [
-            WhereNormalAttribute(
+            WhereNormalAttributeEqual(
               key: 'itemFk',
               value: result[_table]['id'],
             )
@@ -55,9 +56,7 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
               itemFk: item['ItemPhoto']['itemFk'],
               blurHash: item['ItemPhoto']['blurHash'],
               highQualityPhoto: item['ItemPhoto']['highQualityPhoto'],
-              highQualityPhotoUrl: item['ItemPhoto']['highQualityPhotoUrl'],
               lowQualityPhoto: item['ItemPhoto']['lowQualityPhoto'],
-              lowQualityPhotoUrl: item['ItemPhoto']['lowQualityPhotoUrl'],
               createTime: item['ItemPhoto']['createTime'].toString(),
               updateTime: item['ItemPhoto']['updateTime'].toString(),
             ));
@@ -69,9 +68,12 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
           description: result[_table]['description'],
           availability: result[_table]['availability'],
           businessFk: result[_table]['businessFk'],
+          blurHash: result[_table]['blurHash'],
+          highQualityPhoto: result[_table]['highQualityPhoto'],
+          lowQualityPhoto: result[_table]['lowQualityPhoto'],
           photos: listItemPhoto,
           businessItemCategoryFk: result[_table]['businessItemCategoryFk'],
-          isAvailable: result[_table]['isAvailable'],
+          status: parseItemStatusTypeEnum(result[_table]['status']),
           price: result[_table]['price'],
           createTime: (result[_table]['createTime'] != null)
               ? result[_table]['createTime'].toString()
@@ -106,8 +108,8 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
             attributes: listPath,
             orderByAsc: 'name',
             where: [
-              WhereNormalAttribute(key: 'isAvailable', value: 'true'),
-              WhereNormalAttributeHigher(key: 'availability', value: '0'),
+              WhereNormalAttributeNotEqual(key: 'status', value: 'DEPRECATED'),
+              WhereNormalAttributeHigher(key: 'availability', value: '-1'),
             ],
             limit: 5);
       } else {
@@ -118,8 +120,8 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
             orderByAsc: 'name',
             where: [
               WhereNormalAttributeHigher(key: 'name', value: data['nextPage']),
-              WhereNormalAttribute(key: 'isAvailable', value: 'true'),
-              WhereNormalAttributeHigher(key: 'availability', value: '0'),
+              WhereNormalAttributeNotEqual(key: 'status', value: 'DEPRECATED'),
+              WhereNormalAttributeHigher(key: 'availability', value: '-1'),
             ],
             limit: 5);
       }
@@ -132,9 +134,12 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
             description: item[_table]['description'],
             availability: item[_table]['availability'],
             businessFk: item[_table]['businessFk'],
+            blurHash: item[_table]['blurHash'],
+            highQualityPhoto: item[_table]['highQualityPhoto'],
+            lowQualityPhoto: item[_table]['lowQualityPhoto'],
             photos: null,
             businessItemCategoryFk: item[_table]['businessItemCategoryFk'],
-            isAvailable: item[_table]['isAvailable'],
+            status: parseItemStatusTypeEnum(item['Item']['status']),
             price: item[_table]['price'],
             createTime: (item[_table]['createTime'] != null)
                 ? item[_table]['createTime'].toString()
@@ -158,9 +163,7 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
             itemFk: item['ItemPhoto']['itemFk'],
             blurHash: item['ItemPhoto']['blurHash'],
             highQualityPhoto: item['ItemPhoto']['highQualityPhoto'],
-            highQualityPhotoUrl: item['ItemPhoto']['highQualityPhotoUrl'],
             lowQualityPhoto: item['ItemPhoto']['lowQualityPhoto'],
-            lowQualityPhotoUrl: item['ItemPhoto']['lowQualityPhotoUrl'],
             createTime: item['ItemPhoto']['createTime'].toString(),
             updateTime: item['ItemPhoto']['updateTime'].toString(),
           ));

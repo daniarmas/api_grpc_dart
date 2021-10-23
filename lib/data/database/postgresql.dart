@@ -181,4 +181,36 @@ class PostgresqlDatabase implements Database {
       }
     }
   }
+
+  @override
+  Future<List<Map<String, dynamic>>> search(
+      {required PostgreSQLExecutionContext context,
+      required String table,
+      required List<Where> where,
+      List<String>? attributes,
+      List<String>? agregationMethods,
+      int? limit,
+      String? orderByAsc}) async {
+    try {
+      return await _connection.search(
+          context: context,
+          limit: (limit != null) ? limit + 1 : limit,
+          where: where,
+          table: table,
+          attributes: attributes,
+          agregationAttributes: agregationMethods,
+          orderByAsc: orderByAsc);
+    } catch (error) {
+      if (error.toString().contains(
+          'Attempting to execute query, but connection is not open.')) {
+        throw DatabaseConnectionNotOpenException();
+      } else if (error
+          .toString()
+          .contains('relation "$table" does not exist')) {
+        throw DatabaseTableNotExistsException();
+      } else {
+        rethrow;
+      }
+    }
+  }
 }

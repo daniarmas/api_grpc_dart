@@ -7,7 +7,7 @@ List<Where> getWhereNormalAttributeList(Map<String, dynamic> data) {
     Iterable<String> keys = data.keys;
     Iterable<dynamic> values = data.values;
     for (var i = 0; i < keys.length; i++) {
-      where.add(WhereNormalAttribute(
+      where.add(WhereNormalAttributeEqual(
           key: keys.elementAt(i), value: values.elementAt(i)));
     }
     return where;

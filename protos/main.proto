@@ -20,13 +20,14 @@ service AuthenticationService {
 }
 
 service BusinessService {
-  rpc ListBusiness (ListBusinessRequest) returns (ListBusinessResponse) {}
+  rpc Feed (FeedRequest) returns (FeedResponse) {}
   rpc GetBusiness (GetBusinessRequest) returns (GetBusinessResponse) {}
 }
 
 service ItemService {
   rpc ListItem (ListItemRequest) returns (ListItemResponse) {}
   rpc GetItem (GetItemRequest) returns (GetItemResponse) {}
+  rpc SearchItem (SearchItemRequest) returns (SearchItemResponse) {}
 }
 
 service ObjectStorageService {
@@ -42,6 +43,22 @@ service Health {
 }
 
 // Request & Response Message
+
+message SearchItemRequest {
+  int32 nextPage = 1;
+  string name = 2;
+  string provinceFk = 3;
+  string municipalityFk = 4;
+  SearchMunicipalityType searchMunicipalityType = 5;
+  Point location = 6;
+  google.protobuf.FieldMask fieldMask = 7;
+}
+
+message SearchItemResponse {
+  repeated SearchItem items = 1;
+  SearchMunicipalityType searchMunicipalityType = 2;
+  int32 nextPage = 3;
+}
 
 message ListItemRequest {
   string nextPage = 1;
@@ -62,13 +79,13 @@ message GetItemResponse {
   Item item = 1;
 }
 
-message ListBusinessRequest {
+message FeedRequest {
   Point location = 1;
   string nextPage = 3;
   google.protobuf.FieldMask fieldMask = 4;
 }
 
-message ListBusinessResponse {
+message FeedResponse {
   repeated Business businesses = 1;
   string nextPage = 2;
 }
@@ -250,22 +267,35 @@ message Item {
   string name = 2;
   string description = 3;
   double price = 4;
-  bool isAvailable = 5;
+  ItemStatusType status = 5;
   int32 availability = 6;
   string businessFk = 7;
   string businessItemCategoryFk = 8;
-  repeated ItemPhoto photos = 9;
-  string createTime = 10;
-  string updateTime = 11;
+  string highQualityPhoto = 9;
+  string lowQualityPhoto = 10;
+  string blurHash = 11;
+  repeated ItemPhoto photos = 12;
+  string createTime = 13;
+  string updateTime = 14;
+  int32 cursor = 15;
+}
+
+message SearchItem {
+  string id = 1;
+  string name = 2;
+  double price = 3;
+  ItemStatusType status = 4;
+  string highQualityPhoto = 5;
+  string lowQualityPhoto = 6;
+  string blurHash = 7;
+  int32 cursor = 8;
 }
 
 message ItemPhoto {
   string id = 1;
   string itemFk = 2;
   string highQualityPhoto = 3;
-  string highQualityPhotoUrl = 4;
-  string lowQualityPhoto = 5;
-  string lowQualityPhotoUrl = 6;
+  string lowQualityPhoto = 4;
   string blurHash = 7;
   string createTime = 8;
   string updateTime = 9;
@@ -371,11 +401,24 @@ message VerificationCode {
 
 // Enums
 
+enum SearchMunicipalityType {
+  SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED = 0;
+  MORE = 1;
+  NO_MORE = 2;
+}
+
 enum VerificationCodeType {
   VERIFICATION_CODE_TYPE_UNSPECIFIED = 0;
   SIGN_IN = 1;
   SIGN_UP = 2;
   CHANGE_USER_EMAIL = 3;
+}
+
+enum ItemStatusType {
+  ITEM_STATUS_TYPE_UNSPECIFIED = 0;
+  AVAILABLE = 1;
+  UNAVAILABLE = 2;
+  DEPRECATED = 3;
 }
 
 enum PlatformType {

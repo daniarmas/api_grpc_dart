@@ -37,6 +37,7 @@ linter:
     file_names: true
     implementation_imports: true
     join_return_with_assignment: true
+    require_trailing_commas: true
     leading_newlines_in_multiline_strings: true
     library_names: true
     library_prefixes: true

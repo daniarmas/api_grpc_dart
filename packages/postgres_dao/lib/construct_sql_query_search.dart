@@ -6,17 +6,17 @@ import 'package:postgres_dao/where_attribute.dart';
 import 'package:postgres_dao/where_normal_attribute_higher.dart';
 import 'package:postgres_dao/where_normal_attribute_in.dart';
 import 'package:postgres_dao/where_normal_attribute_not_in.dart';
+import 'package:postgres_dao/where_search.dart';
 
 import 'where.dart';
 import 'where_normal_attribute.dart';
 
-String constructSqlQuerySelect({
+String constructSqlQuerySearch({
   required String table,
+  required List<Where> where,
   List<String>? attributes,
   List<String>? agregationAttributes,
-  InnerJoin? innerJoin,
   int? limit,
-  List<Where>? where,
   String? orderByAsc,
 }) {
   // Attributes
@@ -60,6 +60,8 @@ String constructSqlQuerySelect({
             if (y == 0) {
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\'';
+              } else if (item is WhereNormalSearch) {
+                whereString += ' $item ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (where[y] is WhereNormalAttributeNotIn &&
@@ -80,6 +82,8 @@ String constructSqlQuerySelect({
             } else {
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' AND "$table".${item.key} = \'${item.value}\'';
+              } else if (item is WhereNormalSearch) {
+                whereString += ' AND $item ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString +=
                     ' AND "$table".${item.key} != \'${item.value}\' ';
@@ -105,6 +109,8 @@ String constructSqlQuerySelect({
             if (y == 0) {
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\'';
+              } else if (item is WhereNormalSearch) {
+                whereString += ' $item ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (where[y] is WhereNormalAttributeNotIn &&
@@ -125,6 +131,8 @@ String constructSqlQuerySelect({
             } else {
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' OR "$table".${item.key} = \'${item.value}\'';
+              } else if (item is WhereNormalSearch) {
+                whereString += ' OR $item ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += ' OR "$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -146,6 +154,8 @@ String constructSqlQuerySelect({
           var item = where[i] as WhereAttribute;
           if (item is WhereNormalAttributeEqual) {
             whereString += '"$table".${item.key} = \'${item.value}\'';
+          } else if (item is WhereNormalSearch) {
+            whereString += '$item';
           } else if (item is WhereNormalAttributeNotEqual) {
             whereString += '"$table".${item.key} != \'${item.value}\' ';
           } else if (item is WhereNormalAttributeNotIn && item.value != '') {
@@ -169,6 +179,8 @@ String constructSqlQuerySelect({
             if (y == 0) {
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\' ';
+              } else if (item is WhereNormalSearch) {
+                whereString += ' $item ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -187,6 +199,8 @@ String constructSqlQuerySelect({
             } else {
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' AND "$table".${item.key} = \'${item.value}\' ';
+              } else if (item is WhereNormalSearch) {
+                whereString += ' AND $item ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString +=
                     ' AND "$table".${item.key} != \'${item.value}\' ';
@@ -212,6 +226,8 @@ String constructSqlQuerySelect({
             if (y == 0) {
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\' ';
+              } else if (item is WhereNormalSearch) {
+                whereString += ' $item ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -230,6 +246,8 @@ String constructSqlQuerySelect({
             } else {
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' OR "$table".${item.key} = \'${item.value}\' ';
+              } else if (item is WhereNormalSearch) {
+                whereString += ' OR $item ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += ' OR "$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -251,6 +269,8 @@ String constructSqlQuerySelect({
           var item = where[i] as WhereAttribute;
           if (item is WhereNormalAttributeEqual) {
             whereString += ' "$table".${item.key} = \'${item.value}\' ';
+          } else if (item is WhereNormalSearch) {
+            whereString += ' $item ';
           } else if (item is WhereNormalAttributeNotEqual) {
             whereString += ' "$table".${item.key} != \'${item.value}\' ';
           } else if (item is WhereNormalAttributeNotIn && item.value != '') {
@@ -269,16 +289,13 @@ String constructSqlQuerySelect({
     }
     whereResult = 'WHERE $whereString';
   }
-  // InnerJoin
-  String innerJoinResult = (innerJoin != null) ? '$innerJoin' : '';
   // OrderBy
   String orderByAscResult =
-      orderByAsc != null ? 'ORDER BY "$orderByAsc" ASC ' : '';
+      orderByAsc != null ? 'ORDER BY $orderByAsc ASC ' : '';
   // Limit
   String limitResult = limit != null ? 'LIMIT $limit;' : '';
   return 'SELECT $attributesResult '
       'FROM "$table" '
-      '$innerJoinResult'
       '$whereResult'
       '$orderByAscResult'
       '$limitResult ';

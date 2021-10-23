@@ -157,7 +157,7 @@ class VerificationCodeLocalDataSourceImpl
           context: context,
           table: _table,
           data: data,
-          where: [WhereNormalAttribute(key: 'id', value: data['id'])],
+          where: [WhereNormalAttributeEqual(key: 'id', value: data['id'])],
           attributes: paths);
       if (result != null) {
         return VerificationCode(

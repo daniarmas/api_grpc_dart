@@ -301,12 +301,10 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
 }
 
 class BusinessServiceClient extends $grpc.Client {
-  static final _$listBusiness =
-      $grpc.ClientMethod<$0.ListBusinessRequest, $0.ListBusinessResponse>(
-          '/BusinessService/ListBusiness',
-          ($0.ListBusinessRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $0.ListBusinessResponse.fromBuffer(value));
+  static final _$feed = $grpc.ClientMethod<$0.FeedRequest, $0.FeedResponse>(
+      '/BusinessService/Feed',
+      ($0.FeedRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.FeedResponse.fromBuffer(value));
   static final _$getBusiness =
       $grpc.ClientMethod<$0.GetBusinessRequest, $0.GetBusinessResponse>(
           '/BusinessService/GetBusiness',
@@ -319,10 +317,9 @@ class BusinessServiceClient extends $grpc.Client {
       $core.Iterable<$grpc.ClientInterceptor>? interceptors})
       : super(channel, options: options, interceptors: interceptors);
 
-  $grpc.ResponseFuture<$0.ListBusinessResponse> listBusiness(
-      $0.ListBusinessRequest request,
+  $grpc.ResponseFuture<$0.FeedResponse> feed($0.FeedRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$listBusiness, request, options: options);
+    return $createUnaryCall(_$feed, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.GetBusinessResponse> getBusiness(
@@ -336,15 +333,13 @@ abstract class BusinessServiceBase extends $grpc.Service {
   $core.String get $name => 'BusinessService';
 
   BusinessServiceBase() {
-    $addMethod(
-        $grpc.ServiceMethod<$0.ListBusinessRequest, $0.ListBusinessResponse>(
-            'ListBusiness',
-            listBusiness_Pre,
-            false,
-            false,
-            ($core.List<$core.int> value) =>
-                $0.ListBusinessRequest.fromBuffer(value),
-            ($0.ListBusinessResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FeedRequest, $0.FeedResponse>(
+        'Feed',
+        feed_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.FeedRequest.fromBuffer(value),
+        ($0.FeedResponse value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.GetBusinessRequest, $0.GetBusinessResponse>(
             'GetBusiness',
@@ -356,10 +351,9 @@ abstract class BusinessServiceBase extends $grpc.Service {
             ($0.GetBusinessResponse value) => value.writeToBuffer()));
   }
 
-  $async.Future<$0.ListBusinessResponse> listBusiness_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$0.ListBusinessRequest> request) async {
-    return listBusiness(call, await request);
+  $async.Future<$0.FeedResponse> feed_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.FeedRequest> request) async {
+    return feed(call, await request);
   }
 
   $async.Future<$0.GetBusinessResponse> getBusiness_Pre($grpc.ServiceCall call,
@@ -367,8 +361,8 @@ abstract class BusinessServiceBase extends $grpc.Service {
     return getBusiness(call, await request);
   }
 
-  $async.Future<$0.ListBusinessResponse> listBusiness(
-      $grpc.ServiceCall call, $0.ListBusinessRequest request);
+  $async.Future<$0.FeedResponse> feed(
+      $grpc.ServiceCall call, $0.FeedRequest request);
   $async.Future<$0.GetBusinessResponse> getBusiness(
       $grpc.ServiceCall call, $0.GetBusinessRequest request);
 }
@@ -386,6 +380,12 @@ class ItemServiceClient extends $grpc.Client {
           ($0.GetItemRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.GetItemResponse.fromBuffer(value));
+  static final _$searchItem =
+      $grpc.ClientMethod<$0.SearchItemRequest, $0.SearchItemResponse>(
+          '/ItemService/SearchItem',
+          ($0.SearchItemRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.SearchItemResponse.fromBuffer(value));
 
   ItemServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -400,6 +400,12 @@ class ItemServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.GetItemResponse> getItem($0.GetItemRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getItem, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.SearchItemResponse> searchItem(
+      $0.SearchItemRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$searchItem, request, options: options);
   }
 }
 
@@ -421,6 +427,13 @@ abstract class ItemServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.GetItemRequest.fromBuffer(value),
         ($0.GetItemResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SearchItemRequest, $0.SearchItemResponse>(
+        'SearchItem',
+        searchItem_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.SearchItemRequest.fromBuffer(value),
+        ($0.SearchItemResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.ListItemResponse> listItem_Pre(
@@ -433,10 +446,17 @@ abstract class ItemServiceBase extends $grpc.Service {
     return getItem(call, await request);
   }
 
+  $async.Future<$0.SearchItemResponse> searchItem_Pre($grpc.ServiceCall call,
+      $async.Future<$0.SearchItemRequest> request) async {
+    return searchItem(call, await request);
+  }
+
   $async.Future<$0.ListItemResponse> listItem(
       $grpc.ServiceCall call, $0.ListItemRequest request);
   $async.Future<$0.GetItemResponse> getItem(
       $grpc.ServiceCall call, $0.GetItemRequest request);
+  $async.Future<$0.SearchItemResponse> searchItem(
+      $grpc.ServiceCall call, $0.SearchItemRequest request);
 }
 
 class ObjectStorageServiceClient extends $grpc.Client {

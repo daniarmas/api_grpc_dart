@@ -103,7 +103,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
                   key:
                       'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
                   value: 'true'),
-              WhereNormalAttribute(key: 'isOpen', value: 'true'),
+              WhereNormalAttributeEqual(key: 'isOpen', value: 'true'),
             ],
             limit: 1);
       } else {
@@ -126,7 +126,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
                   key:
                       'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326))',
                   value: 'true'),
-              WhereNormalAttribute(key: 'isOpen', value: 'true'),
+              WhereNormalAttributeEqual(key: 'isOpen', value: 'true'),
             ],
             limit: 1);
       }

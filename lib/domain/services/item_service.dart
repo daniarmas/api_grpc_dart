@@ -69,4 +69,31 @@ class ItemService extends ItemServiceBase {
       }
     }
   }
+
+  @override
+  Future<SearchItemResponse> searchItem(
+      ServiceCall call, SearchItemRequest request) async {
+    try {
+      late SearchItemResponse response;
+      ItemRepository itemRepository = GetIt.I<ItemRepository>();
+      late Either<GrpcError, SearchItemResponse> result;
+      var connection = await database.getConnection();
+      await connection.transaction((context) async {
+        result = await itemRepository.searchItem(
+          metadata: HeadersMetadata.fromServiceCall(call),
+          paths: request.fieldMask.paths,
+          context: context,
+          data: getRequestData(request),
+        );
+      });
+      result.fold((left) => {throw left}, (right) => {response = right});
+      return response;
+    } catch (error) {
+      if (error is GrpcError) {
+        rethrow;
+      } else {
+        throw GrpcError.internal('Internal server error');
+      }
+    }
+  }
 }

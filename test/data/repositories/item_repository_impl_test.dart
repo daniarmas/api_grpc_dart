@@ -1,10 +1,7 @@
 import 'package:api_grpc_dart/core/utils/metadata.dart';
-import 'package:api_grpc_dart/core/utils/username_generator.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:api_grpc_dart/data/datasources/item_local_data_source.dart';
-import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/repositories/item_repository_impl.dart';
-import 'package:api_grpc_dart/data/repositories/user_repository_impl.dart';
 import 'package:api_grpc_dart/environment.dart';
 import 'package:api_grpc_dart/injection_container.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
@@ -18,10 +15,11 @@ import 'package:test/test.dart';
 
 import 'item_repository_impl_test.mocks.dart';
 
-@GenerateMocks([ItemLocalDataSource])
+@GenerateMocks([ItemLocalDataSource, Database])
 void main() {
   late EnvironmentApp environment;
   late MockItemLocalDataSource mockItemLocalDataSource;
+  late MockDatabase mockDatabase;
   late ItemRepositoryImpl itemRepositoryImpl;
   late PostgreSQLConnection connection;
   late PostgreSQLExecutionContext ctx;
@@ -53,7 +51,9 @@ void main() {
         model: '1',
         firebaseCloudMessagingId: '1');
     mockItemLocalDataSource = MockItemLocalDataSource();
+    mockDatabase = MockDatabase();
     itemRepositoryImpl = ItemRepositoryImpl(
+      database: mockDatabase,
       itemLocalDataSource: mockItemLocalDataSource,
     );
   });
@@ -69,17 +69,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -112,17 +110,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -135,17 +131,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -158,17 +152,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -181,17 +173,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -204,17 +194,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -227,17 +215,15 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          isAvailable: true,
+          status: ItemStatusType.AVAILABLE,
           name: 'name',
           photos: [
             ItemPhoto(
                 createTime: 'createTime',
                 highQualityPhoto: 'highQualityPhoto',
-                highQualityPhotoUrl: 'highQualityPhotoUrl',
                 id: 'id',
                 itemFk: 'itemFk',
                 lowQualityPhoto: 'lowQualityPhoto',
-                lowQualityPhotoUrl: 'lowQualityPhotoUrl',
                 updateTime: 'updateTime')
           ],
           price: 20.0,
@@ -288,17 +274,15 @@ void main() {
         businessFk: 'businessFk',
         businessItemCategoryFk: 'businessItemCategoryFk',
         description: 'description',
-        isAvailable: true,
+        status: ItemStatusType.AVAILABLE,
         name: 'name',
         photos: [
           ItemPhoto(
               createTime: 'createTime',
               highQualityPhoto: 'highQualityPhoto',
-              highQualityPhotoUrl: 'highQualityPhotoUrl',
               id: 'id',
               itemFk: 'itemFk',
               lowQualityPhoto: 'lowQualityPhoto',
-              lowQualityPhotoUrl: 'lowQualityPhotoUrl',
               updateTime: 'updateTime')
         ],
         price: 20.0,
@@ -349,6 +333,207 @@ void main() {
           data: anyNamed('data'),
           paths: anyNamed('paths')));
       expect(result, Left(GrpcError.invalidArgument('Input `id` invalid')));
+    });
+  });
+  group('testing searchItem', () {
+    test(
+        'Return data sucessfull when is the first request and the actual muncipality have data',
+        () async {
+      // setup
+      List<SearchItem> listOfItem = [
+        SearchItem(
+          id: '1',
+          status: ItemStatusType.AVAILABLE,
+          name: 'Item',
+          price: 20.00,
+          blurHash: 'blurHash',
+          cursor: 1,
+          highQualityPhoto: 'items/photo.jpg',
+          lowQualityPhoto: 'items/photo.jpg',
+        ),
+      ];
+      SearchItemResponse searchItemResponse = SearchItemResponse(
+          items: listOfItem,
+          nextPage: 1,
+          searchMunicipalityType: SearchMunicipalityType.NO_MORE);
+      // side effects
+      when(
+        mockDatabase.list(
+            context: anyNamed('context'),
+            table: anyNamed('table'),
+            attributes: anyNamed('attributes'),
+            agregationMethods: anyNamed('agregationMethods'),
+            where: anyNamed('where')),
+      ).thenAnswer((_) async => [
+            {
+              'Business': {
+                'id': '1',
+                'name': 'name',
+              },
+              '': {'isInRange': true}
+            }
+          ]);
+      when(mockDatabase.search(
+        context: ctx,
+        table: anyNamed('table'),
+        attributes: anyNamed('attributes'),
+        limit: anyNamed('limit'),
+        where: anyNamed('where'),
+      )).thenAnswer((_) async => [
+            {
+              'Item': {
+                'id': '1',
+                'name': 'Item',
+                'price': 20.00,
+                'status': 'AVAILABLE',
+                'highQualityPhoto': 'items/photo.jpg',
+                'lowQualityPhoto': 'items/photo.jpg',
+                'blurHash': 'blurHash',
+                'businessFk': '1',
+                'cursor': 1
+              }
+            }
+          ]);
+      final result = await itemRepositoryImpl.searchItem(
+          context: ctx,
+          data: {
+            'name': 'cuadro',
+            'location': Point(
+                latitude: 23.041667330791395, longitude: -81.20924681449843),
+            'provinceFk': 'da7cc85b-fb6c-4d46-b07c-0915a16a3461',
+            'municipalityFk': 'a33e7289-fff9-44fd-b04a-d66bfe7227b4',
+            'searchMunicipalityType': 'MORE',
+            'nextPage': 0
+          },
+          metadata: metadata,
+          paths: []);
+      // expectations
+      verify(mockDatabase.list(
+          context: anyNamed('context'),
+          table: anyNamed('table'),
+          attributes: anyNamed('attributes'),
+          agregationMethods: anyNamed('agregationMethods'),
+          where: anyNamed('where')));
+      verify(mockDatabase.search(
+        context: ctx,
+        table: anyNamed('table'),
+        attributes: anyNamed('attributes'),
+        limit: anyNamed('limit'),
+        where: anyNamed('where'),
+      ));
+      expect(result, Right(searchItemResponse));
+    });
+    test(
+        'Return data sucessfull when is the first request and the actual municipality dont have data but the other municipalities yes',
+        () async {
+      // setup
+      List<SearchItem> listOfItem = [
+        SearchItem(
+          id: '1',
+          status: ItemStatusType.AVAILABLE,
+          name: 'Item',
+          price: 20.00,
+          blurHash: 'blurHash',
+          cursor: 1,
+          highQualityPhoto: 'items/photo.jpg',
+          lowQualityPhoto: 'items/photo.jpg',
+        ),
+      ];
+      SearchItemResponse searchItemResponse = SearchItemResponse(
+          items: listOfItem,
+          nextPage: 1,
+          searchMunicipalityType: SearchMunicipalityType.NO_MORE);
+      // side effects
+      when(
+        mockDatabase.list(
+            context: anyNamed('context'),
+            table: anyNamed('table'),
+            attributes: anyNamed('attributes'),
+            agregationMethods: anyNamed('agregationMethods'),
+            where: anyNamed('where')),
+      ).thenAnswer((_) async => [
+            {
+              'Business': {
+                'id': '1',
+                'name': 'name',
+              },
+              '': {'isInRange': true}
+            }
+          ]);
+      when(mockDatabase.search(
+        context: ctx,
+        table: anyNamed('table'),
+        attributes: anyNamed('attributes'),
+        limit: anyNamed('limit'),
+        where: anyNamed('where'),
+      )).thenAnswer((_) async => []);
+      when(
+        mockDatabase.list(
+            context: anyNamed('context'),
+            table: anyNamed('table'),
+            attributes: anyNamed('attributes'),
+            agregationMethods: anyNamed('agregationMethods'),
+            where: anyNamed('where')),
+      ).thenAnswer((_) async => [
+            {
+              'Business': {
+                'id': '2',
+                'name': 'name',
+              },
+              '': {'isInRange': true}
+            }
+          ]);
+      when(
+        mockDatabase.search(
+          context: ctx,
+          table: anyNamed('table'),
+          attributes: anyNamed('attributes'),
+          limit: anyNamed('limit'),
+          where: anyNamed('where'),
+        ),
+      ).thenAnswer((_) async => [
+            {
+              'Item': {
+                'id': '1',
+                'name': 'Item',
+                'price': 20.00,
+                'status': 'AVAILABLE',
+                'highQualityPhoto': 'items/photo.jpg',
+                'lowQualityPhoto': 'items/photo.jpg',
+                'blurHash': 'blurHash',
+                'businessFk': '1',
+                'cursor': 1
+              }
+            }
+          ]);
+      final result = await itemRepositoryImpl.searchItem(
+          context: ctx,
+          data: {
+            'name': 'cuadro',
+            'location': Point(
+                latitude: 23.041667330791395, longitude: -81.20924681449843),
+            'provinceFk': 'da7cc85b-fb6c-4d46-b07c-0915a16a3461',
+            'municipalityFk': 'a33e7289-fff9-44fd-b04a-d66bfe7227b4',
+            'searchMunicipalityType': 'MORE',
+            'nextPage': 0
+          },
+          metadata: metadata,
+          paths: []);
+      // expectations
+      verify(mockDatabase.list(
+          context: anyNamed('context'),
+          table: anyNamed('table'),
+          attributes: anyNamed('attributes'),
+          agregationMethods: anyNamed('agregationMethods'),
+          where: anyNamed('where')));
+      verify(mockDatabase.search(
+        context: ctx,
+        table: anyNamed('table'),
+        attributes: anyNamed('attributes'),
+        limit: anyNamed('limit'),
+        where: anyNamed('where'),
+      ));
+      expect(result, Right(searchItemResponse));
     });
   });
 }
