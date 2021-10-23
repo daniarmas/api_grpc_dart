@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/attribute.dart';
 import 'package:postgres_dao/postgres_dao.dart';
 import 'package:postgres_dao/where.dart';
 
@@ -187,7 +188,8 @@ class PostgresqlDatabase implements Database {
       {required PostgreSQLExecutionContext context,
       required String table,
       required List<Where> where,
-      List<String>? attributes,
+      List<Attribute>? attributes,
+      InnerJoin? innerJoin,
       List<String>? agregationMethods,
       int? limit,
       String? orderByAsc}) async {
@@ -198,6 +200,7 @@ class PostgresqlDatabase implements Database {
           where: where,
           table: table,
           attributes: attributes,
+          innerJoin: innerJoin,
           agregationAttributes: agregationMethods,
           orderByAsc: orderByAsc);
     } catch (error) {

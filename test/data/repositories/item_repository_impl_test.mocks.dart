@@ -105,7 +105,8 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
           {_i2.PostgreSQLExecutionContext? context,
           String? table,
           List<_i7.Where>? where,
-          List<String>? attributes,
+          List<_i7.Attribute>? attributes,
+          _i7.InnerJoin? innerJoin,
           int? limit,
           String? orderByAsc,
           List<String>? agregationMethods}) =>
@@ -115,6 +116,7 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
                 #table: table,
                 #where: where,
                 #attributes: attributes,
+                #innerJoin: innerJoin,
                 #limit: limit,
                 #orderByAsc: orderByAsc,
                 #agregationMethods: agregationMethods

@@ -540,15 +540,15 @@ const SearchItem$json = const {
     const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'price', '3': 3, '4': 1, '5': 1, '10': 'price'},
     const {'1': 'status', '3': 4, '4': 1, '5': 14, '6': '.ItemStatusType', '10': 'status'},
-    const {'1': 'highQualityPhoto', '3': 5, '4': 1, '5': 9, '10': 'highQualityPhoto'},
-    const {'1': 'lowQualityPhoto', '3': 6, '4': 1, '5': 9, '10': 'lowQualityPhoto'},
-    const {'1': 'blurHash', '3': 7, '4': 1, '5': 9, '10': 'blurHash'},
+    const {'1': 'thumbnail', '3': 5, '4': 1, '5': 9, '10': 'thumbnail'},
+    const {'1': 'blurHash', '3': 6, '4': 1, '5': 9, '10': 'blurHash'},
+    const {'1': 'businessName', '3': 7, '4': 1, '5': 9, '10': 'businessName'},
     const {'1': 'cursor', '3': 8, '4': 1, '5': 5, '10': 'cursor'},
   ],
 };
 
 /// Descriptor for `SearchItem`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List searchItemDescriptor = $convert.base64Decode('CgpTZWFyY2hJdGVtEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhQKBXByaWNlGAMgASgBUgVwcmljZRInCgZzdGF0dXMYBCABKA4yDy5JdGVtU3RhdHVzVHlwZVIGc3RhdHVzEioKEGhpZ2hRdWFsaXR5UGhvdG8YBSABKAlSEGhpZ2hRdWFsaXR5UGhvdG8SKAoPbG93UXVhbGl0eVBob3RvGAYgASgJUg9sb3dRdWFsaXR5UGhvdG8SGgoIYmx1ckhhc2gYByABKAlSCGJsdXJIYXNoEhYKBmN1cnNvchgIIAEoBVIGY3Vyc29y');
+final $typed_data.Uint8List searchItemDescriptor = $convert.base64Decode('CgpTZWFyY2hJdGVtEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhQKBXByaWNlGAMgASgBUgVwcmljZRInCgZzdGF0dXMYBCABKA4yDy5JdGVtU3RhdHVzVHlwZVIGc3RhdHVzEhwKCXRodW1ibmFpbBgFIAEoCVIJdGh1bWJuYWlsEhoKCGJsdXJIYXNoGAYgASgJUghibHVySGFzaBIiCgxidXNpbmVzc05hbWUYByABKAlSDGJ1c2luZXNzTmFtZRIWCgZjdXJzb3IYCCABKAVSBmN1cnNvcg==');
 @$core.Deprecated('Use itemPhotoDescriptor instead')
 const ItemPhoto$json = const {
   '1': 'ItemPhoto',

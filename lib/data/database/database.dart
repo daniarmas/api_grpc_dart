@@ -1,4 +1,5 @@
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/attribute.dart';
 import 'package:postgres_dao/postgres_dao.dart';
 import 'package:postgres_dao/where.dart';
 
@@ -22,7 +23,8 @@ abstract class Database {
     required PostgreSQLExecutionContext context,
     required String table,
     required List<Where> where,
-    List<String>? attributes,
+    List<Attribute>? attributes,
+    InnerJoin? innerJoin,
     int? limit,
     String? orderByAsc,
     List<String>? agregationMethods,

@@ -1,4 +1,6 @@
 import 'package:postgres_dao/and.dart';
+import 'package:postgres_dao/attribute.dart';
+import 'package:postgres_dao/inner_attribute.dart';
 import 'package:postgres_dao/normal_attribute.dart';
 import 'package:postgres_dao/or.dart';
 import 'package:postgres_dao/postgres_dao.dart';
@@ -14,8 +16,9 @@ import 'where_normal_attribute.dart';
 String constructSqlQuerySearch({
   required String table,
   required List<Where> where,
-  List<String>? attributes,
+  List<Attribute>? attributes,
   List<String>? agregationAttributes,
+  InnerJoin? innerJoin,
   int? limit,
   String? orderByAsc,
 }) {
@@ -25,13 +28,25 @@ String constructSqlQuerySearch({
     attributesResult = '';
     for (int i = 0; i < attributes.length; i++) {
       if (i == attributes.length - 1) {
-        (attributes[i] is NormalAttribute)
-            ? attributesResult += '"$table"."${attributes[i]}"'
-            : attributesResult += '"$table"."${attributes[i]}"';
+        if (attributes[i] is NormalAttribute) {
+          attributesResult += '"$table".${attributes[i].name}';
+        } else if (attributes[i] is InnerAttribute) {
+          var innerAttribute = attributes[i] as InnerAttribute;
+          attributesResult +=
+              '"${innerAttribute.innerTable}".${attributes[i].name}';
+        } else {
+          attributesResult += '"$table".${attributes[i].name}';
+        }
       } else {
-        (attributes[i] is NormalAttribute)
-            ? attributesResult += '"$table"."${attributes[i]}",'
-            : attributesResult += '"$table"."${attributes[i]}",';
+        if (attributes[i] is NormalAttribute) {
+          attributesResult += '"$table".${attributes[i].name},';
+        } else if (attributes[i] is InnerAttribute) {
+          var innerAttribute = attributes[i] as InnerAttribute;
+          attributesResult +=
+              '"${innerAttribute.innerTable}".${attributes[i].name},';
+        } else {
+          attributesResult += '"$table".${attributes[i].name},';
+        }
       }
     }
   }
@@ -61,7 +76,8 @@ String constructSqlQuerySearch({
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\'';
               } else if (item is WhereNormalSearch) {
-                whereString += ' $item ';
+                whereString +=
+                    ' to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (where[y] is WhereNormalAttributeNotIn &&
@@ -83,7 +99,8 @@ String constructSqlQuerySearch({
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' AND "$table".${item.key} = \'${item.value}\'';
               } else if (item is WhereNormalSearch) {
-                whereString += ' AND $item ';
+                whereString +=
+                    ' AND to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString +=
                     ' AND "$table".${item.key} != \'${item.value}\' ';
@@ -110,7 +127,8 @@ String constructSqlQuerySearch({
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\'';
               } else if (item is WhereNormalSearch) {
-                whereString += ' $item ';
+                whereString +=
+                    ' to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (where[y] is WhereNormalAttributeNotIn &&
@@ -132,7 +150,8 @@ String constructSqlQuerySearch({
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' OR "$table".${item.key} = \'${item.value}\'';
               } else if (item is WhereNormalSearch) {
-                whereString += ' OR $item ';
+                whereString +=
+                    ' OR to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += ' OR "$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -155,7 +174,8 @@ String constructSqlQuerySearch({
           if (item is WhereNormalAttributeEqual) {
             whereString += '"$table".${item.key} = \'${item.value}\'';
           } else if (item is WhereNormalSearch) {
-            whereString += '$item';
+            whereString +=
+                'to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\')';
           } else if (item is WhereNormalAttributeNotEqual) {
             whereString += '"$table".${item.key} != \'${item.value}\' ';
           } else if (item is WhereNormalAttributeNotIn && item.value != '') {
@@ -180,7 +200,8 @@ String constructSqlQuerySearch({
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\' ';
               } else if (item is WhereNormalSearch) {
-                whereString += ' $item ';
+                whereString +=
+                    ' to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -200,7 +221,8 @@ String constructSqlQuerySearch({
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' AND "$table".${item.key} = \'${item.value}\' ';
               } else if (item is WhereNormalSearch) {
-                whereString += ' AND $item ';
+                whereString +=
+                    ' AND to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString +=
                     ' AND "$table".${item.key} != \'${item.value}\' ';
@@ -227,7 +249,8 @@ String constructSqlQuerySearch({
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\' ';
               } else if (item is WhereNormalSearch) {
-                whereString += ' $item ';
+                whereString +=
+                    ' to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -247,7 +270,8 @@ String constructSqlQuerySearch({
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' OR "$table".${item.key} = \'${item.value}\' ';
               } else if (item is WhereNormalSearch) {
-                whereString += ' OR $item ';
+                whereString +=
+                    ' OR to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += ' OR "$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -270,7 +294,8 @@ String constructSqlQuerySearch({
           if (item is WhereNormalAttributeEqual) {
             whereString += ' "$table".${item.key} = \'${item.value}\' ';
           } else if (item is WhereNormalSearch) {
-            whereString += ' $item ';
+            whereString +=
+                ' to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
           } else if (item is WhereNormalAttributeNotEqual) {
             whereString += ' "$table".${item.key} != \'${item.value}\' ';
           } else if (item is WhereNormalAttributeNotIn && item.value != '') {
@@ -289,6 +314,8 @@ String constructSqlQuerySearch({
     }
     whereResult = 'WHERE $whereString';
   }
+  // InnerJoin
+  String innerJoinResult = (innerJoin != null) ? '$innerJoin' : '';
   // OrderBy
   String orderByAscResult =
       orderByAsc != null ? 'ORDER BY $orderByAsc ASC ' : '';
@@ -296,6 +323,7 @@ String constructSqlQuerySearch({
   String limitResult = limit != null ? 'LIMIT $limit;' : '';
   return 'SELECT $attributesResult '
       'FROM "$table" '
+      '$innerJoinResult'
       '$whereResult'
       '$orderByAscResult'
       '$limitResult ';

@@ -1,4 +1,5 @@
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/attribute.dart';
 import 'package:postgres_dao/construct_sql_query_delete.dart';
 import 'package:postgres_dao/construct_sql_query_insert.dart';
 import 'package:postgres_dao/construct_sql_query_search.dart';
@@ -132,6 +133,7 @@ class PostgresqlDao {
           table: table,
           attributes: attributes,
           agregationAttributes: agregationAttributes,
+          innerJoin: innerJoin,
           orderByAsc: orderByAsc);
       print(query);
       var result = await context.mappedResultsQuery(query);
@@ -148,7 +150,8 @@ class PostgresqlDao {
     required PostgreSQLExecutionContext context,
     required String table,
     required List<Where> where,
-    List<String>? attributes,
+    List<Attribute>? attributes,
+    InnerJoin? innerJoin,
     List<String>? agregationAttributes,
     int? limit,
     String? orderByAsc,
@@ -160,6 +163,7 @@ class PostgresqlDao {
           where: where,
           table: table,
           attributes: attributes,
+          innerJoin: innerJoin,
           agregationAttributes: agregationAttributes,
           orderByAsc: orderByAsc);
       print(query);

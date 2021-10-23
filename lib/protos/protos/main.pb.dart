@@ -2848,9 +2848,9 @@ class SearchItem extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'price', $pb.PbFieldType.OD)
     ..e<ItemStatusType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: ItemStatusType.ITEM_STATUS_TYPE_UNSPECIFIED, valueOf: ItemStatusType.valueOf, enumValues: ItemStatusType.values)
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhoto', protoName: 'highQualityPhoto')
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhoto', protoName: 'lowQualityPhoto')
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blurHash', protoName: 'blurHash')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnail')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blurHash', protoName: 'blurHash')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessName', protoName: 'businessName')
     ..a<$core.int>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cursor', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
@@ -2861,9 +2861,9 @@ class SearchItem extends $pb.GeneratedMessage {
     $core.String? name,
     $core.double? price,
     ItemStatusType? status,
-    $core.String? highQualityPhoto,
-    $core.String? lowQualityPhoto,
+    $core.String? thumbnail,
     $core.String? blurHash,
+    $core.String? businessName,
     $core.int? cursor,
   }) {
     final _result = create();
@@ -2879,14 +2879,14 @@ class SearchItem extends $pb.GeneratedMessage {
     if (status != null) {
       _result.status = status;
     }
-    if (highQualityPhoto != null) {
-      _result.highQualityPhoto = highQualityPhoto;
-    }
-    if (lowQualityPhoto != null) {
-      _result.lowQualityPhoto = lowQualityPhoto;
+    if (thumbnail != null) {
+      _result.thumbnail = thumbnail;
     }
     if (blurHash != null) {
       _result.blurHash = blurHash;
+    }
+    if (businessName != null) {
+      _result.businessName = businessName;
     }
     if (cursor != null) {
       _result.cursor = cursor;
@@ -2951,31 +2951,31 @@ class SearchItem extends $pb.GeneratedMessage {
   void clearStatus() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get highQualityPhoto => $_getSZ(4);
+  $core.String get thumbnail => $_getSZ(4);
   @$pb.TagNumber(5)
-  set highQualityPhoto($core.String v) { $_setString(4, v); }
+  set thumbnail($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasHighQualityPhoto() => $_has(4);
+  $core.bool hasThumbnail() => $_has(4);
   @$pb.TagNumber(5)
-  void clearHighQualityPhoto() => clearField(5);
+  void clearThumbnail() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get lowQualityPhoto => $_getSZ(5);
+  $core.String get blurHash => $_getSZ(5);
   @$pb.TagNumber(6)
-  set lowQualityPhoto($core.String v) { $_setString(5, v); }
+  set blurHash($core.String v) { $_setString(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasLowQualityPhoto() => $_has(5);
+  $core.bool hasBlurHash() => $_has(5);
   @$pb.TagNumber(6)
-  void clearLowQualityPhoto() => clearField(6);
+  void clearBlurHash() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get blurHash => $_getSZ(6);
+  $core.String get businessName => $_getSZ(6);
   @$pb.TagNumber(7)
-  set blurHash($core.String v) { $_setString(6, v); }
+  set businessName($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasBlurHash() => $_has(6);
+  $core.bool hasBusinessName() => $_has(6);
   @$pb.TagNumber(7)
-  void clearBlurHash() => clearField(7);
+  void clearBusinessName() => clearField(7);
 
   @$pb.TagNumber(8)
   $core.int get cursor => $_getIZ(7);

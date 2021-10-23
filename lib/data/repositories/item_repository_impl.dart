@@ -105,19 +105,24 @@ class ItemRepositoryImpl implements ItemRepository {
               context: context,
               table: 'Item',
               attributes: [
-                'id',
-                'name',
-                'price',
-                'status',
-                'highQualityPhoto',
-                'lowQualityPhoto',
-                'blurHash',
-                'businessFk',
-                'cursor'
+                NormalAttribute(name: 'id'),
+                NormalAttribute(name: 'name'),
+                NormalAttribute(name: 'price'),
+                NormalAttribute(name: 'status'),
+                NormalAttribute(name: 'thumbnail'),
+                NormalAttribute(name: 'blurHash'),
+                NormalAttribute(name: 'businessFk'),
+                NormalAttribute(name: 'cursor'),
+                InnerAttribute(name: 'name', innerTable: 'Business'),
               ],
               agregationMethods: [
-                'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
+                'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
               ],
+              innerJoin: InnerJoin(
+                  table: 'Item',
+                  tableValue: 'businessFk',
+                  relationValue: 'id',
+                  relationTable: 'Business'),
               where: [
                 WhereNormalSearch(key: 'name', value: data['name']),
                 WhereNormalAttributeNotEqual(
@@ -129,7 +134,7 @@ class ItemRepositoryImpl implements ItemRepository {
                 WhereNormalAttributeEqual(
                     key: 'municipalityFk', value: data['municipalityFk']),
               ],
-              orderByAsc: 'cursor',
+              orderByAsc: '"Item"."cursor"',
               limit: 5);
           if (itemsResult.length > 5) {
             itemsResult.removeLast();
@@ -142,19 +147,24 @@ class ItemRepositoryImpl implements ItemRepository {
                 context: context,
                 table: 'Item',
                 attributes: [
-                  'id',
-                  'name',
-                  'price',
-                  'status',
-                  'highQualityPhoto',
-                  'lowQualityPhoto',
-                  'blurHash',
-                  'businessFk',
-                  'cursor'
+                  NormalAttribute(name: 'id'),
+                  NormalAttribute(name: 'name'),
+                  NormalAttribute(name: 'price'),
+                  NormalAttribute(name: 'status'),
+                  NormalAttribute(name: 'thumbnail'),
+                  NormalAttribute(name: 'blurHash'),
+                  NormalAttribute(name: 'businessFk'),
+                  NormalAttribute(name: 'cursor'),
+                  InnerAttribute(name: 'name', innerTable: 'Business'),
                 ],
                 agregationMethods: [
-                  'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
+                  'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
                 ],
+                innerJoin: InnerJoin(
+                    table: 'Item',
+                    tableValue: 'businessFk',
+                    relationValue: 'id',
+                    relationTable: 'Business'),
                 where: [
                   WhereNormalSearch(key: 'name', value: data['name']),
                   WhereNormalAttributeNotEqual(
@@ -166,9 +176,9 @@ class ItemRepositoryImpl implements ItemRepository {
                   WhereNormalAttributeNotEqual(
                       key: 'municipalityFk', value: data['municipalityFk']),
                 ],
-                orderByAsc: 'cursor',
+                orderByAsc: '"Item"."cursor"',
                 limit: len);
-            if (completeItems.length > len){
+            if (completeItems.length > len) {
               completeItems.removeLast();
             }
             itemsResult.addAll(completeItems);
@@ -180,19 +190,24 @@ class ItemRepositoryImpl implements ItemRepository {
                 context: context,
                 table: 'Item',
                 attributes: [
-                  'id',
-                  'name',
-                  'price',
-                  'status',
-                  'highQualityPhoto',
-                  'lowQualityPhoto',
-                  'blurHash',
-                  'businessFk',
-                  'cursor'
+                  NormalAttribute(name: 'id'),
+                  NormalAttribute(name: 'name'),
+                  NormalAttribute(name: 'price'),
+                  NormalAttribute(name: 'status'),
+                  NormalAttribute(name: 'thumbnail'),
+                  NormalAttribute(name: 'blurHash'),
+                  NormalAttribute(name: 'businessFk'),
+                  NormalAttribute(name: 'cursor'),
+                  InnerAttribute(name: 'name', innerTable: 'Business'),
                 ],
                 agregationMethods: [
-                  'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
+                  'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
                 ],
+                innerJoin: InnerJoin(
+                    table: 'Item',
+                    tableValue: 'businessFk',
+                    relationValue: 'id',
+                    relationTable: 'Business'),
                 where: [
                   WhereNormalSearch(key: 'name', value: data['name']),
                   WhereNormalAttributeNotEqual(
@@ -204,7 +219,7 @@ class ItemRepositoryImpl implements ItemRepository {
                   WhereNormalAttributeNotEqual(
                       key: 'municipalityFk', value: data['municipalityFk']),
                 ],
-                orderByAsc: 'cursor',
+                orderByAsc: '"Item"."cursor"',
                 limit: 5);
             if (itemsResult.length > 5) {
               itemsResult.removeLast();
@@ -219,18 +234,24 @@ class ItemRepositoryImpl implements ItemRepository {
               context: context,
               table: 'Item',
               attributes: [
-                'id',
-                'name',
-                'price',
-                'status',
-                'highQualityPhoto',
-                'lowQualityPhoto',
-                'blurHash',
-                'cursor'
+                NormalAttribute(name: 'id'),
+                NormalAttribute(name: 'name'),
+                NormalAttribute(name: 'price'),
+                NormalAttribute(name: 'status'),
+                NormalAttribute(name: 'thumbnail'),
+                NormalAttribute(name: 'blurHash'),
+                NormalAttribute(name: 'businessFk'),
+                NormalAttribute(name: 'cursor'),
+                InnerAttribute(name: 'name', innerTable: 'Business'),
               ],
               agregationMethods: [
-                'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
+                'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
               ],
+              innerJoin: InnerJoin(
+                  table: 'Item',
+                  tableValue: 'businessFk',
+                  relationValue: 'id',
+                  relationTable: 'Business'),
               where: [
                 WhereNormalSearch(key: 'name', value: data['name']),
                 WhereNormalAttributeNotEqual(
@@ -242,7 +263,7 @@ class ItemRepositoryImpl implements ItemRepository {
                 WhereNormalAttributeNotEqual(
                     key: 'municipalityFk', value: data['municipalityFk']),
               ],
-              orderByAsc: 'cursor',
+              orderByAsc: '"Item"."cursor"',
               limit: 5);
           if (itemsResult.length > 5) {
             itemsResult.removeLast();
@@ -257,15 +278,15 @@ class ItemRepositoryImpl implements ItemRepository {
             id: item['Item']['id'],
             name: item['Item']['name'],
             price: item['Item']['price'],
-            highQualityPhoto: item['Item']['highQualityPhoto'],
-            lowQualityPhoto: item['Item']['lowQualityPhoto'],
+            thumbnail: item['Item']['thumbnail'],
             blurHash: item['Item']['blurHash'],
             cursor: item['Item']['cursor'],
+            businessName: item['Business']['name'],
             status: (parseItemStatusTypeEnum(
                           item['Item']['status'],
                         ) ==
                         ItemStatusType.AVAILABLE &&
-                    item['']['isInRange'])
+                    (item['']['isInRange'] || item['Business']['toPickUp']))
                 ? ItemStatusType.AVAILABLE
                 : ItemStatusType.UNAVAILABLE,
           ));
