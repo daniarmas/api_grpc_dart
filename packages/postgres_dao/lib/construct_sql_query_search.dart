@@ -15,6 +15,7 @@ String constructSqlQuerySearch({
   required String table,
   required List<Where> where,
   List<String>? attributes,
+  List<String>? agregationAttributes,
   int? limit,
   String? orderByAsc,
 }) {
@@ -33,6 +34,18 @@ String constructSqlQuerySearch({
             : attributesResult += '"$table"."${attributes[i]}",';
       }
     }
+  }
+  // AgregationAttributes
+  String agregationAttributesResult = '';
+  if (agregationAttributes != null && agregationAttributes.isNotEmpty) {
+    for (int i = 0; i < agregationAttributes.length; i++) {
+      if (i == agregationAttributes.length - 1) {
+        agregationAttributesResult += agregationAttributes[i];
+      } else {
+        agregationAttributesResult += '${agregationAttributes[i]},';
+      }
+    }
+    attributesResult += ', $agregationAttributesResult';
   }
   // Where
   String whereResult = '';
@@ -278,7 +291,7 @@ String constructSqlQuerySearch({
   }
   // OrderBy
   String orderByAscResult =
-      orderByAsc != null ? 'ORDER BY "$orderByAsc" ASC ' : '';
+      orderByAsc != null ? 'ORDER BY $orderByAsc ASC ' : '';
   // Limit
   String limitResult = limit != null ? 'LIMIT $limit;' : '';
   return 'SELECT $attributesResult '

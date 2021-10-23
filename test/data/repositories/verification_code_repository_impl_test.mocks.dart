@@ -388,7 +388,8 @@ class MockDatabase extends _i1.Mock implements _i10.Database {
           List<_i11.Where>? where,
           List<String>? attributes,
           int? limit,
-          String? orderByAsc}) =>
+          String? orderByAsc,
+          List<String>? agregationMethods}) =>
       (super.noSuchMethod(
               Invocation.method(#search, [], {
                 #context: context,
@@ -396,7 +397,8 @@ class MockDatabase extends _i1.Mock implements _i10.Database {
                 #where: where,
                 #attributes: attributes,
                 #limit: limit,
-                #orderByAsc: orderByAsc
+                #orderByAsc: orderByAsc,
+                #agregationMethods: agregationMethods
               }),
               returnValue: Future<List<Map<String, dynamic>>>.value(
                   <Map<String, dynamic>>[]))

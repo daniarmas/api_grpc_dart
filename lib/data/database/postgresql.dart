@@ -188,6 +188,7 @@ class PostgresqlDatabase implements Database {
       required String table,
       required List<Where> where,
       List<String>? attributes,
+      List<String>? agregationMethods,
       int? limit,
       String? orderByAsc}) async {
     try {
@@ -197,6 +198,7 @@ class PostgresqlDatabase implements Database {
           where: where,
           table: table,
           attributes: attributes,
+          agregationAttributes: agregationMethods,
           orderByAsc: orderByAsc);
     } catch (error) {
       if (error.toString().contains(

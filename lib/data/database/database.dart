@@ -25,6 +25,7 @@ abstract class Database {
     List<String>? attributes,
     int? limit,
     String? orderByAsc,
+    List<String>? agregationMethods,
   });
 
   Future<Map<String, dynamic>?> get(

@@ -149,6 +149,7 @@ class PostgresqlDao {
     required String table,
     required List<Where> where,
     List<String>? attributes,
+    List<String>? agregationAttributes,
     int? limit,
     String? orderByAsc,
   }) async {
@@ -159,6 +160,7 @@ class PostgresqlDao {
           where: where,
           table: table,
           attributes: attributes,
+          agregationAttributes: agregationAttributes,
           orderByAsc: orderByAsc);
       print(query);
       var result = await context.mappedResultsQuery(query);

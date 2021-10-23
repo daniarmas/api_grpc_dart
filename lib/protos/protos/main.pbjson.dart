@@ -78,14 +78,14 @@ const SearchItemRequest$json = const {
     const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'provinceFk', '3': 3, '4': 1, '5': 9, '10': 'provinceFk'},
     const {'1': 'municipalityFk', '3': 4, '4': 1, '5': 9, '10': 'municipalityFk'},
-    const {'1': 'searchMunicipalityType', '3': 6, '4': 1, '5': 14, '6': '.SearchMunicipalityType', '10': 'searchMunicipalityType'},
-    const {'1': 'location', '3': 7, '4': 1, '5': 11, '6': '.Point', '10': 'location'},
-    const {'1': 'fieldMask', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+    const {'1': 'searchMunicipalityType', '3': 5, '4': 1, '5': 14, '6': '.SearchMunicipalityType', '10': 'searchMunicipalityType'},
+    const {'1': 'location', '3': 6, '4': 1, '5': 11, '6': '.Point', '10': 'location'},
+    const {'1': 'fieldMask', '3': 7, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
   ],
 };
 
 /// Descriptor for `SearchItemRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List searchItemRequestDescriptor = $convert.base64Decode('ChFTZWFyY2hJdGVtUmVxdWVzdBIaCghuZXh0UGFnZRgBIAEoBVIIbmV4dFBhZ2USEgoEbmFtZRgCIAEoCVIEbmFtZRIeCgpwcm92aW5jZUZrGAMgASgJUgpwcm92aW5jZUZrEiYKDm11bmljaXBhbGl0eUZrGAQgASgJUg5tdW5pY2lwYWxpdHlGaxJPChZzZWFyY2hNdW5pY2lwYWxpdHlUeXBlGAYgASgOMhcuU2VhcmNoTXVuaWNpcGFsaXR5VHlwZVIWc2VhcmNoTXVuaWNpcGFsaXR5VHlwZRIiCghsb2NhdGlvbhgHIAEoCzIGLlBvaW50Ughsb2NhdGlvbhI4CglmaWVsZE1hc2sYCCABKAsyGi5nb29nbGUucHJvdG9idWYuRmllbGRNYXNrUglmaWVsZE1hc2s=');
+final $typed_data.Uint8List searchItemRequestDescriptor = $convert.base64Decode('ChFTZWFyY2hJdGVtUmVxdWVzdBIaCghuZXh0UGFnZRgBIAEoBVIIbmV4dFBhZ2USEgoEbmFtZRgCIAEoCVIEbmFtZRIeCgpwcm92aW5jZUZrGAMgASgJUgpwcm92aW5jZUZrEiYKDm11bmljaXBhbGl0eUZrGAQgASgJUg5tdW5pY2lwYWxpdHlGaxJPChZzZWFyY2hNdW5pY2lwYWxpdHlUeXBlGAUgASgOMhcuU2VhcmNoTXVuaWNpcGFsaXR5VHlwZVIWc2VhcmNoTXVuaWNpcGFsaXR5VHlwZRIiCghsb2NhdGlvbhgGIAEoCzIGLlBvaW50Ughsb2NhdGlvbhI4CglmaWVsZE1hc2sYByABKAsyGi5nb29nbGUucHJvdG9idWYuRmllbGRNYXNrUglmaWVsZE1hc2s=');
 @$core.Deprecated('Use searchItemResponseDescriptor instead')
 const SearchItemResponse$json = const {
   '1': 'SearchItemResponse',
@@ -540,17 +540,15 @@ const SearchItem$json = const {
     const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'price', '3': 3, '4': 1, '5': 1, '10': 'price'},
     const {'1': 'status', '3': 4, '4': 1, '5': 14, '6': '.ItemStatusType', '10': 'status'},
-    const {'1': 'businessFk', '3': 5, '4': 1, '5': 9, '10': 'businessFk'},
-    const {'1': 'highQualityPhoto', '3': 6, '4': 1, '5': 9, '10': 'highQualityPhoto'},
-    const {'1': 'lowQualityPhoto', '3': 7, '4': 1, '5': 9, '10': 'lowQualityPhoto'},
-    const {'1': 'blurHash', '3': 8, '4': 1, '5': 9, '10': 'blurHash'},
-    const {'1': 'businessName', '3': 9, '4': 1, '5': 9, '10': 'businessName'},
-    const {'1': 'cursor', '3': 10, '4': 1, '5': 5, '10': 'cursor'},
+    const {'1': 'highQualityPhoto', '3': 5, '4': 1, '5': 9, '10': 'highQualityPhoto'},
+    const {'1': 'lowQualityPhoto', '3': 6, '4': 1, '5': 9, '10': 'lowQualityPhoto'},
+    const {'1': 'blurHash', '3': 7, '4': 1, '5': 9, '10': 'blurHash'},
+    const {'1': 'cursor', '3': 8, '4': 1, '5': 5, '10': 'cursor'},
   ],
 };
 
 /// Descriptor for `SearchItem`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List searchItemDescriptor = $convert.base64Decode('CgpTZWFyY2hJdGVtEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhQKBXByaWNlGAMgASgBUgVwcmljZRInCgZzdGF0dXMYBCABKA4yDy5JdGVtU3RhdHVzVHlwZVIGc3RhdHVzEh4KCmJ1c2luZXNzRmsYBSABKAlSCmJ1c2luZXNzRmsSKgoQaGlnaFF1YWxpdHlQaG90bxgGIAEoCVIQaGlnaFF1YWxpdHlQaG90bxIoCg9sb3dRdWFsaXR5UGhvdG8YByABKAlSD2xvd1F1YWxpdHlQaG90bxIaCghibHVySGFzaBgIIAEoCVIIYmx1ckhhc2gSIgoMYnVzaW5lc3NOYW1lGAkgASgJUgxidXNpbmVzc05hbWUSFgoGY3Vyc29yGAogASgFUgZjdXJzb3I=');
+final $typed_data.Uint8List searchItemDescriptor = $convert.base64Decode('CgpTZWFyY2hJdGVtEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhQKBXByaWNlGAMgASgBUgVwcmljZRInCgZzdGF0dXMYBCABKA4yDy5JdGVtU3RhdHVzVHlwZVIGc3RhdHVzEioKEGhpZ2hRdWFsaXR5UGhvdG8YBSABKAlSEGhpZ2hRdWFsaXR5UGhvdG8SKAoPbG93UXVhbGl0eVBob3RvGAYgASgJUg9sb3dRdWFsaXR5UGhvdG8SGgoIYmx1ckhhc2gYByABKAlSCGJsdXJIYXNoEhYKBmN1cnNvchgIIAEoBVIGY3Vyc29y');
 @$core.Deprecated('Use itemPhotoDescriptor instead')
 const ItemPhoto$json = const {
   '1': 'ItemPhoto',

@@ -50,7 +50,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i8.ItemLocalDataSource>(
       () => _i8.ItemLocalDataSourceImpl(get<_i3.Database>()));
   gh.factory<_i9.ItemRepository>(() => _i10.ItemRepositoryImpl(
-      itemLocalDataSource: get<_i8.ItemLocalDataSource>()));
+      itemLocalDataSource: get<_i8.ItemLocalDataSource>(),
+      database: get<_i3.Database>()));
   gh.factory<_i11.JsonWebToken>(() => _i11.JsonWebToken());
   gh.factory<_i12.KubernetesDataSource>(() => _i12.KubernetesDataSourceImpl());
   gh.factory<_i13.ObjectStorageDataSource>(
