@@ -4,6 +4,7 @@ import 'package:api_grpc_dart/domain/repositories/object_storage_repository.dart
 import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:postgres_dao/attribute.dart';
 
 @Injectable(as: ObjectStorageRepository)
 class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
@@ -16,7 +17,7 @@ class ObjectStorageRepositoryImpl implements ObjectStorageRepository {
       {required String bucket,
       required String object,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       return Right(
           await objectStorageDataSource.presignedPutObject(bucket, object));

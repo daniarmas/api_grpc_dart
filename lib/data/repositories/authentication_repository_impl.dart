@@ -16,6 +16,7 @@ import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mailer/mailer.dart';
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../protos/protos/main.pb.dart';
@@ -51,7 +52,7 @@ class AuthenticationImpl implements AuthenticationRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       if (!StringUtils.isNumeric(data['code']) || data['code'].length != 6) {
         return Left(GrpcError.invalidArgument('Input `code` invalid'));
@@ -66,25 +67,27 @@ class AuthenticationImpl implements AuthenticationRepository {
           'deviceId': metadata.deviceId,
           'type': 'SIGN_IN'
         }, paths: [
-          'id',
-          'type'
+          NormalAttribute(name: 'id'),
+          NormalAttribute(name: 'type'),
         ]);
         if (getVerificationCodeResponse == null) {
           return Left(GrpcError.invalidArgument('VerificationCode Not found'));
         }
         final getBannedUserResponse = await bannedUserLocalDataSource
-            .getBannedUser(
-                context: context,
-                data: {'email': data['email']},
-                paths: ['id']);
+            .getBannedUser(context: context, data: {
+          'email': data['email']
+        }, paths: [
+          NormalAttribute(name: 'id'),
+        ]);
         if (getBannedUserResponse != null) {
           return Left(GrpcError.invalidArgument('User banned'));
         }
         final getBannedDeviceResponse = await bannedDeviceLocalDataSource
-            .getBannedDevice(
-                context: context,
-                data: {'deviceId': metadata.deviceId},
-                paths: ['id']);
+            .getBannedDevice(context: context, data: {
+          'deviceId': metadata.deviceId
+        }, paths: [
+          NormalAttribute(name: 'id'),
+        ]);
         if (getBannedDeviceResponse != null) {
           return Left(GrpcError.invalidArgument('Device banned'));
         }
@@ -101,7 +104,9 @@ class AuthenticationImpl implements AuthenticationRepository {
                   'deviceId': metadata.deviceId
                 },
                 context: context,
-                paths: ['id']);
+                paths: [
+                  NormalAttribute(name: 'id'),
+                ]);
         if (verificationCodeListResponse.isNotEmpty) {
           await verificationCodeLocalDataSource.deleteVerificationCode(data: {
             'email': data['email'],
@@ -140,8 +145,8 @@ class AuthenticationImpl implements AuthenticationRepository {
           'userFk': getUserResponse.id,
           'deviceFk': device.id,
         }, paths: [
-          'id',
-          'refreshToken'
+          NormalAttribute(name: 'id'),
+          NormalAttribute(name: 'refreshToken'),
         ]);
         if (getRefreshTokenResponse != null) {
           await refreshTokenLocalDataSource.deleteRefreshToken(
@@ -227,7 +232,7 @@ class AuthenticationImpl implements AuthenticationRepository {
             .getBannedDevice(
                 context: context,
                 data: {'deviceId': metadata.deviceId},
-                paths: ['id']);
+                paths: [NormalAttribute(name: 'id')]);
         if (getBannedDeviceResponse != null) {
           return Left(GrpcError.invalidArgument('Device Banned'));
         }
@@ -261,7 +266,7 @@ class AuthenticationImpl implements AuthenticationRepository {
             .getBannedUser(
                 context: context,
                 data: {'userFk': authorizationToken.userFk},
-                paths: ['id']);
+                paths: [NormalAttribute(name: 'id')]);
         if (getBannedUserResponse != null) {
           return Left(GrpcError.invalidArgument('User Banned'));
         }
@@ -282,7 +287,7 @@ class AuthenticationImpl implements AuthenticationRepository {
             .getBannedDevice(
                 context: context,
                 data: {'deviceId': metadata.deviceId},
-                paths: ['id']);
+                paths: [NormalAttribute(name: 'id')]);
         if (getBannedDeviceResponse != null) {
           return Left(GrpcError.invalidArgument('Device Banned'));
         }
@@ -308,7 +313,7 @@ class AuthenticationImpl implements AuthenticationRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       if (data['fullName'] == '' ||
           !StringUtils.isName(data['fullName']) ||
@@ -364,8 +369,8 @@ class AuthenticationImpl implements AuthenticationRepository {
           'deviceId': metadata.deviceId,
           'type': 'SIGN_UP'
         }, paths: [
-          'id',
-          'type'
+          NormalAttribute(name: 'id'),
+          NormalAttribute(name: 'type'),
         ]);
         if (getVerificationCodeResponse == null) {
           return Left(GrpcError.invalidArgument('VerificationCode incorrect'));
@@ -383,7 +388,9 @@ class AuthenticationImpl implements AuthenticationRepository {
                   'deviceId': metadata.deviceId
                 },
                 context: context,
-                paths: ['id']);
+                paths: [
+                  NormalAttribute(name: 'id'),
+                ]);
         if (verificationCodeListResponse.isNotEmpty) {
           await verificationCodeLocalDataSource.deleteVerificationCode(data: {
             'email': data['email'],
@@ -392,18 +399,20 @@ class AuthenticationImpl implements AuthenticationRepository {
           }, context: context);
         }
         final getBannedUserResponse = await bannedUserLocalDataSource
-            .getBannedUser(
-                context: context,
-                data: {'email': data['email']},
-                paths: ['id']);
+            .getBannedUser(context: context, data: {
+          'email': data['email']
+        }, paths: [
+          NormalAttribute(name: 'id'),
+        ]);
         if (getBannedUserResponse != null) {
           return Left(GrpcError.invalidArgument('User Banned'));
         }
         final getBannedDeviceResponse = await bannedDeviceLocalDataSource
-            .getBannedDevice(
-                context: context,
-                data: {'deviceId': metadata.deviceId},
-                paths: ['id']);
+            .getBannedDevice(context: context, data: {
+          'deviceId': metadata.deviceId
+        }, paths: [
+          NormalAttribute(name: 'id'),
+        ]);
         if (getBannedDeviceResponse != null) {
           return Left(GrpcError.invalidArgument('Device Banned'));
         }

@@ -11,12 +11,12 @@ abstract class ItemLocalDataSource {
   Future<List<Item>> listItem(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<Item?> getItem(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 }
 
 @Injectable(as: ItemLocalDataSource)
@@ -30,11 +30,11 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
   Future<Item?> getItem(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
-      List<String> getPath = [];
+      List<Attribute> getPath = [];
       getPath.addAll(paths);
-      getPath.removeWhere((element) => element == 'photos');
+      getPath.removeWhere((element) => element.name == 'photos');
       final result = await _database.get(
           context: context,
           table: _table,
@@ -42,7 +42,7 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
           attributes: getPath);
       if (result != null) {
         List<ItemPhoto> listItemPhoto = [];
-        if (paths.isEmpty || paths.contains('photos')) {
+        if (paths.isEmpty || paths.any((element) => element.name == 'photos')) {
           final photos = await _database
               .list(context: context, table: 'ItemPhoto', where: [
             WhereNormalAttributeEqual(
@@ -93,12 +93,12 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
   Future<List<Item>> listItem(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
-      List<String> listPath = [];
+      List<Attribute> listPath = [];
       List<String> ids = [];
       listPath.addAll(paths);
-      listPath.removeWhere((element) => element == 'photos');
+      listPath.removeWhere((element) => element.name == 'photos');
       var nextPage = data['nextPage'];
       late List<Map<String, dynamic>> result;
       if (nextPage == null) {
@@ -152,7 +152,7 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
         ids.removeLast();
       }
       List<ItemPhoto> listItemPhoto = [];
-      if (paths.isEmpty || paths.contains('photos')) {
+      if (paths.isEmpty || paths.any((element) => element.name == 'photos')) {
         final photos =
             await _database.list(context: context, table: 'ItemPhoto', where: [
           WhereNormalAttributeIn(key: 'itemFk', value: ids),

@@ -46,6 +46,18 @@ const ItemStatusType$json = const {
 
 /// Descriptor for `ItemStatusType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List itemStatusTypeDescriptor = $convert.base64Decode('Cg5JdGVtU3RhdHVzVHlwZRIgChxJVEVNX1NUQVRVU19UWVBFX1VOU1BFQ0lGSUVEEAASDQoJQVZBSUxBQkxFEAESDwoLVU5BVkFJTEFCTEUQAhIOCgpERVBSRUNBVEVEEAM=');
+@$core.Deprecated('Use businessStatusTypeDescriptor instead')
+const BusinessStatusType$json = const {
+  '1': 'BusinessStatusType',
+  '2': const [
+    const {'1': 'BUSINESS_STATUS_TYPE_UNSPECIFIED', '2': 0},
+    const {'1': 'BUSINESS_AVAILABLE', '2': 1},
+    const {'1': 'BUSINESS_UNAVAILABLE', '2': 2},
+  ],
+};
+
+/// Descriptor for `BusinessStatusType`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List businessStatusTypeDescriptor = $convert.base64Decode('ChJCdXNpbmVzc1N0YXR1c1R5cGUSJAogQlVTSU5FU1NfU1RBVFVTX1RZUEVfVU5TUEVDSUZJRUQQABIWChJCVVNJTkVTU19BVkFJTEFCTEUQARIYChRCVVNJTkVTU19VTkFWQUlMQUJMRRAC');
 @$core.Deprecated('Use platformTypeDescriptor instead')
 const PlatformType$json = const {
   '1': 'PlatformType',
@@ -146,24 +158,28 @@ const FeedRequest$json = const {
   '1': 'FeedRequest',
   '2': const [
     const {'1': 'location', '3': 1, '4': 1, '5': 11, '6': '.Point', '10': 'location'},
-    const {'1': 'nextPage', '3': 3, '4': 1, '5': 9, '10': 'nextPage'},
-    const {'1': 'fieldMask', '3': 4, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+    const {'1': 'provinceFk', '3': 2, '4': 1, '5': 9, '10': 'provinceFk'},
+    const {'1': 'municipalityFk', '3': 3, '4': 1, '5': 9, '10': 'municipalityFk'},
+    const {'1': 'searchMunicipalityType', '3': 4, '4': 1, '5': 14, '6': '.SearchMunicipalityType', '10': 'searchMunicipalityType'},
+    const {'1': 'nextPage', '3': 5, '4': 1, '5': 9, '10': 'nextPage'},
+    const {'1': 'fieldMask', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
   ],
 };
 
 /// Descriptor for `FeedRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List feedRequestDescriptor = $convert.base64Decode('CgtGZWVkUmVxdWVzdBIiCghsb2NhdGlvbhgBIAEoCzIGLlBvaW50Ughsb2NhdGlvbhIaCghuZXh0UGFnZRgDIAEoCVIIbmV4dFBhZ2USOAoJZmllbGRNYXNrGAQgASgLMhouZ29vZ2xlLnByb3RvYnVmLkZpZWxkTWFza1IJZmllbGRNYXNr');
+final $typed_data.Uint8List feedRequestDescriptor = $convert.base64Decode('CgtGZWVkUmVxdWVzdBIiCghsb2NhdGlvbhgBIAEoCzIGLlBvaW50Ughsb2NhdGlvbhIeCgpwcm92aW5jZUZrGAIgASgJUgpwcm92aW5jZUZrEiYKDm11bmljaXBhbGl0eUZrGAMgASgJUg5tdW5pY2lwYWxpdHlGaxJPChZzZWFyY2hNdW5pY2lwYWxpdHlUeXBlGAQgASgOMhcuU2VhcmNoTXVuaWNpcGFsaXR5VHlwZVIWc2VhcmNoTXVuaWNpcGFsaXR5VHlwZRIaCghuZXh0UGFnZRgFIAEoCVIIbmV4dFBhZ2USOAoJZmllbGRNYXNrGAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLkZpZWxkTWFza1IJZmllbGRNYXNr');
 @$core.Deprecated('Use feedResponseDescriptor instead')
 const FeedResponse$json = const {
   '1': 'FeedResponse',
   '2': const [
     const {'1': 'businesses', '3': 1, '4': 3, '5': 11, '6': '.Business', '10': 'businesses'},
-    const {'1': 'nextPage', '3': 2, '4': 1, '5': 9, '10': 'nextPage'},
+    const {'1': 'searchMunicipalityType', '3': 2, '4': 1, '5': 14, '6': '.SearchMunicipalityType', '10': 'searchMunicipalityType'},
+    const {'1': 'nextPage', '3': 3, '4': 1, '5': 5, '10': 'nextPage'},
   ],
 };
 
 /// Descriptor for `FeedResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List feedResponseDescriptor = $convert.base64Decode('CgxGZWVkUmVzcG9uc2USKQoKYnVzaW5lc3NlcxgBIAMoCzIJLkJ1c2luZXNzUgpidXNpbmVzc2VzEhoKCG5leHRQYWdlGAIgASgJUghuZXh0UGFnZQ==');
+final $typed_data.Uint8List feedResponseDescriptor = $convert.base64Decode('CgxGZWVkUmVzcG9uc2USKQoKYnVzaW5lc3NlcxgBIAMoCzIJLkJ1c2luZXNzUgpidXNpbmVzc2VzEk8KFnNlYXJjaE11bmljaXBhbGl0eVR5cGUYAiABKA4yFy5TZWFyY2hNdW5pY2lwYWxpdHlUeXBlUhZzZWFyY2hNdW5pY2lwYWxpdHlUeXBlEhoKCG5leHRQYWdlGAMgASgFUghuZXh0UGFnZQ==');
 @$core.Deprecated('Use getBusinessRequestDescriptor instead')
 const GetBusinessRequest$json = const {
   '1': 'GetBusinessRequest',
@@ -488,26 +504,29 @@ const Business$json = const {
     const {'1': 'address', '3': 4, '4': 1, '5': 9, '10': 'address'},
     const {'1': 'phone', '3': 5, '4': 1, '5': 9, '10': 'phone'},
     const {'1': 'email', '3': 6, '4': 1, '5': 9, '10': 'email'},
-    const {'1': 'photo', '3': 7, '4': 1, '5': 9, '10': 'photo'},
-    const {'1': 'photoUrl', '3': 8, '4': 1, '5': 9, '10': 'photoUrl'},
-    const {'1': 'isOpen', '3': 9, '4': 1, '5': 8, '10': 'isOpen'},
-    const {'1': 'deliveryPrice', '3': 10, '4': 1, '5': 1, '10': 'deliveryPrice'},
-    const {'1': 'polygon', '3': 11, '4': 3, '5': 11, '6': '.Polygon', '10': 'polygon'},
-    const {'1': 'coordinates', '3': 12, '4': 1, '5': 11, '6': '.Point', '10': 'coordinates'},
-    const {'1': 'leadDayTime', '3': 13, '4': 1, '5': 5, '10': 'leadDayTime'},
-    const {'1': 'leadHoursTime', '3': 14, '4': 1, '5': 5, '10': 'leadHoursTime'},
-    const {'1': 'leadMinutesTime', '3': 15, '4': 1, '5': 5, '10': 'leadMinutesTime'},
-    const {'1': 'toPickUp', '3': 16, '4': 1, '5': 8, '10': 'toPickUp'},
-    const {'1': 'homeDelivery', '3': 17, '4': 1, '5': 8, '10': 'homeDelivery'},
-    const {'1': 'businessBrandFk', '3': 18, '4': 1, '5': 9, '10': 'businessBrandFk'},
-    const {'1': 'provinceFk', '3': 19, '4': 1, '5': 9, '10': 'provinceFk'},
-    const {'1': 'municipalityFk', '3': 20, '4': 1, '5': 9, '10': 'municipalityFk'},
-    const {'1': 'distance', '3': 21, '4': 1, '5': 1, '10': 'distance'},
+    const {'1': 'highQualityPhoto', '3': 7, '4': 1, '5': 9, '10': 'highQualityPhoto'},
+    const {'1': 'lowQualityPhoto', '3': 8, '4': 1, '5': 9, '10': 'lowQualityPhoto'},
+    const {'1': 'blurHash', '3': 9, '4': 1, '5': 9, '10': 'blurHash'},
+    const {'1': 'isOpen', '3': 10, '4': 1, '5': 8, '10': 'isOpen'},
+    const {'1': 'deliveryPrice', '3': 11, '4': 1, '5': 1, '10': 'deliveryPrice'},
+    const {'1': 'polygon', '3': 12, '4': 3, '5': 11, '6': '.Polygon', '10': 'polygon'},
+    const {'1': 'coordinates', '3': 13, '4': 1, '5': 11, '6': '.Point', '10': 'coordinates'},
+    const {'1': 'leadDayTime', '3': 14, '4': 1, '5': 5, '10': 'leadDayTime'},
+    const {'1': 'leadHoursTime', '3': 15, '4': 1, '5': 5, '10': 'leadHoursTime'},
+    const {'1': 'leadMinutesTime', '3': 16, '4': 1, '5': 5, '10': 'leadMinutesTime'},
+    const {'1': 'toPickUp', '3': 17, '4': 1, '5': 8, '10': 'toPickUp'},
+    const {'1': 'homeDelivery', '3': 18, '4': 1, '5': 8, '10': 'homeDelivery'},
+    const {'1': 'businessBrandFk', '3': 19, '4': 1, '5': 9, '10': 'businessBrandFk'},
+    const {'1': 'provinceFk', '3': 20, '4': 1, '5': 9, '10': 'provinceFk'},
+    const {'1': 'municipalityFk', '3': 21, '4': 1, '5': 9, '10': 'municipalityFk'},
+    const {'1': 'distance', '3': 22, '4': 1, '5': 1, '10': 'distance'},
+    const {'1': 'status', '3': 23, '4': 1, '5': 14, '6': '.BusinessStatusType', '10': 'status'},
+    const {'1': 'cursor', '3': 24, '4': 1, '5': 5, '10': 'cursor'},
   ],
 };
 
 /// Descriptor for `Business`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List businessDescriptor = $convert.base64Decode('CghCdXNpbmVzcxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVzY3JpcHRpb24SGAoHYWRkcmVzcxgEIAEoCVIHYWRkcmVzcxIUCgVwaG9uZRgFIAEoCVIFcGhvbmUSFAoFZW1haWwYBiABKAlSBWVtYWlsEhQKBXBob3RvGAcgASgJUgVwaG90bxIaCghwaG90b1VybBgIIAEoCVIIcGhvdG9VcmwSFgoGaXNPcGVuGAkgASgIUgZpc09wZW4SJAoNZGVsaXZlcnlQcmljZRgKIAEoAVINZGVsaXZlcnlQcmljZRIiCgdwb2x5Z29uGAsgAygLMgguUG9seWdvblIHcG9seWdvbhIoCgtjb29yZGluYXRlcxgMIAEoCzIGLlBvaW50Ugtjb29yZGluYXRlcxIgCgtsZWFkRGF5VGltZRgNIAEoBVILbGVhZERheVRpbWUSJAoNbGVhZEhvdXJzVGltZRgOIAEoBVINbGVhZEhvdXJzVGltZRIoCg9sZWFkTWludXRlc1RpbWUYDyABKAVSD2xlYWRNaW51dGVzVGltZRIaCgh0b1BpY2tVcBgQIAEoCFIIdG9QaWNrVXASIgoMaG9tZURlbGl2ZXJ5GBEgASgIUgxob21lRGVsaXZlcnkSKAoPYnVzaW5lc3NCcmFuZEZrGBIgASgJUg9idXNpbmVzc0JyYW5kRmsSHgoKcHJvdmluY2VGaxgTIAEoCVIKcHJvdmluY2VGaxImCg5tdW5pY2lwYWxpdHlGaxgUIAEoCVIObXVuaWNpcGFsaXR5RmsSGgoIZGlzdGFuY2UYFSABKAFSCGRpc3RhbmNl');
+final $typed_data.Uint8List businessDescriptor = $convert.base64Decode('CghCdXNpbmVzcxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRIgCgtkZXNjcmlwdGlvbhgDIAEoCVILZGVzY3JpcHRpb24SGAoHYWRkcmVzcxgEIAEoCVIHYWRkcmVzcxIUCgVwaG9uZRgFIAEoCVIFcGhvbmUSFAoFZW1haWwYBiABKAlSBWVtYWlsEioKEGhpZ2hRdWFsaXR5UGhvdG8YByABKAlSEGhpZ2hRdWFsaXR5UGhvdG8SKAoPbG93UXVhbGl0eVBob3RvGAggASgJUg9sb3dRdWFsaXR5UGhvdG8SGgoIYmx1ckhhc2gYCSABKAlSCGJsdXJIYXNoEhYKBmlzT3BlbhgKIAEoCFIGaXNPcGVuEiQKDWRlbGl2ZXJ5UHJpY2UYCyABKAFSDWRlbGl2ZXJ5UHJpY2USIgoHcG9seWdvbhgMIAMoCzIILlBvbHlnb25SB3BvbHlnb24SKAoLY29vcmRpbmF0ZXMYDSABKAsyBi5Qb2ludFILY29vcmRpbmF0ZXMSIAoLbGVhZERheVRpbWUYDiABKAVSC2xlYWREYXlUaW1lEiQKDWxlYWRIb3Vyc1RpbWUYDyABKAVSDWxlYWRIb3Vyc1RpbWUSKAoPbGVhZE1pbnV0ZXNUaW1lGBAgASgFUg9sZWFkTWludXRlc1RpbWUSGgoIdG9QaWNrVXAYESABKAhSCHRvUGlja1VwEiIKDGhvbWVEZWxpdmVyeRgSIAEoCFIMaG9tZURlbGl2ZXJ5EigKD2J1c2luZXNzQnJhbmRGaxgTIAEoCVIPYnVzaW5lc3NCcmFuZEZrEh4KCnByb3ZpbmNlRmsYFCABKAlSCnByb3ZpbmNlRmsSJgoObXVuaWNpcGFsaXR5RmsYFSABKAlSDm11bmljaXBhbGl0eUZrEhoKCGRpc3RhbmNlGBYgASgBUghkaXN0YW5jZRIrCgZzdGF0dXMYFyABKA4yEy5CdXNpbmVzc1N0YXR1c1R5cGVSBnN0YXR1cxIWCgZjdXJzb3IYGCABKAVSBmN1cnNvcg==');
 @$core.Deprecated('Use itemDescriptor instead')
 const Item$json = const {
   '1': 'Item',

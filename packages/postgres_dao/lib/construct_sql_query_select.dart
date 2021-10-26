@@ -12,7 +12,7 @@ import 'where_normal_attribute.dart';
 
 String constructSqlQuerySelect({
   required String table,
-  List<String>? attributes,
+  List<Attribute>? attributes,
   List<String>? agregationAttributes,
   InnerJoin? innerJoin,
   int? limit,
@@ -25,13 +25,25 @@ String constructSqlQuerySelect({
     attributesResult = '';
     for (int i = 0; i < attributes.length; i++) {
       if (i == attributes.length - 1) {
-        (attributes[i] is NormalAttribute)
-            ? attributesResult += '"$table"."${attributes[i]}"'
-            : attributesResult += '"$table"."${attributes[i]}"';
+        if (attributes[i] is NormalAttribute) {
+          attributesResult += '"$table".${attributes[i].name}';
+        } else if (attributes[i] is InnerAttribute) {
+          var innerAttribute = attributes[i] as InnerAttribute;
+          attributesResult +=
+              '"${innerAttribute.innerTable}".${attributes[i].name}';
+        } else {
+          attributesResult += '"$table".${attributes[i].name}';
+        }
       } else {
-        (attributes[i] is NormalAttribute)
-            ? attributesResult += '"$table"."${attributes[i]}",'
-            : attributesResult += '"$table"."${attributes[i]}",';
+        if (attributes[i] is NormalAttribute) {
+          attributesResult += '"$table".${attributes[i].name},';
+        } else if (attributes[i] is InnerAttribute) {
+          var innerAttribute = attributes[i] as InnerAttribute;
+          attributesResult +=
+              '"${innerAttribute.innerTable}".${attributes[i].name},';
+        } else {
+          attributesResult += '"$table".${attributes[i].name},';
+        }
       }
     }
   }

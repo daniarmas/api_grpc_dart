@@ -9,6 +9,7 @@ import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mailer/mailer.dart';
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 
 import '../../domain/repositories/verification_code_repository.dart';
 import '../../protos/protos/main.pb.dart';
@@ -44,23 +45,29 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
       } else {
         final getBannedUserResponse = await bannedUserLocalDataSource
-            .getBannedUser(
-                context: context,
-                data: {'email': data['email']},
-                paths: ['id']);
+            .getBannedUser(context: context, data: {
+          'email': data['email']
+        }, paths: [
+          NormalAttribute(name: 'id'),
+        ]);
         if (getBannedUserResponse != null) {
           return Left(GrpcError.invalidArgument('User Banned'));
         }
         final getBannedDeviceResponse = await bannedDeviceLocalDataSource
-            .getBannedDevice(
-                context: context,
-                data: {'deviceId': metadata.deviceId},
-                paths: ['id']);
+            .getBannedDevice(context: context, data: {
+          'deviceId': metadata.deviceId
+        }, paths: [
+          NormalAttribute(name: 'id'),
+        ]);
         if (getBannedDeviceResponse != null) {
           return Left(GrpcError.invalidArgument('Device Banned'));
         }
-        final getUserResponse = await userLocalDataSource.getUser(
-            context: context, data: {'email': data['email']}, paths: ['id']);
+        final getUserResponse =
+            await userLocalDataSource.getUser(context: context, data: {
+          'email': data['email']
+        }, paths: [
+          NormalAttribute(name: 'id'),
+        ]);
         if ((data['type'] == VerificationCodeType.SIGN_IN ||
                 data['type'] == VerificationCodeType.CHANGE_USER_EMAIL) &&
             getUserResponse == null) {
@@ -77,7 +84,9 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
                   'deviceId': metadata.deviceId
                 },
                 context: context,
-                paths: ['id']);
+                paths: [
+                  NormalAttribute(name: 'id'),
+                ]);
         if (verificationCodeListResponse.isNotEmpty) {
           await verificationCodeLocalDataSource.deleteVerificationCode(data: {
             'email': data['email'],
@@ -122,7 +131,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final response = await verificationCodeLocalDataSource
           .listVerificationCode(paths: paths, context: context, data: data);
@@ -139,7 +148,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final response = await verificationCodeLocalDataSource
           .getVerificationCode(data: data, paths: paths, context: context);
@@ -180,7 +189,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
           {required PostgreSQLExecutionContext context,
           required Map<String, dynamic> data,
           required HeadersMetadata metadata,
-          required List<String> paths}) async {
+          required List<Attribute> paths}) async {
     try {
       final response = await verificationCodeLocalDataSource
           .updateVerificationCode(data: data, paths: paths, context: context);

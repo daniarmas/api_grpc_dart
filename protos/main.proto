@@ -81,13 +81,17 @@ message GetItemResponse {
 
 message FeedRequest {
   Point location = 1;
-  string nextPage = 3;
-  google.protobuf.FieldMask fieldMask = 4;
+  string provinceFk = 2;
+  string municipalityFk = 3;
+  SearchMunicipalityType searchMunicipalityType = 4;
+  string nextPage = 5;
+  google.protobuf.FieldMask fieldMask = 6;
 }
 
 message FeedResponse {
   repeated Business businesses = 1;
-  string nextPage = 2;
+  SearchMunicipalityType searchMunicipalityType = 2;
+  int32 nextPage = 3;
 }
 
 message GetBusinessRequest {
@@ -245,21 +249,24 @@ message Business {
   string address = 4;
   string phone = 5;
   string email = 6;
-  string photo = 7;
-  string photoUrl = 8;
-  bool isOpen = 9;
-  double deliveryPrice = 10;
-  repeated Polygon polygon = 11;
-  Point coordinates = 12;
-  int32 leadDayTime = 13;
-  int32 leadHoursTime = 14;
-  int32 leadMinutesTime = 15;
-  bool toPickUp = 16;
-  bool homeDelivery = 17;
-  string businessBrandFk = 18;
-  string provinceFk = 19;
-  string municipalityFk = 20;
-  double distance = 21;
+  string highQualityPhoto = 7;
+  string lowQualityPhoto = 8;
+  string blurHash = 9;
+  bool isOpen = 10;
+  double deliveryPrice = 11;
+  repeated Polygon polygon = 12;
+  Point coordinates = 13;
+  int32 leadDayTime = 14;
+  int32 leadHoursTime = 15;
+  int32 leadMinutesTime = 16;
+  bool toPickUp = 17;
+  bool homeDelivery = 18;
+  string businessBrandFk = 19;
+  string provinceFk = 20;
+  string municipalityFk = 21;
+  double distance = 22;
+  BusinessStatusType status = 23;
+  int32 cursor = 24;
 }
 
 message Item {
@@ -419,6 +426,12 @@ enum ItemStatusType {
   AVAILABLE = 1;
   UNAVAILABLE = 2;
   DEPRECATED = 3;
+}
+
+enum BusinessStatusType {
+  BUSINESS_STATUS_TYPE_UNSPECIFIED = 0;
+  BUSINESS_AVAILABLE = 1;
+  BUSINESS_UNAVAILABLE = 2;
 }
 
 enum PlatformType {

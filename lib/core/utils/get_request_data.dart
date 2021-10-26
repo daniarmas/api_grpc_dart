@@ -1,3 +1,4 @@
+import 'package:postgres_dao/postgres_dao.dart';
 import 'package:protobuf/protobuf.dart' as $pb;
 
 Map<String, dynamic> getRequestData($pb.GeneratedMessage request,
@@ -18,6 +19,14 @@ Map<String, dynamic> getRequestData($pb.GeneratedMessage request,
     data.addAll(add);
   }
   return data;
+}
+
+List<Attribute> getPaths(List<String> paths) {
+  List<Attribute> response = [];
+  for (var item in paths) {
+    response.add(NormalAttribute(name: item));
+  }
+  return response;
 }
 
 bool isEnum(dynamic data) {

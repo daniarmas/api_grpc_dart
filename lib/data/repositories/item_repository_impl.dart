@@ -4,7 +4,6 @@ import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:api_grpc_dart/data/datasources/item_local_data_source.dart';
 import 'package:api_grpc_dart/domain/repositories/item_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
@@ -26,7 +25,7 @@ class ItemRepositoryImpl implements ItemRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       if (data['id'] == null || data['id'] == '') {
         return Left(GrpcError.invalidArgument('Input `id` invalid'));
@@ -50,7 +49,7 @@ class ItemRepositoryImpl implements ItemRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final response = await itemLocalDataSource.listItem(
           paths: paths, context: context, data: data);
@@ -73,7 +72,7 @@ class ItemRepositoryImpl implements ItemRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       if (data['nextPage'] == null) {
         return Left(GrpcError.invalidArgument('Input `nextPage` invalid'));
@@ -114,6 +113,7 @@ class ItemRepositoryImpl implements ItemRepository {
                 NormalAttribute(name: 'businessFk'),
                 NormalAttribute(name: 'cursor'),
                 InnerAttribute(name: 'name', innerTable: 'Business'),
+                InnerAttribute(name: 'toPickUp', innerTable: 'Business'),
               ],
               agregationMethods: [
                 'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
@@ -156,6 +156,7 @@ class ItemRepositoryImpl implements ItemRepository {
                   NormalAttribute(name: 'businessFk'),
                   NormalAttribute(name: 'cursor'),
                   InnerAttribute(name: 'name', innerTable: 'Business'),
+                  InnerAttribute(name: 'toPickUp', innerTable: 'Business'),
                 ],
                 agregationMethods: [
                   'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
@@ -199,6 +200,7 @@ class ItemRepositoryImpl implements ItemRepository {
                   NormalAttribute(name: 'businessFk'),
                   NormalAttribute(name: 'cursor'),
                   InnerAttribute(name: 'name', innerTable: 'Business'),
+                  InnerAttribute(name: 'toPickUp', innerTable: 'Business'),
                 ],
                 agregationMethods: [
                   'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
@@ -243,6 +245,7 @@ class ItemRepositoryImpl implements ItemRepository {
                 NormalAttribute(name: 'businessFk'),
                 NormalAttribute(name: 'cursor'),
                 InnerAttribute(name: 'name', innerTable: 'Business'),
+                InnerAttribute(name: 'toPickUp', innerTable: 'Business'),
               ],
               agregationMethods: [
                 'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',

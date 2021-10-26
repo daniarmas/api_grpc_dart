@@ -17,17 +17,17 @@ abstract class VerificationCodeLocalDataSource {
   Future<List<VerificationCode>> listVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<VerificationCode?> getVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<VerificationCode?> updateVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<bool> deleteVerificationCode(
       {required PostgreSQLExecutionContext context,
@@ -71,7 +71,7 @@ class VerificationCodeLocalDataSourceImpl
   @override
   Future<List<VerificationCode>> listVerificationCode({
     required PostgreSQLExecutionContext context,
-    required List<String> paths,
+    required List<Attribute> paths,
     required Map<String, dynamic> data,
   }) async {
     try {
@@ -106,7 +106,7 @@ class VerificationCodeLocalDataSourceImpl
   Future<VerificationCode?> getVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.get(
           context: context,
@@ -151,7 +151,7 @@ class VerificationCodeLocalDataSourceImpl
   Future<VerificationCode?> updateVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.update(
           context: context,

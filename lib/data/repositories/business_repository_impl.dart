@@ -7,6 +7,7 @@ import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 
 import '../../protos/protos/main.pb.dart';
 
@@ -21,7 +22,7 @@ class BusinessRepositoryImpl implements BusinessRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       if (data['id'] == null || data['id'] == '') {
         return Left(GrpcError.invalidArgument('Input `id` invalid'));
@@ -45,31 +46,29 @@ class BusinessRepositoryImpl implements BusinessRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       if (data['location'] == null ||
           data['location'].latitude == 0.0 &&
               data['location'].longitude == 0.0) {
         return Left(GrpcError.invalidArgument('Input `location` invalid'));
+      } else if (data['nextPage'] == null) {
+        return Left(GrpcError.invalidArgument('Input `nextPage` invalid'));
+      } else if (data['provinceFk'] == null || data['provinceFk'] == '') {
+        return Left(GrpcError.invalidArgument('Input `provinceFk` invalid'));
+      } else if (data['municipalityFk'] == null ||
+          data['municipalityFk'] == '') {
+        return Left(
+            GrpcError.invalidArgument('Input `municipalityFk` invalid'));
+      } else if (data['searchMunicipalityType'] == null ||
+          data['searchMunicipalityType'] ==
+              SearchMunicipalityType.SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED) {
+        return Left(GrpcError.invalidArgument(
+            'Input `searchMunicipalityType` invalid'));
       } else {
-        final response = await businessLocalDataSource.listBusiness(
+        final response = await businessLocalDataSource.feed(
             paths: paths, context: context, data: data);
-        if (response.length <= 1) {
-          response.shuffle();
-          return Right(FeedResponse(
-            businesses: response,
-            nextPage: '',
-          ));
-        } else {
-          response.removeLast();
-          response.shuffle();
-          return Right(
-            FeedResponse(
-                businesses: response,
-                nextPage:
-                    base64.encode(utf8.encode(response.last.name.toString()))),
-          );
-        }
+        return Right(response);
       }
     } on GrpcError catch (error) {
       return Left(error);

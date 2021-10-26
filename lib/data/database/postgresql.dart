@@ -89,7 +89,7 @@ class PostgresqlDatabase implements Database {
   Future<Map<String, dynamic>?> get(
       {required PostgreSQLExecutionContext context,
       required String table,
-      required List<String> attributes,
+      required List<Attribute> attributes,
       required List<Where> where,
       InnerJoin? innerJoin,
       List<String>? agregationMethods}) async {
@@ -123,7 +123,7 @@ class PostgresqlDatabase implements Database {
       {required PostgreSQLExecutionContext context,
       required String table,
       required List<Where> where,
-      required List<String> attributes,
+      required List<Attribute> attributes,
       InnerJoin? innerJoin,
       List<String>? agregationMethods,
       int? limit,
@@ -157,7 +157,7 @@ class PostgresqlDatabase implements Database {
       required String table,
       required Map<String, dynamic> data,
       required List<Where> where,
-      required List<String> attributes}) async {
+      required List<Attribute> attributes}) async {
     try {
       data.remove('id');
       final response = await _connection.update(

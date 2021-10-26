@@ -8,6 +8,7 @@ import 'package:api_grpc_dart/protos/google/protobuf/empty.pb.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 
 import '../../protos/protos/main.pbgrpc.dart';
 
@@ -54,7 +55,7 @@ class AuthenticationService extends AuthenticationServiceBase {
       await connection.transaction((context) async {
         result = await verificationCodeRepository.listVerificationCode(
           metadata: HeadersMetadata.fromServiceCall(call),
-          paths: request.fieldMask.paths,
+          paths: getPaths(request.fieldMask.paths),
           context: context,
           data: getRequestData(request),
         );
@@ -83,7 +84,7 @@ class AuthenticationService extends AuthenticationServiceBase {
         result = await verificationCodeRepository.getVerificationCode(
             metadata: HeadersMetadata.fromServiceCall(call),
             data: getRequestData(request),
-            paths: request.fieldMask.paths,
+            paths: getPaths(request.fieldMask.paths),
             context: context);
       });
       result.fold((left) => {throw left}, (right) => {response = right});
@@ -134,7 +135,7 @@ class AuthenticationService extends AuthenticationServiceBase {
         result = await signInRepository.signIn(
             metadata: HeadersMetadata.fromServiceCall(call),
             data: getRequestData(request),
-            paths: [],
+            paths: getPaths(request.fieldMask.paths),
             context: context);
       });
       result.fold((left) => {throw left}, (right) => {response = right});
@@ -161,7 +162,7 @@ class AuthenticationService extends AuthenticationServiceBase {
         result = await verificationCodeRepository.updateVerificationCode(
             metadata: HeadersMetadata.fromServiceCall(call),
             data: getRequestData(request),
-            paths: request.fieldMask.paths,
+            paths: getPaths(request.fieldMask.paths),
             context: context);
       });
       result.fold((left) => {throw left}, (right) => {response = right});
@@ -212,7 +213,7 @@ class AuthenticationService extends AuthenticationServiceBase {
         result = await userRepository.getUser(
             metadata: HeadersMetadata.fromServiceCall(call),
             data: getRequestData(request),
-            paths: ['id'],
+            paths: [NormalAttribute(name: 'id')],
             context: context);
       });
       result.fold((left) => {throw left}, (right) => {response = Empty()});

@@ -23,7 +23,7 @@ class ItemService extends ItemServiceBase {
         result = await itemRepository.getItem(
             metadata: HeadersMetadata.fromServiceCall(call),
             data: getRequestData(request),
-            paths: request.fieldMask.paths,
+            paths: getPaths(request.fieldMask.paths),
             context: context);
       });
       result.fold((left) => {throw left},
@@ -49,7 +49,7 @@ class ItemService extends ItemServiceBase {
       await connection.transaction((context) async {
         result = await itemRepository.listItem(
           metadata: HeadersMetadata.fromServiceCall(call),
-          paths: request.fieldMask.paths,
+          paths: getPaths(request.fieldMask.paths),
           context: context,
           data: getRequestData(request),
         );
@@ -81,7 +81,7 @@ class ItemService extends ItemServiceBase {
       await connection.transaction((context) async {
         result = await itemRepository.searchItem(
           metadata: HeadersMetadata.fromServiceCall(call),
-          paths: request.fieldMask.paths,
+          paths: getPaths(request.fieldMask.paths),
           context: context,
           data: getRequestData(request),
         );

@@ -12,7 +12,7 @@ abstract class Database {
   Future<List<Map<String, dynamic>>> list(
       {required PostgreSQLExecutionContext context,
       required String table,
-      required List<String> attributes,
+      required List<Attribute> attributes,
       required List<Where> where,
       InnerJoin? innerJoin,
       List<String>? agregationMethods,
@@ -33,7 +33,7 @@ abstract class Database {
   Future<Map<String, dynamic>?> get(
       {required PostgreSQLExecutionContext context,
       required String table,
-      required List<String> attributes,
+      required List<Attribute> attributes,
       required List<Where> where,
       InnerJoin? innerJoin,
       List<String>? agregationMethods});
@@ -49,7 +49,7 @@ abstract class Database {
       required String table,
       required Map<String, dynamic> data,
       required List<Where> where,
-      required List<String> attributes});
+      required List<Attribute> attributes});
 
   Future<bool> delete(
       {required PostgreSQLExecutionContext context,

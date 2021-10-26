@@ -15,17 +15,17 @@ abstract class UserLocalDataSource {
   Future<List<User>> listUser(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<List<User>> listUserInAliases(
       {required PostgreSQLExecutionContext context,
       required List<String> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<User?> getUser(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
   Future<void> deleteUser(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data});
@@ -81,7 +81,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
   Future<User?> getUser(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.get(
           context: context,
@@ -118,7 +118,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
   @override
   Future<List<User>> listUser(
       {required PostgreSQLExecutionContext context,
-      required List<String> paths,
+      required List<Attribute> paths,
       required Map<String, dynamic> data}) async {
     try {
       List<User> response = [];
@@ -155,7 +155,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
   Future<List<User>> listUserInAliases(
       {required PostgreSQLExecutionContext context,
       required List<String> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       List<User> response = [];
       final result = await _database.list(

@@ -92,7 +92,7 @@ class PostgresqlDao {
   Future<Map<String, dynamic>?> get(
       {required PostgreSQLExecutionContext context,
       required String table,
-      List<String>? attributes,
+      List<Attribute>? attributes,
       List<String>? agregationMethods,
       InnerJoin? innerJoin,
       List<Where>? where}) async {
@@ -119,7 +119,7 @@ class PostgresqlDao {
   Future<List<Map<String, dynamic>>> list(
       {required PostgreSQLExecutionContext context,
       required String table,
-      List<String>? attributes,
+      List<Attribute>? attributes,
       InnerJoin? innerJoin,
       List<String>? agregationAttributes,
       int? limit,
@@ -182,7 +182,7 @@ class PostgresqlDao {
       required String table,
       required Map<String, dynamic> data,
       required List<Where>? where,
-      List<String>? attributes}) async {
+      List<Attribute>? attributes}) async {
     try {
       String query = constructSqlQueryUpdate(
           table: table, data: data, attributes: attributes, where: where);
