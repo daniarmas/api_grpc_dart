@@ -98,13 +98,13 @@ class PostgresqlDao {
       List<Where>? where}) async {
     try {
       String? query = constructSqlQuerySelect(
-          limit: 1,
-          where: where,
-          table: table,
-          attributes: attributes,
-          innerJoin: innerJoin,
-          agregationAttributes: agregationMethods,
-          orderByAsc: 'id');
+        limit: 1,
+        where: where,
+        table: table,
+        attributes: attributes,
+        innerJoin: innerJoin,
+        agregationAttributes: agregationMethods,
+      );
       print(query);
       final response = await context.mappedResultsQuery(query);
       if (response.isNotEmpty) {

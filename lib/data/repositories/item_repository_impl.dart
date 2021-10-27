@@ -29,6 +29,10 @@ class ItemRepositoryImpl implements ItemRepository {
     try {
       if (data['id'] == null || data['id'] == '') {
         return Left(GrpcError.invalidArgument('Input `id` invalid'));
+      } else if (data['location'] == null ||
+          data['location'].latitude == 0.0 ||
+          data['location'].longitude == 0.0) {
+        return Left(GrpcError.invalidArgument('Input `location` invalid'));
       } else {
         final response = await itemLocalDataSource.getItem(
             data: data, paths: paths, context: context);
@@ -51,10 +55,12 @@ class ItemRepositoryImpl implements ItemRepository {
       required HeadersMetadata metadata,
       required List<Attribute> paths}) async {
     try {
+      if (data['businessFk'] == null) {
+        return Left(GrpcError.invalidArgument('Input `businessFk` invalid'));
+      }
       final response = await itemLocalDataSource.listItem(
           paths: paths, context: context, data: data);
       if (response.length <= 5) {
-        response.shuffle();
         return Right(response);
       } else {
         response.removeLast();
@@ -282,14 +288,12 @@ class ItemRepositoryImpl implements ItemRepository {
             name: item['Item']['name'],
             price: item['Item']['price'],
             thumbnail: item['Item']['thumbnail'],
-            blurHash: item['Item']['blurHash'],
+            thumbnailBlurHash: item['Item']['thumbnailBlurHash'],
             cursor: item['Item']['cursor'],
             businessName: item['Business']['name'],
-            status: (parseItemStatusTypeEnum(
-                          item['Item']['status'],
-                        ) ==
+            status: (parseItemStatusTypeEnum(item['Item']['status']) ==
                         ItemStatusType.AVAILABLE &&
-                    (item['']['isInRange'] || item['Business']['toPickUp']))
+                    ((item['']['isInRange'] || item['Business']['toPickUp'])))
                 ? ItemStatusType.AVAILABLE
                 : ItemStatusType.UNAVAILABLE,
           ));

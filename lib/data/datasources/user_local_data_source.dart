@@ -54,10 +54,12 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
           birthday: (result['birthday'] != null)
               ? result['birthday'].toString()
               : null,
-          photo: result['photo'],
-          photoUrl: (photo != null && photo.isNotEmpty)
-              ? 'https://192.168.1.3/oss/$photo'
-              : null,
+          highQualityPhoto: result['highQualityPhoto'],
+          highQualityPhotoBlurHash: result['highQualityPhotoBlurHash'],
+          lowQualityPhoto: result['lowQualityPhoto'],
+          lowQualityPhotoBlurHash: result['lowQualityPhotoBlurHash'],
+          thumbnail: result['thumbnail'],
+          thumbnailBlurHash: result['thumbnailBlurHash'],
           createTime: (result['createTime'] != null)
               ? result['createTime'].toString()
               : null,
@@ -89,7 +91,6 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
           where: getWhereNormalAttributeList(data),
           attributes: paths);
       if (result != null) {
-        String? photo = result[_table]['photo'];
         return User(
             id: result[_table]['id'],
             email: result[_table]['email'],
@@ -98,10 +99,13 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
             birthday: (result[_table]['birthday'] != null)
                 ? result[_table]['birthday'].toString()
                 : null,
-            photo: result[_table]['photo'],
-            photoUrl: (photo != null && photo.isNotEmpty)
-                ? 'https://192.168.1.3/oss/$photo'
-                : null,
+            highQualityPhoto: result[_table]['highQualityPhoto'],
+            highQualityPhotoBlurHash: result[_table]
+                ['highQualityPhotoBlurHash'],
+            lowQualityPhoto: result[_table]['lowQualityPhoto'],
+            lowQualityPhotoBlurHash: result[_table]['lowQualityPhotoBlurHash'],
+            thumbnailBlurHash: result[_table]['thumbnailBlurHash'],
+            thumbnail: result[_table]['thumbnail'],
             createTime: (result[_table]['createTime'] != null)
                 ? result[_table]['createTime'].toString()
                 : null,
@@ -136,10 +140,12 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
             fullName: e['fullName'],
             alias: e['alias'],
             birthday: (e['birthday'] != null) ? e['birthday'].toString() : null,
-            photo: e['photo'],
-            photoUrl: (photo != null && photo.isNotEmpty)
-                ? 'https://192.168.1.3/oss/$photo'
-                : null,
+            highQualityPhoto: e['highQualityPhoto'],
+            highQualityPhotoBlurHash: e['highQualityPhotoBlurHash'],
+            lowQualityPhoto: e['lowQualityPhoto'],
+            lowQualityPhotoBlurHash: e['lowQualityPhotoBlurHash'],
+            thumbnail: e['thumbnail'],
+            thumbnailBlurHash: e['thumbnailBlurHash'],
             createTime:
                 (e['createTime'] != null) ? e['createTime'].toString() : null,
             updateTime:
@@ -172,10 +178,12 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
             fullName: e['fullName'],
             alias: e['alias'],
             birthday: (e['birthday'] != null) ? e['birthday'].toString() : null,
-            photo: e['photo'],
-            photoUrl: (photo != null && photo.isNotEmpty)
-                ? 'https://192.168.1.3/oss/$photo'
-                : null,
+            highQualityPhoto: e['highQualityPhoto'],
+            highQualityPhotoBlurHash: e['highQualityPhotoBlurHash'],
+            lowQualityPhoto: e['lowQualityPhoto'],
+            lowQualityPhotoBlurHash: e['lowQualityPhotoBlurHash'],
+            thumbnail: e['thumbnail'],
+            thumbnailBlurHash: e['thumbnailBlurHash'],
             createTime:
                 (e['createTime'] != null) ? e['createTime'].toString() : null,
             updateTime:

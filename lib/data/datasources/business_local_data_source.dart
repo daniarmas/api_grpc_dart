@@ -1,6 +1,4 @@
-import 'package:api_grpc_dart/core/utils/parse.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
-import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/get_where_list.dart';
@@ -33,6 +31,11 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
       required Map<String, dynamic> data,
       required List<Attribute> paths}) async {
     try {
+      if (paths.isNotEmpty &&
+          !paths.any((element) => element.name == '"status"')) {
+        paths.add(NormalAttribute(name: 'toPickUp'));
+        paths.add(NormalAttribute(name: 'homeDelivery'));
+      }
       final result = await _database.get(
           context: context,
           table: _table,
@@ -61,9 +64,19 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
             address: result[_table]['address'],
             phone: result[_table]['phone'],
             email: result[_table]['email'],
-            blurHash: result[_table]['blurHash'],
             highQualityPhoto: result[_table]['highQualityPhoto'],
+            highQualityPhotoBlurHash: result[_table]
+                ['highQualityPhotoBlurHash'],
             lowQualityPhoto: result[_table]['lowQualityPhoto'],
+            lowQualityPhotoBlurHash: result[_table]['lowQualityPhotoBlurHash'],
+            thumbnail: result[_table]['thumbnail'],
+            thumbnailBlurHash: result[_table]['thumbnailBlurHash'],
+            cursor: result[_table]['cursor'],
+            status: (result['']['isInRange'] == false &&
+                    result[_table]['toPickUp'] == false &&
+                    result[_table]['homeDelivery'] == true)
+                ? BusinessStatusType.BUSINESS_UNAVAILABLE
+                : BusinessStatusType.BUSINESS_AVAILABLE,
             // polygon: parsePolygon(result['']['polygon'][0]),
             distance: result['']['distance'],
             coordinates: Point(
@@ -91,6 +104,11 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
       if (paths.isNotEmpty &&
           !paths.any((element) => element.name == '"cursor"')) {
         paths.add(NormalAttribute(name: 'cursor'));
+      }
+      if (paths.isNotEmpty &&
+          !paths.any((element) => element.name == '"status"')) {
+        paths.add(NormalAttribute(name: 'toPickUp'));
+        paths.add(NormalAttribute(name: 'homeDelivery'));
       }
       if (data['searchMunicipalityType'] == SearchMunicipalityType.MORE) {
         itemsResult = await _database.list(
@@ -191,36 +209,39 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
       }
       for (var item in itemsResult) {
         business.add(Business(
-            id: item['Business']['id'],
-            name: item['Business']['name'],
-            isOpen: item['Business']['isOpen'],
-            blurHash: item['Business']['blurHash'],
-            highQualityPhoto: item['Business']['highQualityPhoto'],
-            lowQualityPhoto: item['Business']['lowQualityPhoto'],
-            cursor: item['Business']['cursor'],
-            address: item['Business']['address'],
-            businessBrandFk: item['Business']['businessBrandFk'],
+            id: item[_table]['id'],
+            name: item[_table]['name'],
+            isOpen: item[_table]['isOpen'],
+            highQualityPhoto: item[_table]['highQualityPhoto'],
+            highQualityPhotoBlurHash: item[_table]['highQualityPhotoBlurHash'],
+            lowQualityPhoto: item[_table]['lowQualityPhoto'],
+            lowQualityPhotoBlurHash: item[_table]['lowQualityPhotoBlurHash'],
+            thumbnail: item[_table]['thumbnail'],
+            thumbnailBlurHash: item[_table]['thumbnailBlurHash'],
+            cursor: item[_table]['cursor'],
+            address: item[_table]['address'],
+            businessBrandFk: item[_table]['businessBrandFk'],
             coordinates: Point(
               latitude: item['']['latitude'],
               longitude: item['']['longitude'],
             ),
-            deliveryPrice: item['Business']['deliveryPrice'],
-            description: item['Business']['description'],
-            distance: item['Business']['distance'],
-            email: item['Business']['email'],
-            homeDelivery: item['Business']['homeDelivery'],
-            leadDayTime: item['Business']['leadDayTime'],
-            leadHoursTime: item['Business']['leadHoursTime'],
-            leadMinutesTime: item['Business']['leadMinutesTime'],
-            municipalityFk: item['Business']['municipalityFk'],
-            provinceFk: item['Business']['provinceFk'],
-            phone: item['Business']['phone'],
+            deliveryPrice: item[_table]['deliveryPrice'],
+            description: item[_table]['description'],
+            distance: item[_table]['distance'],
+            email: item[_table]['email'],
+            homeDelivery: item[_table]['homeDelivery'],
+            leadDayTime: item[_table]['leadDayTime'],
+            leadHoursTime: item[_table]['leadHoursTime'],
+            leadMinutesTime: item[_table]['leadMinutesTime'],
+            municipalityFk: item[_table]['municipalityFk'],
+            provinceFk: item[_table]['provinceFk'],
+            phone: item[_table]['phone'],
             status: (item['']['isInRange'] == false &&
-                    item['Business']['toPickUp'] == false &&
-                    item['Business']['homeDelivery'] == true)
+                    item[_table]['toPickUp'] == false &&
+                    item[_table]['homeDelivery'] == true)
                 ? BusinessStatusType.BUSINESS_UNAVAILABLE
                 : BusinessStatusType.BUSINESS_AVAILABLE,
-            toPickUp: item['Business']['toPickUp']));
+            toPickUp: item[_table]['toPickUp']));
       }
       response.businesses.addAll(business);
       return response;

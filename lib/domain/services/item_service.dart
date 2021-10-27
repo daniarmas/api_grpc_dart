@@ -57,8 +57,9 @@ class ItemService extends ItemServiceBase {
       result.fold(
           (left) => {throw left},
           (right) => {
-                response =
-                    ListItemResponse(items: right, nextPage: right.last.name)
+                response = ListItemResponse(
+                    items: right,
+                    nextPage: (right.isNotEmpty) ? right.last.name : '')
               });
       return response;
     } catch (error) {
