@@ -108,7 +108,6 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
       if (paths.isNotEmpty &&
           !paths.any((element) => element.name == '"status"')) {
         paths.add(NormalAttribute(name: 'toPickUp'));
-        paths.add(NormalAttribute(name: 'homeDelivery'));
       }
       if (data['searchMunicipalityType'] == SearchMunicipalityType.MORE) {
         itemsResult = await _database.list(
@@ -236,11 +235,9 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
             municipalityFk: item[_table]['municipalityFk'],
             provinceFk: item[_table]['provinceFk'],
             phone: item[_table]['phone'],
-            status: (item['']['isInRange'] == false &&
-                    item[_table]['toPickUp'] == false &&
-                    item[_table]['homeDelivery'] == true)
-                ? BusinessStatusType.BUSINESS_UNAVAILABLE
-                : BusinessStatusType.BUSINESS_AVAILABLE,
+            status: (item['']['isInRange'] || item[_table]['toPickUp'])
+                ? BusinessStatusType.BUSINESS_AVAILABLE
+                : BusinessStatusType.BUSINESS_UNAVAILABLE,
             toPickUp: item[_table]['toPickUp']));
       }
       response.businesses.addAll(business);
