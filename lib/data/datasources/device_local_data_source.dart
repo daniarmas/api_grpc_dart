@@ -15,19 +15,19 @@ abstract class DeviceLocalDataSource {
 
   Future<List<Device>> listDevice(
       {required PostgreSQLExecutionContext context,
-      required List<String> paths,
+      required List<Attribute> paths,
       required Map<String, dynamic> data});
 
   Future<Device?> getDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<Device?> updateDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required Map<String, dynamic> where,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<void> deleteDevice(
       {required PostgreSQLExecutionContext context,
@@ -70,7 +70,7 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
   @override
   Future<List<Device>> listDevice({
     required PostgreSQLExecutionContext context,
-    required List<String> paths,
+    required List<Attribute> paths,
     required Map<String, dynamic> data,
   }) async {
     try {
@@ -106,7 +106,7 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
   Future<Device?> getDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.get(
           context: context,
@@ -154,7 +154,7 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required Map<String, dynamic> where,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.update(
           context: context,

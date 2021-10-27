@@ -4,7 +4,6 @@ import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:api_grpc_dart/data/datasources/item_local_data_source.dart';
 import 'package:api_grpc_dart/domain/repositories/item_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
@@ -26,10 +25,14 @@ class ItemRepositoryImpl implements ItemRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       if (data['id'] == null || data['id'] == '') {
         return Left(GrpcError.invalidArgument('Input `id` invalid'));
+      } else if (data['location'] == null ||
+          data['location'].latitude == 0.0 ||
+          data['location'].longitude == 0.0) {
+        return Left(GrpcError.invalidArgument('Input `location` invalid'));
       } else {
         final response = await itemLocalDataSource.getItem(
             data: data, paths: paths, context: context);
@@ -50,12 +53,14 @@ class ItemRepositoryImpl implements ItemRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
+      if (data['businessFk'] == null) {
+        return Left(GrpcError.invalidArgument('Input `businessFk` invalid'));
+      }
       final response = await itemLocalDataSource.listItem(
           paths: paths, context: context, data: data);
       if (response.length <= 5) {
-        response.shuffle();
         return Right(response);
       } else {
         response.removeLast();
@@ -73,7 +78,7 @@ class ItemRepositoryImpl implements ItemRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       if (data['nextPage'] == null) {
         return Left(GrpcError.invalidArgument('Input `nextPage` invalid'));
@@ -105,19 +110,25 @@ class ItemRepositoryImpl implements ItemRepository {
               context: context,
               table: 'Item',
               attributes: [
-                'id',
-                'name',
-                'price',
-                'status',
-                'highQualityPhoto',
-                'lowQualityPhoto',
-                'blurHash',
-                'businessFk',
-                'cursor'
+                NormalAttribute(name: 'id'),
+                NormalAttribute(name: 'name'),
+                NormalAttribute(name: 'price'),
+                NormalAttribute(name: 'status'),
+                NormalAttribute(name: 'thumbnail'),
+                NormalAttribute(name: 'blurHash'),
+                NormalAttribute(name: 'businessFk'),
+                NormalAttribute(name: 'cursor'),
+                InnerAttribute(name: 'name', innerTable: 'Business'),
+                InnerAttribute(name: 'toPickUp', innerTable: 'Business'),
               ],
               agregationMethods: [
-                'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
+                'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
               ],
+              innerJoin: InnerJoin(
+                  table: 'Item',
+                  tableValue: 'businessFk',
+                  relationValue: 'id',
+                  relationTable: 'Business'),
               where: [
                 WhereNormalSearch(key: 'name', value: data['name']),
                 WhereNormalAttributeNotEqual(
@@ -129,7 +140,7 @@ class ItemRepositoryImpl implements ItemRepository {
                 WhereNormalAttributeEqual(
                     key: 'municipalityFk', value: data['municipalityFk']),
               ],
-              orderByAsc: 'cursor',
+              orderByAsc: '"Item"."cursor"',
               limit: 5);
           if (itemsResult.length > 5) {
             itemsResult.removeLast();
@@ -142,19 +153,25 @@ class ItemRepositoryImpl implements ItemRepository {
                 context: context,
                 table: 'Item',
                 attributes: [
-                  'id',
-                  'name',
-                  'price',
-                  'status',
-                  'highQualityPhoto',
-                  'lowQualityPhoto',
-                  'blurHash',
-                  'businessFk',
-                  'cursor'
+                  NormalAttribute(name: 'id'),
+                  NormalAttribute(name: 'name'),
+                  NormalAttribute(name: 'price'),
+                  NormalAttribute(name: 'status'),
+                  NormalAttribute(name: 'thumbnail'),
+                  NormalAttribute(name: 'blurHash'),
+                  NormalAttribute(name: 'businessFk'),
+                  NormalAttribute(name: 'cursor'),
+                  InnerAttribute(name: 'name', innerTable: 'Business'),
+                  InnerAttribute(name: 'toPickUp', innerTable: 'Business'),
                 ],
                 agregationMethods: [
-                  'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
+                  'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
                 ],
+                innerJoin: InnerJoin(
+                    table: 'Item',
+                    tableValue: 'businessFk',
+                    relationValue: 'id',
+                    relationTable: 'Business'),
                 where: [
                   WhereNormalSearch(key: 'name', value: data['name']),
                   WhereNormalAttributeNotEqual(
@@ -166,9 +183,9 @@ class ItemRepositoryImpl implements ItemRepository {
                   WhereNormalAttributeNotEqual(
                       key: 'municipalityFk', value: data['municipalityFk']),
                 ],
-                orderByAsc: 'cursor',
+                orderByAsc: '"Item"."cursor"',
                 limit: len);
-            if (completeItems.length > len){
+            if (completeItems.length > len) {
               completeItems.removeLast();
             }
             itemsResult.addAll(completeItems);
@@ -180,19 +197,25 @@ class ItemRepositoryImpl implements ItemRepository {
                 context: context,
                 table: 'Item',
                 attributes: [
-                  'id',
-                  'name',
-                  'price',
-                  'status',
-                  'highQualityPhoto',
-                  'lowQualityPhoto',
-                  'blurHash',
-                  'businessFk',
-                  'cursor'
+                  NormalAttribute(name: 'id'),
+                  NormalAttribute(name: 'name'),
+                  NormalAttribute(name: 'price'),
+                  NormalAttribute(name: 'status'),
+                  NormalAttribute(name: 'thumbnail'),
+                  NormalAttribute(name: 'blurHash'),
+                  NormalAttribute(name: 'businessFk'),
+                  NormalAttribute(name: 'cursor'),
+                  InnerAttribute(name: 'name', innerTable: 'Business'),
+                  InnerAttribute(name: 'toPickUp', innerTable: 'Business'),
                 ],
                 agregationMethods: [
-                  'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
+                  'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
                 ],
+                innerJoin: InnerJoin(
+                    table: 'Item',
+                    tableValue: 'businessFk',
+                    relationValue: 'id',
+                    relationTable: 'Business'),
                 where: [
                   WhereNormalSearch(key: 'name', value: data['name']),
                   WhereNormalAttributeNotEqual(
@@ -204,7 +227,7 @@ class ItemRepositoryImpl implements ItemRepository {
                   WhereNormalAttributeNotEqual(
                       key: 'municipalityFk', value: data['municipalityFk']),
                 ],
-                orderByAsc: 'cursor',
+                orderByAsc: '"Item"."cursor"',
                 limit: 5);
             if (itemsResult.length > 5) {
               itemsResult.removeLast();
@@ -219,18 +242,25 @@ class ItemRepositoryImpl implements ItemRepository {
               context: context,
               table: 'Item',
               attributes: [
-                'id',
-                'name',
-                'price',
-                'status',
-                'highQualityPhoto',
-                'lowQualityPhoto',
-                'blurHash',
-                'cursor'
+                NormalAttribute(name: 'id'),
+                NormalAttribute(name: 'name'),
+                NormalAttribute(name: 'price'),
+                NormalAttribute(name: 'status'),
+                NormalAttribute(name: 'thumbnail'),
+                NormalAttribute(name: 'blurHash'),
+                NormalAttribute(name: 'businessFk'),
+                NormalAttribute(name: 'cursor'),
+                InnerAttribute(name: 'name', innerTable: 'Business'),
+                InnerAttribute(name: 'toPickUp', innerTable: 'Business'),
               ],
               agregationMethods: [
-                'ST_Contains("polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
+                'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
               ],
+              innerJoin: InnerJoin(
+                  table: 'Item',
+                  tableValue: 'businessFk',
+                  relationValue: 'id',
+                  relationTable: 'Business'),
               where: [
                 WhereNormalSearch(key: 'name', value: data['name']),
                 WhereNormalAttributeNotEqual(
@@ -242,7 +272,7 @@ class ItemRepositoryImpl implements ItemRepository {
                 WhereNormalAttributeNotEqual(
                     key: 'municipalityFk', value: data['municipalityFk']),
               ],
-              orderByAsc: 'cursor',
+              orderByAsc: '"Item"."cursor"',
               limit: 5);
           if (itemsResult.length > 5) {
             itemsResult.removeLast();
@@ -257,15 +287,13 @@ class ItemRepositoryImpl implements ItemRepository {
             id: item['Item']['id'],
             name: item['Item']['name'],
             price: item['Item']['price'],
-            highQualityPhoto: item['Item']['highQualityPhoto'],
-            lowQualityPhoto: item['Item']['lowQualityPhoto'],
-            blurHash: item['Item']['blurHash'],
+            thumbnail: item['Item']['thumbnail'],
+            thumbnailBlurHash: item['Item']['thumbnailBlurHash'],
             cursor: item['Item']['cursor'],
-            status: (parseItemStatusTypeEnum(
-                          item['Item']['status'],
-                        ) ==
+            businessName: item['Business']['name'],
+            status: (parseItemStatusTypeEnum(item['Item']['status']) ==
                         ItemStatusType.AVAILABLE &&
-                    item['']['isInRange'])
+                    ((item['']['isInRange'] || item['Business']['toPickUp'])))
                 ? ItemStatusType.AVAILABLE
                 : ItemStatusType.UNAVAILABLE,
           ));

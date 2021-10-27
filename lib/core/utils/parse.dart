@@ -24,6 +24,16 @@ ItemStatusType parseItemStatusTypeEnum(String? value) {
   }
 }
 
+BusinessStatusType parseBusinessStatusTypeEnum(String? value) {
+  if (value == 'AVAILABLE') {
+    return BusinessStatusType.BUSINESS_AVAILABLE;
+  } else if (value == 'UNAVAILABLE') {
+    return BusinessStatusType.BUSINESS_UNAVAILABLE;
+  } else {
+    return BusinessStatusType.BUSINESS_STATUS_TYPE_UNSPECIFIED;
+  }
+}
+
 PlatformType parsePlatformTypeEnum(String? value) {
   if (value == 'ANDROID') {
     return PlatformType.ANDROID;

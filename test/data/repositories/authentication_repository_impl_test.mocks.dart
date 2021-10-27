@@ -4,27 +4,28 @@
 
 import 'dart:async' as _i4;
 
-import 'package:api_grpc_dart/core/utils/json_web_token.dart' as _i8;
+import 'package:api_grpc_dart/core/utils/json_web_token.dart' as _i9;
 import 'package:api_grpc_dart/data/datasources/authorization_token_local_data_source.dart'
-    as _i11;
+    as _i12;
 import 'package:api_grpc_dart/data/datasources/banned_device_local_data_source.dart'
-    as _i10;
+    as _i11;
 import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dart'
-    as _i9;
+    as _i10;
 import 'package:api_grpc_dart/data/datasources/device_local_data_source.dart'
-    as _i7;
+    as _i8;
 import 'package:api_grpc_dart/data/datasources/kubernetes_data_source.dart'
-    as _i13;
-import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart'
     as _i14;
+import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart'
+    as _i15;
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart'
-    as _i6;
+    as _i7;
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart'
     as _i3;
-import 'package:api_grpc_dart/data/email/emailer.dart' as _i12;
+import 'package:api_grpc_dart/data/email/emailer.dart' as _i13;
 import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:postgres/postgres.dart' as _i5;
+import 'package:postgres_dao/postgres_dao.dart' as _i6;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -74,7 +75,7 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
   _i4.Future<List<_i2.VerificationCode>> listVerificationCode(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#listVerificationCode, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -85,7 +86,7 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
   _i4.Future<_i2.VerificationCode?> getVerificationCode(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#getVerificationCode, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -95,7 +96,7 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
   _i4.Future<_i2.VerificationCode?> updateVerificationCode(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#updateVerificationCode, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -117,7 +118,7 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUserLocalDataSource extends _i1.Mock
-    implements _i6.UserLocalDataSource {
+    implements _i7.UserLocalDataSource {
   MockUserLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -136,7 +137,7 @@ class MockUserLocalDataSource extends _i1.Mock
   _i4.Future<List<_i2.User>> listUser(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#listUser, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -146,7 +147,7 @@ class MockUserLocalDataSource extends _i1.Mock
   _i4.Future<List<_i2.User>> listUserInAliases(
           {_i5.PostgreSQLExecutionContext? context,
           List<String>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#listUserInAliases, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -156,7 +157,7 @@ class MockUserLocalDataSource extends _i1.Mock
   _i4.Future<_i2.User?> getUser(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
           Invocation.method(
               #getUser, [], {#context: context, #data: data, #paths: paths}),
@@ -177,7 +178,7 @@ class MockUserLocalDataSource extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDeviceLocalDataSource extends _i1.Mock
-    implements _i7.DeviceLocalDataSource {
+    implements _i8.DeviceLocalDataSource {
   MockDeviceLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -195,7 +196,7 @@ class MockDeviceLocalDataSource extends _i1.Mock
   @override
   _i4.Future<List<_i2.Device>> listDevice(
           {_i5.PostgreSQLExecutionContext? context,
-          List<String>? paths,
+          List<_i6.Attribute>? paths,
           Map<String, dynamic>? data}) =>
       (super.noSuchMethod(
               Invocation.method(#listDevice, [],
@@ -206,7 +207,7 @@ class MockDeviceLocalDataSource extends _i1.Mock
   _i4.Future<_i2.Device?> getDevice(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
           Invocation.method(
               #getDevice, [], {#context: context, #data: data, #paths: paths}),
@@ -216,7 +217,7 @@ class MockDeviceLocalDataSource extends _i1.Mock
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
           Map<String, dynamic>? where,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
           Invocation.method(#updateDevice, [],
               {#context: context, #data: data, #where: where, #paths: paths}),
@@ -237,7 +238,7 @@ class MockDeviceLocalDataSource extends _i1.Mock
 /// A class which mocks [JsonWebToken].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockJsonWebToken extends _i1.Mock implements _i8.JsonWebToken {
+class MockJsonWebToken extends _i1.Mock implements _i9.JsonWebToken {
   MockJsonWebToken() {
     _i1.throwOnMissingStub(this);
   }
@@ -265,7 +266,7 @@ class MockJsonWebToken extends _i1.Mock implements _i8.JsonWebToken {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockBannedUserLocalDataSource extends _i1.Mock
-    implements _i9.BannedUserLocalDataSource {
+    implements _i10.BannedUserLocalDataSource {
   MockBannedUserLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -283,7 +284,7 @@ class MockBannedUserLocalDataSource extends _i1.Mock
   @override
   _i4.Future<List<_i2.BannedUser>> listBannedUser(
           {_i5.PostgreSQLExecutionContext? context,
-          List<String>? paths,
+          List<_i6.Attribute>? paths,
           Map<String, dynamic>? data}) =>
       (super.noSuchMethod(
               Invocation.method(#listBannedUser, [],
@@ -295,7 +296,7 @@ class MockBannedUserLocalDataSource extends _i1.Mock
   _i4.Future<_i2.BannedUser?> getBannedUser(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#getBannedUser, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -318,7 +319,7 @@ class MockBannedUserLocalDataSource extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockBannedDeviceLocalDataSource extends _i1.Mock
-    implements _i10.BannedDeviceLocalDataSource {
+    implements _i11.BannedDeviceLocalDataSource {
   MockBannedDeviceLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -337,7 +338,7 @@ class MockBannedDeviceLocalDataSource extends _i1.Mock
   @override
   _i4.Future<List<_i2.BannedDevice>> listBannedDevice(
           {_i5.PostgreSQLExecutionContext? context,
-          List<String>? paths,
+          List<_i6.Attribute>? paths,
           Map<String, dynamic>? data}) =>
       (super.noSuchMethod(
               Invocation.method(#listBannedDevice, [],
@@ -349,7 +350,7 @@ class MockBannedDeviceLocalDataSource extends _i1.Mock
   _i4.Future<_i2.BannedDevice?> getBannedDevice(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#getBannedDevice, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -372,7 +373,7 @@ class MockBannedDeviceLocalDataSource extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthorizationTokenLocalDataSource extends _i1.Mock
-    implements _i11.AuthorizationTokenLocalDataSource {
+    implements _i12.AuthorizationTokenLocalDataSource {
   MockAuthorizationTokenLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -391,7 +392,7 @@ class MockAuthorizationTokenLocalDataSource extends _i1.Mock
   @override
   _i4.Future<List<_i2.AuthorizationToken>> listAuthorizationToken(
           {_i5.PostgreSQLExecutionContext? context,
-          List<String>? paths,
+          List<_i6.Attribute>? paths,
           Map<String, dynamic>? data}) =>
       (super.noSuchMethod(
               Invocation.method(#listAuthorizationToken, [],
@@ -403,7 +404,7 @@ class MockAuthorizationTokenLocalDataSource extends _i1.Mock
   _i4.Future<_i2.AuthorizationToken?> getAuthorizationToken(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#getAuthorizationToken, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -425,7 +426,7 @@ class MockAuthorizationTokenLocalDataSource extends _i1.Mock
 /// A class which mocks [Emailer].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEmailer extends _i1.Mock implements _i12.Emailer {
+class MockEmailer extends _i1.Mock implements _i13.Emailer {
   MockEmailer() {
     _i1.throwOnMissingStub(this);
   }
@@ -493,7 +494,7 @@ class MockEmailer extends _i1.Mock implements _i12.Emailer {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockKubernetesDataSource extends _i1.Mock
-    implements _i13.KubernetesDataSource {
+    implements _i14.KubernetesDataSource {
   MockKubernetesDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -511,7 +512,7 @@ class MockKubernetesDataSource extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRefreshTokenLocalDataSource extends _i1.Mock
-    implements _i14.RefreshTokenLocalDataSource {
+    implements _i15.RefreshTokenLocalDataSource {
   MockRefreshTokenLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -530,7 +531,7 @@ class MockRefreshTokenLocalDataSource extends _i1.Mock
   @override
   _i4.Future<List<_i2.RefreshToken>> listRefreshToken(
           {_i5.PostgreSQLExecutionContext? context,
-          List<String>? paths,
+          List<_i6.Attribute>? paths,
           Map<String, dynamic>? data}) =>
       (super.noSuchMethod(
               Invocation.method(#listRefreshToken, [],
@@ -542,7 +543,7 @@ class MockRefreshTokenLocalDataSource extends _i1.Mock
   _i4.Future<_i2.RefreshToken?> getRefreshToken(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#getRefreshToken, [],
                   {#context: context, #data: data, #paths: paths}),

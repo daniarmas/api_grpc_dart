@@ -8,6 +8,8 @@ import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/attribute.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 
 import '../../protos/protos/main.pb.dart';
 
@@ -24,7 +26,7 @@ class UserRepositoryImpl implements UserRepository {
       {required PostgreSQLExecutionContext context,
       required HeadersMetadata metadata,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       if (data['email'] == null || !StringUtils.isEmail(data['email'])) {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
@@ -51,8 +53,10 @@ class UserRepositoryImpl implements UserRepository {
     try {
       if (StringUtils.isAlias(data['alias']) &&
           Validation.alias(data['alias'])) {
-        final response = await userLocalDataSource
-            .getUser(paths: ['alias'], context: context, data: data);
+        final response = await userLocalDataSource.getUser(
+            paths: [NormalAttribute(name: 'alias')],
+            context: context,
+            data: data);
         return Right(UserExistsStreamResponse(
             isValid: (response == null) ? true : false));
       } else {

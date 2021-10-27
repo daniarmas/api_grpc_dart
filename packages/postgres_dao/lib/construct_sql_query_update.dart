@@ -1,3 +1,4 @@
+import 'package:postgres_dao/postgres_dao.dart';
 import 'package:postgres_dao/where.dart';
 import 'package:postgres_dao/where_attribute.dart';
 import 'package:postgres_dao/where_normal_attribute.dart';
@@ -10,7 +11,7 @@ String constructSqlQueryUpdate(
     {required String table,
     required Map<String, dynamic> data,
     required List<Where>? where,
-    List<String>? attributes}) {
+    List<Attribute>? attributes}) {
   String columns = '';
   Iterable<String> keys = data.keys;
   Iterable<dynamic> values = data.values;
@@ -174,9 +175,25 @@ String constructSqlQueryUpdate(
     attributesResult = '';
     for (int i = 0; i < attributes.length; i++) {
       if (i == attributes.length - 1) {
-        attributesResult += '"${attributes[i]}"';
+        if (attributes[i] is NormalAttribute) {
+          attributesResult += '"$table".${attributes[i].name}';
+        } else if (attributes[i] is InnerAttribute) {
+          var innerAttribute = attributes[i] as InnerAttribute;
+          attributesResult +=
+              '"${innerAttribute.innerTable}".${attributes[i].name}';
+        } else {
+          attributesResult += '"$table".${attributes[i].name}';
+        }
       } else {
-        attributesResult += '"${attributes[i]}",';
+        if (attributes[i] is NormalAttribute) {
+          attributesResult += '"$table".${attributes[i].name},';
+        } else if (attributes[i] is InnerAttribute) {
+          var innerAttribute = attributes[i] as InnerAttribute;
+          attributesResult +=
+              '"${innerAttribute.innerTable}".${attributes[i].name},';
+        } else {
+          attributesResult += '"$table".${attributes[i].name},';
+        }
       }
     }
   }

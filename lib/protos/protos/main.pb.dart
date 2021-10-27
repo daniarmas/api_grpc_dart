@@ -222,18 +222,23 @@ class SearchItemResponse extends $pb.GeneratedMessage {
 class ListItemRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListItemRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
-    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessFk', protoName: 'businessFk')
+    ..aOM<$2.FieldMask>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
   ListItemRequest._() : super();
   factory ListItemRequest({
     $core.String? nextPage,
+    $core.String? businessFk,
     $2.FieldMask? fieldMask,
   }) {
     final _result = create();
     if (nextPage != null) {
       _result.nextPage = nextPage;
+    }
+    if (businessFk != null) {
+      _result.businessFk = businessFk;
     }
     if (fieldMask != null) {
       _result.fieldMask = fieldMask;
@@ -271,15 +276,24 @@ class ListItemRequest extends $pb.GeneratedMessage {
   void clearNextPage() => clearField(1);
 
   @$pb.TagNumber(2)
-  $2.FieldMask get fieldMask => $_getN(1);
+  $core.String get businessFk => $_getSZ(1);
   @$pb.TagNumber(2)
-  set fieldMask($2.FieldMask v) { setField(2, v); }
+  set businessFk($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasFieldMask() => $_has(1);
+  $core.bool hasBusinessFk() => $_has(1);
   @$pb.TagNumber(2)
-  void clearFieldMask() => clearField(2);
-  @$pb.TagNumber(2)
-  $2.FieldMask ensureFieldMask() => $_ensure(1);
+  void clearBusinessFk() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $2.FieldMask get fieldMask => $_getN(2);
+  @$pb.TagNumber(3)
+  set fieldMask($2.FieldMask v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasFieldMask() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearFieldMask() => clearField(3);
+  @$pb.TagNumber(3)
+  $2.FieldMask ensureFieldMask() => $_ensure(2);
 }
 
 class ListItemResponse extends $pb.GeneratedMessage {
@@ -340,18 +354,23 @@ class ListItemResponse extends $pb.GeneratedMessage {
 class GetItemRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetItemRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..aOM<Point>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'location', subBuilder: Point.create)
+    ..aOM<$2.FieldMask>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
   GetItemRequest._() : super();
   factory GetItemRequest({
     $core.String? id,
+    Point? location,
     $2.FieldMask? fieldMask,
   }) {
     final _result = create();
     if (id != null) {
       _result.id = id;
+    }
+    if (location != null) {
+      _result.location = location;
     }
     if (fieldMask != null) {
       _result.fieldMask = fieldMask;
@@ -389,15 +408,26 @@ class GetItemRequest extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $2.FieldMask get fieldMask => $_getN(1);
+  Point get location => $_getN(1);
   @$pb.TagNumber(2)
-  set fieldMask($2.FieldMask v) { setField(2, v); }
+  set location(Point v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasFieldMask() => $_has(1);
+  $core.bool hasLocation() => $_has(1);
   @$pb.TagNumber(2)
-  void clearFieldMask() => clearField(2);
+  void clearLocation() => clearField(2);
   @$pb.TagNumber(2)
-  $2.FieldMask ensureFieldMask() => $_ensure(1);
+  Point ensureLocation() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $2.FieldMask get fieldMask => $_getN(2);
+  @$pb.TagNumber(3)
+  set fieldMask($2.FieldMask v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasFieldMask() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearFieldMask() => clearField(3);
+  @$pb.TagNumber(3)
+  $2.FieldMask ensureFieldMask() => $_ensure(2);
 }
 
 class GetItemResponse extends $pb.GeneratedMessage {
@@ -452,20 +482,35 @@ class GetItemResponse extends $pb.GeneratedMessage {
 class FeedRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FeedRequest', createEmptyInstance: create)
     ..aOM<Point>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'location', subBuilder: Point.create)
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
-    ..aOM<$2.FieldMask>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provinceFk', protoName: 'provinceFk')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'municipalityFk', protoName: 'municipalityFk')
+    ..e<SearchMunicipalityType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
+    ..aOM<$2.FieldMask>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
   FeedRequest._() : super();
   factory FeedRequest({
     Point? location,
+    $core.String? provinceFk,
+    $core.String? municipalityFk,
+    SearchMunicipalityType? searchMunicipalityType,
     $core.String? nextPage,
     $2.FieldMask? fieldMask,
   }) {
     final _result = create();
     if (location != null) {
       _result.location = location;
+    }
+    if (provinceFk != null) {
+      _result.provinceFk = provinceFk;
+    }
+    if (municipalityFk != null) {
+      _result.municipalityFk = municipalityFk;
+    }
+    if (searchMunicipalityType != null) {
+      _result.searchMunicipalityType = searchMunicipalityType;
     }
     if (nextPage != null) {
       _result.nextPage = nextPage;
@@ -507,42 +552,74 @@ class FeedRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   Point ensureLocation() => $_ensure(0);
 
+  @$pb.TagNumber(2)
+  $core.String get provinceFk => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set provinceFk($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasProvinceFk() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearProvinceFk() => clearField(2);
+
   @$pb.TagNumber(3)
-  $core.String get nextPage => $_getSZ(1);
+  $core.String get municipalityFk => $_getSZ(2);
   @$pb.TagNumber(3)
-  set nextPage($core.String v) { $_setString(1, v); }
+  set municipalityFk($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasNextPage() => $_has(1);
+  $core.bool hasMunicipalityFk() => $_has(2);
   @$pb.TagNumber(3)
-  void clearNextPage() => clearField(3);
+  void clearMunicipalityFk() => clearField(3);
 
   @$pb.TagNumber(4)
-  $2.FieldMask get fieldMask => $_getN(2);
+  SearchMunicipalityType get searchMunicipalityType => $_getN(3);
   @$pb.TagNumber(4)
-  set fieldMask($2.FieldMask v) { setField(4, v); }
+  set searchMunicipalityType(SearchMunicipalityType v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasFieldMask() => $_has(2);
+  $core.bool hasSearchMunicipalityType() => $_has(3);
   @$pb.TagNumber(4)
-  void clearFieldMask() => clearField(4);
-  @$pb.TagNumber(4)
-  $2.FieldMask ensureFieldMask() => $_ensure(2);
+  void clearSearchMunicipalityType() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get nextPage => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set nextPage($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasNextPage() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearNextPage() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $2.FieldMask get fieldMask => $_getN(5);
+  @$pb.TagNumber(6)
+  set fieldMask($2.FieldMask v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasFieldMask() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearFieldMask() => clearField(6);
+  @$pb.TagNumber(6)
+  $2.FieldMask ensureFieldMask() => $_ensure(5);
 }
 
 class FeedResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FeedResponse', createEmptyInstance: create)
     ..pc<Business>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businesses', $pb.PbFieldType.PM, subBuilder: Business.create)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
+    ..e<SearchMunicipalityType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', $pb.PbFieldType.O3, protoName: 'nextPage')
     ..hasRequiredFields = false
   ;
 
   FeedResponse._() : super();
   factory FeedResponse({
     $core.Iterable<Business>? businesses,
-    $core.String? nextPage,
+    SearchMunicipalityType? searchMunicipalityType,
+    $core.int? nextPage,
   }) {
     final _result = create();
     if (businesses != null) {
       _result.businesses.addAll(businesses);
+    }
+    if (searchMunicipalityType != null) {
+      _result.searchMunicipalityType = searchMunicipalityType;
     }
     if (nextPage != null) {
       _result.nextPage = nextPage;
@@ -574,13 +651,22 @@ class FeedResponse extends $pb.GeneratedMessage {
   $core.List<Business> get businesses => $_getList(0);
 
   @$pb.TagNumber(2)
-  $core.String get nextPage => $_getSZ(1);
+  SearchMunicipalityType get searchMunicipalityType => $_getN(1);
   @$pb.TagNumber(2)
-  set nextPage($core.String v) { $_setString(1, v); }
+  set searchMunicipalityType(SearchMunicipalityType v) { setField(2, v); }
   @$pb.TagNumber(2)
-  $core.bool hasNextPage() => $_has(1);
+  $core.bool hasSearchMunicipalityType() => $_has(1);
   @$pb.TagNumber(2)
-  void clearNextPage() => clearField(2);
+  void clearSearchMunicipalityType() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get nextPage => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set nextPage($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasNextPage() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearNextPage() => clearField(3);
 }
 
 class GetBusinessRequest extends $pb.GeneratedMessage {
@@ -2112,14 +2198,18 @@ class User extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fullName', protoName: 'fullName')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alias')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photo')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photoUrl', protoName: 'photoUrl')
-    ..pc<UserAddress>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userAddress', $pb.PbFieldType.PM, protoName: 'userAddress', subBuilder: UserAddress.create)
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'birthday')
-    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..pc<UserPermission>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'permissions', $pb.PbFieldType.PM, subBuilder: UserPermission.create)
-    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
-    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhoto', protoName: 'highQualityPhoto')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhotoBlurHash', protoName: 'highQualityPhotoBlurHash')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhoto', protoName: 'lowQualityPhoto')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhotoBlurHash', protoName: 'lowQualityPhotoBlurHash')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnail')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnailBlurHash', protoName: 'thumbnailBlurHash')
+    ..pc<UserAddress>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userAddress', $pb.PbFieldType.PM, protoName: 'userAddress', subBuilder: UserAddress.create)
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'birthday')
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..pc<UserPermission>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'permissions', $pb.PbFieldType.PM, subBuilder: UserPermission.create)
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -2128,8 +2218,12 @@ class User extends $pb.GeneratedMessage {
     $core.String? id,
     $core.String? fullName,
     $core.String? alias,
-    $core.String? photo,
-    $core.String? photoUrl,
+    $core.String? highQualityPhoto,
+    $core.String? highQualityPhotoBlurHash,
+    $core.String? lowQualityPhoto,
+    $core.String? lowQualityPhotoBlurHash,
+    $core.String? thumbnail,
+    $core.String? thumbnailBlurHash,
     $core.Iterable<UserAddress>? userAddress,
     $core.String? birthday,
     $core.String? email,
@@ -2147,11 +2241,23 @@ class User extends $pb.GeneratedMessage {
     if (alias != null) {
       _result.alias = alias;
     }
-    if (photo != null) {
-      _result.photo = photo;
+    if (highQualityPhoto != null) {
+      _result.highQualityPhoto = highQualityPhoto;
     }
-    if (photoUrl != null) {
-      _result.photoUrl = photoUrl;
+    if (highQualityPhotoBlurHash != null) {
+      _result.highQualityPhotoBlurHash = highQualityPhotoBlurHash;
+    }
+    if (lowQualityPhoto != null) {
+      _result.lowQualityPhoto = lowQualityPhoto;
+    }
+    if (lowQualityPhotoBlurHash != null) {
+      _result.lowQualityPhotoBlurHash = lowQualityPhotoBlurHash;
+    }
+    if (thumbnail != null) {
+      _result.thumbnail = thumbnail;
+    }
+    if (thumbnailBlurHash != null) {
+      _result.thumbnailBlurHash = thumbnailBlurHash;
     }
     if (userAddress != null) {
       _result.userAddress.addAll(userAddress);
@@ -2222,64 +2328,100 @@ class User extends $pb.GeneratedMessage {
   void clearAlias() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get photo => $_getSZ(3);
+  $core.String get highQualityPhoto => $_getSZ(3);
   @$pb.TagNumber(4)
-  set photo($core.String v) { $_setString(3, v); }
+  set highQualityPhoto($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasPhoto() => $_has(3);
+  $core.bool hasHighQualityPhoto() => $_has(3);
   @$pb.TagNumber(4)
-  void clearPhoto() => clearField(4);
+  void clearHighQualityPhoto() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get photoUrl => $_getSZ(4);
+  $core.String get highQualityPhotoBlurHash => $_getSZ(4);
   @$pb.TagNumber(5)
-  set photoUrl($core.String v) { $_setString(4, v); }
+  set highQualityPhotoBlurHash($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasPhotoUrl() => $_has(4);
+  $core.bool hasHighQualityPhotoBlurHash() => $_has(4);
   @$pb.TagNumber(5)
-  void clearPhotoUrl() => clearField(5);
+  void clearHighQualityPhotoBlurHash() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.List<UserAddress> get userAddress => $_getList(5);
+  $core.String get lowQualityPhoto => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set lowQualityPhoto($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasLowQualityPhoto() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearLowQualityPhoto() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get birthday => $_getSZ(6);
+  $core.String get lowQualityPhotoBlurHash => $_getSZ(6);
   @$pb.TagNumber(7)
-  set birthday($core.String v) { $_setString(6, v); }
+  set lowQualityPhotoBlurHash($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasBirthday() => $_has(6);
+  $core.bool hasLowQualityPhotoBlurHash() => $_has(6);
   @$pb.TagNumber(7)
-  void clearBirthday() => clearField(7);
+  void clearLowQualityPhotoBlurHash() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.String get email => $_getSZ(7);
+  $core.String get thumbnail => $_getSZ(7);
   @$pb.TagNumber(8)
-  set email($core.String v) { $_setString(7, v); }
+  set thumbnail($core.String v) { $_setString(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasEmail() => $_has(7);
+  $core.bool hasThumbnail() => $_has(7);
   @$pb.TagNumber(8)
-  void clearEmail() => clearField(8);
+  void clearThumbnail() => clearField(8);
 
   @$pb.TagNumber(9)
-  $core.List<UserPermission> get permissions => $_getList(8);
+  $core.String get thumbnailBlurHash => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set thumbnailBlurHash($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasThumbnailBlurHash() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearThumbnailBlurHash() => clearField(9);
 
   @$pb.TagNumber(10)
-  $core.String get createTime => $_getSZ(9);
-  @$pb.TagNumber(10)
-  set createTime($core.String v) { $_setString(9, v); }
-  @$pb.TagNumber(10)
-  $core.bool hasCreateTime() => $_has(9);
-  @$pb.TagNumber(10)
-  void clearCreateTime() => clearField(10);
+  $core.List<UserAddress> get userAddress => $_getList(9);
 
   @$pb.TagNumber(11)
-  $core.String get updateTime => $_getSZ(10);
+  $core.String get birthday => $_getSZ(10);
   @$pb.TagNumber(11)
-  set updateTime($core.String v) { $_setString(10, v); }
+  set birthday($core.String v) { $_setString(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasUpdateTime() => $_has(10);
+  $core.bool hasBirthday() => $_has(10);
   @$pb.TagNumber(11)
-  void clearUpdateTime() => clearField(11);
+  void clearBirthday() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.String get email => $_getSZ(11);
+  @$pb.TagNumber(12)
+  set email($core.String v) { $_setString(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasEmail() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearEmail() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.List<UserPermission> get permissions => $_getList(12);
+
+  @$pb.TagNumber(14)
+  $core.String get createTime => $_getSZ(13);
+  @$pb.TagNumber(14)
+  set createTime($core.String v) { $_setString(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasCreateTime() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearCreateTime() => clearField(14);
+
+  @$pb.TagNumber(15)
+  $core.String get updateTime => $_getSZ(14);
+  @$pb.TagNumber(15)
+  set updateTime($core.String v) { $_setString(14, v); }
+  @$pb.TagNumber(15)
+  $core.bool hasUpdateTime() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearUpdateTime() => clearField(15);
 }
 
 class Business extends $pb.GeneratedMessage {
@@ -2290,21 +2432,27 @@ class Business extends $pb.GeneratedMessage {
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'address')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phone')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photo')
-    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photoUrl', protoName: 'photoUrl')
-    ..aOB(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isOpen', protoName: 'isOpen')
-    ..a<$core.double>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deliveryPrice', $pb.PbFieldType.OD, protoName: 'deliveryPrice')
-    ..pc<Polygon>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'polygon', $pb.PbFieldType.PM, subBuilder: Polygon.create)
-    ..aOM<Point>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', subBuilder: Point.create)
-    ..a<$core.int>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'leadDayTime', $pb.PbFieldType.O3, protoName: 'leadDayTime')
-    ..a<$core.int>(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'leadHoursTime', $pb.PbFieldType.O3, protoName: 'leadHoursTime')
-    ..a<$core.int>(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'leadMinutesTime', $pb.PbFieldType.O3, protoName: 'leadMinutesTime')
-    ..aOB(16, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'toPickUp', protoName: 'toPickUp')
-    ..aOB(17, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'homeDelivery', protoName: 'homeDelivery')
-    ..aOS(18, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessBrandFk', protoName: 'businessBrandFk')
-    ..aOS(19, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provinceFk', protoName: 'provinceFk')
-    ..aOS(20, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'municipalityFk', protoName: 'municipalityFk')
-    ..a<$core.double>(21, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'distance', $pb.PbFieldType.OD)
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhoto', protoName: 'highQualityPhoto')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhotoBlurHash', protoName: 'highQualityPhotoBlurHash')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhoto', protoName: 'lowQualityPhoto')
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhotoBlurHash', protoName: 'lowQualityPhotoBlurHash')
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnail')
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnailBlurHash', protoName: 'thumbnailBlurHash')
+    ..aOB(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isOpen', protoName: 'isOpen')
+    ..a<$core.double>(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deliveryPrice', $pb.PbFieldType.OD, protoName: 'deliveryPrice')
+    ..pc<Polygon>(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'polygon', $pb.PbFieldType.PM, subBuilder: Polygon.create)
+    ..aOM<Point>(16, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', subBuilder: Point.create)
+    ..a<$core.int>(17, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'leadDayTime', $pb.PbFieldType.O3, protoName: 'leadDayTime')
+    ..a<$core.int>(18, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'leadHoursTime', $pb.PbFieldType.O3, protoName: 'leadHoursTime')
+    ..a<$core.int>(19, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'leadMinutesTime', $pb.PbFieldType.O3, protoName: 'leadMinutesTime')
+    ..aOB(20, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'toPickUp', protoName: 'toPickUp')
+    ..aOB(21, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'homeDelivery', protoName: 'homeDelivery')
+    ..aOS(22, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessBrandFk', protoName: 'businessBrandFk')
+    ..aOS(23, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provinceFk', protoName: 'provinceFk')
+    ..aOS(24, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'municipalityFk', protoName: 'municipalityFk')
+    ..a<$core.double>(25, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'distance', $pb.PbFieldType.OD)
+    ..e<BusinessStatusType>(26, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: BusinessStatusType.BUSINESS_STATUS_TYPE_UNSPECIFIED, valueOf: BusinessStatusType.valueOf, enumValues: BusinessStatusType.values)
+    ..a<$core.int>(27, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cursor', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
@@ -2316,8 +2464,12 @@ class Business extends $pb.GeneratedMessage {
     $core.String? address,
     $core.String? phone,
     $core.String? email,
-    $core.String? photo,
-    $core.String? photoUrl,
+    $core.String? highQualityPhoto,
+    $core.String? highQualityPhotoBlurHash,
+    $core.String? lowQualityPhoto,
+    $core.String? lowQualityPhotoBlurHash,
+    $core.String? thumbnail,
+    $core.String? thumbnailBlurHash,
     $core.bool? isOpen,
     $core.double? deliveryPrice,
     $core.Iterable<Polygon>? polygon,
@@ -2331,6 +2483,8 @@ class Business extends $pb.GeneratedMessage {
     $core.String? provinceFk,
     $core.String? municipalityFk,
     $core.double? distance,
+    BusinessStatusType? status,
+    $core.int? cursor,
   }) {
     final _result = create();
     if (id != null) {
@@ -2351,11 +2505,23 @@ class Business extends $pb.GeneratedMessage {
     if (email != null) {
       _result.email = email;
     }
-    if (photo != null) {
-      _result.photo = photo;
+    if (highQualityPhoto != null) {
+      _result.highQualityPhoto = highQualityPhoto;
     }
-    if (photoUrl != null) {
-      _result.photoUrl = photoUrl;
+    if (highQualityPhotoBlurHash != null) {
+      _result.highQualityPhotoBlurHash = highQualityPhotoBlurHash;
+    }
+    if (lowQualityPhoto != null) {
+      _result.lowQualityPhoto = lowQualityPhoto;
+    }
+    if (lowQualityPhotoBlurHash != null) {
+      _result.lowQualityPhotoBlurHash = lowQualityPhotoBlurHash;
+    }
+    if (thumbnail != null) {
+      _result.thumbnail = thumbnail;
+    }
+    if (thumbnailBlurHash != null) {
+      _result.thumbnailBlurHash = thumbnailBlurHash;
     }
     if (isOpen != null) {
       _result.isOpen = isOpen;
@@ -2395,6 +2561,12 @@ class Business extends $pb.GeneratedMessage {
     }
     if (distance != null) {
       _result.distance = distance;
+    }
+    if (status != null) {
+      _result.status = status;
+    }
+    if (cursor != null) {
+      _result.cursor = cursor;
     }
     return _result;
   }
@@ -2474,135 +2646,189 @@ class Business extends $pb.GeneratedMessage {
   void clearEmail() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get photo => $_getSZ(6);
+  $core.String get highQualityPhoto => $_getSZ(6);
   @$pb.TagNumber(7)
-  set photo($core.String v) { $_setString(6, v); }
+  set highQualityPhoto($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasPhoto() => $_has(6);
+  $core.bool hasHighQualityPhoto() => $_has(6);
   @$pb.TagNumber(7)
-  void clearPhoto() => clearField(7);
+  void clearHighQualityPhoto() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.String get photoUrl => $_getSZ(7);
+  $core.String get highQualityPhotoBlurHash => $_getSZ(7);
   @$pb.TagNumber(8)
-  set photoUrl($core.String v) { $_setString(7, v); }
+  set highQualityPhotoBlurHash($core.String v) { $_setString(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasPhotoUrl() => $_has(7);
+  $core.bool hasHighQualityPhotoBlurHash() => $_has(7);
   @$pb.TagNumber(8)
-  void clearPhotoUrl() => clearField(8);
+  void clearHighQualityPhotoBlurHash() => clearField(8);
 
   @$pb.TagNumber(9)
-  $core.bool get isOpen => $_getBF(8);
+  $core.String get lowQualityPhoto => $_getSZ(8);
   @$pb.TagNumber(9)
-  set isOpen($core.bool v) { $_setBool(8, v); }
+  set lowQualityPhoto($core.String v) { $_setString(8, v); }
   @$pb.TagNumber(9)
-  $core.bool hasIsOpen() => $_has(8);
+  $core.bool hasLowQualityPhoto() => $_has(8);
   @$pb.TagNumber(9)
-  void clearIsOpen() => clearField(9);
+  void clearLowQualityPhoto() => clearField(9);
 
   @$pb.TagNumber(10)
-  $core.double get deliveryPrice => $_getN(9);
+  $core.String get lowQualityPhotoBlurHash => $_getSZ(9);
   @$pb.TagNumber(10)
-  set deliveryPrice($core.double v) { $_setDouble(9, v); }
+  set lowQualityPhotoBlurHash($core.String v) { $_setString(9, v); }
   @$pb.TagNumber(10)
-  $core.bool hasDeliveryPrice() => $_has(9);
+  $core.bool hasLowQualityPhotoBlurHash() => $_has(9);
   @$pb.TagNumber(10)
-  void clearDeliveryPrice() => clearField(10);
+  void clearLowQualityPhotoBlurHash() => clearField(10);
 
   @$pb.TagNumber(11)
-  $core.List<Polygon> get polygon => $_getList(10);
+  $core.String get thumbnail => $_getSZ(10);
+  @$pb.TagNumber(11)
+  set thumbnail($core.String v) { $_setString(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasThumbnail() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearThumbnail() => clearField(11);
 
   @$pb.TagNumber(12)
-  Point get coordinates => $_getN(11);
+  $core.String get thumbnailBlurHash => $_getSZ(11);
   @$pb.TagNumber(12)
-  set coordinates(Point v) { setField(12, v); }
+  set thumbnailBlurHash($core.String v) { $_setString(11, v); }
   @$pb.TagNumber(12)
-  $core.bool hasCoordinates() => $_has(11);
+  $core.bool hasThumbnailBlurHash() => $_has(11);
   @$pb.TagNumber(12)
-  void clearCoordinates() => clearField(12);
-  @$pb.TagNumber(12)
-  Point ensureCoordinates() => $_ensure(11);
+  void clearThumbnailBlurHash() => clearField(12);
 
   @$pb.TagNumber(13)
-  $core.int get leadDayTime => $_getIZ(12);
+  $core.bool get isOpen => $_getBF(12);
   @$pb.TagNumber(13)
-  set leadDayTime($core.int v) { $_setSignedInt32(12, v); }
+  set isOpen($core.bool v) { $_setBool(12, v); }
   @$pb.TagNumber(13)
-  $core.bool hasLeadDayTime() => $_has(12);
+  $core.bool hasIsOpen() => $_has(12);
   @$pb.TagNumber(13)
-  void clearLeadDayTime() => clearField(13);
+  void clearIsOpen() => clearField(13);
 
   @$pb.TagNumber(14)
-  $core.int get leadHoursTime => $_getIZ(13);
+  $core.double get deliveryPrice => $_getN(13);
   @$pb.TagNumber(14)
-  set leadHoursTime($core.int v) { $_setSignedInt32(13, v); }
+  set deliveryPrice($core.double v) { $_setDouble(13, v); }
   @$pb.TagNumber(14)
-  $core.bool hasLeadHoursTime() => $_has(13);
+  $core.bool hasDeliveryPrice() => $_has(13);
   @$pb.TagNumber(14)
-  void clearLeadHoursTime() => clearField(14);
+  void clearDeliveryPrice() => clearField(14);
 
   @$pb.TagNumber(15)
-  $core.int get leadMinutesTime => $_getIZ(14);
-  @$pb.TagNumber(15)
-  set leadMinutesTime($core.int v) { $_setSignedInt32(14, v); }
-  @$pb.TagNumber(15)
-  $core.bool hasLeadMinutesTime() => $_has(14);
-  @$pb.TagNumber(15)
-  void clearLeadMinutesTime() => clearField(15);
+  $core.List<Polygon> get polygon => $_getList(14);
 
   @$pb.TagNumber(16)
-  $core.bool get toPickUp => $_getBF(15);
+  Point get coordinates => $_getN(15);
   @$pb.TagNumber(16)
-  set toPickUp($core.bool v) { $_setBool(15, v); }
+  set coordinates(Point v) { setField(16, v); }
   @$pb.TagNumber(16)
-  $core.bool hasToPickUp() => $_has(15);
+  $core.bool hasCoordinates() => $_has(15);
   @$pb.TagNumber(16)
-  void clearToPickUp() => clearField(16);
+  void clearCoordinates() => clearField(16);
+  @$pb.TagNumber(16)
+  Point ensureCoordinates() => $_ensure(15);
 
   @$pb.TagNumber(17)
-  $core.bool get homeDelivery => $_getBF(16);
+  $core.int get leadDayTime => $_getIZ(16);
   @$pb.TagNumber(17)
-  set homeDelivery($core.bool v) { $_setBool(16, v); }
+  set leadDayTime($core.int v) { $_setSignedInt32(16, v); }
   @$pb.TagNumber(17)
-  $core.bool hasHomeDelivery() => $_has(16);
+  $core.bool hasLeadDayTime() => $_has(16);
   @$pb.TagNumber(17)
-  void clearHomeDelivery() => clearField(17);
+  void clearLeadDayTime() => clearField(17);
 
   @$pb.TagNumber(18)
-  $core.String get businessBrandFk => $_getSZ(17);
+  $core.int get leadHoursTime => $_getIZ(17);
   @$pb.TagNumber(18)
-  set businessBrandFk($core.String v) { $_setString(17, v); }
+  set leadHoursTime($core.int v) { $_setSignedInt32(17, v); }
   @$pb.TagNumber(18)
-  $core.bool hasBusinessBrandFk() => $_has(17);
+  $core.bool hasLeadHoursTime() => $_has(17);
   @$pb.TagNumber(18)
-  void clearBusinessBrandFk() => clearField(18);
+  void clearLeadHoursTime() => clearField(18);
 
   @$pb.TagNumber(19)
-  $core.String get provinceFk => $_getSZ(18);
+  $core.int get leadMinutesTime => $_getIZ(18);
   @$pb.TagNumber(19)
-  set provinceFk($core.String v) { $_setString(18, v); }
+  set leadMinutesTime($core.int v) { $_setSignedInt32(18, v); }
   @$pb.TagNumber(19)
-  $core.bool hasProvinceFk() => $_has(18);
+  $core.bool hasLeadMinutesTime() => $_has(18);
   @$pb.TagNumber(19)
-  void clearProvinceFk() => clearField(19);
+  void clearLeadMinutesTime() => clearField(19);
 
   @$pb.TagNumber(20)
-  $core.String get municipalityFk => $_getSZ(19);
+  $core.bool get toPickUp => $_getBF(19);
   @$pb.TagNumber(20)
-  set municipalityFk($core.String v) { $_setString(19, v); }
+  set toPickUp($core.bool v) { $_setBool(19, v); }
   @$pb.TagNumber(20)
-  $core.bool hasMunicipalityFk() => $_has(19);
+  $core.bool hasToPickUp() => $_has(19);
   @$pb.TagNumber(20)
-  void clearMunicipalityFk() => clearField(20);
+  void clearToPickUp() => clearField(20);
 
   @$pb.TagNumber(21)
-  $core.double get distance => $_getN(20);
+  $core.bool get homeDelivery => $_getBF(20);
   @$pb.TagNumber(21)
-  set distance($core.double v) { $_setDouble(20, v); }
+  set homeDelivery($core.bool v) { $_setBool(20, v); }
   @$pb.TagNumber(21)
-  $core.bool hasDistance() => $_has(20);
+  $core.bool hasHomeDelivery() => $_has(20);
   @$pb.TagNumber(21)
-  void clearDistance() => clearField(21);
+  void clearHomeDelivery() => clearField(21);
+
+  @$pb.TagNumber(22)
+  $core.String get businessBrandFk => $_getSZ(21);
+  @$pb.TagNumber(22)
+  set businessBrandFk($core.String v) { $_setString(21, v); }
+  @$pb.TagNumber(22)
+  $core.bool hasBusinessBrandFk() => $_has(21);
+  @$pb.TagNumber(22)
+  void clearBusinessBrandFk() => clearField(22);
+
+  @$pb.TagNumber(23)
+  $core.String get provinceFk => $_getSZ(22);
+  @$pb.TagNumber(23)
+  set provinceFk($core.String v) { $_setString(22, v); }
+  @$pb.TagNumber(23)
+  $core.bool hasProvinceFk() => $_has(22);
+  @$pb.TagNumber(23)
+  void clearProvinceFk() => clearField(23);
+
+  @$pb.TagNumber(24)
+  $core.String get municipalityFk => $_getSZ(23);
+  @$pb.TagNumber(24)
+  set municipalityFk($core.String v) { $_setString(23, v); }
+  @$pb.TagNumber(24)
+  $core.bool hasMunicipalityFk() => $_has(23);
+  @$pb.TagNumber(24)
+  void clearMunicipalityFk() => clearField(24);
+
+  @$pb.TagNumber(25)
+  $core.double get distance => $_getN(24);
+  @$pb.TagNumber(25)
+  set distance($core.double v) { $_setDouble(24, v); }
+  @$pb.TagNumber(25)
+  $core.bool hasDistance() => $_has(24);
+  @$pb.TagNumber(25)
+  void clearDistance() => clearField(25);
+
+  @$pb.TagNumber(26)
+  BusinessStatusType get status => $_getN(25);
+  @$pb.TagNumber(26)
+  set status(BusinessStatusType v) { setField(26, v); }
+  @$pb.TagNumber(26)
+  $core.bool hasStatus() => $_has(25);
+  @$pb.TagNumber(26)
+  void clearStatus() => clearField(26);
+
+  @$pb.TagNumber(27)
+  $core.int get cursor => $_getIZ(26);
+  @$pb.TagNumber(27)
+  set cursor($core.int v) { $_setSignedInt32(26, v); }
+  @$pb.TagNumber(27)
+  $core.bool hasCursor() => $_has(26);
+  @$pb.TagNumber(27)
+  void clearCursor() => clearField(27);
 }
 
 class Item extends $pb.GeneratedMessage {
@@ -2616,12 +2842,15 @@ class Item extends $pb.GeneratedMessage {
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessFk', protoName: 'businessFk')
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessItemCategoryFk', protoName: 'businessItemCategoryFk')
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhoto', protoName: 'highQualityPhoto')
-    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhoto', protoName: 'lowQualityPhoto')
-    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blurHash', protoName: 'blurHash')
-    ..pc<ItemPhoto>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photos', $pb.PbFieldType.PM, subBuilder: ItemPhoto.create)
-    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
-    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
-    ..a<$core.int>(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cursor', $pb.PbFieldType.O3)
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhotoBlurHash', protoName: 'highQualityPhotoBlurHash')
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhoto', protoName: 'lowQualityPhoto')
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhotoBlurHash', protoName: 'lowQualityPhotoBlurHash')
+    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnail')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnailBlurHash', protoName: 'thumbnailBlurHash')
+    ..pc<ItemPhoto>(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photos', $pb.PbFieldType.PM, subBuilder: ItemPhoto.create)
+    ..aOS(16, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(17, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
+    ..a<$core.int>(18, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cursor', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
@@ -2636,8 +2865,11 @@ class Item extends $pb.GeneratedMessage {
     $core.String? businessFk,
     $core.String? businessItemCategoryFk,
     $core.String? highQualityPhoto,
+    $core.String? highQualityPhotoBlurHash,
     $core.String? lowQualityPhoto,
-    $core.String? blurHash,
+    $core.String? lowQualityPhotoBlurHash,
+    $core.String? thumbnail,
+    $core.String? thumbnailBlurHash,
     $core.Iterable<ItemPhoto>? photos,
     $core.String? createTime,
     $core.String? updateTime,
@@ -2671,11 +2903,20 @@ class Item extends $pb.GeneratedMessage {
     if (highQualityPhoto != null) {
       _result.highQualityPhoto = highQualityPhoto;
     }
+    if (highQualityPhotoBlurHash != null) {
+      _result.highQualityPhotoBlurHash = highQualityPhotoBlurHash;
+    }
     if (lowQualityPhoto != null) {
       _result.lowQualityPhoto = lowQualityPhoto;
     }
-    if (blurHash != null) {
-      _result.blurHash = blurHash;
+    if (lowQualityPhotoBlurHash != null) {
+      _result.lowQualityPhotoBlurHash = lowQualityPhotoBlurHash;
+    }
+    if (thumbnail != null) {
+      _result.thumbnail = thumbnail;
+    }
+    if (thumbnailBlurHash != null) {
+      _result.thumbnailBlurHash = thumbnailBlurHash;
     }
     if (photos != null) {
       _result.photos.addAll(photos);
@@ -2794,52 +3035,79 @@ class Item extends $pb.GeneratedMessage {
   void clearHighQualityPhoto() => clearField(9);
 
   @$pb.TagNumber(10)
-  $core.String get lowQualityPhoto => $_getSZ(9);
+  $core.String get highQualityPhotoBlurHash => $_getSZ(9);
   @$pb.TagNumber(10)
-  set lowQualityPhoto($core.String v) { $_setString(9, v); }
+  set highQualityPhotoBlurHash($core.String v) { $_setString(9, v); }
   @$pb.TagNumber(10)
-  $core.bool hasLowQualityPhoto() => $_has(9);
+  $core.bool hasHighQualityPhotoBlurHash() => $_has(9);
   @$pb.TagNumber(10)
-  void clearLowQualityPhoto() => clearField(10);
+  void clearHighQualityPhotoBlurHash() => clearField(10);
 
   @$pb.TagNumber(11)
-  $core.String get blurHash => $_getSZ(10);
+  $core.String get lowQualityPhoto => $_getSZ(10);
   @$pb.TagNumber(11)
-  set blurHash($core.String v) { $_setString(10, v); }
+  set lowQualityPhoto($core.String v) { $_setString(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasBlurHash() => $_has(10);
+  $core.bool hasLowQualityPhoto() => $_has(10);
   @$pb.TagNumber(11)
-  void clearBlurHash() => clearField(11);
+  void clearLowQualityPhoto() => clearField(11);
 
   @$pb.TagNumber(12)
-  $core.List<ItemPhoto> get photos => $_getList(11);
+  $core.String get lowQualityPhotoBlurHash => $_getSZ(11);
+  @$pb.TagNumber(12)
+  set lowQualityPhotoBlurHash($core.String v) { $_setString(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasLowQualityPhotoBlurHash() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearLowQualityPhotoBlurHash() => clearField(12);
 
   @$pb.TagNumber(13)
-  $core.String get createTime => $_getSZ(12);
+  $core.String get thumbnail => $_getSZ(12);
   @$pb.TagNumber(13)
-  set createTime($core.String v) { $_setString(12, v); }
+  set thumbnail($core.String v) { $_setString(12, v); }
   @$pb.TagNumber(13)
-  $core.bool hasCreateTime() => $_has(12);
+  $core.bool hasThumbnail() => $_has(12);
   @$pb.TagNumber(13)
-  void clearCreateTime() => clearField(13);
+  void clearThumbnail() => clearField(13);
 
   @$pb.TagNumber(14)
-  $core.String get updateTime => $_getSZ(13);
+  $core.String get thumbnailBlurHash => $_getSZ(13);
   @$pb.TagNumber(14)
-  set updateTime($core.String v) { $_setString(13, v); }
+  set thumbnailBlurHash($core.String v) { $_setString(13, v); }
   @$pb.TagNumber(14)
-  $core.bool hasUpdateTime() => $_has(13);
+  $core.bool hasThumbnailBlurHash() => $_has(13);
   @$pb.TagNumber(14)
-  void clearUpdateTime() => clearField(14);
+  void clearThumbnailBlurHash() => clearField(14);
 
   @$pb.TagNumber(15)
-  $core.int get cursor => $_getIZ(14);
-  @$pb.TagNumber(15)
-  set cursor($core.int v) { $_setSignedInt32(14, v); }
-  @$pb.TagNumber(15)
-  $core.bool hasCursor() => $_has(14);
-  @$pb.TagNumber(15)
-  void clearCursor() => clearField(15);
+  $core.List<ItemPhoto> get photos => $_getList(14);
+
+  @$pb.TagNumber(16)
+  $core.String get createTime => $_getSZ(15);
+  @$pb.TagNumber(16)
+  set createTime($core.String v) { $_setString(15, v); }
+  @$pb.TagNumber(16)
+  $core.bool hasCreateTime() => $_has(15);
+  @$pb.TagNumber(16)
+  void clearCreateTime() => clearField(16);
+
+  @$pb.TagNumber(17)
+  $core.String get updateTime => $_getSZ(16);
+  @$pb.TagNumber(17)
+  set updateTime($core.String v) { $_setString(16, v); }
+  @$pb.TagNumber(17)
+  $core.bool hasUpdateTime() => $_has(16);
+  @$pb.TagNumber(17)
+  void clearUpdateTime() => clearField(17);
+
+  @$pb.TagNumber(18)
+  $core.int get cursor => $_getIZ(17);
+  @$pb.TagNumber(18)
+  set cursor($core.int v) { $_setSignedInt32(17, v); }
+  @$pb.TagNumber(18)
+  $core.bool hasCursor() => $_has(17);
+  @$pb.TagNumber(18)
+  void clearCursor() => clearField(18);
 }
 
 class SearchItem extends $pb.GeneratedMessage {
@@ -2848,9 +3116,9 @@ class SearchItem extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'price', $pb.PbFieldType.OD)
     ..e<ItemStatusType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: ItemStatusType.ITEM_STATUS_TYPE_UNSPECIFIED, valueOf: ItemStatusType.valueOf, enumValues: ItemStatusType.values)
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhoto', protoName: 'highQualityPhoto')
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhoto', protoName: 'lowQualityPhoto')
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blurHash', protoName: 'blurHash')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnail')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnailBlurHash', protoName: 'thumbnailBlurHash')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessName', protoName: 'businessName')
     ..a<$core.int>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cursor', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
@@ -2861,9 +3129,9 @@ class SearchItem extends $pb.GeneratedMessage {
     $core.String? name,
     $core.double? price,
     ItemStatusType? status,
-    $core.String? highQualityPhoto,
-    $core.String? lowQualityPhoto,
-    $core.String? blurHash,
+    $core.String? thumbnail,
+    $core.String? thumbnailBlurHash,
+    $core.String? businessName,
     $core.int? cursor,
   }) {
     final _result = create();
@@ -2879,14 +3147,14 @@ class SearchItem extends $pb.GeneratedMessage {
     if (status != null) {
       _result.status = status;
     }
-    if (highQualityPhoto != null) {
-      _result.highQualityPhoto = highQualityPhoto;
+    if (thumbnail != null) {
+      _result.thumbnail = thumbnail;
     }
-    if (lowQualityPhoto != null) {
-      _result.lowQualityPhoto = lowQualityPhoto;
+    if (thumbnailBlurHash != null) {
+      _result.thumbnailBlurHash = thumbnailBlurHash;
     }
-    if (blurHash != null) {
-      _result.blurHash = blurHash;
+    if (businessName != null) {
+      _result.businessName = businessName;
     }
     if (cursor != null) {
       _result.cursor = cursor;
@@ -2951,31 +3219,31 @@ class SearchItem extends $pb.GeneratedMessage {
   void clearStatus() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get highQualityPhoto => $_getSZ(4);
+  $core.String get thumbnail => $_getSZ(4);
   @$pb.TagNumber(5)
-  set highQualityPhoto($core.String v) { $_setString(4, v); }
+  set thumbnail($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasHighQualityPhoto() => $_has(4);
+  $core.bool hasThumbnail() => $_has(4);
   @$pb.TagNumber(5)
-  void clearHighQualityPhoto() => clearField(5);
+  void clearThumbnail() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get lowQualityPhoto => $_getSZ(5);
+  $core.String get thumbnailBlurHash => $_getSZ(5);
   @$pb.TagNumber(6)
-  set lowQualityPhoto($core.String v) { $_setString(5, v); }
+  set thumbnailBlurHash($core.String v) { $_setString(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasLowQualityPhoto() => $_has(5);
+  $core.bool hasThumbnailBlurHash() => $_has(5);
   @$pb.TagNumber(6)
-  void clearLowQualityPhoto() => clearField(6);
+  void clearThumbnailBlurHash() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get blurHash => $_getSZ(6);
+  $core.String get businessName => $_getSZ(6);
   @$pb.TagNumber(7)
-  set blurHash($core.String v) { $_setString(6, v); }
+  set businessName($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasBlurHash() => $_has(6);
+  $core.bool hasBusinessName() => $_has(6);
   @$pb.TagNumber(7)
-  void clearBlurHash() => clearField(7);
+  void clearBusinessName() => clearField(7);
 
   @$pb.TagNumber(8)
   $core.int get cursor => $_getIZ(7);
@@ -2992,10 +3260,13 @@ class ItemPhoto extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemFk', protoName: 'itemFk')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhoto', protoName: 'highQualityPhoto')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhoto', protoName: 'lowQualityPhoto')
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'blurHash', protoName: 'blurHash')
-    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
-    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhotoBlurHash', protoName: 'highQualityPhotoBlurHash')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhoto', protoName: 'lowQualityPhoto')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhotoBlurHash', protoName: 'lowQualityPhotoBlurHash')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnail')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnailBlurHash', protoName: 'thumbnailBlurHash')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -3004,8 +3275,11 @@ class ItemPhoto extends $pb.GeneratedMessage {
     $core.String? id,
     $core.String? itemFk,
     $core.String? highQualityPhoto,
+    $core.String? highQualityPhotoBlurHash,
     $core.String? lowQualityPhoto,
-    $core.String? blurHash,
+    $core.String? lowQualityPhotoBlurHash,
+    $core.String? thumbnail,
+    $core.String? thumbnailBlurHash,
     $core.String? createTime,
     $core.String? updateTime,
   }) {
@@ -3019,11 +3293,20 @@ class ItemPhoto extends $pb.GeneratedMessage {
     if (highQualityPhoto != null) {
       _result.highQualityPhoto = highQualityPhoto;
     }
+    if (highQualityPhotoBlurHash != null) {
+      _result.highQualityPhotoBlurHash = highQualityPhotoBlurHash;
+    }
     if (lowQualityPhoto != null) {
       _result.lowQualityPhoto = lowQualityPhoto;
     }
-    if (blurHash != null) {
-      _result.blurHash = blurHash;
+    if (lowQualityPhotoBlurHash != null) {
+      _result.lowQualityPhotoBlurHash = lowQualityPhotoBlurHash;
+    }
+    if (thumbnail != null) {
+      _result.thumbnail = thumbnail;
+    }
+    if (thumbnailBlurHash != null) {
+      _result.thumbnailBlurHash = thumbnailBlurHash;
     }
     if (createTime != null) {
       _result.createTime = createTime;
@@ -3082,40 +3365,67 @@ class ItemPhoto extends $pb.GeneratedMessage {
   void clearHighQualityPhoto() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get lowQualityPhoto => $_getSZ(3);
+  $core.String get highQualityPhotoBlurHash => $_getSZ(3);
   @$pb.TagNumber(4)
-  set lowQualityPhoto($core.String v) { $_setString(3, v); }
+  set highQualityPhotoBlurHash($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasLowQualityPhoto() => $_has(3);
+  $core.bool hasHighQualityPhotoBlurHash() => $_has(3);
   @$pb.TagNumber(4)
-  void clearLowQualityPhoto() => clearField(4);
+  void clearHighQualityPhotoBlurHash() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get lowQualityPhoto => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set lowQualityPhoto($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasLowQualityPhoto() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearLowQualityPhoto() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get lowQualityPhotoBlurHash => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set lowQualityPhotoBlurHash($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasLowQualityPhotoBlurHash() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearLowQualityPhotoBlurHash() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get blurHash => $_getSZ(4);
+  $core.String get thumbnail => $_getSZ(6);
   @$pb.TagNumber(7)
-  set blurHash($core.String v) { $_setString(4, v); }
+  set thumbnail($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasBlurHash() => $_has(4);
+  $core.bool hasThumbnail() => $_has(6);
   @$pb.TagNumber(7)
-  void clearBlurHash() => clearField(7);
+  void clearThumbnail() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.String get createTime => $_getSZ(5);
+  $core.String get thumbnailBlurHash => $_getSZ(7);
   @$pb.TagNumber(8)
-  set createTime($core.String v) { $_setString(5, v); }
+  set thumbnailBlurHash($core.String v) { $_setString(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasCreateTime() => $_has(5);
+  $core.bool hasThumbnailBlurHash() => $_has(7);
   @$pb.TagNumber(8)
-  void clearCreateTime() => clearField(8);
+  void clearThumbnailBlurHash() => clearField(8);
 
   @$pb.TagNumber(9)
-  $core.String get updateTime => $_getSZ(6);
+  $core.String get createTime => $_getSZ(8);
   @$pb.TagNumber(9)
-  set updateTime($core.String v) { $_setString(6, v); }
+  set createTime($core.String v) { $_setString(8, v); }
   @$pb.TagNumber(9)
-  $core.bool hasUpdateTime() => $_has(6);
+  $core.bool hasCreateTime() => $_has(8);
   @$pb.TagNumber(9)
-  void clearUpdateTime() => clearField(9);
+  void clearCreateTime() => clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.String get updateTime => $_getSZ(9);
+  @$pb.TagNumber(10)
+  set updateTime($core.String v) { $_setString(9, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasUpdateTime() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearUpdateTime() => clearField(10);
 }
 
 class BannedUser extends $pb.GeneratedMessage {

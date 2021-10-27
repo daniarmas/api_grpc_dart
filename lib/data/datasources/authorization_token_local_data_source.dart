@@ -3,6 +3,7 @@ import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/get_where_list.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 
 import '../../protos/protos/main.pb.dart';
 
@@ -14,13 +15,13 @@ abstract class AuthorizationTokenLocalDataSource {
 
   Future<List<AuthorizationToken>> listAuthorizationToken(
       {required PostgreSQLExecutionContext context,
-      required List<String> paths,
+      required List<Attribute> paths,
       required Map<String, dynamic> data});
 
   Future<AuthorizationToken?> getAuthorizationToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
   Future<void> deleteAuthorizationToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data});
@@ -66,7 +67,7 @@ class AuthorizationTokenLocalDataSourceImpl
   Future<List<AuthorizationToken>> listAuthorizationToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     throw UnimplementedError();
   }
 
@@ -74,7 +75,7 @@ class AuthorizationTokenLocalDataSourceImpl
   Future<AuthorizationToken?> getAuthorizationToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.get(
         context: context,

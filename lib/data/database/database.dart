@@ -1,4 +1,5 @@
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/attribute.dart';
 import 'package:postgres_dao/postgres_dao.dart';
 import 'package:postgres_dao/where.dart';
 
@@ -11,7 +12,7 @@ abstract class Database {
   Future<List<Map<String, dynamic>>> list(
       {required PostgreSQLExecutionContext context,
       required String table,
-      required List<String> attributes,
+      required List<Attribute> attributes,
       required List<Where> where,
       InnerJoin? innerJoin,
       List<String>? agregationMethods,
@@ -22,7 +23,8 @@ abstract class Database {
     required PostgreSQLExecutionContext context,
     required String table,
     required List<Where> where,
-    List<String>? attributes,
+    List<Attribute>? attributes,
+    InnerJoin? innerJoin,
     int? limit,
     String? orderByAsc,
     List<String>? agregationMethods,
@@ -31,7 +33,7 @@ abstract class Database {
   Future<Map<String, dynamic>?> get(
       {required PostgreSQLExecutionContext context,
       required String table,
-      required List<String> attributes,
+      required List<Attribute> attributes,
       required List<Where> where,
       InnerJoin? innerJoin,
       List<String>? agregationMethods});
@@ -47,7 +49,7 @@ abstract class Database {
       required String table,
       required Map<String, dynamic> data,
       required List<Where> where,
-      required List<String> attributes});
+      required List<Attribute> attributes});
 
   Future<bool> delete(
       {required PostgreSQLExecutionContext context,

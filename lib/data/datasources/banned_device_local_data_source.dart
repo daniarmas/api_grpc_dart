@@ -2,6 +2,7 @@ import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/get_where_list.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 
 import '../../protos/protos/main.pb.dart';
 
@@ -13,13 +14,13 @@ abstract class BannedDeviceLocalDataSource {
 
   Future<List<BannedDevice>> listBannedDevice(
       {required PostgreSQLExecutionContext context,
-      required List<String> paths,
+      required List<Attribute> paths,
       required Map<String, dynamic> data});
 
   Future<BannedDevice?> getBannedDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
   Future<void> deleteBannedDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data});
@@ -53,7 +54,7 @@ class BannedDeviceLocalDataSourceImpl implements BannedDeviceLocalDataSource {
   Future<BannedDevice?> getBannedDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.get(
           context: context,
@@ -84,7 +85,7 @@ class BannedDeviceLocalDataSourceImpl implements BannedDeviceLocalDataSource {
   @override
   Future<List<BannedDevice>> listBannedDevice(
       {required PostgreSQLExecutionContext context,
-      required List<String> paths,
+      required List<Attribute> paths,
       required Map<String, dynamic> data}) {
     // TODO: implement listBannedDevice
     throw UnimplementedError();

@@ -1,6 +1,9 @@
 export 'and.dart' show And;
+export 'attribute.dart' show Attribute;
 export 'get_where_list.dart' show getWhereNormalAttributeList;
+export 'inner_attribute.dart' show InnerAttribute;
 export 'inner_join.dart';
+export 'normal_attribute.dart' show NormalAttribute;
 export 'or.dart' show Or;
 export 'postgresql_dao.dart' show PostgresqlDao;
 export 'where.dart' show Where;

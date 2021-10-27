@@ -4,13 +4,13 @@
 
 import 'dart:async' as _i4;
 
-import 'package:api_grpc_dart/data/database/database.dart' as _i6;
+import 'package:api_grpc_dart/data/database/database.dart' as _i7;
 import 'package:api_grpc_dart/data/datasources/item_local_data_source.dart'
     as _i3;
 import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:postgres/postgres.dart' as _i2;
-import 'package:postgres_dao/postgres_dao.dart' as _i7;
+import 'package:postgres_dao/postgres_dao.dart' as _i6;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -36,7 +36,7 @@ class MockItemLocalDataSource extends _i1.Mock
   _i4.Future<List<_i5.Item>> listItem(
           {_i2.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#listItem, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -46,7 +46,7 @@ class MockItemLocalDataSource extends _i1.Mock
   _i4.Future<_i5.Item?> getItem(
           {_i2.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
           Invocation.method(
               #getItem, [], {#context: context, #data: data, #paths: paths}),
@@ -58,7 +58,7 @@ class MockItemLocalDataSource extends _i1.Mock
 /// A class which mocks [Database].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDatabase extends _i1.Mock implements _i6.Database {
+class MockDatabase extends _i1.Mock implements _i7.Database {
   MockDatabase() {
     _i1.throwOnMissingStub(this);
   }
@@ -80,9 +80,9 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
   _i4.Future<List<Map<String, dynamic>>> list(
           {_i2.PostgreSQLExecutionContext? context,
           String? table,
-          List<String>? attributes,
-          List<_i7.Where>? where,
-          _i7.InnerJoin? innerJoin,
+          List<_i6.Attribute>? attributes,
+          List<_i6.Where>? where,
+          _i6.InnerJoin? innerJoin,
           List<String>? agregationMethods,
           int? limit,
           String? orderByAsc}) =>
@@ -104,8 +104,9 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
   _i4.Future<List<Map<String, dynamic>>> search(
           {_i2.PostgreSQLExecutionContext? context,
           String? table,
-          List<_i7.Where>? where,
-          List<String>? attributes,
+          List<_i6.Where>? where,
+          List<_i6.Attribute>? attributes,
+          _i6.InnerJoin? innerJoin,
           int? limit,
           String? orderByAsc,
           List<String>? agregationMethods}) =>
@@ -115,6 +116,7 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
                 #table: table,
                 #where: where,
                 #attributes: attributes,
+                #innerJoin: innerJoin,
                 #limit: limit,
                 #orderByAsc: orderByAsc,
                 #agregationMethods: agregationMethods
@@ -126,9 +128,9 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
   _i4.Future<Map<String, dynamic>?> get(
           {_i2.PostgreSQLExecutionContext? context,
           String? table,
-          List<String>? attributes,
-          List<_i7.Where>? where,
-          _i7.InnerJoin? innerJoin,
+          List<_i6.Attribute>? attributes,
+          List<_i6.Where>? where,
+          _i6.InnerJoin? innerJoin,
           List<String>? agregationMethods}) =>
       (super.noSuchMethod(
               Invocation.method(#get, [], {
@@ -162,8 +164,8 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
           {_i2.PostgreSQLExecutionContext? context,
           String? table,
           Map<String, dynamic>? data,
-          List<_i7.Where>? where,
-          List<String>? attributes}) =>
+          List<_i6.Where>? where,
+          List<_i6.Attribute>? attributes}) =>
       (super.noSuchMethod(
               Invocation.method(#update, [], {
                 #context: context,
@@ -178,7 +180,7 @@ class MockDatabase extends _i1.Mock implements _i6.Database {
   _i4.Future<bool> delete(
           {_i2.PostgreSQLExecutionContext? context,
           String? table,
-          List<_i7.Where>? where}) =>
+          List<_i6.Where>? where}) =>
       (super.noSuchMethod(
           Invocation.method(
               #delete, [], {#context: context, #table: table, #where: where}),

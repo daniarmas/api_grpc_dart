@@ -27,7 +27,7 @@ class BusinessService extends BusinessServiceBase {
         result = await businessRepository.getBusiness(
             metadata: HeadersMetadata.fromServiceCall(call),
             data: getRequestData(request),
-            paths: request.fieldMask.paths,
+            paths: getPaths(request.fieldMask.paths),
             context: context);
       });
       result.fold((left) => {throw left}, (right) => {response = right});
@@ -51,7 +51,7 @@ class BusinessService extends BusinessServiceBase {
       await connection.transaction((context) async {
         result = await businessRepository.feed(
           metadata: HeadersMetadata.fromServiceCall(call),
-          paths: request.fieldMask.paths,
+          paths: getPaths(request.fieldMask.paths),
           context: context,
           data: getRequestData(request),
         );

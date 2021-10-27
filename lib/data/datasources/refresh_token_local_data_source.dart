@@ -2,6 +2,7 @@ import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/get_where_list.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 
 import '../../protos/protos/main.pb.dart';
 
@@ -13,13 +14,13 @@ abstract class RefreshTokenLocalDataSource {
 
   Future<List<RefreshToken>> listRefreshToken(
       {required PostgreSQLExecutionContext context,
-      required List<String> paths,
+      required List<Attribute> paths,
       required Map<String, dynamic> data});
 
   Future<RefreshToken?> getRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<void> deleteRefreshToken(
       {required PostgreSQLExecutionContext context,
@@ -62,7 +63,7 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
   Future<List<RefreshToken>> listRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     throw UnimplementedError();
   }
 
@@ -70,7 +71,7 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
   Future<RefreshToken?> getRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.get(
         context: context,

@@ -1,4 +1,5 @@
 import 'package:postgres/postgres.dart';
+import 'package:postgres_dao/attribute.dart';
 import 'package:postgres_dao/construct_sql_query_delete.dart';
 import 'package:postgres_dao/construct_sql_query_insert.dart';
 import 'package:postgres_dao/construct_sql_query_search.dart';
@@ -91,19 +92,19 @@ class PostgresqlDao {
   Future<Map<String, dynamic>?> get(
       {required PostgreSQLExecutionContext context,
       required String table,
-      List<String>? attributes,
+      List<Attribute>? attributes,
       List<String>? agregationMethods,
       InnerJoin? innerJoin,
       List<Where>? where}) async {
     try {
       String? query = constructSqlQuerySelect(
-          limit: 1,
-          where: where,
-          table: table,
-          attributes: attributes,
-          innerJoin: innerJoin,
-          agregationAttributes: agregationMethods,
-          orderByAsc: 'id');
+        limit: 1,
+        where: where,
+        table: table,
+        attributes: attributes,
+        innerJoin: innerJoin,
+        agregationAttributes: agregationMethods,
+      );
       print(query);
       final response = await context.mappedResultsQuery(query);
       if (response.isNotEmpty) {
@@ -118,7 +119,7 @@ class PostgresqlDao {
   Future<List<Map<String, dynamic>>> list(
       {required PostgreSQLExecutionContext context,
       required String table,
-      List<String>? attributes,
+      List<Attribute>? attributes,
       InnerJoin? innerJoin,
       List<String>? agregationAttributes,
       int? limit,
@@ -132,6 +133,7 @@ class PostgresqlDao {
           table: table,
           attributes: attributes,
           agregationAttributes: agregationAttributes,
+          innerJoin: innerJoin,
           orderByAsc: orderByAsc);
       print(query);
       var result = await context.mappedResultsQuery(query);
@@ -148,7 +150,8 @@ class PostgresqlDao {
     required PostgreSQLExecutionContext context,
     required String table,
     required List<Where> where,
-    List<String>? attributes,
+    List<Attribute>? attributes,
+    InnerJoin? innerJoin,
     List<String>? agregationAttributes,
     int? limit,
     String? orderByAsc,
@@ -160,6 +163,7 @@ class PostgresqlDao {
           where: where,
           table: table,
           attributes: attributes,
+          innerJoin: innerJoin,
           agregationAttributes: agregationAttributes,
           orderByAsc: orderByAsc);
       print(query);
@@ -178,7 +182,7 @@ class PostgresqlDao {
       required String table,
       required Map<String, dynamic> data,
       required List<Where>? where,
-      List<String>? attributes}) async {
+      List<Attribute>? attributes}) async {
     try {
       String query = constructSqlQueryUpdate(
           table: table, data: data, attributes: attributes, where: where);
