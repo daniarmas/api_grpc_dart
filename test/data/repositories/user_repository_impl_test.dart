@@ -73,9 +73,7 @@ void main() {
           fullName: '1',
           birthday: DateTime.now().toString(),
           createTime: '1',
-          photo: '1',
           permissions: null,
-          photoUrl: '1',
           updateTime: '1',
           userAddress: null);
       when(mockUserLocalDataSource.getUser(
@@ -179,9 +177,7 @@ void main() {
           fullName: '1',
           birthday: DateTime.now().toString(),
           createTime: '1',
-          photo: '1',
           permissions: null,
-          photoUrl: '1',
           updateTime: '1',
           userAddress: null);
       final date = DateTime.now();
@@ -210,9 +206,7 @@ void main() {
           fullName: '1',
           birthday: DateTime.now().toString(),
           createTime: '1',
-          photo: '1',
           permissions: null,
-          photoUrl: '1',
           updateTime: '1',
           userAddress: null);
       final date = DateTime.now();

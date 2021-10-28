@@ -150,9 +150,7 @@ void main() {
           fullName: '1',
           birthday: DateTime.now().toString(),
           createTime: '1',
-          photo: '1',
           permissions: null,
-          photoUrl: '1',
           updateTime: '1',
           userAddress: null);
       VerificationCode verificationCode = VerificationCode(
@@ -354,9 +352,7 @@ void main() {
           fullName: '1',
           birthday: DateTime.now().toString(),
           createTime: '1',
-          photo: '1',
           permissions: null,
-          photoUrl: '1',
           updateTime: '1',
           userAddress: null);
       VerificationCode verificationCode = VerificationCode(
@@ -560,9 +556,7 @@ void main() {
           fullName: '1',
           birthday: DateTime.now().toString(),
           createTime: '1',
-          photo: '1',
           permissions: null,
-          photoUrl: '1',
           updateTime: '1',
           userAddress: null);
       VerificationCode verificationCode = VerificationCode(
@@ -766,9 +760,7 @@ void main() {
           fullName: '1',
           birthday: DateTime.now().toString(),
           createTime: '1',
-          photo: '1',
           permissions: null,
-          photoUrl: '1',
           updateTime: '1',
           userAddress: null);
       VerificationCode verificationCode = VerificationCode(
@@ -1549,9 +1541,7 @@ void main() {
             fullName: '1',
             birthday: DateTime.now().toString(),
             createTime: '1',
-            photo: '1',
             permissions: null,
-            photoUrl: '1',
             updateTime: '1',
             userAddress: null);
         // side effects
@@ -2088,9 +2078,7 @@ void main() {
             fullName: '1',
             birthday: DateTime.now().toString(),
             createTime: '1',
-            photo: '1',
             permissions: null,
-            photoUrl: '1',
             updateTime: '1',
             userAddress: null);
         BannedUser bannedUser = BannedUser(
@@ -2223,9 +2211,7 @@ void main() {
             fullName: '1',
             birthday: DateTime.now().toString(),
             createTime: '1',
-            photo: '1',
             permissions: null,
-            photoUrl: '1',
             updateTime: '1',
             userAddress: null);
         // side effects
@@ -2628,9 +2614,7 @@ void main() {
           fullName: '1',
           birthday: DateTime.now().toString(),
           createTime: '1',
-          photo: '1',
           permissions: null,
-          photoUrl: '1',
           updateTime: '1',
           userAddress: null);
       VerificationCode verificationCode = VerificationCode(
@@ -2826,9 +2810,7 @@ void main() {
           fullName: '1',
           birthday: DateTime.now().toString(),
           createTime: '1',
-          photo: '1',
           permissions: null,
-          photoUrl: '1',
           updateTime: '1',
           userAddress: null);
       VerificationCode verificationCode = VerificationCode(
@@ -3025,9 +3007,7 @@ void main() {
           fullName: '1',
           birthday: DateTime.now().toString(),
           createTime: '1',
-          photo: '1',
           permissions: null,
-          photoUrl: '1',
           updateTime: '1',
           userAddress: null);
       VerificationCode verificationCode = VerificationCode(
@@ -3208,9 +3188,7 @@ void main() {
           fullName: '1',
           birthday: DateTime.now().toString(),
           createTime: '1',
-          photo: '1',
           permissions: null,
-          photoUrl: '1',
           updateTime: '1',
           userAddress: null);
       VerificationCode verificationCode = VerificationCode(
