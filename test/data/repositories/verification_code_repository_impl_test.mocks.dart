@@ -52,7 +52,7 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
   _i5.Future<_i2.VerificationCode> createVerificationCode(
           {_i3.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#createVerificationCode, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -115,7 +115,7 @@ class MockUserLocalDataSource extends _i1.Mock
   _i5.Future<_i2.User> createUser(
           {_i3.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
           Invocation.method(
               #createUser, [], {#context: context, #data: data, #paths: paths}),
@@ -429,7 +429,7 @@ class MockDatabase extends _i1.Mock implements _i11.Database {
           {_i3.PostgreSQLExecutionContext? context,
           String? table,
           Map<String, dynamic>? data,
-          List<String>? attributes}) =>
+          List<_i6.Attribute>? attributes}) =>
       (super.noSuchMethod(
               Invocation.method(#create, [], {
                 #context: context,

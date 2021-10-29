@@ -12,7 +12,7 @@ abstract class VerificationCodeLocalDataSource {
   Future<VerificationCode> createVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<List<VerificationCode>> listVerificationCode(
       {required PostgreSQLExecutionContext context,
@@ -46,7 +46,7 @@ class VerificationCodeLocalDataSourceImpl
   Future<VerificationCode> createVerificationCode(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       data.addAll({'code': StringUtils.generateNumber()});
       final result = await _database.create(

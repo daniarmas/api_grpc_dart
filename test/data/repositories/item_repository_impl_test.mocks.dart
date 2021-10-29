@@ -148,7 +148,7 @@ class MockDatabase extends _i1.Mock implements _i7.Database {
           {_i2.PostgreSQLExecutionContext? context,
           String? table,
           Map<String, dynamic>? data,
-          List<String>? attributes}) =>
+          List<_i6.Attribute>? attributes}) =>
       (super.noSuchMethod(
               Invocation.method(#create, [], {
                 #context: context,

@@ -15,6 +15,130 @@ import 'main.pbenum.dart';
 
 export 'main.pbenum.dart';
 
+class RefreshTokenRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RefreshTokenRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refreshToken', protoName: 'refreshToken')
+    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..hasRequiredFields = false
+  ;
+
+  RefreshTokenRequest._() : super();
+  factory RefreshTokenRequest({
+    $core.String? refreshToken,
+    $2.FieldMask? fieldMask,
+  }) {
+    final _result = create();
+    if (refreshToken != null) {
+      _result.refreshToken = refreshToken;
+    }
+    if (fieldMask != null) {
+      _result.fieldMask = fieldMask;
+    }
+    return _result;
+  }
+  factory RefreshTokenRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory RefreshTokenRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  RefreshTokenRequest clone() => RefreshTokenRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  RefreshTokenRequest copyWith(void Function(RefreshTokenRequest) updates) => super.copyWith((message) => updates(message as RefreshTokenRequest)) as RefreshTokenRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static RefreshTokenRequest create() => RefreshTokenRequest._();
+  RefreshTokenRequest createEmptyInstance() => create();
+  static $pb.PbList<RefreshTokenRequest> createRepeated() => $pb.PbList<RefreshTokenRequest>();
+  @$core.pragma('dart2js:noInline')
+  static RefreshTokenRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RefreshTokenRequest>(create);
+  static RefreshTokenRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get refreshToken => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set refreshToken($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasRefreshToken() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRefreshToken() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $2.FieldMask get fieldMask => $_getN(1);
+  @$pb.TagNumber(2)
+  set fieldMask($2.FieldMask v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasFieldMask() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFieldMask() => clearField(2);
+  @$pb.TagNumber(2)
+  $2.FieldMask ensureFieldMask() => $_ensure(1);
+}
+
+class RefreshTokenResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RefreshTokenResponse', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refreshToken', protoName: 'refreshToken')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'authorizationToken', protoName: 'authorizationToken')
+    ..hasRequiredFields = false
+  ;
+
+  RefreshTokenResponse._() : super();
+  factory RefreshTokenResponse({
+    $core.String? refreshToken,
+    $core.String? authorizationToken,
+  }) {
+    final _result = create();
+    if (refreshToken != null) {
+      _result.refreshToken = refreshToken;
+    }
+    if (authorizationToken != null) {
+      _result.authorizationToken = authorizationToken;
+    }
+    return _result;
+  }
+  factory RefreshTokenResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory RefreshTokenResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  RefreshTokenResponse clone() => RefreshTokenResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  RefreshTokenResponse copyWith(void Function(RefreshTokenResponse) updates) => super.copyWith((message) => updates(message as RefreshTokenResponse)) as RefreshTokenResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static RefreshTokenResponse create() => RefreshTokenResponse._();
+  RefreshTokenResponse createEmptyInstance() => create();
+  static $pb.PbList<RefreshTokenResponse> createRepeated() => $pb.PbList<RefreshTokenResponse>();
+  @$core.pragma('dart2js:noInline')
+  static RefreshTokenResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RefreshTokenResponse>(create);
+  static RefreshTokenResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get refreshToken => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set refreshToken($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasRefreshToken() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRefreshToken() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get authorizationToken => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set authorizationToken($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAuthorizationToken() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAuthorizationToken() => clearField(2);
+}
+
 class SearchItemRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SearchItemRequest', createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', $pb.PbFieldType.O3, protoName: 'nextPage')
@@ -3693,22 +3817,20 @@ class BannedDevice extends $pb.GeneratedMessage {
 class AuthorizationToken extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AuthorizationToken', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'authorizationToken', protoName: 'authorizationToken')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refreshTokenFk', protoName: 'refreshTokenFk')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceFk', protoName: 'deviceFk')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
-    ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'valid')
-    ..e<AppType>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'app', $pb.PbFieldType.OE, defaultOrMaker: AppType.APP_TYPE_UNSPECIFIED, valueOf: AppType.valueOf, enumValues: AppType.values)
-    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'appVersion', protoName: 'appVersion')
-    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
-    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refreshTokenFk', protoName: 'refreshTokenFk')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceFk', protoName: 'deviceFk')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
+    ..aOB(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'valid')
+    ..e<AppType>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'app', $pb.PbFieldType.OE, defaultOrMaker: AppType.APP_TYPE_UNSPECIFIED, valueOf: AppType.valueOf, enumValues: AppType.values)
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'appVersion', protoName: 'appVersion')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
   AuthorizationToken._() : super();
   factory AuthorizationToken({
     $core.String? id,
-    $core.String? authorizationToken,
     $core.String? refreshTokenFk,
     $core.String? deviceFk,
     $core.String? userFk,
@@ -3721,9 +3843,6 @@ class AuthorizationToken extends $pb.GeneratedMessage {
     final _result = create();
     if (id != null) {
       _result.id = id;
-    }
-    if (authorizationToken != null) {
-      _result.authorizationToken = authorizationToken;
     }
     if (refreshTokenFk != null) {
       _result.refreshTokenFk = refreshTokenFk;
@@ -3782,92 +3901,83 @@ class AuthorizationToken extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get authorizationToken => $_getSZ(1);
+  $core.String get refreshTokenFk => $_getSZ(1);
   @$pb.TagNumber(2)
-  set authorizationToken($core.String v) { $_setString(1, v); }
+  set refreshTokenFk($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasAuthorizationToken() => $_has(1);
+  $core.bool hasRefreshTokenFk() => $_has(1);
   @$pb.TagNumber(2)
-  void clearAuthorizationToken() => clearField(2);
+  void clearRefreshTokenFk() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get refreshTokenFk => $_getSZ(2);
+  $core.String get deviceFk => $_getSZ(2);
   @$pb.TagNumber(3)
-  set refreshTokenFk($core.String v) { $_setString(2, v); }
+  set deviceFk($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasRefreshTokenFk() => $_has(2);
+  $core.bool hasDeviceFk() => $_has(2);
   @$pb.TagNumber(3)
-  void clearRefreshTokenFk() => clearField(3);
+  void clearDeviceFk() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get deviceFk => $_getSZ(3);
+  $core.String get userFk => $_getSZ(3);
   @$pb.TagNumber(4)
-  set deviceFk($core.String v) { $_setString(3, v); }
+  set userFk($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasDeviceFk() => $_has(3);
+  $core.bool hasUserFk() => $_has(3);
   @$pb.TagNumber(4)
-  void clearDeviceFk() => clearField(4);
+  void clearUserFk() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get userFk => $_getSZ(4);
+  $core.bool get valid => $_getBF(4);
   @$pb.TagNumber(5)
-  set userFk($core.String v) { $_setString(4, v); }
+  set valid($core.bool v) { $_setBool(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasUserFk() => $_has(4);
+  $core.bool hasValid() => $_has(4);
   @$pb.TagNumber(5)
-  void clearUserFk() => clearField(5);
+  void clearValid() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.bool get valid => $_getBF(5);
+  AppType get app => $_getN(5);
   @$pb.TagNumber(6)
-  set valid($core.bool v) { $_setBool(5, v); }
+  set app(AppType v) { setField(6, v); }
   @$pb.TagNumber(6)
-  $core.bool hasValid() => $_has(5);
+  $core.bool hasApp() => $_has(5);
   @$pb.TagNumber(6)
-  void clearValid() => clearField(6);
+  void clearApp() => clearField(6);
 
   @$pb.TagNumber(7)
-  AppType get app => $_getN(6);
+  $core.String get appVersion => $_getSZ(6);
   @$pb.TagNumber(7)
-  set app(AppType v) { setField(7, v); }
+  set appVersion($core.String v) { $_setString(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasApp() => $_has(6);
+  $core.bool hasAppVersion() => $_has(6);
   @$pb.TagNumber(7)
-  void clearApp() => clearField(7);
+  void clearAppVersion() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.String get appVersion => $_getSZ(7);
+  $core.String get createTime => $_getSZ(7);
   @$pb.TagNumber(8)
-  set appVersion($core.String v) { $_setString(7, v); }
+  set createTime($core.String v) { $_setString(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasAppVersion() => $_has(7);
+  $core.bool hasCreateTime() => $_has(7);
   @$pb.TagNumber(8)
-  void clearAppVersion() => clearField(8);
+  void clearCreateTime() => clearField(8);
 
   @$pb.TagNumber(9)
-  $core.String get createTime => $_getSZ(8);
+  $core.String get updateTime => $_getSZ(8);
   @$pb.TagNumber(9)
-  set createTime($core.String v) { $_setString(8, v); }
+  set updateTime($core.String v) { $_setString(8, v); }
   @$pb.TagNumber(9)
-  $core.bool hasCreateTime() => $_has(8);
+  $core.bool hasUpdateTime() => $_has(8);
   @$pb.TagNumber(9)
-  void clearCreateTime() => clearField(9);
-
-  @$pb.TagNumber(10)
-  $core.String get updateTime => $_getSZ(9);
-  @$pb.TagNumber(10)
-  set updateTime($core.String v) { $_setString(9, v); }
-  @$pb.TagNumber(10)
-  $core.bool hasUpdateTime() => $_has(9);
-  @$pb.TagNumber(10)
-  void clearUpdateTime() => clearField(10);
+  void clearUpdateTime() => clearField(9);
 }
 
 class RefreshToken extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RefreshToken', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refreshToken', protoName: 'refreshToken')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceFk', protoName: 'deviceFk')
     ..aOB(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'valid')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'expirationTime', protoName: 'expirationTime')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
@@ -3878,8 +3988,8 @@ class RefreshToken extends $pb.GeneratedMessage {
   RefreshToken._() : super();
   factory RefreshToken({
     $core.String? id,
-    $core.String? refreshToken,
     $core.String? userFk,
+    $core.String? deviceFk,
     $core.bool? valid,
     $core.String? expirationTime,
     $core.String? createTime,
@@ -3889,11 +3999,11 @@ class RefreshToken extends $pb.GeneratedMessage {
     if (id != null) {
       _result.id = id;
     }
-    if (refreshToken != null) {
-      _result.refreshToken = refreshToken;
-    }
     if (userFk != null) {
       _result.userFk = userFk;
+    }
+    if (deviceFk != null) {
+      _result.deviceFk = deviceFk;
     }
     if (valid != null) {
       _result.valid = valid;
@@ -3940,22 +4050,22 @@ class RefreshToken extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get refreshToken => $_getSZ(1);
+  $core.String get userFk => $_getSZ(1);
   @$pb.TagNumber(2)
-  set refreshToken($core.String v) { $_setString(1, v); }
+  set userFk($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasRefreshToken() => $_has(1);
+  $core.bool hasUserFk() => $_has(1);
   @$pb.TagNumber(2)
-  void clearRefreshToken() => clearField(2);
+  void clearUserFk() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get userFk => $_getSZ(2);
+  $core.String get deviceFk => $_getSZ(2);
   @$pb.TagNumber(3)
-  set userFk($core.String v) { $_setString(2, v); }
+  set deviceFk($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasUserFk() => $_has(2);
+  $core.bool hasDeviceFk() => $_has(2);
   @$pb.TagNumber(3)
-  void clearUserFk() => clearField(3);
+  void clearDeviceFk() => clearField(3);
 
   @$pb.TagNumber(4)
   $core.bool get valid => $_getBF(3);

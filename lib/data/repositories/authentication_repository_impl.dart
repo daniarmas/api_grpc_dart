@@ -12,12 +12,12 @@ import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/email/emailer.dart';
 import 'package:api_grpc_dart/domain/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mailer/mailer.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_dao/postgres_dao.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../protos/protos/main.pb.dart';
 import '../datasources/verification_code_local_data_source.dart';
@@ -146,33 +146,21 @@ class AuthenticationImpl implements AuthenticationRepository {
           'deviceFk': device.id,
         }, paths: [
           NormalAttribute(name: 'id'),
-          NormalAttribute(name: 'refreshToken'),
         ]);
         if (getRefreshTokenResponse != null) {
           await refreshTokenLocalDataSource.deleteRefreshToken(
               data: {'id': getRefreshTokenResponse.id}, context: context);
         }
-        String refreshTokenId = Uuid().v4();
         refreshToken =
             await refreshTokenLocalDataSource.createRefreshToken(data: {
-          'id': refreshTokenId,
           'userFk': getUserResponse.id,
           'deviceFk': device.id,
-          'refreshToken': jsonWebToken.generateRefreshToken(
-              payload: {'refreshTokenFk': refreshTokenId}),
           'expirationTime': DateTime.now().add(Duration(hours: 24)),
         }, paths: [
-          'id',
-          'refreshToken'
+          NormalAttribute(name: 'id'),
         ], context: context);
-        String id = Uuid().v4();
         authorizationToken = await authorizationTokenLocalDataSource
             .createAuthorizationToken(data: {
-          'id': id,
-          'authorizationToken':
-              jsonWebToken.generateAuthorizationToken(payload: {
-            'authorizationTokenFk': id,
-          }),
           'refreshTokenFk': refreshToken.id,
           'deviceFk': device.id,
           'userFk': getUserResponse.id,
@@ -185,9 +173,15 @@ class AuthenticationImpl implements AuthenticationRepository {
             device:
                 '${metadata.model} - ${metadata.platform} ${metadata.systemVersion}',
             time: DateTime.now());
+        var newRefreshToken = jsonWebToken
+            .generateRefreshToken(payload: {'refreshTokenFk': refreshToken.id});
+        var newAuthorizationToken =
+            jsonWebToken.generateAuthorizationToken(payload: {
+          'authorizationTokenFk': authorizationToken.id,
+        });
         return Right(SignInResponse(
-            authorizationToken: authorizationToken.authorizationToken,
-            refreshToken: refreshToken.refreshToken,
+            authorizationToken: newAuthorizationToken,
+            refreshToken: newRefreshToken,
             user: getUserResponse));
       }
     } on GrpcError catch (error) {
@@ -426,27 +420,17 @@ class AuthenticationImpl implements AuthenticationRepository {
           'birthday': DateTime.parse(data['birthday']),
           'photo': data['photo']
         }, paths: []);
-        String refreshTokenId = Uuid().v4();
         refreshToken =
             await refreshTokenLocalDataSource.createRefreshToken(data: {
-          'id': refreshTokenId,
           'userFk': user.id,
           'deviceFk': device.id,
-          'refreshToken': jsonWebToken.generateRefreshToken(
-              payload: {'refreshTokenFk': refreshTokenId}),
           'expirationTime': DateTime.now().add(Duration(hours: 24)),
         }, paths: [
-          'id',
-          'refreshToken'
+          NormalAttribute(name: 'id'),
+          NormalAttribute(name: 'refreshToken'),
         ], context: context);
-        String id = Uuid().v4();
         authorizationToken = await authorizationTokenLocalDataSource
             .createAuthorizationToken(data: {
-          'id': id,
-          'authorizationToken':
-              jsonWebToken.generateAuthorizationToken(payload: {
-            'authorizationTokenFk': id,
-          }),
           'refreshTokenFk': refreshToken.id,
           'deviceFk': device.id,
           'userFk': user.id,
@@ -459,9 +443,15 @@ class AuthenticationImpl implements AuthenticationRepository {
         //     device:
         //         '${metadata.model} - ${metadata.platform} ${metadata.systemVersion}',
         //     time: DateTime.now());
+        var newRefreshToken = jsonWebToken
+            .generateRefreshToken(payload: {'refreshTokenFk': refreshToken.id});
+        var newAuthorizationToken =
+            jsonWebToken.generateAuthorizationToken(payload: {
+          'authorizationTokenFk': authorizationToken.id,
+        });
         return Right(SignUpResponse(
-            authorizationToken: authorizationToken.authorizationToken,
-            refreshToken: refreshToken.refreshToken,
+            authorizationToken: newAuthorizationToken,
+            refreshToken: newRefreshToken,
             user: user));
       }
     } on GrpcError catch (error) {
@@ -474,6 +464,91 @@ class AuthenticationImpl implements AuthenticationRepository {
               'The mail server could not deliver the verification code email'));
         }
       }
+      return Left(GrpcError.internal('Internal server error'));
+    }
+  }
+
+  @override
+  Future<Either<GrpcError, RefreshTokenResponse>> refreshToken(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required HeadersMetadata metadata,
+      required List<Attribute> paths}) async {
+    try {
+      if (data['refreshToken'] == null || data['refreshToken'] == '') {
+        return Left(GrpcError.invalidArgument('Input `refreshToken` invalid'));
+      }
+      final refreshTokenPayload =
+          jsonWebToken.verify(data['refreshToken'], 'RefreshToken');
+      final refreshToken = await refreshTokenLocalDataSource.getRefreshToken(
+          context: context,
+          data: {'id': refreshTokenPayload['refreshTokenFk']},
+          paths: []);
+      if (refreshToken == null) {
+        return Left(GrpcError.unauthenticated('Unauthenticated'));
+      }
+      final user = await userLocalDataSource.getUser(
+          context: context, data: {'id': refreshToken.userFk}, paths: []);
+      if (user == null) {
+        return Left(GrpcError.unauthenticated('Unauthenticated'));
+      }
+      await refreshTokenLocalDataSource.deleteRefreshToken(
+        context: context,
+        data: {'id': refreshToken.id},
+      );
+      late Device device;
+      final getDeviceResponse = await deviceLocalDataSource.getDevice(
+          context: context, data: {'id': refreshToken.deviceFk}, paths: []);
+      if (getDeviceResponse == null) {
+        device =
+            await deviceLocalDataSource.createDevice(context: context, data: {
+          'platform': metadata.platform,
+          'systemVersion': metadata.systemVersion,
+          'deviceId': metadata.deviceId,
+          'firebaseCloudMessagingId': metadata.firebaseCloudMessagingId,
+          'model': metadata.model
+        }, paths: []);
+      } else {
+        final updateDeviceResponse =
+            await deviceLocalDataSource.updateDevice(context: context, where: {
+          'id': getDeviceResponse.id,
+        }, data: {
+          'platform': metadata.platform,
+          'systemVersion': metadata.systemVersion,
+          'firebaseCloudMessagingId': metadata.firebaseCloudMessagingId,
+          'model': metadata.model,
+        }, paths: []);
+        device = updateDeviceResponse!;
+      }
+      var refreshTokenResponse =
+          await refreshTokenLocalDataSource.createRefreshToken(data: {
+        'userFk': user.id,
+        'deviceFk': device.id,
+        'expirationTime': DateTime.now().add(Duration(hours: 24)),
+      }, paths: [
+        NormalAttribute(name: 'id'),
+        NormalAttribute(name: 'refreshToken'),
+      ], context: context);
+      var authorizationTokenResponse = await authorizationTokenLocalDataSource
+          .createAuthorizationToken(data: {
+        'refreshTokenFk': refreshTokenResponse.id,
+        'deviceFk': device.id,
+        'userFk': user.id,
+        'app': metadata.app.toString(),
+        'appVersion': metadata.appVersion
+      }, paths: [], context: context);
+      var newRefreshToken = jsonWebToken.generateRefreshToken(
+          payload: {'refreshTokenFk': refreshTokenResponse.id});
+      var newAuthorizationToken =
+          jsonWebToken.generateAuthorizationToken(payload: {
+        'authorizationTokenFk': authorizationTokenResponse.id,
+      });
+      return Right(RefreshTokenResponse(
+          authorizationToken: newAuthorizationToken,
+          refreshToken: newRefreshToken));
+    } on GrpcError catch (error) {
+      return Left(error);
+    } on Exception {
       return Left(GrpcError.internal('Internal server error'));
     }
   }

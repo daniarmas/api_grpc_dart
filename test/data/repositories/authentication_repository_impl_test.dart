@@ -52,6 +52,7 @@ void main() {
   late PostgreSQLExecutionContext ctx;
   late HeadersMetadata metadata;
   late AuthenticationImpl authenticationImpl;
+  late JsonWebToken jsonWebToken;
 
   setUpAll(() {
     configureDependencies();
@@ -78,6 +79,7 @@ void main() {
         deviceId: '1',
         model: '1',
         firebaseCloudMessagingId: '1');
+    jsonWebToken = GetIt.I<JsonWebToken>();
     mockEmailer = MockEmailer();
     mockJsonWebToken = MockJsonWebToken();
     mockKubernetesDataSource = MockKubernetesDataSource();
@@ -129,7 +131,6 @@ void main() {
           id: '1',
           app: AppType.APP,
           appVersion: '1',
-          authorizationToken: '1',
           createTime: '1',
           deviceFk: '1',
           refreshTokenFk: '1',
@@ -140,7 +141,6 @@ void main() {
           id: '1',
           createTime: '1',
           expirationTime: '1',
-          refreshToken: '1',
           updateTime: '1',
           userFk: '1',
           valid: true);
@@ -163,9 +163,7 @@ void main() {
           updateTime: '1');
       late Either<GrpcError, SignInResponse> result;
       SignInResponse response = SignInResponse(
-          authorizationToken: authorizationToken.authorizationToken,
-          refreshToken: refreshToken.refreshToken,
-          user: user);
+          authorizationToken: '1', refreshToken: '1', user: user);
       // side effects
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
               data: anyNamed('data'),
@@ -235,13 +233,13 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => refreshToken);
-      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
-          .thenAnswer((_) => '1');
       when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
       when(mockJsonWebToken.generateAuthorizationToken(
               payload: anyNamed('payload')))
           .thenAnswer((_) => '1');
@@ -331,7 +329,6 @@ void main() {
           id: '1',
           app: AppType.APP,
           appVersion: '1',
-          authorizationToken: '1',
           createTime: '1',
           deviceFk: '1',
           refreshTokenFk: '1',
@@ -342,7 +339,6 @@ void main() {
           id: '1',
           createTime: '1',
           expirationTime: '1',
-          refreshToken: '1',
           updateTime: '1',
           userFk: '1',
           valid: true);
@@ -365,9 +361,7 @@ void main() {
           updateTime: '1');
       late Either<GrpcError, SignInResponse> result;
       SignInResponse response = SignInResponse(
-          authorizationToken: authorizationToken.authorizationToken,
-          refreshToken: refreshToken.refreshToken,
-          user: user);
+          authorizationToken: '1', refreshToken: '1', user: user);
       // side effects
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
               data: anyNamed('data'),
@@ -438,13 +432,13 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => refreshToken);
-      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
-          .thenAnswer((_) => '1');
       when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
       when(mockJsonWebToken.generateAuthorizationToken(
               payload: anyNamed('payload')))
           .thenAnswer((_) => '1');
@@ -535,7 +529,6 @@ void main() {
           id: '1',
           app: AppType.APP,
           appVersion: '1',
-          authorizationToken: '1',
           createTime: '1',
           deviceFk: '1',
           refreshTokenFk: '1',
@@ -546,7 +539,6 @@ void main() {
           id: '1',
           createTime: '1',
           expirationTime: '1',
-          refreshToken: '1',
           updateTime: '1',
           userFk: '1',
           valid: true);
@@ -569,9 +561,7 @@ void main() {
           updateTime: '1');
       late Either<GrpcError, SignInResponse> result;
       SignInResponse response = SignInResponse(
-          authorizationToken: authorizationToken.authorizationToken,
-          refreshToken: refreshToken.refreshToken,
-          user: user);
+          authorizationToken: '1', refreshToken: '1', user: user);
       // side effects
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
               data: anyNamed('data'),
@@ -642,13 +632,13 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => refreshToken);
-      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
-          .thenAnswer((_) => '1');
       when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
       when(mockJsonWebToken.generateAuthorizationToken(
               payload: anyNamed('payload')))
           .thenAnswer((_) => '1');
@@ -739,7 +729,6 @@ void main() {
           id: '1',
           app: AppType.APP,
           appVersion: '1',
-          authorizationToken: '1',
           createTime: '1',
           deviceFk: '1',
           refreshTokenFk: '1',
@@ -750,7 +739,6 @@ void main() {
           id: '1',
           createTime: '1',
           expirationTime: '1',
-          refreshToken: '1',
           updateTime: '1',
           userFk: '1',
           valid: true);
@@ -773,9 +761,7 @@ void main() {
           updateTime: '1');
       late Either<GrpcError, SignInResponse> result;
       SignInResponse response = SignInResponse(
-          authorizationToken: authorizationToken.authorizationToken,
-          refreshToken: refreshToken.refreshToken,
-          user: user);
+          authorizationToken: '1', refreshToken: '1', user: user);
       // side effects
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
               data: anyNamed('data'),
@@ -845,13 +831,13 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => refreshToken);
-      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
-          .thenAnswer((_) => '1');
       when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
       when(mockJsonWebToken.generateAuthorizationToken(
               payload: anyNamed('payload')))
           .thenAnswer((_) => '1');
@@ -1520,7 +1506,6 @@ void main() {
             id: '1',
             app: AppType.APP,
             appVersion: '1',
-            authorizationToken: '1',
             createTime: '1',
             deviceFk: '1',
             refreshTokenFk: '1',
@@ -1531,7 +1516,6 @@ void main() {
             id: '1',
             createTime: '1',
             expirationTime: '1',
-            refreshToken: '1',
             updateTime: '1',
             userFk: '1',
             valid: true);
@@ -1946,7 +1930,6 @@ void main() {
             id: '1',
             app: AppType.APP,
             appVersion: '1',
-            authorizationToken: '1',
             createTime: '1',
             deviceFk: '1',
             refreshTokenFk: '1',
@@ -1957,7 +1940,6 @@ void main() {
             id: '1',
             createTime: '1',
             expirationTime: '1',
-            refreshToken: '1',
             updateTime: '1',
             userFk: '1',
             valid: true);
@@ -2057,7 +2039,6 @@ void main() {
             id: '1',
             app: AppType.APP,
             appVersion: '1',
-            authorizationToken: '1',
             createTime: '1',
             deviceFk: '1',
             refreshTokenFk: '1',
@@ -2068,7 +2049,6 @@ void main() {
             id: '1',
             createTime: '1',
             expirationTime: '1',
-            refreshToken: '1',
             updateTime: '1',
             userFk: '1',
             valid: true);
@@ -2190,7 +2170,6 @@ void main() {
             id: '1',
             app: AppType.APP,
             appVersion: '1',
-            authorizationToken: '1',
             createTime: '1',
             deviceFk: '1',
             refreshTokenFk: '1',
@@ -2201,7 +2180,6 @@ void main() {
             id: '1',
             createTime: '1',
             expirationTime: '1',
-            refreshToken: '1',
             updateTime: '1',
             userFk: '1',
             valid: true);
@@ -2593,7 +2571,6 @@ void main() {
           id: '1',
           app: AppType.APP,
           appVersion: '1',
-          authorizationToken: '1',
           createTime: '1',
           deviceFk: '1',
           refreshTokenFk: '1',
@@ -2604,7 +2581,6 @@ void main() {
           id: '1',
           createTime: '1',
           expirationTime: '1',
-          refreshToken: '1',
           updateTime: '1',
           userFk: '1',
           valid: true);
@@ -2627,9 +2603,7 @@ void main() {
           updateTime: '1');
       late Either<GrpcError, SignUpResponse> result;
       SignUpResponse response = SignUpResponse(
-          authorizationToken: authorizationToken.authorizationToken,
-          refreshToken: refreshToken.refreshToken,
-          user: user);
+          authorizationToken: '1', refreshToken: '1', user: user);
       // side effects
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
               data: anyNamed('data'),
@@ -2704,13 +2678,13 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => refreshToken);
-      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
-          .thenAnswer((_) => '1');
       when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
       when(mockJsonWebToken.generateAuthorizationToken(
               payload: anyNamed('payload')))
           .thenAnswer((_) => '1');
@@ -2789,7 +2763,6 @@ void main() {
           id: '1',
           app: AppType.APP,
           appVersion: '1',
-          authorizationToken: '1',
           createTime: '1',
           deviceFk: '1',
           refreshTokenFk: '1',
@@ -2800,7 +2773,6 @@ void main() {
           id: '1',
           createTime: '1',
           expirationTime: '1',
-          refreshToken: '1',
           updateTime: '1',
           userFk: '1',
           valid: true);
@@ -2823,9 +2795,7 @@ void main() {
           updateTime: '1');
       late Either<GrpcError, SignUpResponse> result;
       SignUpResponse response = SignUpResponse(
-          authorizationToken: authorizationToken.authorizationToken,
-          refreshToken: refreshToken.refreshToken,
-          user: user);
+          authorizationToken: '1', refreshToken: '1', user: user);
       // side effects
       when(mockVerificationCodeLocalDataSource.getVerificationCode(
               data: anyNamed('data'),
@@ -2901,13 +2871,13 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => refreshToken);
-      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
-          .thenAnswer((_) => '1');
       when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
               data: anyNamed('data'),
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
       when(mockJsonWebToken.generateAuthorizationToken(
               payload: anyNamed('payload')))
           .thenAnswer((_) => '1');
@@ -2986,7 +2956,6 @@ void main() {
           id: '1',
           app: AppType.APP,
           appVersion: '1',
-          authorizationToken: '1',
           createTime: '1',
           deviceFk: '1',
           refreshTokenFk: '1',
@@ -2997,7 +2966,6 @@ void main() {
           id: '1',
           createTime: '1',
           expirationTime: '1',
-          refreshToken: '1',
           updateTime: '1',
           userFk: '1',
           valid: true);
@@ -3178,7 +3146,6 @@ void main() {
           id: '1',
           createTime: '1',
           expirationTime: '1',
-          refreshToken: '1',
           updateTime: '1',
           userFk: '1',
           valid: true);
@@ -3333,6 +3300,1000 @@ void main() {
           data: anyNamed('data'),
           context: anyNamed('context'),
           paths: anyNamed('paths')));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+  });
+  group('testing refreshToken', () {
+    test('Return data sucessfull when exist a device', () async {
+      // setup
+      Map<String, dynamic> data = {
+        'refreshToken':
+            jsonWebToken.generateRefreshToken(payload: {'refreshTokenFk': '1'}),
+      };
+      Map<String, dynamic> verifyRefreshTokenPayload = {
+        'refreshTokenFk': 'any'
+      };
+      RefreshToken refreshToken = RefreshToken(
+          id: '',
+          createTime: '',
+          deviceFk: '',
+          expirationTime: '',
+          updateTime: '',
+          userFk: '',
+          valid: true);
+      AuthorizationToken authorizationToken = AuthorizationToken(
+        id: '',
+        createTime: '',
+        deviceFk: '',
+        updateTime: '',
+        userFk: '',
+        valid: true,
+        app: AppType.APP,
+        appVersion: '',
+        refreshTokenFk: '',
+      );
+      Device device = Device(
+          id: '',
+          createTime: '',
+          deviceId: '',
+          firebaseCloudMessagingId: '',
+          model: '',
+          platform: PlatformType.ANDROID,
+          systemVersion: '',
+          updateTime: '');
+      User user = User(
+          alias: '',
+          birthday: '',
+          createTime: '',
+          email: '',
+          fullName: '',
+          highQualityPhoto: '',
+          highQualityPhotoBlurHash: '',
+          id: '',
+          lowQualityPhoto: '',
+          lowQualityPhotoBlurHash: null,
+          permissions: null,
+          thumbnail: '',
+          thumbnailBlurHash: '',
+          updateTime: '',
+          userAddress: null);
+      RefreshTokenResponse response =
+          RefreshTokenResponse(authorizationToken: '1', refreshToken: '1');
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => verifyRefreshTokenPayload);
+      when(mockRefreshTokenLocalDataSource.getRefreshToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => refreshToken);
+      when(mockUserLocalDataSource.getUser(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => user);
+      when(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+              context: anyNamed('context'), data: anyNamed('data')))
+          .thenAnswer((_) async => true);
+      when(mockDeviceLocalDataSource.getDevice(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => device);
+      when(mockDeviceLocalDataSource.updateDevice(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths'),
+              where: anyNamed('where')))
+          .thenAnswer((_) async => device);
+      when(mockRefreshTokenLocalDataSource.createRefreshToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => refreshToken);
+      when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      when(mockJsonWebToken.generateAuthorizationToken(
+              payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      final result = await authenticationImpl.refreshToken(
+          context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(
+        mockRefreshTokenLocalDataSource.getRefreshToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verify(
+        mockUserLocalDataSource.getUser(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verify(
+        mockRefreshTokenLocalDataSource.deleteRefreshToken(
+            context: anyNamed('context'), data: anyNamed('data')),
+      );
+      verify(
+        mockDeviceLocalDataSource.getDevice(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verify(
+        mockDeviceLocalDataSource.updateDevice(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths'),
+            where: anyNamed('where')),
+      );
+      verifyNever(mockDeviceLocalDataSource.createDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(
+        mockRefreshTokenLocalDataSource.createRefreshToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verify(
+        mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verify(
+        mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')),
+      );
+      verify(
+        mockJsonWebToken.generateAuthorizationToken(
+            payload: anyNamed('payload')),
+      );
+      expect(result, Right(response));
+    });
+    test('Return data sucessfull when not exist a device', () async {
+      // setup
+      Map<String, dynamic> data = {
+        'refreshToken':
+            jsonWebToken.generateRefreshToken(payload: {'refreshTokenFk': '1'}),
+      };
+      Map<String, dynamic> verifyRefreshTokenPayload = {
+        'refreshTokenFk': 'any'
+      };
+      RefreshToken refreshToken = RefreshToken(
+          id: '',
+          createTime: '',
+          deviceFk: '',
+          expirationTime: '',
+          updateTime: '',
+          userFk: '',
+          valid: true);
+      AuthorizationToken authorizationToken = AuthorizationToken(
+        id: '',
+        createTime: '',
+        deviceFk: '',
+        updateTime: '',
+        userFk: '',
+        valid: true,
+        app: AppType.APP,
+        appVersion: '',
+        refreshTokenFk: '',
+      );
+      Device device = Device(
+          id: '',
+          createTime: '',
+          deviceId: '',
+          firebaseCloudMessagingId: '',
+          model: '',
+          platform: PlatformType.ANDROID,
+          systemVersion: '',
+          updateTime: '');
+      User user = User(
+          alias: '',
+          birthday: '',
+          createTime: '',
+          email: '',
+          fullName: '',
+          highQualityPhoto: '',
+          highQualityPhotoBlurHash: '',
+          id: '',
+          lowQualityPhoto: '',
+          lowQualityPhotoBlurHash: null,
+          permissions: null,
+          thumbnail: '',
+          thumbnailBlurHash: '',
+          updateTime: '',
+          userAddress: null);
+      RefreshTokenResponse response =
+          RefreshTokenResponse(authorizationToken: '1', refreshToken: '1');
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => verifyRefreshTokenPayload);
+      when(
+        mockRefreshTokenLocalDataSource.getRefreshToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      ).thenAnswer((_) async => refreshToken);
+      when(
+        mockUserLocalDataSource.getUser(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      ).thenAnswer((_) async => user);
+      when(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+              context: anyNamed('context'), data: anyNamed('data')))
+          .thenAnswer((_) async => true);
+      when(
+        mockDeviceLocalDataSource.getDevice(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      ).thenAnswer((_) async => null);
+      when(mockDeviceLocalDataSource.createDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => device);
+      when(mockRefreshTokenLocalDataSource.createRefreshToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => refreshToken);
+      when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      when(mockJsonWebToken.generateAuthorizationToken(
+              payload: anyNamed('payload')))
+          .thenAnswer((_) => '1');
+      final result = await authenticationImpl.refreshToken(
+          context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(
+        mockRefreshTokenLocalDataSource.getRefreshToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verify(
+        mockUserLocalDataSource.getUser(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verify(
+        mockRefreshTokenLocalDataSource.deleteRefreshToken(
+            context: anyNamed('context'), data: anyNamed('data')),
+      );
+      verify(
+        mockDeviceLocalDataSource.getDevice(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verifyNever(
+        mockDeviceLocalDataSource.updateDevice(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths'),
+            where: anyNamed('where')),
+      );
+      verify(mockDeviceLocalDataSource.createDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(
+        mockRefreshTokenLocalDataSource.createRefreshToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verify(
+        mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verify(
+        mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')),
+      );
+      verify(
+        mockJsonWebToken.generateAuthorizationToken(
+            payload: anyNamed('payload')),
+      );
+      expect(result, Right(response));
+    });
+    test(
+        'Return GrpcError.invalidArgument when the client not send the refreshToken',
+        () async {
+      // setup
+      // side effects
+      final result = await authenticationImpl.refreshToken(
+          context: ctx, data: {}, metadata: metadata, paths: []);
+      // expectations
+      verifyNever(mockJsonWebToken.verify(any, any));
+      verifyNever(mockRefreshTokenLocalDataSource.getRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockUserLocalDataSource.getUser(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+      ));
+      verifyNever(mockDeviceLocalDataSource.getDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockDeviceLocalDataSource.updateDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+        where: anyNamed('where'),
+      ));
+      verifyNever(mockDeviceLocalDataSource.createDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockRefreshTokenLocalDataSource.createRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(
+          mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockJsonWebToken.generateRefreshToken(
+        payload: anyNamed('payload'),
+      ));
+      verifyNever(mockJsonWebToken.generateAuthorizationToken(
+        payload: anyNamed('payload'),
+      ));
+      expect(result,
+          Left(GrpcError.invalidArgument('Input `refreshToken` invalid')));
+    });
+    test('Return GrpcError.unauthenticated when not exists the refreshToken',
+        () async {
+      // setup
+      Map<String, dynamic> data = {
+        'refreshToken':
+            jsonWebToken.generateRefreshToken(payload: {'refreshTokenFk': '1'}),
+      };
+      Map<String, dynamic> verifyRefreshTokenPayload = {
+        'refreshTokenFk': 'any'
+      };
+      RefreshToken refreshToken = RefreshToken(
+          id: '',
+          createTime: '',
+          deviceFk: '',
+          expirationTime: '',
+          updateTime: '',
+          userFk: '',
+          valid: true);
+      AuthorizationToken authorizationToken = AuthorizationToken(
+        id: '',
+        createTime: '',
+        deviceFk: '',
+        updateTime: '',
+        userFk: '',
+        valid: true,
+        app: AppType.APP,
+        appVersion: '',
+        refreshTokenFk: '',
+      );
+      Device device = Device(
+          id: '',
+          createTime: '',
+          deviceId: '',
+          firebaseCloudMessagingId: '',
+          model: '',
+          platform: PlatformType.ANDROID,
+          systemVersion: '',
+          updateTime: '');
+      User user = User(
+          alias: '',
+          birthday: '',
+          createTime: '',
+          email: '',
+          fullName: '',
+          highQualityPhoto: '',
+          highQualityPhotoBlurHash: '',
+          id: '',
+          lowQualityPhoto: '',
+          lowQualityPhotoBlurHash: null,
+          permissions: null,
+          thumbnail: '',
+          thumbnailBlurHash: '',
+          updateTime: '',
+          userAddress: null);
+      RefreshTokenResponse response =
+          RefreshTokenResponse(authorizationToken: '1', refreshToken: '1');
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => verifyRefreshTokenPayload);
+      when(
+        mockRefreshTokenLocalDataSource.getRefreshToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      ).thenAnswer((_) async => null);
+      final result = await authenticationImpl.refreshToken(
+          context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(
+        mockRefreshTokenLocalDataSource.getRefreshToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verifyNever(
+        mockUserLocalDataSource.getUser(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verifyNever(
+        mockRefreshTokenLocalDataSource.deleteRefreshToken(
+            context: anyNamed('context'), data: anyNamed('data')),
+      );
+      verifyNever(
+        mockDeviceLocalDataSource.getDevice(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verifyNever(
+        mockDeviceLocalDataSource.updateDevice(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths'),
+            where: anyNamed('where')),
+      );
+      verifyNever(mockDeviceLocalDataSource.createDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(
+        mockRefreshTokenLocalDataSource.createRefreshToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verifyNever(
+        mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verifyNever(
+        mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')),
+      );
+      verifyNever(
+        mockJsonWebToken.generateAuthorizationToken(
+            payload: anyNamed('payload')),
+      );
+      expect(result, Left(GrpcError.unauthenticated('Unauthenticated')));
+    });
+    test('Return GrpcError.unauthenticated when not exists the user', () async {
+      // setup
+      Map<String, dynamic> data = {
+        'refreshToken':
+            jsonWebToken.generateRefreshToken(payload: {'refreshTokenFk': '1'}),
+      };
+      Map<String, dynamic> verifyRefreshTokenPayload = {
+        'refreshTokenFk': 'any'
+      };
+      RefreshToken refreshToken = RefreshToken(
+          id: '',
+          createTime: '',
+          deviceFk: '',
+          expirationTime: '',
+          updateTime: '',
+          userFk: '',
+          valid: true);
+      AuthorizationToken authorizationToken = AuthorizationToken(
+        id: '',
+        createTime: '',
+        deviceFk: '',
+        updateTime: '',
+        userFk: '',
+        valid: true,
+        app: AppType.APP,
+        appVersion: '',
+        refreshTokenFk: '',
+      );
+      Device device = Device(
+          id: '',
+          createTime: '',
+          deviceId: '',
+          firebaseCloudMessagingId: '',
+          model: '',
+          platform: PlatformType.ANDROID,
+          systemVersion: '',
+          updateTime: '');
+      User user = User(
+          alias: '',
+          birthday: '',
+          createTime: '',
+          email: '',
+          fullName: '',
+          highQualityPhoto: '',
+          highQualityPhotoBlurHash: '',
+          id: '',
+          lowQualityPhoto: '',
+          lowQualityPhotoBlurHash: null,
+          permissions: null,
+          thumbnail: '',
+          thumbnailBlurHash: '',
+          updateTime: '',
+          userAddress: null);
+      RefreshTokenResponse response =
+          RefreshTokenResponse(authorizationToken: '1', refreshToken: '1');
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => verifyRefreshTokenPayload);
+      when(
+        mockRefreshTokenLocalDataSource.getRefreshToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      ).thenAnswer((_) async => refreshToken);
+      when(
+        mockUserLocalDataSource.getUser(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      ).thenAnswer((_) async => null);
+      final result = await authenticationImpl.refreshToken(
+          context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(
+        mockRefreshTokenLocalDataSource.getRefreshToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verify(
+        mockUserLocalDataSource.getUser(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verifyNever(
+        mockRefreshTokenLocalDataSource.deleteRefreshToken(
+            context: anyNamed('context'), data: anyNamed('data')),
+      );
+      verifyNever(
+        mockDeviceLocalDataSource.getDevice(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verifyNever(
+        mockDeviceLocalDataSource.updateDevice(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths'),
+            where: anyNamed('where')),
+      );
+      verifyNever(mockDeviceLocalDataSource.createDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(
+        mockRefreshTokenLocalDataSource.createRefreshToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verifyNever(
+        mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+            context: anyNamed('context'),
+            data: anyNamed('data'),
+            paths: anyNamed('paths')),
+      );
+      verifyNever(
+        mockJsonWebToken.generateRefreshToken(payload: anyNamed('payload')),
+      );
+      verifyNever(
+        mockJsonWebToken.generateAuthorizationToken(
+            payload: anyNamed('payload')),
+      );
+      expect(result, Left(GrpcError.unauthenticated('Unauthenticated')));
+    });
+    test(
+        'Return data sucessfull and create a device when not exist a device before',
+        () async {
+      // setup
+      Map<String, dynamic> data = {
+        'refreshToken':
+            jsonWebToken.generateRefreshToken(payload: {'refreshTokenFk': '1'}),
+      };
+      Map<String, dynamic> verifyRefreshTokenPayload = {
+        'refreshTokenFk': 'any'
+      };
+      RefreshToken refreshToken = RefreshToken(
+          id: '',
+          createTime: '',
+          deviceFk: '',
+          expirationTime: '',
+          updateTime: '',
+          userFk: '',
+          valid: true);
+      AuthorizationToken authorizationToken = AuthorizationToken(
+        id: '',
+        createTime: '',
+        deviceFk: '',
+        updateTime: '',
+        userFk: '',
+        valid: true,
+        app: AppType.APP,
+        appVersion: '',
+        refreshTokenFk: '',
+      );
+      Device device = Device(
+          id: '',
+          createTime: '',
+          deviceId: '',
+          firebaseCloudMessagingId: '',
+          model: '',
+          platform: PlatformType.ANDROID,
+          systemVersion: '',
+          updateTime: '');
+      User user = User(
+          alias: '',
+          birthday: '',
+          createTime: '',
+          email: '',
+          fullName: '',
+          highQualityPhoto: '',
+          highQualityPhotoBlurHash: '',
+          id: '',
+          lowQualityPhoto: '',
+          lowQualityPhotoBlurHash: null,
+          permissions: null,
+          thumbnail: '',
+          thumbnailBlurHash: '',
+          updateTime: '',
+          userAddress: null);
+      RefreshTokenResponse response =
+          RefreshTokenResponse(authorizationToken: '1', refreshToken: '1');
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => verifyRefreshTokenPayload);
+      when(mockRefreshTokenLocalDataSource.getRefreshToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => refreshToken);
+      when(mockUserLocalDataSource.getUser(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => user);
+      when(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => true);
+      when(mockDeviceLocalDataSource.getDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => null);
+      when(mockDeviceLocalDataSource.createDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => device);
+      when(mockRefreshTokenLocalDataSource.createRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => refreshToken);
+      when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateRefreshToken(
+        payload: anyNamed('payload'),
+      )).thenAnswer((_) => '1');
+      when(mockJsonWebToken.generateAuthorizationToken(
+        payload: anyNamed('payload'),
+      )).thenAnswer((_) => '1');
+      final result = await authenticationImpl.refreshToken(
+          context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(mockRefreshTokenLocalDataSource.getRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockUserLocalDataSource.getUser(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+      ));
+      verify(mockDeviceLocalDataSource.getDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockDeviceLocalDataSource.updateDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+        where: anyNamed('where'),
+      ));
+      verify(mockDeviceLocalDataSource.createDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockRefreshTokenLocalDataSource.createRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockJsonWebToken.generateRefreshToken(
+        payload: anyNamed('payload'),
+      ));
+      verify(mockJsonWebToken.generateAuthorizationToken(
+        payload: anyNamed('payload'),
+      ));
+      expect(result, Right(response));
+    });
+    test(
+        'Return data sucessfull and update the device info when exist a device before',
+        () async {
+      // setup
+      Map<String, dynamic> data = {
+        'refreshToken':
+            jsonWebToken.generateRefreshToken(payload: {'refreshTokenFk': '1'}),
+      };
+      Map<String, dynamic> verifyRefreshTokenPayload = {
+        'refreshTokenFk': 'any'
+      };
+      RefreshToken refreshToken = RefreshToken(
+          id: '',
+          createTime: '',
+          deviceFk: '',
+          expirationTime: '',
+          updateTime: '',
+          userFk: '',
+          valid: true);
+      AuthorizationToken authorizationToken = AuthorizationToken(
+        id: '',
+        createTime: '',
+        deviceFk: '',
+        updateTime: '',
+        userFk: '',
+        valid: true,
+        app: AppType.APP,
+        appVersion: '',
+        refreshTokenFk: '',
+      );
+      Device device = Device(
+          id: '',
+          createTime: '',
+          deviceId: '',
+          firebaseCloudMessagingId: '',
+          model: '',
+          platform: PlatformType.ANDROID,
+          systemVersion: '',
+          updateTime: '');
+      User user = User(
+          alias: '',
+          birthday: '',
+          createTime: '',
+          email: '',
+          fullName: '',
+          highQualityPhoto: '',
+          highQualityPhotoBlurHash: '',
+          id: '',
+          lowQualityPhoto: '',
+          lowQualityPhotoBlurHash: null,
+          permissions: null,
+          thumbnail: '',
+          thumbnailBlurHash: '',
+          updateTime: '',
+          userAddress: null);
+      RefreshTokenResponse response =
+          RefreshTokenResponse(authorizationToken: '1', refreshToken: '1');
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => verifyRefreshTokenPayload);
+      when(mockRefreshTokenLocalDataSource.getRefreshToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => refreshToken);
+      when(mockUserLocalDataSource.getUser(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => user);
+      when(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+      )).thenAnswer((_) async => true);
+      when(mockDeviceLocalDataSource.getDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => device);
+      when(mockDeviceLocalDataSource.updateDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+        where: anyNamed('where'),
+      )).thenAnswer((_) async => device);
+      when(mockRefreshTokenLocalDataSource.createRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => refreshToken);
+      when(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => authorizationToken);
+      when(mockJsonWebToken.generateRefreshToken(
+        payload: anyNamed('payload'),
+      )).thenAnswer((_) => '1');
+      when(mockJsonWebToken.generateAuthorizationToken(
+        payload: anyNamed('payload'),
+      )).thenAnswer((_) => '1');
+      final result = await authenticationImpl.refreshToken(
+          context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(mockRefreshTokenLocalDataSource.getRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockUserLocalDataSource.getUser(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+      ));
+      verify(mockDeviceLocalDataSource.getDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockDeviceLocalDataSource.updateDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+        where: anyNamed('where'),
+      ));
+      verifyNever(mockDeviceLocalDataSource.createDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockRefreshTokenLocalDataSource.createRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockJsonWebToken.generateRefreshToken(
+        payload: anyNamed('payload'),
+      ));
+      verify(mockJsonWebToken.generateAuthorizationToken(
+        payload: anyNamed('payload'),
+      ));
+      expect(result, Right(response));
+    });
+    test('Return GrpcError.internal when the code throw a Exception', () async {
+      // setup
+      Map<String, dynamic> data = {
+        'refreshToken':
+            jsonWebToken.generateRefreshToken(payload: {'refreshTokenFk': '1'}),
+      };
+      // side effects
+      when(mockJsonWebToken.verify(any, any)).thenThrow(Exception());
+      final result = await authenticationImpl.refreshToken(
+          context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verifyNever(mockRefreshTokenLocalDataSource.getRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockUserLocalDataSource.getUser(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+      ));
+      verifyNever(mockDeviceLocalDataSource.getDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockDeviceLocalDataSource.updateDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+        where: anyNamed('where'),
+      ));
+      verifyNever(mockDeviceLocalDataSource.createDevice(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockRefreshTokenLocalDataSource.createRefreshToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(
+          mockAuthorizationTokenLocalDataSource.createAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockJsonWebToken.generateRefreshToken(
+        payload: anyNamed('payload'),
+      ));
+      verifyNever(mockJsonWebToken.generateAuthorizationToken(
+        payload: anyNamed('payload'),
+      ));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });

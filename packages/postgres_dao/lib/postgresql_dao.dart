@@ -61,7 +61,7 @@ class PostgresqlDao {
       {required PostgreSQLExecutionContext context,
       required String table,
       required Map<String, dynamic> data,
-      List<String>? attributes}) async {
+      List<Attribute>? attributes}) async {
     try {
       String query = constructSqlQueryInsert(
           table: table, data: data, attributes: attributes);

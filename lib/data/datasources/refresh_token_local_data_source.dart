@@ -10,7 +10,7 @@ abstract class RefreshTokenLocalDataSource {
   Future<RefreshToken> createRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<List<RefreshToken>> listRefreshToken(
       {required PostgreSQLExecutionContext context,
@@ -22,7 +22,7 @@ abstract class RefreshTokenLocalDataSource {
       required Map<String, dynamic> data,
       required List<Attribute> paths});
 
-  Future<void> deleteRefreshToken(
+  Future<bool> deleteRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data});
 }
@@ -38,15 +38,15 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
   Future<RefreshToken> createRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.create(
           context: context, table: _table, data: data, attributes: paths);
       return RefreshToken(
           id: result['id'],
           expirationTime: result['expirationTime'].toString(),
-          refreshToken: result['refreshToken'],
           userFk: result['userFk'],
+          deviceFk: result['deviceFk'],
           valid: result['valid'],
           createTime: (result['createTime'] != null)
               ? result['createTime'].toString()
@@ -83,10 +83,10 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
         return RefreshToken(
             id: result[_table]['id'],
             userFk: result[_table]['userFk'],
+            deviceFk: result[_table]['deviceFk'],
             expirationTime: (result[_table]['expirationTime'] != null)
                 ? result[_table]['expirationTime'].toString()
                 : null,
-            refreshToken: result[_table]['refreshToken'],
             valid: result[_table]['valid'],
             createTime: (result[_table]['createTime'] != null)
                 ? result[_table]['createTime'].toString()
@@ -102,11 +102,11 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
   }
 
   @override
-  Future<void> deleteRefreshToken(
+  Future<bool> deleteRefreshToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data}) async {
     try {
-      await _database.delete(
+      return await _database.delete(
           context: context,
           table: _table,
           where: getWhereNormalAttributeList(data));

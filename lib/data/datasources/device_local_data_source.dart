@@ -11,7 +11,7 @@ abstract class DeviceLocalDataSource {
   Future<Device> createDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<List<Device>> listDevice(
       {required PostgreSQLExecutionContext context,
@@ -45,7 +45,7 @@ class DeviceLocalDataSourceImpl implements DeviceLocalDataSource {
   Future<Device> createDevice(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.create(
           context: context, table: _table, data: data, attributes: paths);

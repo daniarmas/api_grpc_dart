@@ -12,7 +12,7 @@ abstract class VerificationCodeRepository {
     required PostgreSQLExecutionContext context,
     required Map<String, dynamic> data,
     required HeadersMetadata metadata,
-    required List<String> paths,
+    required List<Attribute> paths,
   });
   Future<Either<GrpcError, ListVerificationCodeResponse>> listVerificationCode({
     required PostgreSQLExecutionContext context,

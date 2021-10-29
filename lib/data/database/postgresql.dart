@@ -52,7 +52,7 @@ class PostgresqlDatabase implements Database {
       {required PostgreSQLExecutionContext context,
       required String table,
       required Map<String, dynamic> data,
-      required List<String> attributes}) async {
+      required List<Attribute> attributes}) async {
     data.addAll({
       'createTime': DateTime.now().toUtc(),
       'updateTime': DateTime.now().toUtc()

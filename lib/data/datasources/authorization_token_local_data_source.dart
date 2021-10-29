@@ -11,7 +11,7 @@ abstract class AuthorizationTokenLocalDataSource {
   Future<AuthorizationToken> createAuthorizationToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<List<AuthorizationToken>> listAuthorizationToken(
       {required PostgreSQLExecutionContext context,
@@ -22,7 +22,7 @@ abstract class AuthorizationTokenLocalDataSource {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<Attribute> paths});
-  Future<void> deleteAuthorizationToken(
+  Future<bool> deleteAuthorizationToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data});
 }
@@ -39,13 +39,12 @@ class AuthorizationTokenLocalDataSourceImpl
   Future<AuthorizationToken> createAuthorizationToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.create(
           context: context, table: _table, data: data, attributes: paths);
       return AuthorizationToken(
           id: result['id'],
-          authorizationToken: result['authorizationToken'],
           refreshTokenFk: result['refreshTokenFk'],
           app: parseAppTypeEnum(result['app']),
           appVersion: result['appVersion'],
@@ -86,7 +85,6 @@ class AuthorizationTokenLocalDataSourceImpl
       if (result != null) {
         return AuthorizationToken(
             id: result[_table]['id'],
-            authorizationToken: result[_table]['authorizationToken'],
             refreshTokenFk: result[_table]['refreshTokenFk'],
             appVersion: result[_table]['appVersion'],
             app: parseAppTypeEnum(result[_table]['app']),
@@ -107,11 +105,11 @@ class AuthorizationTokenLocalDataSourceImpl
   }
 
   @override
-  Future<void> deleteAuthorizationToken(
+  Future<bool> deleteAuthorizationToken(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data}) async {
     try {
-      await _database.delete(
+      return await _database.delete(
           context: context,
           table: _table,
           where: getWhereNormalAttributeList(data));
