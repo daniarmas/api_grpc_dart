@@ -45,8 +45,13 @@ class Server {
             }
           },
           (ServiceCall call, ServiceMethod method) {
-            return authorizationTokenValid(call, method,
-                ['ListBusiness', 'GetBusiness', 'ListItem', 'GetItem']);
+            return authorizationTokenValid(call, method, [
+              'ListBusiness',
+              'GetBusiness',
+              'ListItem',
+              'GetItem',
+              'SignOut'
+            ]);
           }
         ]);
         await server.serve(port: _environment.port);

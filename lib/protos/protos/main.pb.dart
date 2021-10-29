@@ -15,6 +15,67 @@ import 'main.pbenum.dart';
 
 export 'main.pbenum.dart';
 
+class SignOutRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SignOutRequest', createEmptyInstance: create)
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'all')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'authorizationTokenFk', protoName: 'authorizationTokenFk')
+    ..hasRequiredFields = false
+  ;
+
+  SignOutRequest._() : super();
+  factory SignOutRequest({
+    $core.bool? all,
+    $core.String? authorizationTokenFk,
+  }) {
+    final _result = create();
+    if (all != null) {
+      _result.all = all;
+    }
+    if (authorizationTokenFk != null) {
+      _result.authorizationTokenFk = authorizationTokenFk;
+    }
+    return _result;
+  }
+  factory SignOutRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SignOutRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  SignOutRequest clone() => SignOutRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SignOutRequest copyWith(void Function(SignOutRequest) updates) => super.copyWith((message) => updates(message as SignOutRequest)) as SignOutRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SignOutRequest create() => SignOutRequest._();
+  SignOutRequest createEmptyInstance() => create();
+  static $pb.PbList<SignOutRequest> createRepeated() => $pb.PbList<SignOutRequest>();
+  @$core.pragma('dart2js:noInline')
+  static SignOutRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SignOutRequest>(create);
+  static SignOutRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get all => $_getBF(0);
+  @$pb.TagNumber(1)
+  set all($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAll() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAll() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get authorizationTokenFk => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set authorizationTokenFk($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAuthorizationTokenFk() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAuthorizationTokenFk() => clearField(2);
+}
+
 class RefreshTokenRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RefreshTokenRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'refreshToken', protoName: 'refreshToken')

@@ -35,7 +35,7 @@ class HeadersMetadata {
       : accesstoken = call.clientMetadata!['accesstoken']!,
         app = parseAppTypeEnum(call.clientMetadata!['app']!),
         appVersion = call.clientMetadata!['appversion']!,
-        authorizationToken = call.clientMetadata!['authorizationtoken'],
+        authorizationToken = call.clientMetadata!['authorization'],
         deviceId = call.clientMetadata!['deviceid']!,
         ipv4 = call.clientMetadata!['ipv4']!,
         ipv6 = call.clientMetadata!['ipv6']!,

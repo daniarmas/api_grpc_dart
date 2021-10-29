@@ -70,6 +70,8 @@ void main() {
     });
     metadata = HeadersMetadata(
         accesstoken: '1',
+        authorizationToken: '1',
+        refreshToken: '1',
         platform: PlatformType.ANDROID,
         systemVersion: '1',
         appVersion: '1',
@@ -4295,6 +4297,317 @@ void main() {
         payload: anyNamed('payload'),
       ));
       expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+  });
+  group('testing signOut', () {
+    test('SignOut sucessfull when all == true', () async {
+      // setup
+      Map<String, dynamic> data = {'all': true};
+      Map<String, dynamic> jsonWebTokenVerify = {'authorizationTokenFk': ''};
+      AuthorizationToken authorizationToken = AuthorizationToken(
+          id: '',
+          app: AppType.APP,
+          appVersion: '',
+          createTime: '',
+          deviceFk: '',
+          refreshTokenFk: '',
+          updateTime: '',
+          userFk: '',
+          valid: true);
+      Device device = Device(
+          id: '',
+          createTime: '',
+          deviceId: '',
+          firebaseCloudMessagingId: '',
+          model: '',
+          platform: PlatformType.ANDROID,
+          systemVersion: '',
+          updateTime: '');
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => jsonWebTokenVerify);
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => authorizationToken);
+      when(mockDeviceLocalDataSource.getDevice(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => device);
+      when(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              where: anyNamed('where')))
+          .thenAnswer((_) async => true);
+      final result = await authenticationImpl
+          .signOut(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verify(mockDeviceLocalDataSource.getDevice(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verify(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          where: anyNamed('where')));
+      expect(result, Right(null));
+    });
+    test(
+        'Return GrpcError.unauthenticated() when all == true and the authorizationToken not exists',
+        () async {
+      // setup
+      Map<String, dynamic> data = {'all': true};
+      Map<String, dynamic> jsonWebTokenVerify = {'authorizationTokenFk': ''};
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => jsonWebTokenVerify);
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      final result = await authenticationImpl
+          .signOut(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verifyNever(mockDeviceLocalDataSource.getDevice(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verifyNever(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          where: anyNamed('where')));
+      expect(result, Left(GrpcError.unauthenticated('Unauthenticated')));
+    });
+    test(
+        'Return GrpcError.unauthenticated() when all == true and the device not exists',
+        () async {
+      // setup
+      Map<String, dynamic> data = {'all': true};
+      Map<String, dynamic> jsonWebTokenVerify = {'authorizationTokenFk': ''};
+      AuthorizationToken authorizationToken = AuthorizationToken(
+          id: '',
+          app: AppType.APP,
+          appVersion: '',
+          createTime: '',
+          deviceFk: '',
+          refreshTokenFk: '',
+          updateTime: '',
+          userFk: '',
+          valid: true);
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => jsonWebTokenVerify);
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => authorizationToken);
+      when(mockDeviceLocalDataSource.getDevice(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      final result = await authenticationImpl
+          .signOut(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verify(mockDeviceLocalDataSource.getDevice(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verifyNever(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          where: anyNamed('where')));
+      expect(result, Left(GrpcError.unauthenticated('Unauthenticated')));
+    });
+    test(
+        'SignOut sucessfull when everything is fine and all == false and authorizationTokenFk == null',
+        () async {
+      // setup
+      Map<String, dynamic> data = {
+        'all': false,
+        'authorizationTokenFk': '',
+      };
+      Map<String, dynamic> jsonWebTokenVerify = {
+        'authorizationTokenFk': '',
+      };
+      AuthorizationToken authorizationToken = AuthorizationToken(
+          id: '',
+          app: AppType.APP,
+          appVersion: '',
+          createTime: '',
+          deviceFk: '',
+          refreshTokenFk: '',
+          updateTime: '',
+          userFk: '',
+          valid: true);
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => jsonWebTokenVerify);
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => authorizationToken);
+      when(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              where: anyNamed('where')))
+          .thenAnswer((_) async => true);
+      final result = await authenticationImpl
+          .signOut(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verify(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          where: anyNamed('where')));
+      expect(result, Right(null));
+    });
+    test(
+        'Return GrpcError.unauthenticated when authorizationToken dosnt exists and all == false and authorizationTokenFk == null',
+        () async {
+      // setup
+      Map<String, dynamic> data = {
+        'all': false,
+        'authorizationTokenFk': '',
+      };
+      Map<String, dynamic> jsonWebTokenVerify = {
+        'authorizationTokenFk': '',
+      };
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => jsonWebTokenVerify);
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => null);
+      final result = await authenticationImpl
+          .signOut(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verifyNever(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          where: anyNamed('where')));
+      expect(result, Left(GrpcError.unauthenticated('Unauthenticated')));
+    });
+    test(
+        'Return GrpcError.internal when the code throw a Exception dosnt exists and all == false and authorizationTokenFk == null',
+        () async {
+      // setup
+      Map<String, dynamic> data = {
+        'all': false,
+        'authorizationTokenFk': '',
+      };
+      // side effects
+      when(mockJsonWebToken.verify(any, any)).thenThrow(Exception());
+      final result = await authenticationImpl
+          .signOut(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verifyNever(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verifyNever(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          where: anyNamed('where')));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+    test(
+        'SignOut sucessfull when all == false and authorizationTokenFk != null',
+        () async {
+      // setup
+      Map<String, dynamic> data = {
+        'all': true,
+        'authorizationTokenFk': '1',
+      };
+      Map<String, dynamic> jsonWebTokenVerify = {
+        'authorizationTokenFk': '',
+      };
+      AuthorizationToken authorizationToken = AuthorizationToken(
+          id: '',
+          app: AppType.APP,
+          appVersion: '',
+          createTime: '',
+          deviceFk: '',
+          refreshTokenFk: '',
+          updateTime: '',
+          userFk: '',
+          valid: true);
+      Device device = Device(
+          id: '',
+          createTime: '',
+          deviceId: '',
+          firebaseCloudMessagingId: '',
+          model: '',
+          platform: PlatformType.ANDROID,
+          systemVersion: '',
+          updateTime: '');
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => jsonWebTokenVerify);
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => authorizationToken);
+      when(mockDeviceLocalDataSource.getDevice(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => device);
+      when(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              where: anyNamed('where')))
+          .thenAnswer((_) async => true);
+      final result = await authenticationImpl
+          .signOut(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verify(mockDeviceLocalDataSource.getDevice(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      verify(mockRefreshTokenLocalDataSource.deleteRefreshToken(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          where: anyNamed('where')));
+      expect(result, Right(null));
     });
   });
 }
