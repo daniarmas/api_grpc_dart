@@ -22,9 +22,11 @@ abstract class RefreshTokenLocalDataSource {
       required Map<String, dynamic> data,
       required List<Attribute> paths});
 
-  Future<bool> deleteRefreshToken(
-      {required PostgreSQLExecutionContext context,
-      required Map<String, dynamic> data});
+  Future<bool> deleteRefreshToken({
+    required PostgreSQLExecutionContext context,
+    required Map<String, dynamic> data,
+    List<Where>? where,
+  });
 }
 
 @Injectable(as: RefreshTokenLocalDataSource)
@@ -102,14 +104,16 @@ class RefreshTokenLocalDataSourceImpl implements RefreshTokenLocalDataSource {
   }
 
   @override
-  Future<bool> deleteRefreshToken(
-      {required PostgreSQLExecutionContext context,
-      required Map<String, dynamic> data}) async {
+  Future<bool> deleteRefreshToken({
+    required PostgreSQLExecutionContext context,
+    required Map<String, dynamic> data,
+    List<Where>? where,
+  }) async {
     try {
       return await _database.delete(
           context: context,
           table: _table,
-          where: getWhereNormalAttributeList(data));
+          where: (where == null) ? getWhereNormalAttributeList(data) : where);
     } catch (error) {
       rethrow;
     }

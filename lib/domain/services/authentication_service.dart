@@ -14,14 +14,17 @@ import '../../protos/protos/main.pbgrpc.dart';
 
 class AuthenticationService extends AuthenticationServiceBase {
   Database database = GetIt.I<Database>();
+  AuthenticationRepository authenticationRepository =
+      GetIt.I<AuthenticationRepository>();
+  VerificationCodeRepository verificationCodeRepository =
+      GetIt.I<VerificationCodeRepository>();
+  UserRepository userRepository = GetIt.I<UserRepository>();
 
   @override
   Future<CreateVerificationCodeResponse> createVerificationCode(
       ServiceCall call, CreateVerificationCodeRequest request) async {
     try {
       late CreateVerificationCodeResponse response;
-      VerificationCodeRepository verificationCodeRepository =
-          GetIt.I<VerificationCodeRepository>();
       late Either<GrpcError, CreateVerificationCodeResponse> result;
       var connection = await database.getConnection();
       HeadersMetadata metadata = HeadersMetadata.fromServiceCall(call);
@@ -48,8 +51,6 @@ class AuthenticationService extends AuthenticationServiceBase {
       ServiceCall call, ListVerificationCodeRequest request) async {
     try {
       late ListVerificationCodeResponse response;
-      VerificationCodeRepository verificationCodeRepository =
-          GetIt.I<VerificationCodeRepository>();
       late Either<GrpcError, ListVerificationCodeResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
@@ -76,8 +77,6 @@ class AuthenticationService extends AuthenticationServiceBase {
       ServiceCall call, GetVerificationCodeRequest request) async {
     try {
       late GetVerificationCodeResponse response;
-      VerificationCodeRepository verificationCodeRepository =
-          GetIt.I<VerificationCodeRepository>();
       late Either<GrpcError, GetVerificationCodeResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
@@ -102,8 +101,6 @@ class AuthenticationService extends AuthenticationServiceBase {
   Future<Empty> deleteVerificationCode(
       ServiceCall call, DeleteVerificationCodeRequest request) async {
     try {
-      VerificationCodeRepository verificationCodeRepository =
-          GetIt.I<VerificationCodeRepository>();
       late Either<GrpcError, void> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
@@ -127,12 +124,10 @@ class AuthenticationService extends AuthenticationServiceBase {
   Future<SignInResponse> signIn(ServiceCall call, SignInRequest request) async {
     try {
       late SignInResponse response;
-      AuthenticationRepository signInRepository =
-          GetIt.I<AuthenticationRepository>();
       late Either<GrpcError, SignInResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
-        result = await signInRepository.signIn(
+        result = await authenticationRepository.signIn(
             metadata: HeadersMetadata.fromServiceCall(call),
             data: getRequestData(request),
             paths: getPaths(request.fieldMask.paths),
@@ -154,8 +149,6 @@ class AuthenticationService extends AuthenticationServiceBase {
       ServiceCall call, UpdateVerificationCodeRequest request) async {
     try {
       late UpdateVerificationCodeResponse response;
-      VerificationCodeRepository verificationCodeRepository =
-          GetIt.I<VerificationCodeRepository>();
       late Either<GrpcError, UpdateVerificationCodeResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
@@ -181,8 +174,6 @@ class AuthenticationService extends AuthenticationServiceBase {
       ServiceCall call, CheckSessionRequest request) async {
     try {
       late CheckSessionResponse response;
-      AuthenticationRepository authenticationRepository =
-          GetIt.I<AuthenticationRepository>();
       late Either<GrpcError, CheckSessionResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
@@ -206,7 +197,6 @@ class AuthenticationService extends AuthenticationServiceBase {
   Future<Empty> userExists(ServiceCall call, UserExistsRequest request) async {
     try {
       late Empty response;
-      UserRepository userRepository = GetIt.I<UserRepository>();
       late Either<GrpcError, User> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
@@ -231,7 +221,6 @@ class AuthenticationService extends AuthenticationServiceBase {
   Stream<UserExistsStreamResponse> userExistsStream(
       ServiceCall call, Stream<UserExistsStreamRequest> request) async* {
     try {
-      UserRepository userRepository = GetIt.I<UserRepository>();
       late UserExistsStreamResponse response;
       late Either<GrpcError, UserExistsStreamResponse> result;
       var connection = await database.getConnection();
@@ -258,8 +247,6 @@ class AuthenticationService extends AuthenticationServiceBase {
   Future<SignUpResponse> signUp(ServiceCall call, SignUpRequest request) async {
     try {
       late SignUpResponse response;
-      AuthenticationRepository authenticationRepository =
-          GetIt.I<AuthenticationRepository>();
       late Either<GrpcError, SignUpResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
@@ -285,8 +272,6 @@ class AuthenticationService extends AuthenticationServiceBase {
       ServiceCall call, RefreshTokenRequest request) async {
     try {
       late RefreshTokenResponse response;
-      AuthenticationRepository authenticationRepository =
-          GetIt.I<AuthenticationRepository>();
       late Either<GrpcError, RefreshTokenResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
@@ -297,6 +282,30 @@ class AuthenticationService extends AuthenticationServiceBase {
             context: context);
       });
       result.fold((left) => {throw left}, (right) => {response = right});
+      return response;
+    } catch (error) {
+      if (error is GrpcError) {
+        rethrow;
+      } else {
+        throw GrpcError.internal('Internal server error');
+      }
+    }
+  }
+
+  @override
+  Future<Empty> signOut(ServiceCall call, SignOutRequest request) async {
+    try {
+      late Empty response;
+      late Either<GrpcError, void> result;
+      var connection = await database.getConnection();
+      await connection.transaction((context) async {
+        result = await authenticationRepository.signOut(
+            metadata: HeadersMetadata.fromServiceCall(call),
+            data: getRequestData(request),
+            paths: [],
+            context: context);
+      });
+      result.fold((left) => {throw left}, (right) => {response = Empty()});
       return response;
     } catch (error) {
       if (error is GrpcError) {

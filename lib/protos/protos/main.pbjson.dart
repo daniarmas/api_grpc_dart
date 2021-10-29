@@ -82,6 +82,17 @@ const AppType$json = const {
 
 /// Descriptor for `AppType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhgKFEFQUF9UWVBFX1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
+@$core.Deprecated('Use signOutRequestDescriptor instead')
+const SignOutRequest$json = const {
+  '1': 'SignOutRequest',
+  '2': const [
+    const {'1': 'all', '3': 1, '4': 1, '5': 8, '10': 'all'},
+    const {'1': 'authorizationTokenFk', '3': 2, '4': 1, '5': 9, '10': 'authorizationTokenFk'},
+  ],
+};
+
+/// Descriptor for `SignOutRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List signOutRequestDescriptor = $convert.base64Decode('Cg5TaWduT3V0UmVxdWVzdBIQCgNhbGwYASABKAhSA2FsbBIyChRhdXRob3JpemF0aW9uVG9rZW5GaxgCIAEoCVIUYXV0aG9yaXphdGlvblRva2VuRms=');
 @$core.Deprecated('Use refreshTokenRequestDescriptor instead')
 const RefreshTokenRequest$json = const {
   '1': 'RefreshTokenRequest',

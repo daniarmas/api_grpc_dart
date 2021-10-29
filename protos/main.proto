@@ -12,6 +12,7 @@ service AuthenticationService {
 
   rpc SignIn (SignInRequest) returns (SignInResponse) {}
   rpc SignUp (SignUpRequest) returns (SignUpResponse) {}
+  rpc SignOut (SignOutRequest) returns (google.protobuf.Empty) {}
 
   rpc CheckSession (CheckSessionRequest) returns (CheckSessionResponse) {}
 
@@ -46,6 +47,11 @@ service Health {
 
 // Request & Response Message
 
+message SignOutRequest {
+  bool all = 1;
+  string authorizationTokenFk = 2;
+}
+ 
 message RefreshTokenRequest {
   string refreshToken = 1;
   google.protobuf.FieldMask fieldMask = 2;

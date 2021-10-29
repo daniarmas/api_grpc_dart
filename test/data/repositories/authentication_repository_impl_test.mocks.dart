@@ -551,10 +551,11 @@ class MockRefreshTokenLocalDataSource extends _i1.Mock
   @override
   _i4.Future<bool> deleteRefreshToken(
           {_i5.PostgreSQLExecutionContext? context,
-          Map<String, dynamic>? data}) =>
+          Map<String, dynamic>? data,
+          List<_i6.Where>? where}) =>
       (super.noSuchMethod(
-          Invocation.method(
-              #deleteRefreshToken, [], {#context: context, #data: data}),
+          Invocation.method(#deleteRefreshToken, [],
+              {#context: context, #data: data, #where: where}),
           returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
   @override
   String toString() => super.toString();

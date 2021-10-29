@@ -54,6 +54,10 @@ class AuthenticationServiceClient extends $grpc.Client {
           '/AuthenticationService/SignUp',
           ($0.SignUpRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.SignUpResponse.fromBuffer(value));
+  static final _$signOut = $grpc.ClientMethod<$0.SignOutRequest, $1.Empty>(
+      '/AuthenticationService/SignOut',
+      ($0.SignOutRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
   static final _$checkSession =
       $grpc.ClientMethod<$0.CheckSessionRequest, $0.CheckSessionResponse>(
           '/AuthenticationService/CheckSession',
@@ -124,6 +128,11 @@ class AuthenticationServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.SignUpResponse> signUp($0.SignUpRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$signUp, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Empty> signOut($0.SignOutRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$signOut, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CheckSessionResponse> checkSession(
@@ -212,6 +221,13 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.SignUpRequest.fromBuffer(value),
         ($0.SignUpResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SignOutRequest, $1.Empty>(
+        'SignOut',
+        signOut_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.SignOutRequest.fromBuffer(value),
+        ($1.Empty value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.CheckSessionRequest, $0.CheckSessionResponse>(
             'CheckSession',
@@ -287,6 +303,11 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
     return signUp(call, await request);
   }
 
+  $async.Future<$1.Empty> signOut_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SignOutRequest> request) async {
+    return signOut(call, await request);
+  }
+
   $async.Future<$0.CheckSessionResponse> checkSession_Pre(
       $grpc.ServiceCall call,
       $async.Future<$0.CheckSessionRequest> request) async {
@@ -318,6 +339,8 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.SignInRequest request);
   $async.Future<$0.SignUpResponse> signUp(
       $grpc.ServiceCall call, $0.SignUpRequest request);
+  $async.Future<$1.Empty> signOut(
+      $grpc.ServiceCall call, $0.SignOutRequest request);
   $async.Future<$0.CheckSessionResponse> checkSession(
       $grpc.ServiceCall call, $0.CheckSessionRequest request);
   $async.Future<$0.RefreshTokenResponse> refreshToken(

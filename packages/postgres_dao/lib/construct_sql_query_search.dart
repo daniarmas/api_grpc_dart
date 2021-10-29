@@ -75,9 +75,6 @@ String constructSqlQuerySearch({
             if (y == 0) {
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\'';
-              } else if (item is WhereNormalSearch) {
-                whereString +=
-                    ' to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (where[y] is WhereNormalAttributeNotIn &&
@@ -98,9 +95,6 @@ String constructSqlQuerySearch({
             } else {
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' AND "$table".${item.key} = \'${item.value}\'';
-              } else if (item is WhereNormalSearch) {
-                whereString +=
-                    ' AND to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString +=
                     ' AND "$table".${item.key} != \'${item.value}\' ';
@@ -126,9 +120,6 @@ String constructSqlQuerySearch({
             if (y == 0) {
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\'';
-              } else if (item is WhereNormalSearch) {
-                whereString +=
-                    ' to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (where[y] is WhereNormalAttributeNotIn &&
@@ -149,9 +140,6 @@ String constructSqlQuerySearch({
             } else {
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' OR "$table".${item.key} = \'${item.value}\'';
-              } else if (item is WhereNormalSearch) {
-                whereString +=
-                    ' OR to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += ' OR "$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -173,9 +161,6 @@ String constructSqlQuerySearch({
           var item = where[i] as WhereAttribute;
           if (item is WhereNormalAttributeEqual) {
             whereString += '"$table".${item.key} = \'${item.value}\'';
-          } else if (item is WhereNormalSearch) {
-            whereString +=
-                'to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\')';
           } else if (item is WhereNormalAttributeNotEqual) {
             whereString += '"$table".${item.key} != \'${item.value}\' ';
           } else if (item is WhereNormalAttributeNotIn && item.value != '') {
@@ -199,9 +184,6 @@ String constructSqlQuerySearch({
             if (y == 0) {
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\' ';
-              } else if (item is WhereNormalSearch) {
-                whereString +=
-                    ' to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -220,9 +202,6 @@ String constructSqlQuerySearch({
             } else {
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' AND "$table".${item.key} = \'${item.value}\' ';
-              } else if (item is WhereNormalSearch) {
-                whereString +=
-                    ' AND to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString +=
                     ' AND "$table".${item.key} != \'${item.value}\' ';
@@ -248,9 +227,6 @@ String constructSqlQuerySearch({
             if (y == 0) {
               if (item is WhereNormalAttributeEqual) {
                 whereString += '"$table".${item.key} = \'${item.value}\' ';
-              } else if (item is WhereNormalSearch) {
-                whereString +=
-                    ' to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += '"$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -269,9 +245,6 @@ String constructSqlQuerySearch({
             } else {
               if (item is WhereNormalAttributeEqual) {
                 whereString += ' OR "$table".${item.key} = \'${item.value}\' ';
-              } else if (item is WhereNormalSearch) {
-                whereString +=
-                    ' OR to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
               } else if (item is WhereNormalAttributeNotEqual) {
                 whereString += ' OR "$table".${item.key} != \'${item.value}\' ';
               } else if (item is WhereNormalAttributeNotIn &&
@@ -293,9 +266,6 @@ String constructSqlQuerySearch({
           var item = where[i] as WhereAttribute;
           if (item is WhereNormalAttributeEqual) {
             whereString += ' "$table".${item.key} = \'${item.value}\' ';
-          } else if (item is WhereNormalSearch) {
-            whereString +=
-                ' to_tsvector("$table".${item.key}) @@ to_tsquery(\'${item.value}\') ';
           } else if (item is WhereNormalAttributeNotEqual) {
             whereString += ' "$table".${item.key} != \'${item.value}\' ';
           } else if (item is WhereNormalAttributeNotIn && item.value != '') {

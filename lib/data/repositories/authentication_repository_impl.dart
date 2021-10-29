@@ -12,7 +12,6 @@ import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/email/emailer.dart';
 import 'package:api_grpc_dart/domain/repositories/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mailer/mailer.dart';
@@ -546,6 +545,100 @@ class AuthenticationImpl implements AuthenticationRepository {
       return Right(RefreshTokenResponse(
           authorizationToken: newAuthorizationToken,
           refreshToken: newRefreshToken));
+    } on GrpcError catch (error) {
+      return Left(error);
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
+    }
+  }
+
+  @override
+  Future<Either<GrpcError, void>> signOut(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required HeadersMetadata metadata,
+      required List<Attribute> paths}) async {
+    try {
+      if (data['all']) {
+        final authorizationTokenPayload = jsonWebToken.verify(
+            metadata.authorizationToken!, 'AuthorizationToken');
+        final authorizationToken = await authorizationTokenLocalDataSource
+            .getAuthorizationToken(
+                context: context,
+                data: {'id': authorizationTokenPayload['authorizationTokenFk']},
+                paths: [NormalAttribute(name: 'userFk')]);
+        if (authorizationToken == null) {
+          return Left(GrpcError.unauthenticated('Unauthenticated'));
+        }
+        final device = await deviceLocalDataSource.getDevice(
+            context: context,
+            data: {'deviceId': metadata.deviceId},
+            paths: [NormalAttribute(name: 'id')]);
+        if (device == null) {
+          return Left(GrpcError.unauthenticated('Unauthenticated'));
+        }
+        await refreshTokenLocalDataSource.deleteRefreshToken(
+          context: context,
+          data: data,
+          where: [
+            WhereNormalAttributeEqual(
+                key: 'userFk', value: authorizationToken.userFk),
+            WhereNormalAttributeNotEqual(key: 'deviceFk', value: device.id)
+          ],
+        );
+        return Right(null);
+      } else if (data['authorizationTokenFk'] != '') {
+        final authorizationTokenPayload = jsonWebToken.verify(
+            metadata.authorizationToken!, 'AuthorizationToken');
+        final authorizationTokenByMetadata =
+            await authorizationTokenLocalDataSource.getAuthorizationToken(
+                context: context,
+                data: {'id': authorizationTokenPayload['authorizationTokenFk']},
+                paths: [NormalAttribute(name: 'userFk')]);
+        final authorizationTokenByRequest =
+            await authorizationTokenLocalDataSource
+                .getAuthorizationToken(context: context, data: {
+          'id': data['authorizationTokenFk']
+        }, paths: [
+          NormalAttribute(name: 'userFk'),
+          NormalAttribute(name: 'refreshTokenFk'),
+        ]);
+        if (authorizationTokenByMetadata!.userFk !=
+            authorizationTokenByRequest!.userFk) {
+          return Left(GrpcError.permissionDenied('Permission denied'));
+        }
+        await refreshTokenLocalDataSource.deleteRefreshToken(
+          context: context,
+          data: data,
+          where: [
+            WhereNormalAttributeEqual(
+                key: 'id', value: authorizationTokenByRequest.refreshTokenFk),
+          ],
+        );
+        return Right(null);
+      } else {
+        final authorizationTokenPayload = jsonWebToken.verify(
+            metadata.authorizationToken!, 'AuthorizationToken');
+        final authorizationTokenByMetadata =
+            await authorizationTokenLocalDataSource
+                .getAuthorizationToken(context: context, data: {
+          'id': authorizationTokenPayload['authorizationTokenFk']
+        }, paths: [
+          NormalAttribute(name: 'refreshTokenFk'),
+        ]);
+        if (authorizationTokenByMetadata == null) {
+          return Left(GrpcError.unauthenticated('Unauthenticated'));
+        }
+        await refreshTokenLocalDataSource.deleteRefreshToken(
+          context: context,
+          data: data,
+          where: [
+            WhereNormalAttributeEqual(
+                key: 'id', value: authorizationTokenByMetadata.refreshTokenFk),
+          ],
+        );
+        return Right(null);
+      }
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception {
