@@ -1,7 +1,9 @@
+import 'package:postgres_dao/postgres_dao.dart';
+
 String constructSqlQueryInsert(
     {required String table,
     required Map<String, dynamic> data,
-    List<String>? attributes}) {
+    List<Attribute>? attributes}) {
   String columns = '';
   String valuesResult = '';
   Iterable<String> keys = data.keys;
@@ -22,9 +24,9 @@ String constructSqlQueryInsert(
     attributesResult = '';
     for (int i = 0; i < attributes.length; i++) {
       if (i == attributes.length - 1) {
-        attributesResult += '"${attributes[i]}"';
+        attributesResult += attributes[i].name;
       } else {
-        attributesResult += '"${attributes[i]}",';
+        attributesResult += '${attributes[i].name},';
       }
     }
   }

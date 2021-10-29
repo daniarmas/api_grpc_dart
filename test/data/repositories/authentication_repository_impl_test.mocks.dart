@@ -64,7 +64,7 @@ class MockVerificationCodeLocalDataSource extends _i1.Mock
   _i4.Future<_i2.VerificationCode> createVerificationCode(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#createVerificationCode, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -127,7 +127,7 @@ class MockUserLocalDataSource extends _i1.Mock
   _i4.Future<_i2.User> createUser(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
           Invocation.method(
               #createUser, [], {#context: context, #data: data, #paths: paths}),
@@ -187,7 +187,7 @@ class MockDeviceLocalDataSource extends _i1.Mock
   _i4.Future<_i2.Device> createDevice(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#createDevice, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -382,7 +382,7 @@ class MockAuthorizationTokenLocalDataSource extends _i1.Mock
   _i4.Future<_i2.AuthorizationToken> createAuthorizationToken(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#createAuthorizationToken, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -411,14 +411,13 @@ class MockAuthorizationTokenLocalDataSource extends _i1.Mock
               returnValue: Future<_i2.AuthorizationToken?>.value())
           as _i4.Future<_i2.AuthorizationToken?>);
   @override
-  _i4.Future<void> deleteAuthorizationToken(
+  _i4.Future<bool> deleteAuthorizationToken(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data}) =>
       (super.noSuchMethod(
           Invocation.method(
               #deleteAuthorizationToken, [], {#context: context, #data: data}),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
   @override
   String toString() => super.toString();
 }
@@ -521,7 +520,7 @@ class MockRefreshTokenLocalDataSource extends _i1.Mock
   _i4.Future<_i2.RefreshToken> createRefreshToken(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data,
-          List<String>? paths}) =>
+          List<_i6.Attribute>? paths}) =>
       (super.noSuchMethod(
               Invocation.method(#createRefreshToken, [],
                   {#context: context, #data: data, #paths: paths}),
@@ -550,14 +549,13 @@ class MockRefreshTokenLocalDataSource extends _i1.Mock
               returnValue: Future<_i2.RefreshToken?>.value())
           as _i4.Future<_i2.RefreshToken?>);
   @override
-  _i4.Future<void> deleteRefreshToken(
+  _i4.Future<bool> deleteRefreshToken(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data}) =>
       (super.noSuchMethod(
           Invocation.method(
               #deleteRefreshToken, [], {#context: context, #data: data}),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
   @override
   String toString() => super.toString();
 }

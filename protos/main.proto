@@ -15,6 +15,8 @@ service AuthenticationService {
 
   rpc CheckSession (CheckSessionRequest) returns (CheckSessionResponse) {}
 
+  rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse) {}
+
   rpc UserExists (UserExistsRequest) returns (google.protobuf.Empty) {}
   rpc UserExistsStream (stream UserExistsStreamRequest) returns (stream UserExistsStreamResponse) {}
 }
@@ -43,6 +45,16 @@ service Health {
 }
 
 // Request & Response Message
+
+message RefreshTokenRequest {
+  string refreshToken = 1;
+  google.protobuf.FieldMask fieldMask = 2;
+}
+
+message RefreshTokenResponse {
+  string refreshToken = 1;
+  string authorizationToken = 2;
+}
 
 message SearchItemRequest {
   int32 nextPage = 1;
@@ -345,21 +357,20 @@ message BannedDevice {
 
 message AuthorizationToken {
   string id = 1;
-  string authorizationToken = 2;
-  string refreshTokenFk = 3;
-  string deviceFk = 4;
-  string userFk = 5;
-  bool valid = 6;
-  AppType app = 7;
-  string appVersion = 8;
-  string createTime = 9;
-  string updateTime = 10;
+  string refreshTokenFk = 2;
+  string deviceFk = 3;
+  string userFk = 4;
+  bool valid = 5;
+  AppType app = 6;
+  string appVersion = 7;
+  string createTime = 8;
+  string updateTime = 9;
 }
 
 message RefreshToken {
   string id = 1;
-  string refreshToken = 2;
-  string userFk = 3;
+  string userFk = 2;
+  string deviceFk = 3;
   bool valid = 4;
   string expirationTime = 5;
   string createTime = 6;

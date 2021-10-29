@@ -10,7 +10,7 @@ abstract class UserLocalDataSource {
   Future<User> createUser(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths});
+      required List<Attribute> paths});
 
   Future<List<User>> listUser(
       {required PostgreSQLExecutionContext context,
@@ -41,7 +41,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
   Future<User> createUser(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<String> paths}) async {
+      required List<Attribute> paths}) async {
     try {
       final result = await _database.create(
           context: context, table: _table, data: data, attributes: paths);

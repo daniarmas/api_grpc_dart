@@ -36,7 +36,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
           {required PostgreSQLExecutionContext context,
           required Map<String, dynamic> data,
           required HeadersMetadata metadata,
-          required List<String> paths}) async {
+          required List<Attribute> paths}) async {
     try {
       if (data['type'] ==
           VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED) {

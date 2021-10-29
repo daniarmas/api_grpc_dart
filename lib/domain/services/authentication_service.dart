@@ -29,7 +29,7 @@ class AuthenticationService extends AuthenticationServiceBase {
         result = await verificationCodeRepository.createVerificationCode(
             metadata: metadata,
             data: getRequestData(request, add: {'deviceId': metadata.deviceId}),
-            paths: request.fieldMask.paths,
+            paths: getPaths(request.fieldMask.paths),
             context: context);
       });
       result.fold((left) => {throw left}, (right) => {response = right});
@@ -267,6 +267,33 @@ class AuthenticationService extends AuthenticationServiceBase {
             metadata: HeadersMetadata.fromServiceCall(call),
             data: getRequestData(request),
             paths: [],
+            context: context);
+      });
+      result.fold((left) => {throw left}, (right) => {response = right});
+      return response;
+    } catch (error) {
+      if (error is GrpcError) {
+        rethrow;
+      } else {
+        throw GrpcError.internal('Internal server error');
+      }
+    }
+  }
+
+  @override
+  Future<RefreshTokenResponse> refreshToken(
+      ServiceCall call, RefreshTokenRequest request) async {
+    try {
+      late RefreshTokenResponse response;
+      AuthenticationRepository authenticationRepository =
+          GetIt.I<AuthenticationRepository>();
+      late Either<GrpcError, RefreshTokenResponse> result;
+      var connection = await database.getConnection();
+      await connection.transaction((context) async {
+        result = await authenticationRepository.refreshToken(
+            metadata: HeadersMetadata.fromServiceCall(call),
+            data: getRequestData(request),
+            paths: getPaths(request.fieldMask.paths),
             context: context);
       });
       result.fold((left) => {throw left}, (right) => {response = right});

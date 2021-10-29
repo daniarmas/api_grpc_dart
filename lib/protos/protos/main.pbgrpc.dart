@@ -60,6 +60,12 @@ class AuthenticationServiceClient extends $grpc.Client {
           ($0.CheckSessionRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.CheckSessionResponse.fromBuffer(value));
+  static final _$refreshToken =
+      $grpc.ClientMethod<$0.RefreshTokenRequest, $0.RefreshTokenResponse>(
+          '/AuthenticationService/RefreshToken',
+          ($0.RefreshTokenRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.RefreshTokenResponse.fromBuffer(value));
   static final _$userExists =
       $grpc.ClientMethod<$0.UserExistsRequest, $1.Empty>(
           '/AuthenticationService/UserExists',
@@ -124,6 +130,12 @@ class AuthenticationServiceClient extends $grpc.Client {
       $0.CheckSessionRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$checkSession, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.RefreshTokenResponse> refreshToken(
+      $0.RefreshTokenRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$refreshToken, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.Empty> userExists($0.UserExistsRequest request,
@@ -209,6 +221,15 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
             ($core.List<$core.int> value) =>
                 $0.CheckSessionRequest.fromBuffer(value),
             ($0.CheckSessionResponse value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.RefreshTokenRequest, $0.RefreshTokenResponse>(
+            'RefreshToken',
+            refreshToken_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.RefreshTokenRequest.fromBuffer(value),
+            ($0.RefreshTokenResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.UserExistsRequest, $1.Empty>(
         'UserExists',
         userExists_Pre,
@@ -272,6 +293,12 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
     return checkSession(call, await request);
   }
 
+  $async.Future<$0.RefreshTokenResponse> refreshToken_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.RefreshTokenRequest> request) async {
+    return refreshToken(call, await request);
+  }
+
   $async.Future<$1.Empty> userExists_Pre($grpc.ServiceCall call,
       $async.Future<$0.UserExistsRequest> request) async {
     return userExists(call, await request);
@@ -293,6 +320,8 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.SignUpRequest request);
   $async.Future<$0.CheckSessionResponse> checkSession(
       $grpc.ServiceCall call, $0.CheckSessionRequest request);
+  $async.Future<$0.RefreshTokenResponse> refreshToken(
+      $grpc.ServiceCall call, $0.RefreshTokenRequest request);
   $async.Future<$1.Empty> userExists(
       $grpc.ServiceCall call, $0.UserExistsRequest request);
   $async.Stream<$0.UserExistsStreamResponse> userExistsStream(

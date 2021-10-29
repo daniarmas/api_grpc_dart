@@ -42,7 +42,7 @@ abstract class Database {
       {required PostgreSQLExecutionContext context,
       required String table,
       required Map<String, dynamic> data,
-      required List<String> attributes});
+      required List<Attribute> attributes});
 
   Future<Map<String, dynamic>?> update(
       {required PostgreSQLExecutionContext context,
