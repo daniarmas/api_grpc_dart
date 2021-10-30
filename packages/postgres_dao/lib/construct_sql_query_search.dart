@@ -1,17 +1,4 @@
-import 'package:postgres_dao/and.dart';
-import 'package:postgres_dao/attribute.dart';
-import 'package:postgres_dao/inner_attribute.dart';
-import 'package:postgres_dao/normal_attribute.dart';
-import 'package:postgres_dao/or.dart';
 import 'package:postgres_dao/postgres_dao.dart';
-import 'package:postgres_dao/where_attribute.dart';
-import 'package:postgres_dao/where_normal_attribute_higher.dart';
-import 'package:postgres_dao/where_normal_attribute_in.dart';
-import 'package:postgres_dao/where_normal_attribute_not_in.dart';
-import 'package:postgres_dao/where_search.dart';
-
-import 'where.dart';
-import 'where_normal_attribute.dart';
 
 String constructSqlQuerySearch({
   required String table,
@@ -23,33 +10,8 @@ String constructSqlQuerySearch({
   String? orderByAsc,
 }) {
   // Attributes
-  String attributesResult = '*';
-  if (attributes != null && attributes.isNotEmpty) {
-    attributesResult = '';
-    for (int i = 0; i < attributes.length; i++) {
-      if (i == attributes.length - 1) {
-        if (attributes[i] is NormalAttribute) {
-          attributesResult += '"$table".${attributes[i].name}';
-        } else if (attributes[i] is InnerAttribute) {
-          var innerAttribute = attributes[i] as InnerAttribute;
-          attributesResult +=
-              '"${innerAttribute.innerTable}".${attributes[i].name}';
-        } else {
-          attributesResult += '"$table".${attributes[i].name}';
-        }
-      } else {
-        if (attributes[i] is NormalAttribute) {
-          attributesResult += '"$table".${attributes[i].name},';
-        } else if (attributes[i] is InnerAttribute) {
-          var innerAttribute = attributes[i] as InnerAttribute;
-          attributesResult +=
-              '"${innerAttribute.innerTable}".${attributes[i].name},';
-        } else {
-          attributesResult += '"$table".${attributes[i].name},';
-        }
-      }
-    }
-  }
+  String attributesResult =
+      parseAttribute(attributes: attributes, table: table);
   // AgregationAttributes
   String agregationAttributesResult = '';
   if (agregationAttributes != null && agregationAttributes.isNotEmpty) {
