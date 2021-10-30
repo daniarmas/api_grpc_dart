@@ -3689,52 +3689,6 @@ void main() {
       Map<String, dynamic> verifyRefreshTokenPayload = {
         'refreshTokenFk': 'any'
       };
-      RefreshToken refreshToken = RefreshToken(
-          id: '',
-          createTime: '',
-          deviceFk: '',
-          expirationTime: '',
-          updateTime: '',
-          userFk: '',
-          valid: true);
-      AuthorizationToken authorizationToken = AuthorizationToken(
-        id: '',
-        createTime: '',
-        deviceFk: '',
-        updateTime: '',
-        userFk: '',
-        valid: true,
-        app: AppType.APP,
-        appVersion: '',
-        refreshTokenFk: '',
-      );
-      Device device = Device(
-          id: '',
-          createTime: '',
-          deviceId: '',
-          firebaseCloudMessagingId: '',
-          model: '',
-          platform: PlatformType.ANDROID,
-          systemVersion: '',
-          updateTime: '');
-      User user = User(
-          alias: '',
-          birthday: '',
-          createTime: '',
-          email: '',
-          fullName: '',
-          highQualityPhoto: '',
-          highQualityPhotoBlurHash: '',
-          id: '',
-          lowQualityPhoto: '',
-          lowQualityPhotoBlurHash: null,
-          permissions: null,
-          thumbnail: '',
-          thumbnailBlurHash: '',
-          updateTime: '',
-          userAddress: null);
-      RefreshTokenResponse response =
-          RefreshTokenResponse(authorizationToken: '1', refreshToken: '1');
       // side effects
       when(mockJsonWebToken.verify(any, any))
           .thenAnswer((_) => verifyRefreshTokenPayload);
@@ -3820,44 +3774,6 @@ void main() {
           updateTime: '',
           userFk: '',
           valid: true);
-      AuthorizationToken authorizationToken = AuthorizationToken(
-        id: '',
-        createTime: '',
-        deviceFk: '',
-        updateTime: '',
-        userFk: '',
-        valid: true,
-        app: AppType.APP,
-        appVersion: '',
-        refreshTokenFk: '',
-      );
-      Device device = Device(
-          id: '',
-          createTime: '',
-          deviceId: '',
-          firebaseCloudMessagingId: '',
-          model: '',
-          platform: PlatformType.ANDROID,
-          systemVersion: '',
-          updateTime: '');
-      User user = User(
-          alias: '',
-          birthday: '',
-          createTime: '',
-          email: '',
-          fullName: '',
-          highQualityPhoto: '',
-          highQualityPhotoBlurHash: '',
-          id: '',
-          lowQualityPhoto: '',
-          lowQualityPhotoBlurHash: null,
-          permissions: null,
-          thumbnail: '',
-          thumbnailBlurHash: '',
-          updateTime: '',
-          userAddress: null);
-      RefreshTokenResponse response =
-          RefreshTokenResponse(authorizationToken: '1', refreshToken: '1');
       // side effects
       when(mockJsonWebToken.verify(any, any))
           .thenAnswer((_) => verifyRefreshTokenPayload);
