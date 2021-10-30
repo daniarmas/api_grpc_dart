@@ -315,4 +315,29 @@ class AuthenticationService extends AuthenticationServiceBase {
       }
     }
   }
+
+  @override
+  Future<ListSessionResponse> listSession(
+      ServiceCall call, ListSessionRequest request) async {
+    try {
+      late ListSessionResponse response;
+      late Either<GrpcError, ListSessionResponse> result;
+      var connection = await database.getConnection();
+      await connection.transaction((context) async {
+        result = await authenticationRepository.listSession(
+            metadata: HeadersMetadata.fromServiceCall(call),
+            data: getRequestData(request),
+            paths: [],
+            context: context);
+      });
+      result.fold((left) => {throw left}, (right) => {response = right});
+      return response;
+    } catch (error) {
+      if (error is GrpcError) {
+        rethrow;
+      } else {
+        throw GrpcError.internal('Internal server error');
+      }
+    }
+  }
 }

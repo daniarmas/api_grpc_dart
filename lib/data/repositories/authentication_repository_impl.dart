@@ -8,6 +8,7 @@ import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dar
 import 'package:api_grpc_dart/data/datasources/device_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/kubernetes_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart';
+import 'package:api_grpc_dart/data/datasources/session_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/email/emailer.dart';
 import 'package:api_grpc_dart/domain/repositories/authentication_repository.dart';
@@ -33,6 +34,7 @@ class AuthenticationImpl implements AuthenticationRepository {
   final BannedDeviceLocalDataSource bannedDeviceLocalDataSource;
   final AuthorizationTokenLocalDataSource authorizationTokenLocalDataSource;
   final RefreshTokenLocalDataSource refreshTokenLocalDataSource;
+  final SessionLocalDataSource sessionLocalDataSource;
 
   AuthenticationImpl(
       {required this.emailer,
@@ -44,6 +46,7 @@ class AuthenticationImpl implements AuthenticationRepository {
       required this.bannedUserLocalDataSource,
       required this.bannedDeviceLocalDataSource,
       required this.userLocalDataSource,
+      required this.sessionLocalDataSource,
       required this.verificationCodeLocalDataSource});
 
   @override
@@ -639,6 +642,38 @@ class AuthenticationImpl implements AuthenticationRepository {
         );
         return Right(null);
       }
+    } on GrpcError catch (error) {
+      return Left(error);
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
+    }
+  }
+
+  @override
+  Future<Either<GrpcError, ListSessionResponse>> listSession(
+      {required PostgreSQLExecutionContext context,
+      required Map<String, dynamic> data,
+      required HeadersMetadata metadata,
+      required List<Attribute> paths}) async {
+    try {
+      final authorizationTokenPayload = jsonWebToken.verify(
+          metadata.authorizationToken!, 'AuthorizationToken');
+      final authorizationToken = await authorizationTokenLocalDataSource
+          .getAuthorizationToken(context: context, data: {
+        'id': authorizationTokenPayload['authorizationTokenFk'],
+      }, paths: [
+        NormalAttribute(name: 'userFk'),
+      ]);
+      final response = await sessionLocalDataSource.listSession(
+        paths: [],
+        context: context,
+        data: {
+          'userFk': authorizationToken!.userFk,
+          'authorizationTokenFk':
+              authorizationTokenPayload['authorizationTokenFk'],
+        },
+      );
+      return Right(ListSessionResponse(sessions: response));
     } on GrpcError catch (error) {
       return Left(error);
     } on Exception {

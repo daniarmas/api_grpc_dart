@@ -6,6 +6,7 @@ import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dar
 import 'package:api_grpc_dart/data/datasources/device_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/kubernetes_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart';
+import 'package:api_grpc_dart/data/datasources/session_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart';
 import 'package:api_grpc_dart/data/email/emailer.dart';
@@ -31,6 +32,7 @@ import './authentication_repository_impl_test.mocks.dart';
   BannedUserLocalDataSource,
   BannedDeviceLocalDataSource,
   AuthorizationTokenLocalDataSource,
+  SessionLocalDataSource,
   Emailer,
   KubernetesDataSource,
   RefreshTokenLocalDataSource
@@ -45,6 +47,7 @@ void main() {
   late MockDeviceLocalDataSource mockDeviceLocalDataSource;
   late MockBannedDeviceLocalDataSource mockBannedDeviceLocalDataSource;
   late MockBannedUserLocalDataSource mockBannedUserLocalDataSource;
+  late MockSessionLocalDataSource mockSessionLocalDataSource;
   late MockAuthorizationTokenLocalDataSource
       mockAuthorizationTokenLocalDataSource;
   late MockRefreshTokenLocalDataSource mockRefreshTokenLocalDataSource;
@@ -93,7 +96,9 @@ void main() {
     mockAuthorizationTokenLocalDataSource =
         MockAuthorizationTokenLocalDataSource();
     mockDeviceLocalDataSource = MockDeviceLocalDataSource();
+    mockSessionLocalDataSource = MockSessionLocalDataSource();
     authenticationImpl = AuthenticationImpl(
+        sessionLocalDataSource: mockSessionLocalDataSource,
         jsonWebToken: mockJsonWebToken,
         kubernetesDataSource: mockKubernetesDataSource,
         emailer: mockEmailer,

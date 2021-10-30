@@ -81,6 +81,12 @@ class AuthenticationServiceClient extends $grpc.Client {
       ($0.UserExistsStreamRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.UserExistsStreamResponse.fromBuffer(value));
+  static final _$listSession =
+      $grpc.ClientMethod<$0.ListSessionRequest, $0.ListSessionResponse>(
+          '/AuthenticationService/ListSession',
+          ($0.ListSessionRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.ListSessionResponse.fromBuffer(value));
 
   AuthenticationServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -156,6 +162,12 @@ class AuthenticationServiceClient extends $grpc.Client {
       $async.Stream<$0.UserExistsStreamRequest> request,
       {$grpc.CallOptions? options}) {
     return $createStreamingCall(_$userExistsStream, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.ListSessionResponse> listSession(
+      $0.ListSessionRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$listSession, request, options: options);
   }
 }
 
@@ -262,6 +274,15 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.UserExistsStreamRequest.fromBuffer(value),
         ($0.UserExistsStreamResponse value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.ListSessionRequest, $0.ListSessionResponse>(
+            'ListSession',
+            listSession_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.ListSessionRequest.fromBuffer(value),
+            ($0.ListSessionResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CreateVerificationCodeResponse> createVerificationCode_Pre(
@@ -325,6 +346,11 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
     return userExists(call, await request);
   }
 
+  $async.Future<$0.ListSessionResponse> listSession_Pre($grpc.ServiceCall call,
+      $async.Future<$0.ListSessionRequest> request) async {
+    return listSession(call, await request);
+  }
+
   $async.Future<$0.CreateVerificationCodeResponse> createVerificationCode(
       $grpc.ServiceCall call, $0.CreateVerificationCodeRequest request);
   $async.Future<$0.ListVerificationCodeResponse> listVerificationCode(
@@ -350,6 +376,8 @@ abstract class AuthenticationServiceBase extends $grpc.Service {
   $async.Stream<$0.UserExistsStreamResponse> userExistsStream(
       $grpc.ServiceCall call,
       $async.Stream<$0.UserExistsStreamRequest> request);
+  $async.Future<$0.ListSessionResponse> listSession(
+      $grpc.ServiceCall call, $0.ListSessionRequest request);
 }
 
 class BusinessServiceClient extends $grpc.Client {

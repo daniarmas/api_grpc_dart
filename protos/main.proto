@@ -20,6 +20,8 @@ service AuthenticationService {
 
   rpc UserExists (UserExistsRequest) returns (google.protobuf.Empty) {}
   rpc UserExistsStream (stream UserExistsStreamRequest) returns (stream UserExistsStreamResponse) {}
+
+  rpc ListSession (ListSessionRequest) returns (ListSessionResponse) {}
 }
 
 service BusinessService {
@@ -46,6 +48,14 @@ service Health {
 }
 
 // Request & Response Message
+
+message ListSessionRequest {
+  google.protobuf.FieldMask fieldMask = 1;
+}
+
+message ListSessionResponse {
+  repeated Session sessions = 1;
+}
 
 message SignOutRequest {
   bool all = 1;
@@ -371,6 +381,16 @@ message AuthorizationToken {
   string appVersion = 7;
   string createTime = 8;
   string updateTime = 9;
+}
+
+message Session {
+  string id = 1;
+  PlatformType platform = 2;
+  string systemVersion = 3;
+  string model = 4;
+  AppType app = 5;
+  string appVersion = 6;
+  bool actual = 7;
 }
 
 message RefreshToken {
