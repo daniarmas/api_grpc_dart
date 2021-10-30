@@ -45,7 +45,6 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
     try {
       final result = await _database.create(
           context: context, table: _table, data: data, attributes: paths);
-      String? photo = result['photo'];
       return User(
           id: result['id'],
           email: result['email'],
@@ -133,7 +132,6 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
           where: getWhereNormalAttributeList(data),
           limit: 100);
       for (var e in result) {
-        String? photo = e['photo'];
         response.add(User(
             id: e['id'],
             email: e['email'],
@@ -171,7 +169,6 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
           where: [WhereNormalAttributeIn(key: 'alias', value: data)],
           limit: 100);
       for (var e in result) {
-        String? photo = e['photo'];
         response.add(User(
             id: e['id'],
             email: e['email'],

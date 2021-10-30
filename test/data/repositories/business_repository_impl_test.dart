@@ -240,30 +240,6 @@ void main() {
     test('Return GrpcError.invalidArgument when the client not send id',
         () async {
       // setup
-      Business business = Business(
-          address: '',
-          businessBrandFk: '',
-          coordinates: Point(latitude: 0.0, longitude: 0.0),
-          deliveryPrice: 0.0,
-          description: '',
-          distance: 0.0,
-          email: '',
-          homeDelivery: true,
-          id: '',
-          isOpen: true,
-          leadDayTime: 1,
-          leadHoursTime: 1,
-          leadMinutesTime: 1,
-          municipalityFk: '',
-          name: '',
-          phone: '',
-          polygon: [
-            Polygon(coordinates: [0.0, 0.0])
-          ],
-          provinceFk: '',
-          toPickUp: true);
-      GetBusinessResponse getBusinessResponse =
-          GetBusinessResponse(business: business);
       // side effects
       final result = await businessRepositoryImpl.getBusiness(
           context: ctx,
@@ -303,30 +279,6 @@ void main() {
     });
     test('Return GrpcError.internal when the code throw a Exception', () async {
       // setup
-      Business business = Business(
-          address: '',
-          businessBrandFk: '',
-          coordinates: Point(latitude: 0.0, longitude: 0.0),
-          deliveryPrice: 0.0,
-          description: '',
-          distance: 0.0,
-          email: '',
-          homeDelivery: true,
-          id: '',
-          isOpen: true,
-          leadDayTime: 1,
-          leadHoursTime: 1,
-          leadMinutesTime: 1,
-          municipalityFk: '',
-          name: '',
-          phone: '',
-          polygon: [
-            Polygon(coordinates: [0.0, 0.0])
-          ],
-          provinceFk: '',
-          toPickUp: true);
-      GetBusinessResponse getBusinessResponse =
-          GetBusinessResponse(business: business);
       // side effects
       when(mockBusinessLocalDataSource.getBusiness(
               context: anyNamed('context'),

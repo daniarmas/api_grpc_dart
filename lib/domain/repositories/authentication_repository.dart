@@ -19,6 +19,12 @@ abstract class AuthenticationRepository {
     required HeadersMetadata metadata,
     required List<Attribute> paths,
   });
+  Future<Either<GrpcError, ListSessionResponse>> listSession({
+    required PostgreSQLExecutionContext context,
+    required Map<String, dynamic> data,
+    required HeadersMetadata metadata,
+    required List<Attribute> paths,
+  });
   Future<Either<GrpcError, void>> signOut({
     required PostgreSQLExecutionContext context,
     required Map<String, dynamic> data,

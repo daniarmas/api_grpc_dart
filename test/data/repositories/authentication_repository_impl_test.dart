@@ -6,6 +6,7 @@ import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dar
 import 'package:api_grpc_dart/data/datasources/device_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/kubernetes_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart';
+import 'package:api_grpc_dart/data/datasources/session_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart';
 import 'package:api_grpc_dart/data/email/emailer.dart';
@@ -31,6 +32,7 @@ import './authentication_repository_impl_test.mocks.dart';
   BannedUserLocalDataSource,
   BannedDeviceLocalDataSource,
   AuthorizationTokenLocalDataSource,
+  SessionLocalDataSource,
   Emailer,
   KubernetesDataSource,
   RefreshTokenLocalDataSource
@@ -45,6 +47,7 @@ void main() {
   late MockDeviceLocalDataSource mockDeviceLocalDataSource;
   late MockBannedDeviceLocalDataSource mockBannedDeviceLocalDataSource;
   late MockBannedUserLocalDataSource mockBannedUserLocalDataSource;
+  late MockSessionLocalDataSource mockSessionLocalDataSource;
   late MockAuthorizationTokenLocalDataSource
       mockAuthorizationTokenLocalDataSource;
   late MockRefreshTokenLocalDataSource mockRefreshTokenLocalDataSource;
@@ -93,7 +96,9 @@ void main() {
     mockAuthorizationTokenLocalDataSource =
         MockAuthorizationTokenLocalDataSource();
     mockDeviceLocalDataSource = MockDeviceLocalDataSource();
+    mockSessionLocalDataSource = MockSessionLocalDataSource();
     authenticationImpl = AuthenticationImpl(
+        sessionLocalDataSource: mockSessionLocalDataSource,
         jsonWebToken: mockJsonWebToken,
         kubernetesDataSource: mockKubernetesDataSource,
         emailer: mockEmailer,
@@ -4524,6 +4529,123 @@ void main() {
           data: anyNamed('data'),
           where: anyNamed('where')));
       expect(result, Right(null));
+    });
+  });
+  group('testing listSession', () {
+    test('Return data sucessfull when everything is fine', () async {
+      // setup
+      Map<String, dynamic> jsonWebTokenVerify = {
+        'authorizationTokenFk': '',
+      };
+      AuthorizationToken authorizationToken = AuthorizationToken(
+        id: '',
+        app: AppType.APP,
+        appVersion: '',
+        createTime: '',
+        deviceFk: '',
+        refreshTokenFk: '',
+        updateTime: '',
+        userFk: '',
+        valid: true,
+      );
+      List<Session> listOfSession = [
+        Session(
+            id: '',
+            actual: true,
+            app: AppType.APP,
+            appVersion: '',
+            model: '',
+            platform: PlatformType.ANDROID,
+            systemVersion: ''),
+        Session(
+            id: '',
+            actual: true,
+            app: AppType.APP,
+            appVersion: '',
+            model: '',
+            platform: PlatformType.ANDROID,
+            systemVersion: ''),
+      ];
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => jsonWebTokenVerify);
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => authorizationToken);
+      when(mockSessionLocalDataSource.listSession(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => listOfSession);
+      final result = await authenticationImpl.listSession(
+          context: ctx, data: {}, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockSessionLocalDataSource.listSession(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      expect(result, Right(ListSessionResponse(sessions: listOfSession)));
+    });
+    test(
+        'Return GrpcError.unauthenticated when the authorizationToken not exists',
+        () async {
+      // setup
+      Map<String, dynamic> jsonWebTokenVerify = {
+        'authorizationTokenFk': '',
+      };
+      // side effects
+      when(mockJsonWebToken.verify(any, any))
+          .thenAnswer((_) => jsonWebTokenVerify);
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => null);
+      final result = await authenticationImpl.listSession(
+          context: ctx, data: {}, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verify(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockSessionLocalDataSource.listSession(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      expect(result, Left(GrpcError.unauthenticated('Unauthenticated')));
+    });
+    test('Return GrpcError.internal when the code throw an Exception',
+        () async {
+      // setup
+      // side effects
+      when(mockJsonWebToken.verify(any, any)).thenThrow(Exception());
+      final result = await authenticationImpl.listSession(
+          context: ctx, data: {}, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(any, any));
+      verifyNever(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockSessionLocalDataSource.listSession(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });
 }

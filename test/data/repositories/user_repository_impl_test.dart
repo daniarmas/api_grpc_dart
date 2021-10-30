@@ -171,15 +171,6 @@ void main() {
     test('Return isValid true when not exists a user with that alias',
         () async {
       // setup
-      User user = User(
-          id: '1',
-          email: 'prueba1@app.nat.cu',
-          fullName: '1',
-          birthday: DateTime.now().toString(),
-          createTime: '1',
-          permissions: null,
-          updateTime: '1',
-          userAddress: null);
       final date = DateTime.now();
       // side effects
       when(mockUserLocalDataSource.getUser(

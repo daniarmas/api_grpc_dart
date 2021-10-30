@@ -15,6 +15,96 @@ import 'main.pbenum.dart';
 
 export 'main.pbenum.dart';
 
+class ListSessionRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListSessionRequest', createEmptyInstance: create)
+    ..aOM<$2.FieldMask>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..hasRequiredFields = false
+  ;
+
+  ListSessionRequest._() : super();
+  factory ListSessionRequest({
+    $2.FieldMask? fieldMask,
+  }) {
+    final _result = create();
+    if (fieldMask != null) {
+      _result.fieldMask = fieldMask;
+    }
+    return _result;
+  }
+  factory ListSessionRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListSessionRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListSessionRequest clone() => ListSessionRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListSessionRequest copyWith(void Function(ListSessionRequest) updates) => super.copyWith((message) => updates(message as ListSessionRequest)) as ListSessionRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListSessionRequest create() => ListSessionRequest._();
+  ListSessionRequest createEmptyInstance() => create();
+  static $pb.PbList<ListSessionRequest> createRepeated() => $pb.PbList<ListSessionRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ListSessionRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListSessionRequest>(create);
+  static ListSessionRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $2.FieldMask get fieldMask => $_getN(0);
+  @$pb.TagNumber(1)
+  set fieldMask($2.FieldMask v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasFieldMask() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFieldMask() => clearField(1);
+  @$pb.TagNumber(1)
+  $2.FieldMask ensureFieldMask() => $_ensure(0);
+}
+
+class ListSessionResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListSessionResponse', createEmptyInstance: create)
+    ..pc<Session>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessions', $pb.PbFieldType.PM, subBuilder: Session.create)
+    ..hasRequiredFields = false
+  ;
+
+  ListSessionResponse._() : super();
+  factory ListSessionResponse({
+    $core.Iterable<Session>? sessions,
+  }) {
+    final _result = create();
+    if (sessions != null) {
+      _result.sessions.addAll(sessions);
+    }
+    return _result;
+  }
+  factory ListSessionResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListSessionResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListSessionResponse clone() => ListSessionResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListSessionResponse copyWith(void Function(ListSessionResponse) updates) => super.copyWith((message) => updates(message as ListSessionResponse)) as ListSessionResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListSessionResponse create() => ListSessionResponse._();
+  ListSessionResponse createEmptyInstance() => create();
+  static $pb.PbList<ListSessionResponse> createRepeated() => $pb.PbList<ListSessionResponse>();
+  @$core.pragma('dart2js:noInline')
+  static ListSessionResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListSessionResponse>(create);
+  static ListSessionResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Session> get sessions => $_getList(0);
+}
+
 class SignOutRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SignOutRequest', createEmptyInstance: create)
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'all')
@@ -4032,6 +4122,137 @@ class AuthorizationToken extends $pb.GeneratedMessage {
   $core.bool hasUpdateTime() => $_has(8);
   @$pb.TagNumber(9)
   void clearUpdateTime() => clearField(9);
+}
+
+class Session extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Session', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..e<PlatformType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'platform', $pb.PbFieldType.OE, defaultOrMaker: PlatformType.PLATFORM_TYPE_UNSPECIFIED, valueOf: PlatformType.valueOf, enumValues: PlatformType.values)
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'systemVersion', protoName: 'systemVersion')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'model')
+    ..e<AppType>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'app', $pb.PbFieldType.OE, defaultOrMaker: AppType.APP_TYPE_UNSPECIFIED, valueOf: AppType.valueOf, enumValues: AppType.values)
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'appVersion', protoName: 'appVersion')
+    ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actual')
+    ..hasRequiredFields = false
+  ;
+
+  Session._() : super();
+  factory Session({
+    $core.String? id,
+    PlatformType? platform,
+    $core.String? systemVersion,
+    $core.String? model,
+    AppType? app,
+    $core.String? appVersion,
+    $core.bool? actual,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    if (platform != null) {
+      _result.platform = platform;
+    }
+    if (systemVersion != null) {
+      _result.systemVersion = systemVersion;
+    }
+    if (model != null) {
+      _result.model = model;
+    }
+    if (app != null) {
+      _result.app = app;
+    }
+    if (appVersion != null) {
+      _result.appVersion = appVersion;
+    }
+    if (actual != null) {
+      _result.actual = actual;
+    }
+    return _result;
+  }
+  factory Session.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Session.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Session clone() => Session()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Session copyWith(void Function(Session) updates) => super.copyWith((message) => updates(message as Session)) as Session; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Session create() => Session._();
+  Session createEmptyInstance() => create();
+  static $pb.PbList<Session> createRepeated() => $pb.PbList<Session>();
+  @$core.pragma('dart2js:noInline')
+  static Session getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Session>(create);
+  static Session? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  PlatformType get platform => $_getN(1);
+  @$pb.TagNumber(2)
+  set platform(PlatformType v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPlatform() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPlatform() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get systemVersion => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set systemVersion($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasSystemVersion() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSystemVersion() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get model => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set model($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasModel() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearModel() => clearField(4);
+
+  @$pb.TagNumber(5)
+  AppType get app => $_getN(4);
+  @$pb.TagNumber(5)
+  set app(AppType v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasApp() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearApp() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get appVersion => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set appVersion($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasAppVersion() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearAppVersion() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.bool get actual => $_getBF(6);
+  @$pb.TagNumber(7)
+  set actual($core.bool v) { $_setBool(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasActual() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearActual() => clearField(7);
 }
 
 class RefreshToken extends $pb.GeneratedMessage {

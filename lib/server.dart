@@ -50,7 +50,8 @@ class Server {
               'GetBusiness',
               'ListItem',
               'GetItem',
-              'SignOut'
+              'SignOut',
+              'ListSession'
             ]);
           }
         ]);

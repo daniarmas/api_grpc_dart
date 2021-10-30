@@ -1,14 +1,10 @@
 import 'package:postgres/postgres.dart';
-import 'package:postgres_dao/attribute.dart';
 import 'package:postgres_dao/construct_sql_query_delete.dart';
 import 'package:postgres_dao/construct_sql_query_insert.dart';
 import 'package:postgres_dao/construct_sql_query_search.dart';
-import 'package:postgres_dao/inner_join.dart';
-import 'package:postgres_dao/where_search.dart';
-
-import 'construct_sql_query_select.dart';
-import 'construct_sql_query_update.dart';
-import 'where.dart';
+import 'package:postgres_dao/construct_sql_query_select.dart';
+import 'package:postgres_dao/construct_sql_query_update.dart';
+import 'package:postgres_dao/postgres_dao.dart';
 
 class PostgresqlDao {
   final String host;

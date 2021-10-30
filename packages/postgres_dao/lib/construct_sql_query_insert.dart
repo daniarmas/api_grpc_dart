@@ -19,17 +19,8 @@ String constructSqlQueryInsert(
     }
   }
   // Attributes
-  String attributesResult = '*';
-  if (attributes != null && attributes.isNotEmpty) {
-    attributesResult = '';
-    for (int i = 0; i < attributes.length; i++) {
-      if (i == attributes.length - 1) {
-        attributesResult += attributes[i].name;
-      } else {
-        attributesResult += '${attributes[i].name},';
-      }
-    }
-  }
+  String attributesResult =
+      parseAttribute(attributes: attributes, table: table);
   return 'INSERT INTO "$table"'
       '($columns)'
       'VALUES ($valuesResult)'

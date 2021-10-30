@@ -14,14 +14,16 @@ import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dar
 import 'package:api_grpc_dart/data/datasources/device_local_data_source.dart'
     as _i8;
 import 'package:api_grpc_dart/data/datasources/kubernetes_data_source.dart'
-    as _i14;
-import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart'
     as _i15;
+import 'package:api_grpc_dart/data/datasources/refresh_token_local_data_source.dart'
+    as _i16;
+import 'package:api_grpc_dart/data/datasources/session_local_data_source.dart'
+    as _i13;
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart'
     as _i7;
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart'
     as _i3;
-import 'package:api_grpc_dart/data/email/emailer.dart' as _i13;
+import 'package:api_grpc_dart/data/email/emailer.dart' as _i14;
 import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:postgres/postgres.dart' as _i5;
@@ -422,10 +424,33 @@ class MockAuthorizationTokenLocalDataSource extends _i1.Mock
   String toString() => super.toString();
 }
 
+/// A class which mocks [SessionLocalDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSessionLocalDataSource extends _i1.Mock
+    implements _i13.SessionLocalDataSource {
+  MockSessionLocalDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<List<_i2.Session>> listSession(
+          {_i5.PostgreSQLExecutionContext? context,
+          Map<String, dynamic>? data,
+          List<_i6.Attribute>? paths}) =>
+      (super.noSuchMethod(
+              Invocation.method(#listSession, [],
+                  {#context: context, #data: data, #paths: paths}),
+              returnValue: Future<List<_i2.Session>>.value(<_i2.Session>[]))
+          as _i4.Future<List<_i2.Session>>);
+  @override
+  String toString() => super.toString();
+}
+
 /// A class which mocks [Emailer].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEmailer extends _i1.Mock implements _i13.Emailer {
+class MockEmailer extends _i1.Mock implements _i14.Emailer {
   MockEmailer() {
     _i1.throwOnMissingStub(this);
   }
@@ -493,7 +518,7 @@ class MockEmailer extends _i1.Mock implements _i13.Emailer {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockKubernetesDataSource extends _i1.Mock
-    implements _i14.KubernetesDataSource {
+    implements _i15.KubernetesDataSource {
   MockKubernetesDataSource() {
     _i1.throwOnMissingStub(this);
   }
@@ -511,7 +536,7 @@ class MockKubernetesDataSource extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRefreshTokenLocalDataSource extends _i1.Mock
-    implements _i15.RefreshTokenLocalDataSource {
+    implements _i16.RefreshTokenLocalDataSource {
   MockRefreshTokenLocalDataSource() {
     _i1.throwOnMissingStub(this);
   }

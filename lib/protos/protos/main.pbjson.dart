@@ -82,6 +82,26 @@ const AppType$json = const {
 
 /// Descriptor for `AppType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhgKFEFQUF9UWVBFX1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
+@$core.Deprecated('Use listSessionRequestDescriptor instead')
+const ListSessionRequest$json = const {
+  '1': 'ListSessionRequest',
+  '2': const [
+    const {'1': 'fieldMask', '3': 1, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+  ],
+};
+
+/// Descriptor for `ListSessionRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List listSessionRequestDescriptor = $convert.base64Decode('ChJMaXN0U2Vzc2lvblJlcXVlc3QSOAoJZmllbGRNYXNrGAEgASgLMhouZ29vZ2xlLnByb3RvYnVmLkZpZWxkTWFza1IJZmllbGRNYXNr');
+@$core.Deprecated('Use listSessionResponseDescriptor instead')
+const ListSessionResponse$json = const {
+  '1': 'ListSessionResponse',
+  '2': const [
+    const {'1': 'sessions', '3': 1, '4': 3, '5': 11, '6': '.Session', '10': 'sessions'},
+  ],
+};
+
+/// Descriptor for `ListSessionResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List listSessionResponseDescriptor = $convert.base64Decode('ChNMaXN0U2Vzc2lvblJlc3BvbnNlEiQKCHNlc3Npb25zGAEgAygLMgguU2Vzc2lvblIIc2Vzc2lvbnM=');
 @$core.Deprecated('Use signOutRequestDescriptor instead')
 const SignOutRequest$json = const {
   '1': 'SignOutRequest',
@@ -682,6 +702,22 @@ const AuthorizationToken$json = const {
 
 /// Descriptor for `AuthorizationToken`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List authorizationTokenDescriptor = $convert.base64Decode('ChJBdXRob3JpemF0aW9uVG9rZW4SDgoCaWQYASABKAlSAmlkEiYKDnJlZnJlc2hUb2tlbkZrGAIgASgJUg5yZWZyZXNoVG9rZW5GaxIaCghkZXZpY2VGaxgDIAEoCVIIZGV2aWNlRmsSFgoGdXNlckZrGAQgASgJUgZ1c2VyRmsSFAoFdmFsaWQYBSABKAhSBXZhbGlkEhoKA2FwcBgGIAEoDjIILkFwcFR5cGVSA2FwcBIeCgphcHBWZXJzaW9uGAcgASgJUgphcHBWZXJzaW9uEh4KCmNyZWF0ZVRpbWUYCCABKAlSCmNyZWF0ZVRpbWUSHgoKdXBkYXRlVGltZRgJIAEoCVIKdXBkYXRlVGltZQ==');
+@$core.Deprecated('Use sessionDescriptor instead')
+const Session$json = const {
+  '1': 'Session',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'platform', '3': 2, '4': 1, '5': 14, '6': '.PlatformType', '10': 'platform'},
+    const {'1': 'systemVersion', '3': 3, '4': 1, '5': 9, '10': 'systemVersion'},
+    const {'1': 'model', '3': 4, '4': 1, '5': 9, '10': 'model'},
+    const {'1': 'app', '3': 5, '4': 1, '5': 14, '6': '.AppType', '10': 'app'},
+    const {'1': 'appVersion', '3': 6, '4': 1, '5': 9, '10': 'appVersion'},
+    const {'1': 'actual', '3': 7, '4': 1, '5': 8, '10': 'actual'},
+  ],
+};
+
+/// Descriptor for `Session`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List sessionDescriptor = $convert.base64Decode('CgdTZXNzaW9uEg4KAmlkGAEgASgJUgJpZBIpCghwbGF0Zm9ybRgCIAEoDjINLlBsYXRmb3JtVHlwZVIIcGxhdGZvcm0SJAoNc3lzdGVtVmVyc2lvbhgDIAEoCVINc3lzdGVtVmVyc2lvbhIUCgVtb2RlbBgEIAEoCVIFbW9kZWwSGgoDYXBwGAUgASgOMgguQXBwVHlwZVIDYXBwEh4KCmFwcFZlcnNpb24YBiABKAlSCmFwcFZlcnNpb24SFgoGYWN0dWFsGAcgASgIUgZhY3R1YWw=');
 @$core.Deprecated('Use refreshTokenDescriptor instead')
 const RefreshToken$json = const {
   '1': 'RefreshToken',

@@ -136,6 +136,7 @@ class PostgresqlDatabase implements Database {
           table: table,
           attributes: attributes,
           agregationAttributes: agregationMethods,
+          innerJoin: innerJoin,
           orderByAsc: orderByAsc);
     } catch (error) {
       if (error.toString().contains(

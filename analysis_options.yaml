@@ -89,6 +89,6 @@ linter:
 
 analyzer:
   exclude:
-    - lib/protos
+    - lib/protos/**
     - "**/*.mocks.dart"
     - "**/*.config.dart"

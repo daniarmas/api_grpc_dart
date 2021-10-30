@@ -43,7 +43,7 @@ class ItemRepositoryImpl implements ItemRepository {
       }
     } on GrpcError catch (error) {
       return Left(error);
-    } on Exception catch (error) {
+    } on Exception {
       return Left(GrpcError.internal('Internal server error'));
     }
   }
