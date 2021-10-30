@@ -664,11 +664,14 @@ class AuthenticationImpl implements AuthenticationRepository {
       }, paths: [
         NormalAttribute(name: 'userFk'),
       ]);
+      if (authorizationToken == null) {
+        return Left(GrpcError.unauthenticated('Unauthenticated'));
+      }
       final response = await sessionLocalDataSource.listSession(
         paths: [],
         context: context,
         data: {
-          'userFk': authorizationToken!.userFk,
+          'userFk': authorizationToken.userFk,
           'authorizationTokenFk':
               authorizationTokenPayload['authorizationTokenFk'],
         },
