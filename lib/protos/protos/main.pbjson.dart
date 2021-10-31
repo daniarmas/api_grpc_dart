@@ -82,6 +82,20 @@ const AppType$json = const {
 
 /// Descriptor for `AppType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhgKFEFQUF9UWVBFX1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
+@$core.Deprecated('Use updateUserRequestDescriptor instead')
+const UpdateUserRequest$json = const {
+  '1': 'UpdateUserRequest',
+};
+
+/// Descriptor for `UpdateUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateUserRequestDescriptor = $convert.base64Decode('ChFVcGRhdGVVc2VyUmVxdWVzdA==');
+@$core.Deprecated('Use updateUserResponseDescriptor instead')
+const UpdateUserResponse$json = const {
+  '1': 'UpdateUserResponse',
+};
+
+/// Descriptor for `UpdateUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateUserResponseDescriptor = $convert.base64Decode('ChJVcGRhdGVVc2VyUmVzcG9uc2U=');
 @$core.Deprecated('Use listSessionRequestDescriptor instead')
 const ListSessionRequest$json = const {
   '1': 'ListSessionRequest',

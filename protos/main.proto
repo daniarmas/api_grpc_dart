@@ -35,6 +35,10 @@ service ItemService {
   rpc SearchItem (SearchItemRequest) returns (SearchItemResponse) {}
 }
 
+service UserService {
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse) {}
+}
+
 service ObjectStorageService {
   rpc GetPresignedPutObjectUserAvatar (GetPresignedPutUserAvatarRequest) returns (GetPresignedPutUserAvatarResponse) {}
 }
@@ -48,6 +52,14 @@ service Health {
 }
 
 // Request & Response Message
+
+message UpdateUserRequest {
+
+}
+
+message UpdateUserResponse {
+  
+}
 
 message ListSessionRequest {
   google.protobuf.FieldMask fieldMask = 1;
