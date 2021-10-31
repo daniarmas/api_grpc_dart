@@ -10,7 +10,7 @@ class HeadersMetadata {
   final PlatformType platform;
   final String ipv4;
   final String ipv6;
-  final String language;
+  final String systemLanguage;
   final String networkType;
   final String systemVersion;
   final String appVersion;
@@ -25,7 +25,7 @@ class HeadersMetadata {
       required this.systemVersion,
       required this.appVersion,
       required this.app,
-      required this.language,
+      required this.systemLanguage,
       required this.networkType,
       required this.ipv4,
       required this.ipv6,
@@ -43,7 +43,7 @@ class HeadersMetadata {
         deviceId = call.clientMetadata!['deviceid']!,
         ipv4 = call.clientMetadata!['ipv4']!,
         ipv6 = call.clientMetadata!['ipv6']!,
-        language = call.clientMetadata!['language']!,
+        systemLanguage = call.clientMetadata!['systemlanguage']!,
         networkType = call.clientMetadata!['networkType']!,
         firebaseCloudMessagingId =
             call.clientMetadata!['firebasecloudmessagingid']!,

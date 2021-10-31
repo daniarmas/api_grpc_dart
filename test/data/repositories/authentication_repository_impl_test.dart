@@ -76,6 +76,8 @@ void main() {
         authorizationToken: '1',
         refreshToken: '1',
         platform: PlatformType.ANDROID,
+        networkType: 'wifi',
+        systemLanguage: 'en',
         systemVersion: '1',
         appVersion: '1',
         ipv4: '192.168.1.3',

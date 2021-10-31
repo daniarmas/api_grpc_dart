@@ -69,6 +69,8 @@ void main() {
         appVersion: '1',
         ipv4: '192.168.1.3',
         ipv6: 'asdksajdhaskjdjklasdhjk',
+        networkType: 'wifi',
+        systemLanguage: 'en',
         app: AppType.APP,
         deviceId: '1',
         model: '1',

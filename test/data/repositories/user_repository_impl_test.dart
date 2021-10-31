@@ -45,6 +45,8 @@ void main() {
         platform: PlatformType.ANDROID,
         systemVersion: '1',
         appVersion: '1',
+        networkType: 'wifi',
+        systemLanguage: 'en',
         ipv4: '192.168.1.3',
         ipv6: 'asdksajdhaskjdjklasdhjk',
         app: AppType.APP,
