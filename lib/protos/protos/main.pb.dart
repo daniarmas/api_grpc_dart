@@ -17,11 +17,25 @@ export 'main.pbenum.dart';
 
 class UpdateUserRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateUserRequest', createEmptyInstance: create)
+    ..aOM<$2.FieldMask>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateMask', protoName: 'updateMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
   UpdateUserRequest._() : super();
-  factory UpdateUserRequest() => create();
+  factory UpdateUserRequest({
+    $2.FieldMask? fieldMask,
+    $2.FieldMask? updateMask,
+  }) {
+    final _result = create();
+    if (fieldMask != null) {
+      _result.fieldMask = fieldMask;
+    }
+    if (updateMask != null) {
+      _result.updateMask = updateMask;
+    }
+    return _result;
+  }
   factory UpdateUserRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UpdateUserRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -42,15 +56,46 @@ class UpdateUserRequest extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static UpdateUserRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateUserRequest>(create);
   static UpdateUserRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $2.FieldMask get fieldMask => $_getN(0);
+  @$pb.TagNumber(1)
+  set fieldMask($2.FieldMask v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasFieldMask() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFieldMask() => clearField(1);
+  @$pb.TagNumber(1)
+  $2.FieldMask ensureFieldMask() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $2.FieldMask get updateMask => $_getN(1);
+  @$pb.TagNumber(2)
+  set updateMask($2.FieldMask v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasUpdateMask() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUpdateMask() => clearField(2);
+  @$pb.TagNumber(2)
+  $2.FieldMask ensureUpdateMask() => $_ensure(1);
 }
 
 class UpdateUserResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateUserResponse', createEmptyInstance: create)
+    ..aOM<User>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'user', subBuilder: User.create)
     ..hasRequiredFields = false
   ;
 
   UpdateUserResponse._() : super();
-  factory UpdateUserResponse() => create();
+  factory UpdateUserResponse({
+    User? user,
+  }) {
+    final _result = create();
+    if (user != null) {
+      _result.user = user;
+    }
+    return _result;
+  }
   factory UpdateUserResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory UpdateUserResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -71,6 +116,17 @@ class UpdateUserResponse extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static UpdateUserResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateUserResponse>(create);
   static UpdateUserResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  User get user => $_getN(0);
+  @$pb.TagNumber(1)
+  set user(User v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasUser() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUser() => clearField(1);
+  @$pb.TagNumber(1)
+  User ensureUser() => $_ensure(0);
 }
 
 class ListSessionRequest extends $pb.GeneratedMessage {

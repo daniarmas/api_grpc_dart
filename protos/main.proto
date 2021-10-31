@@ -54,11 +54,12 @@ service Health {
 // Request & Response Message
 
 message UpdateUserRequest {
-
+  google.protobuf.FieldMask fieldMask = 1;
+  google.protobuf.FieldMask updateMask = 2;
 }
 
 message UpdateUserResponse {
-  
+  User user = 1;
 }
 
 message ListSessionRequest {
