@@ -59,6 +59,8 @@ FutureOr<GrpcError?> checkClientMetadata(
       metadata['appversion'] == null ||
       metadata['ipv4'] == null ||
       metadata['ipv6'] == null ||
+      metadata['systemlanguage'] == null ||
+      metadata['networktype'] == null ||
       metadata['deviceid'] == null ||
       metadata['model'] == null ||
       metadata['firebasecloudmessagingid'] == null) {

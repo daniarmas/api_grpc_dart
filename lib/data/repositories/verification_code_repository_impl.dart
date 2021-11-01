@@ -68,11 +68,11 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
         }, paths: [
           NormalAttribute(name: 'id'),
         ]);
-        if ((data['type'] == VerificationCodeType.SIGN_IN ||
-                data['type'] == VerificationCodeType.CHANGE_USER_EMAIL) &&
+        if (data['type'] == VerificationCodeType.SIGN_IN &&
             getUserResponse == null) {
           return Left(GrpcError.invalidArgument('User Not found'));
-        } else if (data['type'] == VerificationCodeType.SIGN_UP &&
+        } else if ((data['type'] == VerificationCodeType.SIGN_UP ||
+                data['type'] == VerificationCodeType.CHANGE_USER_EMAIL) &&
             getUserResponse != null) {
           return Left(GrpcError.invalidArgument('User Already Exists'));
         }

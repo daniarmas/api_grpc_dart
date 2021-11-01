@@ -161,6 +161,9 @@ class PostgresqlDatabase implements Database {
       required List<Attribute> attributes}) async {
     try {
       data.remove('id');
+      if (data.isEmpty) {
+        throw GrpcError.invalidArgument('You must send at least one parameter');
+      }
       final response = await _connection.update(
           context: context,
           where: where,

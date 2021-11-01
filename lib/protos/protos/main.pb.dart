@@ -19,6 +19,17 @@ class UpdateUserRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateUserRequest', createEmptyInstance: create)
     ..aOM<$2.FieldMask>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateMask', protoName: 'updateMask', subBuilder: $2.FieldMask.create)
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alias')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fullName', protoName: 'fullName')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnail')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnailBlurHash', protoName: 'thumbnailBlurHash')
+    ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhoto', protoName: 'highQualityPhoto')
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhotoBlurHash', protoName: 'highQualityPhotoBlurHash')
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhoto', protoName: 'lowQualityPhoto')
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhotoBlurHash', protoName: 'lowQualityPhotoBlurHash')
+    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
     ..hasRequiredFields = false
   ;
 
@@ -26,6 +37,17 @@ class UpdateUserRequest extends $pb.GeneratedMessage {
   factory UpdateUserRequest({
     $2.FieldMask? fieldMask,
     $2.FieldMask? updateMask,
+    $core.String? id,
+    $core.String? email,
+    $core.String? alias,
+    $core.String? fullName,
+    $core.String? thumbnail,
+    $core.String? thumbnailBlurHash,
+    $core.String? highQualityPhoto,
+    $core.String? highQualityPhotoBlurHash,
+    $core.String? lowQualityPhoto,
+    $core.String? lowQualityPhotoBlurHash,
+    $core.String? code,
   }) {
     final _result = create();
     if (fieldMask != null) {
@@ -33,6 +55,39 @@ class UpdateUserRequest extends $pb.GeneratedMessage {
     }
     if (updateMask != null) {
       _result.updateMask = updateMask;
+    }
+    if (id != null) {
+      _result.id = id;
+    }
+    if (email != null) {
+      _result.email = email;
+    }
+    if (alias != null) {
+      _result.alias = alias;
+    }
+    if (fullName != null) {
+      _result.fullName = fullName;
+    }
+    if (thumbnail != null) {
+      _result.thumbnail = thumbnail;
+    }
+    if (thumbnailBlurHash != null) {
+      _result.thumbnailBlurHash = thumbnailBlurHash;
+    }
+    if (highQualityPhoto != null) {
+      _result.highQualityPhoto = highQualityPhoto;
+    }
+    if (highQualityPhotoBlurHash != null) {
+      _result.highQualityPhotoBlurHash = highQualityPhotoBlurHash;
+    }
+    if (lowQualityPhoto != null) {
+      _result.lowQualityPhoto = lowQualityPhoto;
+    }
+    if (lowQualityPhotoBlurHash != null) {
+      _result.lowQualityPhotoBlurHash = lowQualityPhotoBlurHash;
+    }
+    if (code != null) {
+      _result.code = code;
     }
     return _result;
   }
@@ -78,6 +133,105 @@ class UpdateUserRequest extends $pb.GeneratedMessage {
   void clearUpdateMask() => clearField(2);
   @$pb.TagNumber(2)
   $2.FieldMask ensureUpdateMask() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $core.String get id => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set id($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearId() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get email => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set email($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasEmail() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearEmail() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get alias => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set alias($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasAlias() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearAlias() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get fullName => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set fullName($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasFullName() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearFullName() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get thumbnail => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set thumbnail($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasThumbnail() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearThumbnail() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get thumbnailBlurHash => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set thumbnailBlurHash($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasThumbnailBlurHash() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearThumbnailBlurHash() => clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.String get highQualityPhoto => $_getSZ(8);
+  @$pb.TagNumber(9)
+  set highQualityPhoto($core.String v) { $_setString(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasHighQualityPhoto() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearHighQualityPhoto() => clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.String get highQualityPhotoBlurHash => $_getSZ(9);
+  @$pb.TagNumber(10)
+  set highQualityPhotoBlurHash($core.String v) { $_setString(9, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasHighQualityPhotoBlurHash() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearHighQualityPhotoBlurHash() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.String get lowQualityPhoto => $_getSZ(10);
+  @$pb.TagNumber(11)
+  set lowQualityPhoto($core.String v) { $_setString(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasLowQualityPhoto() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearLowQualityPhoto() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.String get lowQualityPhotoBlurHash => $_getSZ(11);
+  @$pb.TagNumber(12)
+  set lowQualityPhotoBlurHash($core.String v) { $_setString(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasLowQualityPhotoBlurHash() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearLowQualityPhotoBlurHash() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.String get code => $_getSZ(12);
+  @$pb.TagNumber(13)
+  set code($core.String v) { $_setString(12, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasCode() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearCode() => clearField(13);
 }
 
 class UpdateUserResponse extends $pb.GeneratedMessage {
@@ -2594,7 +2748,7 @@ class User extends $pb.GeneratedMessage {
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnail')
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnailBlurHash', protoName: 'thumbnailBlurHash')
     ..pc<UserAddress>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userAddress', $pb.PbFieldType.PM, protoName: 'userAddress', subBuilder: UserAddress.create)
-    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'birthday')
+    ..aOB(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isLegalAge', protoName: 'isLegalAge')
     ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
     ..pc<UserPermission>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'permissions', $pb.PbFieldType.PM, subBuilder: UserPermission.create)
     ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
@@ -2614,7 +2768,7 @@ class User extends $pb.GeneratedMessage {
     $core.String? thumbnail,
     $core.String? thumbnailBlurHash,
     $core.Iterable<UserAddress>? userAddress,
-    $core.String? birthday,
+    $core.bool? isLegalAge,
     $core.String? email,
     $core.Iterable<UserPermission>? permissions,
     $core.String? createTime,
@@ -2651,8 +2805,8 @@ class User extends $pb.GeneratedMessage {
     if (userAddress != null) {
       _result.userAddress.addAll(userAddress);
     }
-    if (birthday != null) {
-      _result.birthday = birthday;
+    if (isLegalAge != null) {
+      _result.isLegalAge = isLegalAge;
     }
     if (email != null) {
       _result.email = email;
@@ -2774,13 +2928,13 @@ class User extends $pb.GeneratedMessage {
   $core.List<UserAddress> get userAddress => $_getList(9);
 
   @$pb.TagNumber(11)
-  $core.String get birthday => $_getSZ(10);
+  $core.bool get isLegalAge => $_getBF(10);
   @$pb.TagNumber(11)
-  set birthday($core.String v) { $_setString(10, v); }
+  set isLegalAge($core.bool v) { $_setBool(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasBirthday() => $_has(10);
+  $core.bool hasIsLegalAge() => $_has(10);
   @$pb.TagNumber(11)
-  void clearBirthday() => clearField(11);
+  void clearIsLegalAge() => clearField(11);
 
   @$pb.TagNumber(12)
   $core.String get email => $_getSZ(11);

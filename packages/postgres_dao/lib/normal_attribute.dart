@@ -1,5 +1,5 @@
 import 'attribute.dart';
 
 class NormalAttribute extends Attribute {
-  NormalAttribute({required String name}) : super(name: '"$name"');
+  NormalAttribute({required String name}) : super(name: name);
 }

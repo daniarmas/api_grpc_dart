@@ -21,10 +21,11 @@ class UserService extends UserServiceBase {
       var connection = await database.getConnection();
       await connection.transaction((context) async {
         result = await userRepository.updateUser(
-            metadata: HeadersMetadata.fromServiceCall(call),
-            data: getRequestData(request),
-            paths: getPaths(request.fieldMask.paths),
-            context: context);
+          metadata: HeadersMetadata.fromServiceCall(call),
+          data: getRequestData(request, updatePaths: getPaths(request.updateMask.paths)),
+          paths: getPaths(request.fieldMask.paths),
+          context: context,
+        );
       });
       result.fold((left) => {throw left}, (right) => {response = right});
       return response;

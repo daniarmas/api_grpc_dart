@@ -165,6 +165,15 @@ class MockUserLocalDataSource extends _i1.Mock
               #getUser, [], {#context: context, #data: data, #paths: paths}),
           returnValue: Future<_i2.User?>.value()) as _i4.Future<_i2.User?>);
   @override
+  _i4.Future<_i2.User?> updateUser(
+          {_i5.PostgreSQLExecutionContext? context,
+          Map<String, dynamic>? data,
+          List<_i6.Attribute>? paths}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #updateUser, [], {#context: context, #data: data, #paths: paths}),
+          returnValue: Future<_i2.User?>.value()) as _i4.Future<_i2.User?>);
+  @override
   _i4.Future<void> deleteUser(
           {_i5.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data}) =>

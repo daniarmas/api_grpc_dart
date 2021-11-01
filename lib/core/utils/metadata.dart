@@ -44,7 +44,7 @@ class HeadersMetadata {
         ipv4 = call.clientMetadata!['ipv4']!,
         ipv6 = call.clientMetadata!['ipv6']!,
         systemLanguage = call.clientMetadata!['systemlanguage']!,
-        networkType = call.clientMetadata!['networkType']!,
+        networkType = call.clientMetadata!['networktype']!,
         firebaseCloudMessagingId =
             call.clientMetadata!['firebasecloudmessagingid']!,
         model = call.clientMetadata!['model']!,

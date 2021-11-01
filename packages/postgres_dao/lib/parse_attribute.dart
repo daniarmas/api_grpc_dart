@@ -9,7 +9,7 @@ String parseAttribute(
     for (int i = 0; i < attributes.length; i++) {
       if (i == attributes.length - 1) {
         if (attributes[i] is NormalAttribute) {
-          attributesResult += '"$table".${attributes[i].name}';
+          attributesResult += '"$table"."${attributes[i].name}"';
         } else if (attributes[i] is InnerAttribute) {
           var innerAttribute = attributes[i] as InnerAttribute;
           attributesResult +=
@@ -22,7 +22,7 @@ String parseAttribute(
         }
       } else {
         if (attributes[i] is NormalAttribute) {
-          attributesResult += '"$table".${attributes[i].name},';
+          attributesResult += '"$table"."${attributes[i].name}",';
         } else if (attributes[i] is InnerAttribute) {
           var innerAttribute = attributes[i] as InnerAttribute;
           attributesResult +=

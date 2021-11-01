@@ -2,6 +2,7 @@ import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:api_grpc_dart/core/utils/username_generator.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
+import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart';
 import 'package:api_grpc_dart/data/repositories/user_repository_impl.dart';
 import 'package:api_grpc_dart/environment.dart';
 import 'package:api_grpc_dart/injection_container.dart';
@@ -16,11 +17,17 @@ import 'package:test/test.dart';
 
 import './user_repository_impl_test.mocks.dart';
 
-@GenerateMocks([UserLocalDataSource, Database, UsernameGenerator])
+@GenerateMocks([
+  UserLocalDataSource,
+  VerificationCodeLocalDataSource,
+  Database,
+  UsernameGenerator
+])
 void main() {
   late EnvironmentApp environment;
   late MockUserLocalDataSource mockUserLocalDataSource;
   late MockUsernameGenerator mockUsernameGenerator;
+  late MockVerificationCodeLocalDataSource mockVerificationCodeLocalDataSource;
   late UserRepositoryImpl userRepositoryImpl;
   late PostgreSQLConnection connection;
   late PostgreSQLExecutionContext ctx;
@@ -55,7 +62,9 @@ void main() {
         firebaseCloudMessagingId: '1');
     mockUserLocalDataSource = MockUserLocalDataSource();
     mockUsernameGenerator = MockUsernameGenerator();
+    mockVerificationCodeLocalDataSource = MockVerificationCodeLocalDataSource();
     userRepositoryImpl = UserRepositoryImpl(
+        verificationCodeLocalDataSource: mockVerificationCodeLocalDataSource,
         userLocalDataSource: mockUserLocalDataSource,
         generator: mockUsernameGenerator);
   });
@@ -73,7 +82,7 @@ void main() {
           id: '1',
           email: 'prueba1@app.nat.cu',
           fullName: '1',
-          birthday: DateTime.now().toString(),
+          isLegalAge: true,
           createTime: '1',
           permissions: null,
           updateTime: '1',
@@ -197,7 +206,7 @@ void main() {
           id: '1',
           email: 'prueba1@app.nat.cu',
           fullName: '1',
-          birthday: DateTime.now().toString(),
+          isLegalAge: true,
           createTime: '1',
           permissions: null,
           updateTime: '1',
