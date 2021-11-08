@@ -8,7 +8,7 @@ import 'package:api_grpc_dart/protos/google/protobuf/empty.pb.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
-import 'package:postgres_dao/postgres_dao.dart';
+import 'package:postgres_conector/postgres_conector.dart';
 
 import '../../protos/protos/main.pbgrpc.dart';
 

@@ -9,8 +9,7 @@ import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
-import 'package:postgres_dao/attribute.dart';
-import 'package:postgres_dao/postgres_dao.dart';
+import 'package:postgres_conector/postgres_conector.dart';
 
 import '../../protos/protos/main.pb.dart';
 
@@ -82,7 +81,7 @@ class UserRepositoryImpl implements UserRepository {
     required List<Attribute> paths,
   }) async {
     try {
-      if (data['id'] == '') {
+      if (data['id'] == '' || data['id'] == null) {
         return Left(GrpcError.invalidArgument('Input `id` invalid'));
       } else if (data['email'] != '' && data['email'] != null) {
         if (!StringUtils.isEmail(data['email'])) {
@@ -120,6 +119,12 @@ class UserRepositoryImpl implements UserRepository {
           }, context: context);
           data.remove('code');
           data.remove('alias');
+          data.remove('thumbnail');
+          data.remove('thumbnailBlurHash');
+          data.remove('highQualityPhoto');
+          data.remove('highQualityPhotoBlurHash');
+          data.remove('lowQualityPhoto');
+          data.remove('lowQualityPhotoBlurHash');
           final response = await userLocalDataSource.updateUser(
             data: data,
             paths: paths,
@@ -146,6 +151,12 @@ class UserRepositoryImpl implements UserRepository {
           }
           data.remove('code');
           data.remove('email');
+          data.remove('thumbnail');
+          data.remove('thumbnailBlurHash');
+          data.remove('highQualityPhoto');
+          data.remove('highQualityPhotoBlurHash');
+          data.remove('lowQualityPhoto');
+          data.remove('lowQualityPhotoBlurHash');
           final response = await userLocalDataSource.updateUser(
             data: data,
             paths: paths,
@@ -196,6 +207,12 @@ class UserRepositoryImpl implements UserRepository {
         data.remove('code');
         data.remove('email');
         data.remove('alias');
+        data.remove('thumbnail');
+        data.remove('thumbnailBlurHash');
+        data.remove('highQualityPhoto');
+        data.remove('highQualityPhotoBlurHash');
+        data.remove('lowQualityPhoto');
+        data.remove('lowQualityPhotoBlurHash');
         final response = await userLocalDataSource.updateUser(
           data: data,
           paths: paths,

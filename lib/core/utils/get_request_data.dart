@@ -1,4 +1,4 @@
-import 'package:postgres_dao/postgres_dao.dart';
+import 'package:postgres_conector/postgres_conector.dart';
 import 'package:protobuf/protobuf.dart' as $pb;
 
 Map<String, dynamic> getRequestData(
@@ -29,8 +29,7 @@ Map<String, dynamic> getRequestData(
   } else if (updatePaths.isEmpty) {
     Map<String, dynamic> data = {};
     request.info_.fieldInfo.forEach((key, value) {
-      if (value.name != 'fieldMask' &&
-          value.name != 'updateMask') {
+      if (value.name != 'fieldMask' && value.name != 'updateMask') {
         if (request.getField(value.tagNumber) is $pb.ProtobufEnum) {
           if (request.getField(value.tagNumber).value != 0) {
             data.addAll({value.name: request.getField(value.tagNumber)});

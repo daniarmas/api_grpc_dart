@@ -268,4 +268,183 @@ void main() {
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });
+
+  group('testing updateUser', () {
+    test('Return GrpcError.invalidArgument when the client not send the id',
+        () async {
+      // setup
+      Map<String, dynamic> data = {};
+      // side effects
+      final result = await userRepositoryImpl
+          .updateUser(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verifyNever(mockVerificationCodeLocalDataSource.getVerificationCode(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockUserLocalDataSource.getUser(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockVerificationCodeLocalDataSource.deleteVerificationCode(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+      ));
+      verifyNever(mockUserLocalDataSource.updateUser(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      expect(result, Left(GrpcError.invalidArgument('Input `id` invalid')));
+    });
+    group('test when edit the email', () {
+      test(
+          'Return GrpcError.invalidArgument when the client send the email but is invalid',
+          () async {
+        // setup
+        Map<String, dynamic> data = {
+          'id': 'id',
+          'email': 'email',
+        };
+        // side effects
+        final result = await userRepositoryImpl.updateUser(
+            context: ctx, data: data, metadata: metadata, paths: []);
+        // expectations
+        verifyNever(mockUserLocalDataSource.updateUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths'),
+        ));
+        expect(
+            result, Left(GrpcError.invalidArgument('Input `email` invalid')));
+      });
+      test(
+          'Return GrpcError.invalidArgument when the client send the email and is valid but not send the code',
+          () async {
+        // setup
+        Map<String, dynamic> data = {
+          'id': 'id',
+          'email': 'email@email.com',
+        };
+        // side effects
+        final result = await userRepositoryImpl.updateUser(
+            context: ctx, data: data, metadata: metadata, paths: []);
+        // expectations
+        verifyNever(mockUserLocalDataSource.updateUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths'),
+        ));
+        expect(result, Left(GrpcError.invalidArgument('Input `code` invalid')));
+      });
+      test(
+          'Return GrpcError.invalidArgument when the client send the email and the code, but the code is invalid',
+          () async {
+        // setup
+        Map<String, dynamic> data = {
+          'id': 'id',
+          'email': 'email@email.com',
+          'code': '123',
+        };
+        // side effects
+        final result = await userRepositoryImpl.updateUser(
+            context: ctx, data: data, metadata: metadata, paths: []);
+        // expectations
+        verifyNever(mockUserLocalDataSource.updateUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths'),
+        ));
+        expect(result, Left(GrpcError.invalidArgument('Input `code` invalid')));
+      });
+    });
+    group('test when edit the alias', () {
+      test(
+          'Return GrpcError.invalidArgument when the client send the alias but is invalid',
+          () async {
+        // setup
+        Map<String, dynamic> data = {
+          'id': 'id',
+          'alias': '.as',
+        };
+        // side effects
+        final result = await userRepositoryImpl.updateUser(
+            context: ctx, data: data, metadata: metadata, paths: []);
+        // expectations
+        verifyNever(mockUserLocalDataSource.updateUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths'),
+        ));
+        expect(
+            result, Left(GrpcError.invalidArgument('Input `alias` invalid')));
+      });
+    });
+    group('test when the user edit their profile photo', () {
+      test(
+          'Return GrpcError.invalidArgument when the client send only the thumnail but not send the rest of the info',
+          () async {
+        // setup
+        Map<String, dynamic> data = {
+          'id': 'id',
+          'thumbnail': 'thumbnail',
+        };
+        // side effects
+        final result = await userRepositoryImpl.updateUser(
+            context: ctx, data: data, metadata: metadata, paths: []);
+        // expectations
+        verifyNever(mockUserLocalDataSource.updateUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths'),
+        ));
+        expect(
+            result, Left(GrpcError.invalidArgument('Invalid argument photo')));
+      });
+    });
+    group('test when the client is trying to edit the rest of the info', () {
+      test('Return GrpcError.internal when the code throw a Exception',
+          () async {
+        // setup
+        Map<String, dynamic> data = {
+          'id': 'id',
+          'fullname': 'fullname',
+        };
+        User user = User(
+          id: '',
+          alias: '',
+          createTime: '',
+          email: '',
+          fullName: '',
+          highQualityPhoto: '',
+          highQualityPhotoBlurHash: '',
+          isLegalAge: true,
+          lowQualityPhoto: '',
+          lowQualityPhotoBlurHash: '',
+          permissions: null,
+          thumbnail: '',
+          thumbnailBlurHash: '',
+          updateTime: '',
+          userAddress: null,
+        );
+        // side effects
+        when(mockUserLocalDataSource.updateUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths'),
+        )).thenAnswer((_) async => user);
+        final response = await userRepositoryImpl.updateUser(
+            context: ctx, data: data, metadata: metadata, paths: []);
+        // expectations
+        verify(mockUserLocalDataSource.updateUser(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths'),
+        ));
+        expect(response, Right(UpdateUserResponse(user: user)));
+      });
+    });
+  });
 }

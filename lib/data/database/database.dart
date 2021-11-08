@@ -1,7 +1,5 @@
 import 'package:postgres/postgres.dart';
-import 'package:postgres_dao/attribute.dart';
-import 'package:postgres_dao/postgres_dao.dart';
-import 'package:postgres_dao/where.dart';
+import 'package:postgres_conector/postgres_conector.dart';
 
 abstract class Database {
   Future<bool> connect();
