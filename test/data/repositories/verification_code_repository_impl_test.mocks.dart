@@ -17,7 +17,7 @@ import 'package:api_grpc_dart/data/email/emailer.dart' as _i10;
 import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:postgres/postgres.dart' as _i3;
-import 'package:postgres_dao/postgres_dao.dart' as _i6;
+import 'package:postgres_conector/postgres_conector.dart' as _i6;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
