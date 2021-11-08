@@ -1,8 +1,7 @@
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
-import 'package:postgres_dao/get_where_list.dart';
-import 'package:postgres_dao/postgres_dao.dart';
+import 'package:postgres_conector/postgres_conector.dart';
 
 import '../../protos/protos/main.pb.dart';
 
@@ -26,6 +25,13 @@ abstract class UserLocalDataSource {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<Attribute> paths});
+
+  Future<User?> updateUser({
+    required PostgreSQLExecutionContext context,
+    required Map<String, dynamic> data,
+    required List<Attribute> paths,
+  });
+
   Future<void> deleteUser(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data});
@@ -50,9 +56,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
           email: result['email'],
           fullName: result['fullName'],
           alias: result['alias'],
-          birthday: (result['birthday'] != null)
-              ? result['birthday'].toString()
-              : null,
+          isLegalAge: result['isLegalAge'],
           highQualityPhoto: result['highQualityPhoto'],
           highQualityPhotoBlurHash: result['highQualityPhotoBlurHash'],
           lowQualityPhoto: result['lowQualityPhoto'],
@@ -95,9 +99,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
             email: result[_table]['email'],
             fullName: result[_table]['fullName'],
             alias: result[_table]['alias'],
-            birthday: (result[_table]['birthday'] != null)
-                ? result[_table]['birthday'].toString()
-                : null,
+            isLegalAge: result['isLegalAge'],
             highQualityPhoto: result[_table]['highQualityPhoto'],
             highQualityPhotoBlurHash: result[_table]
                 ['highQualityPhotoBlurHash'],
@@ -137,7 +139,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
             email: e['email'],
             fullName: e['fullName'],
             alias: e['alias'],
-            birthday: (e['birthday'] != null) ? e['birthday'].toString() : null,
+            isLegalAge: e['isLegalAge'],
             highQualityPhoto: e['highQualityPhoto'],
             highQualityPhotoBlurHash: e['highQualityPhotoBlurHash'],
             lowQualityPhoto: e['lowQualityPhoto'],
@@ -174,7 +176,7 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
             email: e['email'],
             fullName: e['fullName'],
             alias: e['alias'],
-            birthday: (e['birthday'] != null) ? e['birthday'].toString() : null,
+            isLegalAge: e['isLegalAge'],
             highQualityPhoto: e['highQualityPhoto'],
             highQualityPhotoBlurHash: e['highQualityPhotoBlurHash'],
             lowQualityPhoto: e['lowQualityPhoto'],
@@ -187,6 +189,51 @@ class UserLocalDataSourceImpl implements UserLocalDataSource {
                 (e['updateTime'] != null) ? e['updateTime'].toString() : null));
       }
       return response;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<User?> updateUser({
+    required PostgreSQLExecutionContext context,
+    required Map<String, dynamic> data,
+    required List<Attribute> paths,
+  }) async {
+    try {
+      final result = await _database.update(
+        context: context,
+        table: _table,
+        data: data,
+        where: [
+          WhereNormalAttributeEqual(key: 'id', value: data['id']),
+        ],
+        attributes: paths,
+      );
+      if (result != null) {
+        return User(
+          id: result['id'],
+          alias: result['alias'],
+          isLegalAge: result['isLegalAge'],
+          fullName: result['fullName'],
+          highQualityPhoto: result['highQualityPhoto'],
+          highQualityPhotoBlurHash: result['highQualityPhotoBlurHash'],
+          lowQualityPhoto: result['lowQualityPhoto'],
+          lowQualityPhotoBlurHash: result['lowQualityPhotoBlurHash'],
+          thumbnail: result['thumbnail'],
+          thumbnailBlurHash: result['thumbnailBlurHash'],
+          permissions: null,
+          userAddress: null,
+          email: result['email'],
+          createTime: (result['createTime'] != null)
+              ? result['createTime'].toString()
+              : null,
+          updateTime: (result['updateTime'] != null)
+              ? result['updateTime'].toString()
+              : null,
+        );
+      }
+      return null;
     } catch (error) {
       rethrow;
     }

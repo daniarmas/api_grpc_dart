@@ -4,14 +4,16 @@
 
 import 'dart:async' as _i5;
 
-import 'package:api_grpc_dart/core/utils/username_generator.dart' as _i8;
-import 'package:api_grpc_dart/data/database/database.dart' as _i7;
+import 'package:api_grpc_dart/core/utils/username_generator.dart' as _i9;
+import 'package:api_grpc_dart/data/database/database.dart' as _i8;
 import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart'
     as _i4;
+import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart'
+    as _i7;
 import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:postgres/postgres.dart' as _i3;
-import 'package:postgres_dao/postgres_dao.dart' as _i6;
+import 'package:postgres_conector/postgres_conector.dart' as _i6;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -23,7 +25,10 @@ import 'package:postgres_dao/postgres_dao.dart' as _i6;
 
 class _FakeUser_0 extends _i1.Fake implements _i2.User {}
 
-class _FakePostgreSQLConnection_1 extends _i1.Fake
+class _FakeVerificationCode_1 extends _i1.Fake implements _i2.VerificationCode {
+}
+
+class _FakePostgreSQLConnection_2 extends _i1.Fake
     implements _i3.PostgreSQLConnection {}
 
 /// A class which mocks [UserLocalDataSource].
@@ -75,6 +80,15 @@ class MockUserLocalDataSource extends _i1.Mock
               #getUser, [], {#context: context, #data: data, #paths: paths}),
           returnValue: Future<_i2.User?>.value()) as _i5.Future<_i2.User?>);
   @override
+  _i5.Future<_i2.User?> updateUser(
+          {_i3.PostgreSQLExecutionContext? context,
+          Map<String, dynamic>? data,
+          List<_i6.Attribute>? paths}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #updateUser, [], {#context: context, #data: data, #paths: paths}),
+          returnValue: Future<_i2.User?>.value()) as _i5.Future<_i2.User?>);
+  @override
   _i5.Future<void> deleteUser(
           {_i3.PostgreSQLExecutionContext? context,
           Map<String, dynamic>? data}) =>
@@ -86,10 +100,73 @@ class MockUserLocalDataSource extends _i1.Mock
   String toString() => super.toString();
 }
 
+/// A class which mocks [VerificationCodeLocalDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockVerificationCodeLocalDataSource extends _i1.Mock
+    implements _i7.VerificationCodeLocalDataSource {
+  MockVerificationCodeLocalDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<_i2.VerificationCode> createVerificationCode(
+          {_i3.PostgreSQLExecutionContext? context,
+          Map<String, dynamic>? data,
+          List<_i6.Attribute>? paths}) =>
+      (super.noSuchMethod(
+              Invocation.method(#createVerificationCode, [],
+                  {#context: context, #data: data, #paths: paths}),
+              returnValue:
+                  Future<_i2.VerificationCode>.value(_FakeVerificationCode_1()))
+          as _i5.Future<_i2.VerificationCode>);
+  @override
+  _i5.Future<List<_i2.VerificationCode>> listVerificationCode(
+          {_i3.PostgreSQLExecutionContext? context,
+          Map<String, dynamic>? data,
+          List<_i6.Attribute>? paths}) =>
+      (super.noSuchMethod(
+              Invocation.method(#listVerificationCode, [],
+                  {#context: context, #data: data, #paths: paths}),
+              returnValue: Future<List<_i2.VerificationCode>>.value(
+                  <_i2.VerificationCode>[]))
+          as _i5.Future<List<_i2.VerificationCode>>);
+  @override
+  _i5.Future<_i2.VerificationCode?> getVerificationCode(
+          {_i3.PostgreSQLExecutionContext? context,
+          Map<String, dynamic>? data,
+          List<_i6.Attribute>? paths}) =>
+      (super.noSuchMethod(
+              Invocation.method(#getVerificationCode, [],
+                  {#context: context, #data: data, #paths: paths}),
+              returnValue: Future<_i2.VerificationCode?>.value())
+          as _i5.Future<_i2.VerificationCode?>);
+  @override
+  _i5.Future<_i2.VerificationCode?> updateVerificationCode(
+          {_i3.PostgreSQLExecutionContext? context,
+          Map<String, dynamic>? data,
+          List<_i6.Attribute>? paths}) =>
+      (super.noSuchMethod(
+              Invocation.method(#updateVerificationCode, [],
+                  {#context: context, #data: data, #paths: paths}),
+              returnValue: Future<_i2.VerificationCode?>.value())
+          as _i5.Future<_i2.VerificationCode?>);
+  @override
+  _i5.Future<bool> deleteVerificationCode(
+          {_i3.PostgreSQLExecutionContext? context,
+          Map<String, dynamic>? data}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #deleteVerificationCode, [], {#context: context, #data: data}),
+          returnValue: Future<bool>.value(false)) as _i5.Future<bool>);
+  @override
+  String toString() => super.toString();
+}
+
 /// A class which mocks [Database].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDatabase extends _i1.Mock implements _i7.Database {
+class MockDatabase extends _i1.Mock implements _i8.Database {
   MockDatabase() {
     _i1.throwOnMissingStub(this);
   }
@@ -105,7 +182,7 @@ class MockDatabase extends _i1.Mock implements _i7.Database {
   _i5.Future<_i3.PostgreSQLConnection> getConnection() =>
       (super.noSuchMethod(Invocation.method(#getConnection, []),
               returnValue: Future<_i3.PostgreSQLConnection>.value(
-                  _FakePostgreSQLConnection_1()))
+                  _FakePostgreSQLConnection_2()))
           as _i5.Future<_i3.PostgreSQLConnection>);
   @override
   _i5.Future<List<Map<String, dynamic>>> list(
@@ -223,7 +300,7 @@ class MockDatabase extends _i1.Mock implements _i7.Database {
 /// A class which mocks [UsernameGenerator].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUsernameGenerator extends _i1.Mock implements _i8.UsernameGenerator {
+class MockUsernameGenerator extends _i1.Mock implements _i9.UsernameGenerator {
   MockUsernameGenerator() {
     _i1.throwOnMissingStub(this);
   }

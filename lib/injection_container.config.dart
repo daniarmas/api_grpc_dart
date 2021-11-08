@@ -81,7 +81,9 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       businessLocalDataSource: get<_i24.BusinessLocalDataSource>()));
   gh.factory<_i27.UserRepository>(() => _i28.UserRepositoryImpl(
       generator: get<_i19.UsernameGenerator>(),
-      userLocalDataSource: get<_i18.UserLocalDataSource>()));
+      userLocalDataSource: get<_i18.UserLocalDataSource>(),
+      verificationCodeLocalDataSource:
+          get<_i20.VerificationCodeLocalDataSource>()));
   gh.factory<_i29.VerificationCodeRepository>(() =>
       _i30.VerificationCodeRepositoryImpl(
           emailer: get<_i6.Emailer>(),

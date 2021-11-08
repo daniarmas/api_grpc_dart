@@ -3,9 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
-import 'package:postgres_dao/attribute.dart';
-import 'package:postgres_dao/postgres_dao.dart';
-import 'package:postgres_dao/where.dart';
+import 'package:postgres_conector/postgres_conector.dart';
 
 import '../../environment.dart';
 import 'database.dart';
@@ -161,6 +159,9 @@ class PostgresqlDatabase implements Database {
       required List<Attribute> attributes}) async {
     try {
       data.remove('id');
+      if (data.isEmpty) {
+        throw GrpcError.invalidArgument('You must send at least one parameter');
+      }
       final response = await _connection.update(
           context: context,
           where: where,

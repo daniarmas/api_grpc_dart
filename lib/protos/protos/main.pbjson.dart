@@ -82,6 +82,38 @@ const AppType$json = const {
 
 /// Descriptor for `AppType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhgKFEFQUF9UWVBFX1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
+@$core.Deprecated('Use updateUserRequestDescriptor instead')
+const UpdateUserRequest$json = const {
+  '1': 'UpdateUserRequest',
+  '2': const [
+    const {'1': 'fieldMask', '3': 1, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+    const {'1': 'updateMask', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'updateMask'},
+    const {'1': 'id', '3': 3, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'email', '3': 4, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'alias', '3': 5, '4': 1, '5': 9, '10': 'alias'},
+    const {'1': 'fullName', '3': 6, '4': 1, '5': 9, '10': 'fullName'},
+    const {'1': 'thumbnail', '3': 7, '4': 1, '5': 9, '10': 'thumbnail'},
+    const {'1': 'thumbnailBlurHash', '3': 8, '4': 1, '5': 9, '10': 'thumbnailBlurHash'},
+    const {'1': 'highQualityPhoto', '3': 9, '4': 1, '5': 9, '10': 'highQualityPhoto'},
+    const {'1': 'highQualityPhotoBlurHash', '3': 10, '4': 1, '5': 9, '10': 'highQualityPhotoBlurHash'},
+    const {'1': 'lowQualityPhoto', '3': 11, '4': 1, '5': 9, '10': 'lowQualityPhoto'},
+    const {'1': 'lowQualityPhotoBlurHash', '3': 12, '4': 1, '5': 9, '10': 'lowQualityPhotoBlurHash'},
+    const {'1': 'code', '3': 13, '4': 1, '5': 9, '10': 'code'},
+  ],
+};
+
+/// Descriptor for `UpdateUserRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateUserRequestDescriptor = $convert.base64Decode('ChFVcGRhdGVVc2VyUmVxdWVzdBI4CglmaWVsZE1hc2sYASABKAsyGi5nb29nbGUucHJvdG9idWYuRmllbGRNYXNrUglmaWVsZE1hc2sSOgoKdXBkYXRlTWFzaxgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5GaWVsZE1hc2tSCnVwZGF0ZU1hc2sSDgoCaWQYAyABKAlSAmlkEhQKBWVtYWlsGAQgASgJUgVlbWFpbBIUCgVhbGlhcxgFIAEoCVIFYWxpYXMSGgoIZnVsbE5hbWUYBiABKAlSCGZ1bGxOYW1lEhwKCXRodW1ibmFpbBgHIAEoCVIJdGh1bWJuYWlsEiwKEXRodW1ibmFpbEJsdXJIYXNoGAggASgJUhF0aHVtYm5haWxCbHVySGFzaBIqChBoaWdoUXVhbGl0eVBob3RvGAkgASgJUhBoaWdoUXVhbGl0eVBob3RvEjoKGGhpZ2hRdWFsaXR5UGhvdG9CbHVySGFzaBgKIAEoCVIYaGlnaFF1YWxpdHlQaG90b0JsdXJIYXNoEigKD2xvd1F1YWxpdHlQaG90bxgLIAEoCVIPbG93UXVhbGl0eVBob3RvEjgKF2xvd1F1YWxpdHlQaG90b0JsdXJIYXNoGAwgASgJUhdsb3dRdWFsaXR5UGhvdG9CbHVySGFzaBISCgRjb2RlGA0gASgJUgRjb2Rl');
+@$core.Deprecated('Use updateUserResponseDescriptor instead')
+const UpdateUserResponse$json = const {
+  '1': 'UpdateUserResponse',
+  '2': const [
+    const {'1': 'user', '3': 1, '4': 1, '5': 11, '6': '.User', '10': 'user'},
+  ],
+};
+
+/// Descriptor for `UpdateUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updateUserResponseDescriptor = $convert.base64Decode('ChJVcGRhdGVVc2VyUmVzcG9uc2USGQoEdXNlchgBIAEoCzIFLlVzZXJSBHVzZXI=');
 @$core.Deprecated('Use listSessionRequestDescriptor instead')
 const ListSessionRequest$json = const {
   '1': 'ListSessionRequest',
@@ -543,7 +575,7 @@ const User$json = const {
     const {'1': 'thumbnail', '3': 8, '4': 1, '5': 9, '10': 'thumbnail'},
     const {'1': 'thumbnailBlurHash', '3': 9, '4': 1, '5': 9, '10': 'thumbnailBlurHash'},
     const {'1': 'userAddress', '3': 10, '4': 3, '5': 11, '6': '.UserAddress', '10': 'userAddress'},
-    const {'1': 'birthday', '3': 11, '4': 1, '5': 9, '10': 'birthday'},
+    const {'1': 'isLegalAge', '3': 11, '4': 1, '5': 8, '10': 'isLegalAge'},
     const {'1': 'email', '3': 12, '4': 1, '5': 9, '10': 'email'},
     const {'1': 'permissions', '3': 13, '4': 3, '5': 11, '6': '.UserPermission', '10': 'permissions'},
     const {'1': 'createTime', '3': 14, '4': 1, '5': 9, '10': 'createTime'},
@@ -552,7 +584,7 @@ const User$json = const {
 };
 
 /// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userDescriptor = $convert.base64Decode('CgRVc2VyEg4KAmlkGAEgASgJUgJpZBIaCghmdWxsTmFtZRgCIAEoCVIIZnVsbE5hbWUSFAoFYWxpYXMYAyABKAlSBWFsaWFzEioKEGhpZ2hRdWFsaXR5UGhvdG8YBCABKAlSEGhpZ2hRdWFsaXR5UGhvdG8SOgoYaGlnaFF1YWxpdHlQaG90b0JsdXJIYXNoGAUgASgJUhhoaWdoUXVhbGl0eVBob3RvQmx1ckhhc2gSKAoPbG93UXVhbGl0eVBob3RvGAYgASgJUg9sb3dRdWFsaXR5UGhvdG8SOAoXbG93UXVhbGl0eVBob3RvQmx1ckhhc2gYByABKAlSF2xvd1F1YWxpdHlQaG90b0JsdXJIYXNoEhwKCXRodW1ibmFpbBgIIAEoCVIJdGh1bWJuYWlsEiwKEXRodW1ibmFpbEJsdXJIYXNoGAkgASgJUhF0aHVtYm5haWxCbHVySGFzaBIuCgt1c2VyQWRkcmVzcxgKIAMoCzIMLlVzZXJBZGRyZXNzUgt1c2VyQWRkcmVzcxIaCghiaXJ0aGRheRgLIAEoCVIIYmlydGhkYXkSFAoFZW1haWwYDCABKAlSBWVtYWlsEjEKC3Blcm1pc3Npb25zGA0gAygLMg8uVXNlclBlcm1pc3Npb25SC3Blcm1pc3Npb25zEh4KCmNyZWF0ZVRpbWUYDiABKAlSCmNyZWF0ZVRpbWUSHgoKdXBkYXRlVGltZRgPIAEoCVIKdXBkYXRlVGltZQ==');
+final $typed_data.Uint8List userDescriptor = $convert.base64Decode('CgRVc2VyEg4KAmlkGAEgASgJUgJpZBIaCghmdWxsTmFtZRgCIAEoCVIIZnVsbE5hbWUSFAoFYWxpYXMYAyABKAlSBWFsaWFzEioKEGhpZ2hRdWFsaXR5UGhvdG8YBCABKAlSEGhpZ2hRdWFsaXR5UGhvdG8SOgoYaGlnaFF1YWxpdHlQaG90b0JsdXJIYXNoGAUgASgJUhhoaWdoUXVhbGl0eVBob3RvQmx1ckhhc2gSKAoPbG93UXVhbGl0eVBob3RvGAYgASgJUg9sb3dRdWFsaXR5UGhvdG8SOAoXbG93UXVhbGl0eVBob3RvQmx1ckhhc2gYByABKAlSF2xvd1F1YWxpdHlQaG90b0JsdXJIYXNoEhwKCXRodW1ibmFpbBgIIAEoCVIJdGh1bWJuYWlsEiwKEXRodW1ibmFpbEJsdXJIYXNoGAkgASgJUhF0aHVtYm5haWxCbHVySGFzaBIuCgt1c2VyQWRkcmVzcxgKIAMoCzIMLlVzZXJBZGRyZXNzUgt1c2VyQWRkcmVzcxIeCgppc0xlZ2FsQWdlGAsgASgIUgppc0xlZ2FsQWdlEhQKBWVtYWlsGAwgASgJUgVlbWFpbBIxCgtwZXJtaXNzaW9ucxgNIAMoCzIPLlVzZXJQZXJtaXNzaW9uUgtwZXJtaXNzaW9ucxIeCgpjcmVhdGVUaW1lGA4gASgJUgpjcmVhdGVUaW1lEh4KCnVwZGF0ZVRpbWUYDyABKAlSCnVwZGF0ZVRpbWU=');
 @$core.Deprecated('Use businessDescriptor instead')
 const Business$json = const {
   '1': 'Business',

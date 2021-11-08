@@ -1,7 +1,7 @@
 import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
-import 'package:postgres_dao/postgres_dao.dart';
+import 'package:postgres_conector/postgres_conector.dart';
 
 // ignore: one_member_abstracts
 abstract class ObjectStorageRepository {

@@ -9,7 +9,7 @@ import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mailer/mailer.dart';
 import 'package:postgres/postgres.dart';
-import 'package:postgres_dao/postgres_dao.dart';
+import 'package:postgres_conector/postgres_conector.dart';
 
 import '../../domain/repositories/verification_code_repository.dart';
 import '../../protos/protos/main.pb.dart';
@@ -68,11 +68,11 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
         }, paths: [
           NormalAttribute(name: 'id'),
         ]);
-        if ((data['type'] == VerificationCodeType.SIGN_IN ||
-                data['type'] == VerificationCodeType.CHANGE_USER_EMAIL) &&
+        if (data['type'] == VerificationCodeType.SIGN_IN &&
             getUserResponse == null) {
           return Left(GrpcError.invalidArgument('User Not found'));
-        } else if (data['type'] == VerificationCodeType.SIGN_UP &&
+        } else if ((data['type'] == VerificationCodeType.SIGN_UP ||
+                data['type'] == VerificationCodeType.CHANGE_USER_EMAIL) &&
             getUserResponse != null) {
           return Left(GrpcError.invalidArgument('User Already Exists'));
         }

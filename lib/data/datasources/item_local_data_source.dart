@@ -2,8 +2,7 @@ import 'package:api_grpc_dart/core/utils/parse.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
-import 'package:postgres_dao/get_where_list.dart';
-import 'package:postgres_dao/postgres_dao.dart';
+import 'package:postgres_conector/postgres_conector.dart';
 
 import '../../protos/protos/main.pb.dart';
 

@@ -539,6 +539,48 @@ abstract class ItemServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.SearchItemRequest request);
 }
 
+class UserServiceClient extends $grpc.Client {
+  static final _$updateUser =
+      $grpc.ClientMethod<$0.UpdateUserRequest, $0.UpdateUserResponse>(
+          '/UserService/UpdateUser',
+          ($0.UpdateUserRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.UpdateUserResponse.fromBuffer(value));
+
+  UserServiceClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions? options,
+      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+      : super(channel, options: options, interceptors: interceptors);
+
+  $grpc.ResponseFuture<$0.UpdateUserResponse> updateUser(
+      $0.UpdateUserRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updateUser, request, options: options);
+  }
+}
+
+abstract class UserServiceBase extends $grpc.Service {
+  $core.String get $name => 'UserService';
+
+  UserServiceBase() {
+    $addMethod($grpc.ServiceMethod<$0.UpdateUserRequest, $0.UpdateUserResponse>(
+        'UpdateUser',
+        updateUser_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.UpdateUserRequest.fromBuffer(value),
+        ($0.UpdateUserResponse value) => value.writeToBuffer()));
+  }
+
+  $async.Future<$0.UpdateUserResponse> updateUser_Pre($grpc.ServiceCall call,
+      $async.Future<$0.UpdateUserRequest> request) async {
+    return updateUser(call, await request);
+  }
+
+  $async.Future<$0.UpdateUserResponse> updateUser(
+      $grpc.ServiceCall call, $0.UpdateUserRequest request);
+}
+
 class ObjectStorageServiceClient extends $grpc.Client {
   static final _$getPresignedPutObjectUserAvatar = $grpc.ClientMethod<
           $0.GetPresignedPutUserAvatarRequest,

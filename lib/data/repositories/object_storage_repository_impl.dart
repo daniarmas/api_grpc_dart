@@ -4,7 +4,7 @@ import 'package:api_grpc_dart/domain/repositories/object_storage_repository.dart
 import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:postgres_dao/attribute.dart';
+import 'package:postgres_conector/postgres_conector.dart';
 
 @Injectable(as: ObjectStorageRepository)
 class ObjectStorageRepositoryImpl implements ObjectStorageRepository {

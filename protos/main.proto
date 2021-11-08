@@ -35,6 +35,10 @@ service ItemService {
   rpc SearchItem (SearchItemRequest) returns (SearchItemResponse) {}
 }
 
+service UserService {
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse) {}
+}
+
 service ObjectStorageService {
   rpc GetPresignedPutObjectUserAvatar (GetPresignedPutUserAvatarRequest) returns (GetPresignedPutUserAvatarResponse) {}
 }
@@ -48,6 +52,26 @@ service Health {
 }
 
 // Request & Response Message
+
+message UpdateUserRequest {
+  google.protobuf.FieldMask fieldMask = 1;
+  google.protobuf.FieldMask updateMask = 2;
+  string id = 3;
+  string email = 4;
+  string alias = 5;
+  string fullName = 6;
+  string thumbnail = 7;
+  string thumbnailBlurHash = 8;
+  string highQualityPhoto = 9;
+  string highQualityPhotoBlurHash = 10;
+  string lowQualityPhoto = 11;
+  string lowQualityPhotoBlurHash = 12;
+  string code = 13;
+}
+
+message UpdateUserResponse {
+  User user = 1;
+}
 
 message ListSessionRequest {
   google.protobuf.FieldMask fieldMask = 1;
@@ -269,7 +293,7 @@ message User {
   string thumbnail = 8;
   string thumbnailBlurHash = 9;
   repeated UserAddress userAddress = 10;
-  string birthday = 11;
+  bool isLegalAge = 11;
   string email = 12; 
   repeated UserPermission permissions = 13;
   string createTime = 14;
