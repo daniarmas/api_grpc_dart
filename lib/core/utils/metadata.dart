@@ -5,14 +5,15 @@ import '../../protos/protos/main.pb.dart';
 
 class HeadersMetadata {
   final String accesstoken;
-  final String? authorizationToken;
+  final String? authorization;
   final String? refreshToken;
   final PlatformType platform;
   final String ipv4;
   final String ipv6;
-  final String systemLanguage;
   final String networkType;
   final String systemVersion;
+  final String systemVersionSdk;
+  final String systemLanguage;
   final String appVersion;
   final AppType app;
   final String deviceId;
@@ -24,6 +25,7 @@ class HeadersMetadata {
       required this.platform,
       required this.systemVersion,
       required this.appVersion,
+      required this.systemVersionSdk,
       required this.app,
       required this.systemLanguage,
       required this.networkType,
@@ -32,15 +34,16 @@ class HeadersMetadata {
       required this.deviceId,
       required this.model,
       required this.firebaseCloudMessagingId,
-      this.authorizationToken,
+      this.authorization,
       this.refreshToken});
 
   HeadersMetadata.fromServiceCall(ServiceCall call)
       : accesstoken = call.clientMetadata!['accesstoken']!,
         app = parseAppTypeEnum(call.clientMetadata!['app']!),
         appVersion = call.clientMetadata!['appversion']!,
-        authorizationToken = call.clientMetadata!['authorization'],
+        authorization = call.clientMetadata!['authorization'],
         deviceId = call.clientMetadata!['deviceid']!,
+        systemVersionSdk = call.clientMetadata!['systemversionsdk']!,
         ipv4 = call.clientMetadata!['ipv4']!,
         ipv6 = call.clientMetadata!['ipv6']!,
         systemLanguage = call.clientMetadata!['systemlanguage']!,

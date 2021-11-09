@@ -379,17 +379,13 @@ final $typed_data.Uint8List checkSessionResponseDescriptor = $convert.base64Deco
 const CheckSessionRequest$json = const {
   '1': 'CheckSessionRequest',
   '2': const [
-    const {'1': 'refreshToken', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'refreshToken', '17': true},
-    const {'1': 'authorizationToken', '3': 2, '4': 1, '5': 9, '9': 1, '10': 'authorizationToken', '17': true},
-  ],
-  '8': const [
-    const {'1': '_refreshToken'},
-    const {'1': '_authorizationToken'},
+    const {'1': 'refreshToken', '3': 1, '4': 1, '5': 9, '10': 'refreshToken'},
+    const {'1': 'authorizationToken', '3': 2, '4': 1, '5': 9, '10': 'authorizationToken'},
   ],
 };
 
 /// Descriptor for `CheckSessionRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List checkSessionRequestDescriptor = $convert.base64Decode('ChNDaGVja1Nlc3Npb25SZXF1ZXN0EicKDHJlZnJlc2hUb2tlbhgBIAEoCUgAUgxyZWZyZXNoVG9rZW6IAQESMwoSYXV0aG9yaXphdGlvblRva2VuGAIgASgJSAFSEmF1dGhvcml6YXRpb25Ub2tlbogBAUIPCg1fcmVmcmVzaFRva2VuQhUKE19hdXRob3JpemF0aW9uVG9rZW4=');
+final $typed_data.Uint8List checkSessionRequestDescriptor = $convert.base64Decode('ChNDaGVja1Nlc3Npb25SZXF1ZXN0EiIKDHJlZnJlc2hUb2tlbhgBIAEoCVIMcmVmcmVzaFRva2VuEi4KEmF1dGhvcml6YXRpb25Ub2tlbhgCIAEoCVISYXV0aG9yaXphdGlvblRva2Vu');
 @$core.Deprecated('Use createVerificationCodeRequestDescriptor instead')
 const CreateVerificationCodeRequest$json = const {
   '1': 'CreateVerificationCodeRequest',

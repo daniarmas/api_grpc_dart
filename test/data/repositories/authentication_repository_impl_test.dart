@@ -72,8 +72,9 @@ void main() {
       ctx = context;
     });
     metadata = HeadersMetadata(
+        systemVersionSdk: '1',
         accesstoken: '1',
-        authorizationToken: '1',
+        authorization: '1',
         refreshToken: '1',
         platform: PlatformType.ANDROID,
         networkType: 'wifi',

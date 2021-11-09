@@ -197,8 +197,8 @@ message CheckSessionResponse {
 }
 
 message CheckSessionRequest {
-  optional string refreshToken = 1;
-  optional string authorizationToken = 2;
+  string refreshToken = 1;
+  string authorizationToken = 2;
 }
 
 message CreateVerificationCodeRequest {

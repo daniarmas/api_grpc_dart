@@ -564,7 +564,7 @@ class AuthenticationImpl implements AuthenticationRepository {
     try {
       if (data['all']) {
         final authorizationTokenPayload = jsonWebToken.verify(
-            metadata.authorizationToken!, 'AuthorizationToken');
+            metadata.authorization!, 'AuthorizationToken');
         final authorizationToken = await authorizationTokenLocalDataSource
             .getAuthorizationToken(
                 context: context,
@@ -592,7 +592,7 @@ class AuthenticationImpl implements AuthenticationRepository {
         return Right(null);
       } else if (data['authorizationTokenFk'] != '') {
         final authorizationTokenPayload = jsonWebToken.verify(
-            metadata.authorizationToken!, 'AuthorizationToken');
+            metadata.authorization!, 'AuthorizationToken');
         final authorizationTokenByMetadata =
             await authorizationTokenLocalDataSource.getAuthorizationToken(
                 context: context,
@@ -621,7 +621,7 @@ class AuthenticationImpl implements AuthenticationRepository {
         return Right(null);
       } else {
         final authorizationTokenPayload = jsonWebToken.verify(
-            metadata.authorizationToken!, 'AuthorizationToken');
+            metadata.authorization!, 'AuthorizationToken');
         final authorizationTokenByMetadata =
             await authorizationTokenLocalDataSource
                 .getAuthorizationToken(context: context, data: {
@@ -657,7 +657,7 @@ class AuthenticationImpl implements AuthenticationRepository {
       required List<Attribute> paths}) async {
     try {
       final authorizationTokenPayload = jsonWebToken.verify(
-          metadata.authorizationToken!, 'AuthorizationToken');
+          metadata.authorization!, 'AuthorizationToken');
       final authorizationToken = await authorizationTokenLocalDataSource
           .getAuthorizationToken(context: context, data: {
         'id': authorizationTokenPayload['authorizationTokenFk'],
