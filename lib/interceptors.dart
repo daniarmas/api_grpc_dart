@@ -54,12 +54,13 @@ FutureOr<GrpcError?> checkClientMetadata(
     return GrpcError.invalidArgument('Client metadata incomplete');
   }
   if (metadata['platform'] == null ||
-      metadata['systemversion'] == null ||
       metadata['app'] == null ||
       metadata['appversion'] == null ||
       metadata['ipv4'] == null ||
-      metadata['ipv6'] == null ||
+      // metadata['ipv6'] == null ||
       metadata['systemlanguage'] == null ||
+      metadata['systemversionsdk'] == null ||
+      metadata['systemversion'] == null ||
       metadata['networktype'] == null ||
       metadata['deviceid'] == null ||
       metadata['model'] == null ||

@@ -40,6 +40,7 @@ void main() {
       ctx = context;
     });
     metadata = HeadersMetadata(
+        systemVersionSdk: '1',
         accesstoken: '1',
         platform: PlatformType.ANDROID,
         systemVersion: '1',
