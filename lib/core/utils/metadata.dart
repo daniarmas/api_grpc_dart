@@ -1,6 +1,8 @@
-import 'package:api_grpc_dart/core/utils/parse.dart';
+// Package imports:
 import 'package:grpc/grpc.dart';
 
+// Project imports:
+import 'package:api_grpc_dart/core/utils/parse.dart';
 import '../../protos/protos/main.pb.dart';
 
 class HeadersMetadata {

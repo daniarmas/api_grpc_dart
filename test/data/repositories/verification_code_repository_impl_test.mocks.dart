@@ -2,9 +2,19 @@
 // in api_grpc_dart/test/data/repositories/verification_code_repository_impl_test.dart.
 // Do not manually edit this file.
 
+// Dart imports:
 import 'dart:async' as _i5;
 
+// Package imports:
+import 'package:mockito/mockito.dart' as _i1;
+import 'package:postgres/postgres.dart' as _i3;
+import 'package:postgres_conector/postgres_conector.dart' as _i6;
+
+// Project imports:
 import 'package:api_grpc_dart/data/database/database.dart' as _i11;
+import 'package:api_grpc_dart/data/email/emailer.dart' as _i10;
+import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i2;
+
 import 'package:api_grpc_dart/data/datasources/banned_device_local_data_source.dart'
     as _i9;
 import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dart'
@@ -13,11 +23,6 @@ import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart'
     as _i7;
 import 'package:api_grpc_dart/data/datasources/verification_code_local_data_source.dart'
     as _i4;
-import 'package:api_grpc_dart/data/email/emailer.dart' as _i10;
-import 'package:api_grpc_dart/protos/protos/main.pb.dart' as _i2;
-import 'package:mockito/mockito.dart' as _i1;
-import 'package:postgres/postgres.dart' as _i3;
-import 'package:postgres_conector/postgres_conector.dart' as _i6;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters

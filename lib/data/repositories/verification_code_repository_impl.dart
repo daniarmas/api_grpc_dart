@@ -1,9 +1,4 @@
-import 'package:api_grpc_dart/core/utils/metadata.dart';
-import 'package:api_grpc_dart/core/utils/string_utils.dart';
-import 'package:api_grpc_dart/data/datasources/banned_device_local_data_source.dart';
-import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dart';
-import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
-import 'package:api_grpc_dart/data/email/emailer.dart';
+// Package imports:
 import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
@@ -11,6 +6,13 @@ import 'package:mailer/mailer.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_conector/postgres_conector.dart';
 
+// Project imports:
+import 'package:api_grpc_dart/core/utils/metadata.dart';
+import 'package:api_grpc_dart/core/utils/string_utils.dart';
+import 'package:api_grpc_dart/data/datasources/banned_device_local_data_source.dart';
+import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dart';
+import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
+import 'package:api_grpc_dart/data/email/emailer.dart';
 import '../../domain/repositories/verification_code_repository.dart';
 import '../../protos/protos/main.pb.dart';
 import '../datasources/verification_code_local_data_source.dart';

@@ -1,3 +1,10 @@
+// Package imports:
+import 'package:dartz/dartz.dart';
+import 'package:get_it/get_it.dart';
+import 'package:grpc/grpc.dart';
+import 'package:postgres_conector/postgres_conector.dart';
+
+// Project imports:
 import 'package:api_grpc_dart/core/utils/get_request_data.dart';
 import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
@@ -5,11 +12,6 @@ import 'package:api_grpc_dart/domain/repositories/authentication_repository.dart
 import 'package:api_grpc_dart/domain/repositories/user_repository.dart';
 import 'package:api_grpc_dart/domain/repositories/verification_code_repository.dart';
 import 'package:api_grpc_dart/protos/google/protobuf/empty.pb.dart';
-import 'package:dartz/dartz.dart';
-import 'package:get_it/get_it.dart';
-import 'package:grpc/grpc.dart';
-import 'package:postgres_conector/postgres_conector.dart';
-
 import '../../protos/protos/main.pbgrpc.dart';
 
 class AuthenticationService extends AuthenticationServiceBase {

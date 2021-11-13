@@ -1,10 +1,13 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:api_grpc_dart/injection_container.config.dart';
+// Package imports:
 import 'package:dotenv/dotenv.dart' show env, load;
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
+// Project imports:
+import 'package:api_grpc_dart/injection_container.config.dart';
 import 'environment.dart';
 
 final getIt = GetIt.instance;

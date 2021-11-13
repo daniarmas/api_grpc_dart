@@ -1,7 +1,9 @@
+// Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:minio/minio.dart';
 
+// Project imports:
 import '../../environment.dart';
 
 // ignore: one_member_abstracts

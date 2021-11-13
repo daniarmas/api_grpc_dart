@@ -1,9 +1,11 @@
-import 'package:api_grpc_dart/core/utils/string_utils.dart';
+// Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
+// Project imports:
+import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import '../../environment.dart';
 import '../../protos/protos/main.pb.dart';
 import 'emailer.dart';

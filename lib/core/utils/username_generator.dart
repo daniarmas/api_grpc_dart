@@ -2,8 +2,10 @@
 /// and seedable username for emails or user forms
 library username_generator;
 
+// Dart imports:
 import 'dart:math';
 
+// Package imports:
 import 'package:injectable/injectable.dart';
 
 extension StringExtension on String {

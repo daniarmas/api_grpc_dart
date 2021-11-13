@@ -1,10 +1,12 @@
-import 'package:api_grpc_dart/core/error/exception.dart';
+// Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_conector/postgres_conector.dart';
 
+// Project imports:
+import 'package:api_grpc_dart/core/error/exception.dart';
 import '../../environment.dart';
 import 'database.dart';
 
