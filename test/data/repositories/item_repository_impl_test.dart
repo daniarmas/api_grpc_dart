@@ -42,14 +42,14 @@ void main() {
     metadata = HeadersMetadata(
         systemVersionSdk: '1',
         accesstoken: '1',
-        platform: PlatformType.ANDROID,
+        platform: PlatformType.Android,
         systemVersion: '1',
         appVersion: '1',
         networkType: 'wifi',
         systemLanguage: 'en',
         ipv4: '192.168.1.3',
         ipv6: 'asdksajdhaskjdjklasdhjk',
-        app: AppType.APP,
+        app: AppType.App,
         deviceId: '1',
         model: '1',
         firebaseCloudMessagingId: '1');
@@ -72,7 +72,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -118,7 +118,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -139,7 +139,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -160,7 +160,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -181,7 +181,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -202,7 +202,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -223,7 +223,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -288,7 +288,7 @@ void main() {
         businessFk: 'businessFk',
         businessItemCategoryFk: 'businessItemCategoryFk',
         description: 'description',
-        status: ItemStatusType.AVAILABLE,
+        status: ItemStatusType.Available,
         name: 'name',
         photos: [
           ItemPhoto(

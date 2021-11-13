@@ -12,76 +12,134 @@ import 'dart:typed_data' as $typed_data;
 const SearchMunicipalityType$json = const {
   '1': 'SearchMunicipalityType',
   '2': const [
-    const {'1': 'SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED', '2': 0},
-    const {'1': 'MORE', '2': 1},
-    const {'1': 'NO_MORE', '2': 2},
+    const {'1': 'SearchMunicipalityTypeUnspecified', '2': 0},
+    const {'1': 'More', '2': 1},
+    const {'1': 'NoMore', '2': 2},
   ],
 };
 
 /// Descriptor for `SearchMunicipalityType`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List searchMunicipalityTypeDescriptor = $convert.base64Decode('ChZTZWFyY2hNdW5pY2lwYWxpdHlUeXBlEigKJFNFQVJDSF9NVU5JQ0lQQUxJVFlfVFlQRV9VTlNQRUNJRklFRBAAEggKBE1PUkUQARILCgdOT19NT1JFEAI=');
+final $typed_data.Uint8List searchMunicipalityTypeDescriptor = $convert.base64Decode('ChZTZWFyY2hNdW5pY2lwYWxpdHlUeXBlEiUKIVNlYXJjaE11bmljaXBhbGl0eVR5cGVVbnNwZWNpZmllZBAAEggKBE1vcmUQARIKCgZOb01vcmUQAg==');
 @$core.Deprecated('Use verificationCodeTypeDescriptor instead')
 const VerificationCodeType$json = const {
   '1': 'VerificationCodeType',
   '2': const [
-    const {'1': 'VERIFICATION_CODE_TYPE_UNSPECIFIED', '2': 0},
-    const {'1': 'SIGN_IN', '2': 1},
-    const {'1': 'SIGN_UP', '2': 2},
-    const {'1': 'CHANGE_USER_EMAIL', '2': 3},
+    const {'1': 'VerificationCodeTypeUnspecified', '2': 0},
+    const {'1': 'SignIn', '2': 1},
+    const {'1': 'SignUp', '2': 2},
+    const {'1': 'ChangeUserEmail', '2': 3},
   ],
 };
 
 /// Descriptor for `VerificationCodeType`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List verificationCodeTypeDescriptor = $convert.base64Decode('ChRWZXJpZmljYXRpb25Db2RlVHlwZRImCiJWRVJJRklDQVRJT05fQ09ERV9UWVBFX1VOU1BFQ0lGSUVEEAASCwoHU0lHTl9JThABEgsKB1NJR05fVVAQAhIVChFDSEFOR0VfVVNFUl9FTUFJTBAD');
+final $typed_data.Uint8List verificationCodeTypeDescriptor = $convert.base64Decode('ChRWZXJpZmljYXRpb25Db2RlVHlwZRIjCh9WZXJpZmljYXRpb25Db2RlVHlwZVVuc3BlY2lmaWVkEAASCgoGU2lnbkluEAESCgoGU2lnblVwEAISEwoPQ2hhbmdlVXNlckVtYWlsEAM=');
 @$core.Deprecated('Use itemStatusTypeDescriptor instead')
 const ItemStatusType$json = const {
   '1': 'ItemStatusType',
   '2': const [
-    const {'1': 'ITEM_STATUS_TYPE_UNSPECIFIED', '2': 0},
-    const {'1': 'AVAILABLE', '2': 1},
-    const {'1': 'UNAVAILABLE', '2': 2},
-    const {'1': 'DEPRECATED', '2': 3},
+    const {'1': 'ItemStatusTypeUnspecified', '2': 0},
+    const {'1': 'Available', '2': 1},
+    const {'1': 'Unavailable', '2': 2},
+    const {'1': 'Deprecated', '2': 3},
   ],
 };
 
 /// Descriptor for `ItemStatusType`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List itemStatusTypeDescriptor = $convert.base64Decode('Cg5JdGVtU3RhdHVzVHlwZRIgChxJVEVNX1NUQVRVU19UWVBFX1VOU1BFQ0lGSUVEEAASDQoJQVZBSUxBQkxFEAESDwoLVU5BVkFJTEFCTEUQAhIOCgpERVBSRUNBVEVEEAM=');
+final $typed_data.Uint8List itemStatusTypeDescriptor = $convert.base64Decode('Cg5JdGVtU3RhdHVzVHlwZRIdChlJdGVtU3RhdHVzVHlwZVVuc3BlY2lmaWVkEAASDQoJQXZhaWxhYmxlEAESDwoLVW5hdmFpbGFibGUQAhIOCgpEZXByZWNhdGVkEAM=');
 @$core.Deprecated('Use businessStatusTypeDescriptor instead')
 const BusinessStatusType$json = const {
   '1': 'BusinessStatusType',
   '2': const [
-    const {'1': 'BUSINESS_STATUS_TYPE_UNSPECIFIED', '2': 0},
-    const {'1': 'BUSINESS_AVAILABLE', '2': 1},
-    const {'1': 'BUSINESS_UNAVAILABLE', '2': 2},
+    const {'1': 'BusinessStatusTypeUnspecified', '2': 0},
+    const {'1': 'BusinessAvailable', '2': 1},
+    const {'1': 'BusinessUnavailable', '2': 2},
   ],
 };
 
 /// Descriptor for `BusinessStatusType`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List businessStatusTypeDescriptor = $convert.base64Decode('ChJCdXNpbmVzc1N0YXR1c1R5cGUSJAogQlVTSU5FU1NfU1RBVFVTX1RZUEVfVU5TUEVDSUZJRUQQABIWChJCVVNJTkVTU19BVkFJTEFCTEUQARIYChRCVVNJTkVTU19VTkFWQUlMQUJMRRAC');
+final $typed_data.Uint8List businessStatusTypeDescriptor = $convert.base64Decode('ChJCdXNpbmVzc1N0YXR1c1R5cGUSIQodQnVzaW5lc3NTdGF0dXNUeXBlVW5zcGVjaWZpZWQQABIVChFCdXNpbmVzc0F2YWlsYWJsZRABEhcKE0J1c2luZXNzVW5hdmFpbGFibGUQAg==');
 @$core.Deprecated('Use platformTypeDescriptor instead')
 const PlatformType$json = const {
   '1': 'PlatformType',
   '2': const [
-    const {'1': 'PLATFORM_TYPE_UNSPECIFIED', '2': 0},
+    const {'1': 'PlatformTypeUnspecified', '2': 0},
     const {'1': 'IOS', '2': 1},
-    const {'1': 'ANDROID', '2': 2},
+    const {'1': 'Android', '2': 2},
   ],
 };
 
 /// Descriptor for `PlatformType`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List platformTypeDescriptor = $convert.base64Decode('CgxQbGF0Zm9ybVR5cGUSHQoZUExBVEZPUk1fVFlQRV9VTlNQRUNJRklFRBAAEgcKA0lPUxABEgsKB0FORFJPSUQQAg==');
+final $typed_data.Uint8List platformTypeDescriptor = $convert.base64Decode('CgxQbGF0Zm9ybVR5cGUSGwoXUGxhdGZvcm1UeXBlVW5zcGVjaWZpZWQQABIHCgNJT1MQARILCgdBbmRyb2lkEAI=');
 @$core.Deprecated('Use appTypeDescriptor instead')
 const AppType$json = const {
   '1': 'AppType',
   '2': const [
-    const {'1': 'APP_TYPE_UNSPECIFIED', '2': 0},
-    const {'1': 'APP', '2': 1},
-    const {'1': 'BUSINESS_APP', '2': 2},
+    const {'1': 'AppTypeUnspecified', '2': 0},
+    const {'1': 'App', '2': 1},
+    const {'1': 'BusinessApp', '2': 2},
   ],
 };
 
 /// Descriptor for `AppType`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhgKFEFQUF9UWVBFX1VOU1BFQ0lGSUVEEAASBwoDQVBQEAESEAoMQlVTSU5FU1NfQVBQEAI=');
+final $typed_data.Uint8List appTypeDescriptor = $convert.base64Decode('CgdBcHBUeXBlEhYKEkFwcFR5cGVVbnNwZWNpZmllZBAAEgcKA0FwcBABEg8KC0J1c2luZXNzQXBwEAI=');
+@$core.Deprecated('Use orderStatusTypeDescriptor instead')
+const OrderStatusType$json = const {
+  '1': 'OrderStatusType',
+  '2': const [
+    const {'1': 'OrderStatusTypeUnspecified', '2': 0},
+    const {'1': 'Pending', '2': 1},
+    const {'1': 'Approved', '2': 2},
+    const {'1': 'Rejected', '2': 3},
+    const {'1': 'Received', '2': 4},
+  ],
+};
+
+/// Descriptor for `OrderStatusType`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List orderStatusTypeDescriptor = $convert.base64Decode('Cg9PcmRlclN0YXR1c1R5cGUSHgoaT3JkZXJTdGF0dXNUeXBlVW5zcGVjaWZpZWQQABILCgdQZW5kaW5nEAESDAoIQXBwcm92ZWQQAhIMCghSZWplY3RlZBADEgwKCFJlY2VpdmVkEAQ=');
+@$core.Deprecated('Use deliveryTypeDescriptor instead')
+const DeliveryType$json = const {
+  '1': 'DeliveryType',
+  '2': const [
+    const {'1': 'DeliveryTypeUnspecified', '2': 0},
+    const {'1': 'ToPickUp', '2': 1},
+    const {'1': 'HomeDelivery', '2': 2},
+  ],
+};
+
+/// Descriptor for `DeliveryType`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List deliveryTypeDescriptor = $convert.base64Decode('CgxEZWxpdmVyeVR5cGUSGwoXRGVsaXZlcnlUeXBlVW5zcGVjaWZpZWQQABIMCghUb1BpY2tVcBABEhAKDEhvbWVEZWxpdmVyeRAC');
+@$core.Deprecated('Use residenceTypeDescriptor instead')
+const ResidenceType$json = const {
+  '1': 'ResidenceType',
+  '2': const [
+    const {'1': 'ResidenceTypeUnspecified', '2': 0},
+    const {'1': 'House', '2': 1},
+    const {'1': 'Apartment', '2': 2},
+  ],
+};
+
+/// Descriptor for `ResidenceType`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List residenceTypeDescriptor = $convert.base64Decode('Cg1SZXNpZGVuY2VUeXBlEhwKGFJlc2lkZW5jZVR5cGVVbnNwZWNpZmllZBAAEgkKBUhvdXNlEAESDQoJQXBhcnRtZW50EAI=');
+@$core.Deprecated('Use listOrderRequestDescriptor instead')
+const ListOrderRequest$json = const {
+  '1': 'ListOrderRequest',
+  '2': const [
+    const {'1': 'fieldMask', '3': 1, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+  ],
+};
+
+/// Descriptor for `ListOrderRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List listOrderRequestDescriptor = $convert.base64Decode('ChBMaXN0T3JkZXJSZXF1ZXN0EjgKCWZpZWxkTWFzaxgBIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5GaWVsZE1hc2tSCWZpZWxkTWFzaw==');
+@$core.Deprecated('Use listOrderResponseDescriptor instead')
+const ListOrderResponse$json = const {
+  '1': 'ListOrderResponse',
+  '2': const [
+    const {'1': 'orders', '3': 1, '4': 3, '5': 11, '6': '.Order', '10': 'orders'},
+  ],
+};
+
+/// Descriptor for `ListOrderResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List listOrderResponseDescriptor = $convert.base64Decode('ChFMaXN0T3JkZXJSZXNwb25zZRIeCgZvcmRlcnMYASADKAsyBi5PcmRlclIGb3JkZXJz');
 @$core.Deprecated('Use updateUserRequestDescriptor instead')
 const UpdateUserRequest$json = const {
   '1': 'UpdateUserRequest',
@@ -557,6 +615,28 @@ const HealthCheckResponse_ServingStatus$json = const {
 
 /// Descriptor for `HealthCheckResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List healthCheckResponseDescriptor = $convert.base64Decode('ChNIZWFsdGhDaGVja1Jlc3BvbnNlEjoKBnN0YXR1cxgBIAEoDjIiLkhlYWx0aENoZWNrUmVzcG9uc2UuU2VydmluZ1N0YXR1c1IGc3RhdHVzIjoKDVNlcnZpbmdTdGF0dXMSCwoHVU5LTk9XThAAEgsKB1NFUlZJTkcQARIPCgtOT1RfU0VSVklORxAC');
+@$core.Deprecated('Use orderDescriptor instead')
+const Order$json = const {
+  '1': 'Order',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'status', '3': 2, '4': 1, '5': 14, '6': '.OrderStatusType', '10': 'status'},
+    const {'1': 'deliveryDate', '3': 3, '4': 1, '5': 9, '10': 'deliveryDate'},
+    const {'1': 'deliveryType', '3': 4, '4': 1, '5': 14, '6': '.DeliveryType', '10': 'deliveryType'},
+    const {'1': 'residenceType', '3': 5, '4': 1, '5': 14, '6': '.ResidenceType', '10': 'residenceType'},
+    const {'1': 'buildingNumber', '3': 6, '4': 1, '5': 9, '10': 'buildingNumber'},
+    const {'1': 'houseNumber', '3': 7, '4': 1, '5': 9, '10': 'houseNumber'},
+    const {'1': 'coordinates', '3': 8, '4': 1, '5': 11, '6': '.Point', '10': 'coordinates'},
+    const {'1': 'price', '3': 9, '4': 1, '5': 1, '10': 'price'},
+    const {'1': 'businessFk', '3': 10, '4': 1, '5': 9, '10': 'businessFk'},
+    const {'1': 'userFk', '3': 11, '4': 1, '5': 9, '10': 'userFk'},
+    const {'1': 'deviceFk', '3': 12, '4': 1, '5': 9, '10': 'deviceFk'},
+    const {'1': 'appVersion', '3': 13, '4': 1, '5': 9, '10': 'appVersion'},
+  ],
+};
+
+/// Descriptor for `Order`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List orderDescriptor = $convert.base64Decode('CgVPcmRlchIOCgJpZBgBIAEoCVICaWQSKAoGc3RhdHVzGAIgASgOMhAuT3JkZXJTdGF0dXNUeXBlUgZzdGF0dXMSIgoMZGVsaXZlcnlEYXRlGAMgASgJUgxkZWxpdmVyeURhdGUSMQoMZGVsaXZlcnlUeXBlGAQgASgOMg0uRGVsaXZlcnlUeXBlUgxkZWxpdmVyeVR5cGUSNAoNcmVzaWRlbmNlVHlwZRgFIAEoDjIOLlJlc2lkZW5jZVR5cGVSDXJlc2lkZW5jZVR5cGUSJgoOYnVpbGRpbmdOdW1iZXIYBiABKAlSDmJ1aWxkaW5nTnVtYmVyEiAKC2hvdXNlTnVtYmVyGAcgASgJUgtob3VzZU51bWJlchIoCgtjb29yZGluYXRlcxgIIAEoCzIGLlBvaW50Ugtjb29yZGluYXRlcxIUCgVwcmljZRgJIAEoAVIFcHJpY2USHgoKYnVzaW5lc3NGaxgKIAEoCVIKYnVzaW5lc3NGaxIWCgZ1c2VyRmsYCyABKAlSBnVzZXJGaxIaCghkZXZpY2VGaxgMIAEoCVIIZGV2aWNlRmsSHgoKYXBwVmVyc2lvbhgNIAEoCVIKYXBwVmVyc2lvbg==');
 @$core.Deprecated('Use userDescriptor instead')
 const User$json = const {
   '1': 'User',

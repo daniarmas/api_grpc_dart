@@ -60,7 +60,7 @@ class BusinessRepositoryImpl implements BusinessRepository {
             GrpcError.invalidArgument('Input `municipalityFk` invalid'));
       } else if (data['searchMunicipalityType'] == null ||
           data['searchMunicipalityType'] ==
-              SearchMunicipalityType.SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED) {
+              SearchMunicipalityType.SearchMunicipalityTypeUnspecified) {
         return Left(GrpcError.invalidArgument(
             'Input `searchMunicipalityType` invalid'));
       } else {

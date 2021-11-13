@@ -95,7 +95,7 @@ class ItemRepositoryImpl implements ItemRepository {
             GrpcError.invalidArgument('Input `municipalityFk` invalid'));
       } else if (data['searchMunicipalityType'] == null ||
           data['searchMunicipalityType'] ==
-              SearchMunicipalityType.SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED) {
+              SearchMunicipalityType.SearchMunicipalityTypeUnspecified) {
         return Left(GrpcError.invalidArgument(
             'Input `searchMunicipalityType` invalid'));
       } else {
@@ -104,7 +104,7 @@ class ItemRepositoryImpl implements ItemRepository {
         var latLng = data['location'];
         SearchItemResponse response = SearchItemResponse();
         List<SearchItem> searchItemsList = [];
-        if (data['searchMunicipalityType'] == SearchMunicipalityType.MORE) {
+        if (data['searchMunicipalityType'] == SearchMunicipalityType.More) {
           itemsResult = await database.search(
               context: context,
               table: 'Item',
@@ -145,7 +145,7 @@ class ItemRepositoryImpl implements ItemRepository {
             itemsResult.removeLast();
             response.nextPage =
                 response.nextPage = itemsResult.last['Item']['cursor'];
-            response.searchMunicipalityType = SearchMunicipalityType.MORE;
+            response.searchMunicipalityType = SearchMunicipalityType.More;
           } else if (itemsResult.length <= 5 && itemsResult.isNotEmpty) {
             var len = 5 - itemsResult.length;
             var completeItems = await database.search(
@@ -190,7 +190,7 @@ class ItemRepositoryImpl implements ItemRepository {
             itemsResult.addAll(completeItems);
             response.nextPage =
                 response.nextPage = itemsResult.last['Item']['cursor'];
-            response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+            response.searchMunicipalityType = SearchMunicipalityType.NoMore;
           } else if (itemsResult.isEmpty) {
             itemsResult = await database.search(
                 context: context,
@@ -234,7 +234,7 @@ class ItemRepositoryImpl implements ItemRepository {
             } else if (itemsResult.length <= 5 && itemsResult.isNotEmpty) {
               response.nextPage = itemsResult.last['Item']['cursor'];
             }
-            response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+            response.searchMunicipalityType = SearchMunicipalityType.NoMore;
           }
         } else {
           itemsResult = await database.search(
@@ -279,7 +279,7 @@ class ItemRepositoryImpl implements ItemRepository {
           } else if (itemsResult.length <= 5 && itemsResult.isNotEmpty) {
             response.nextPage = itemsResult.last['Item']['cursor'];
           }
-          response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+          response.searchMunicipalityType = SearchMunicipalityType.NoMore;
         }
         for (var item in itemsResult) {
           searchItemsList.add(SearchItem(
@@ -291,10 +291,10 @@ class ItemRepositoryImpl implements ItemRepository {
             cursor: item['Item']['cursor'],
             businessName: item['Business']['name'],
             status: (parseItemStatusTypeEnum(item['Item']['status']) ==
-                        ItemStatusType.AVAILABLE &&
+                        ItemStatusType.Available &&
                     ((item['']['isInRange'] || item['Business']['toPickUp'])))
-                ? ItemStatusType.AVAILABLE
-                : ItemStatusType.UNAVAILABLE,
+                ? ItemStatusType.Available
+                : ItemStatusType.Unavailable,
           ));
         }
         response.items.addAll(searchItemsList);

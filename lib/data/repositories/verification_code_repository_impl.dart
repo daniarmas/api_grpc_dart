@@ -39,7 +39,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
           required List<Attribute> paths}) async {
     try {
       if (data['type'] ==
-          VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED) {
+          VerificationCodeType.VerificationCodeTypeUnspecified) {
         return Left(GrpcError.invalidArgument('Input `type` invalid'));
       } else if (!StringUtils.isEmail(data['email'])) {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
@@ -68,11 +68,11 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
         }, paths: [
           NormalAttribute(name: 'id'),
         ]);
-        if (data['type'] == VerificationCodeType.SIGN_IN &&
+        if (data['type'] == VerificationCodeType.SignIn &&
             getUserResponse == null) {
           return Left(GrpcError.invalidArgument('User Not found'));
-        } else if ((data['type'] == VerificationCodeType.SIGN_UP ||
-                data['type'] == VerificationCodeType.CHANGE_USER_EMAIL) &&
+        } else if ((data['type'] == VerificationCodeType.SignUp ||
+                data['type'] == VerificationCodeType.ChangeUserEmail) &&
             getUserResponse != null) {
           return Left(GrpcError.invalidArgument('User Already Exists'));
         }

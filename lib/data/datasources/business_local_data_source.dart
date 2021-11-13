@@ -74,8 +74,8 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
             status: (result['']['isInRange'] == false &&
                     result[_table]['toPickUp'] == false &&
                     result[_table]['homeDelivery'] == true)
-                ? BusinessStatusType.BUSINESS_UNAVAILABLE
-                : BusinessStatusType.BUSINESS_AVAILABLE,
+                ? BusinessStatusType.BusinessUnavailable
+                : BusinessStatusType.BusinessAvailable,
             // polygon: parsePolygon(result['']['polygon'][0]),
             distance: result['']['distance'],
             coordinates: Point(
@@ -108,7 +108,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
           !paths.any((element) => element.name == '"status"')) {
         paths.add(NormalAttribute(name: 'toPickUp'));
       }
-      if (data['searchMunicipalityType'] == SearchMunicipalityType.MORE) {
+      if (data['searchMunicipalityType'] == SearchMunicipalityType.More) {
         itemsResult = await _database.list(
             context: context,
             table: 'Business',
@@ -129,7 +129,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
           itemsResult.removeLast();
           response.nextPage =
               response.nextPage = itemsResult.last['Business']['cursor'];
-          response.searchMunicipalityType = SearchMunicipalityType.MORE;
+          response.searchMunicipalityType = SearchMunicipalityType.More;
         } else if (itemsResult.length <= 5 && itemsResult.isNotEmpty) {
           var len = 5 - itemsResult.length;
           var completeItems = await _database.list(
@@ -154,7 +154,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
           itemsResult.addAll(completeItems);
           response.nextPage =
               response.nextPage = itemsResult.last['Business']['cursor'];
-          response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+          response.searchMunicipalityType = SearchMunicipalityType.NoMore;
         } else if (itemsResult.isEmpty) {
           itemsResult = await _database.list(
               context: context,
@@ -178,7 +178,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
           } else if (itemsResult.length <= 5 && itemsResult.isNotEmpty) {
             response.nextPage = itemsResult.last['Business']['cursor'];
           }
-          response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+          response.searchMunicipalityType = SearchMunicipalityType.NoMore;
         }
       } else {
         itemsResult = await _database.list(
@@ -203,7 +203,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
         } else if (itemsResult.length <= 5 && itemsResult.isNotEmpty) {
           response.nextPage = itemsResult.last['Business']['cursor'];
         }
-        response.searchMunicipalityType = SearchMunicipalityType.NO_MORE;
+        response.searchMunicipalityType = SearchMunicipalityType.NoMore;
       }
       for (var item in itemsResult) {
         business.add(Business(
@@ -235,8 +235,8 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
             provinceFk: item[_table]['provinceFk'],
             phone: item[_table]['phone'],
             status: (item['']['isInRange'] || item[_table]['toPickUp'])
-                ? BusinessStatusType.BUSINESS_AVAILABLE
-                : BusinessStatusType.BUSINESS_UNAVAILABLE,
+                ? BusinessStatusType.BusinessAvailable
+                : BusinessStatusType.BusinessUnavailable,
             toPickUp: item[_table]['toPickUp']));
       }
       response.businesses.addAll(business);

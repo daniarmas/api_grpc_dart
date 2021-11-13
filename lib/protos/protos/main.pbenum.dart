@@ -10,14 +10,14 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class SearchMunicipalityType extends $pb.ProtobufEnum {
-  static const SearchMunicipalityType SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED = SearchMunicipalityType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED');
-  static const SearchMunicipalityType MORE = SearchMunicipalityType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'MORE');
-  static const SearchMunicipalityType NO_MORE = SearchMunicipalityType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'NO_MORE');
+  static const SearchMunicipalityType SearchMunicipalityTypeUnspecified = SearchMunicipalityType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'SearchMunicipalityTypeUnspecified');
+  static const SearchMunicipalityType More = SearchMunicipalityType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'More');
+  static const SearchMunicipalityType NoMore = SearchMunicipalityType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'NoMore');
 
   static const $core.List<SearchMunicipalityType> values = <SearchMunicipalityType> [
-    SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED,
-    MORE,
-    NO_MORE,
+    SearchMunicipalityTypeUnspecified,
+    More,
+    NoMore,
   ];
 
   static final $core.Map<$core.int, SearchMunicipalityType> _byValue = $pb.ProtobufEnum.initByValue(values);
@@ -27,16 +27,16 @@ class SearchMunicipalityType extends $pb.ProtobufEnum {
 }
 
 class VerificationCodeType extends $pb.ProtobufEnum {
-  static const VerificationCodeType VERIFICATION_CODE_TYPE_UNSPECIFIED = VerificationCodeType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'VERIFICATION_CODE_TYPE_UNSPECIFIED');
-  static const VerificationCodeType SIGN_IN = VerificationCodeType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'SIGN_IN');
-  static const VerificationCodeType SIGN_UP = VerificationCodeType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'SIGN_UP');
-  static const VerificationCodeType CHANGE_USER_EMAIL = VerificationCodeType._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'CHANGE_USER_EMAIL');
+  static const VerificationCodeType VerificationCodeTypeUnspecified = VerificationCodeType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'VerificationCodeTypeUnspecified');
+  static const VerificationCodeType SignIn = VerificationCodeType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'SignIn');
+  static const VerificationCodeType SignUp = VerificationCodeType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'SignUp');
+  static const VerificationCodeType ChangeUserEmail = VerificationCodeType._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ChangeUserEmail');
 
   static const $core.List<VerificationCodeType> values = <VerificationCodeType> [
-    VERIFICATION_CODE_TYPE_UNSPECIFIED,
-    SIGN_IN,
-    SIGN_UP,
-    CHANGE_USER_EMAIL,
+    VerificationCodeTypeUnspecified,
+    SignIn,
+    SignUp,
+    ChangeUserEmail,
   ];
 
   static final $core.Map<$core.int, VerificationCodeType> _byValue = $pb.ProtobufEnum.initByValue(values);
@@ -46,16 +46,16 @@ class VerificationCodeType extends $pb.ProtobufEnum {
 }
 
 class ItemStatusType extends $pb.ProtobufEnum {
-  static const ItemStatusType ITEM_STATUS_TYPE_UNSPECIFIED = ItemStatusType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ITEM_STATUS_TYPE_UNSPECIFIED');
-  static const ItemStatusType AVAILABLE = ItemStatusType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'AVAILABLE');
-  static const ItemStatusType UNAVAILABLE = ItemStatusType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'UNAVAILABLE');
-  static const ItemStatusType DEPRECATED = ItemStatusType._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'DEPRECATED');
+  static const ItemStatusType ItemStatusTypeUnspecified = ItemStatusType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ItemStatusTypeUnspecified');
+  static const ItemStatusType Available = ItemStatusType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'Available');
+  static const ItemStatusType Unavailable = ItemStatusType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'Unavailable');
+  static const ItemStatusType Deprecated = ItemStatusType._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'Deprecated');
 
   static const $core.List<ItemStatusType> values = <ItemStatusType> [
-    ITEM_STATUS_TYPE_UNSPECIFIED,
-    AVAILABLE,
-    UNAVAILABLE,
-    DEPRECATED,
+    ItemStatusTypeUnspecified,
+    Available,
+    Unavailable,
+    Deprecated,
   ];
 
   static final $core.Map<$core.int, ItemStatusType> _byValue = $pb.ProtobufEnum.initByValue(values);
@@ -65,14 +65,14 @@ class ItemStatusType extends $pb.ProtobufEnum {
 }
 
 class BusinessStatusType extends $pb.ProtobufEnum {
-  static const BusinessStatusType BUSINESS_STATUS_TYPE_UNSPECIFIED = BusinessStatusType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'BUSINESS_STATUS_TYPE_UNSPECIFIED');
-  static const BusinessStatusType BUSINESS_AVAILABLE = BusinessStatusType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'BUSINESS_AVAILABLE');
-  static const BusinessStatusType BUSINESS_UNAVAILABLE = BusinessStatusType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'BUSINESS_UNAVAILABLE');
+  static const BusinessStatusType BusinessStatusTypeUnspecified = BusinessStatusType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'BusinessStatusTypeUnspecified');
+  static const BusinessStatusType BusinessAvailable = BusinessStatusType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'BusinessAvailable');
+  static const BusinessStatusType BusinessUnavailable = BusinessStatusType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'BusinessUnavailable');
 
   static const $core.List<BusinessStatusType> values = <BusinessStatusType> [
-    BUSINESS_STATUS_TYPE_UNSPECIFIED,
-    BUSINESS_AVAILABLE,
-    BUSINESS_UNAVAILABLE,
+    BusinessStatusTypeUnspecified,
+    BusinessAvailable,
+    BusinessUnavailable,
   ];
 
   static final $core.Map<$core.int, BusinessStatusType> _byValue = $pb.ProtobufEnum.initByValue(values);
@@ -82,14 +82,14 @@ class BusinessStatusType extends $pb.ProtobufEnum {
 }
 
 class PlatformType extends $pb.ProtobufEnum {
-  static const PlatformType PLATFORM_TYPE_UNSPECIFIED = PlatformType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'PLATFORM_TYPE_UNSPECIFIED');
+  static const PlatformType PlatformTypeUnspecified = PlatformType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'PlatformTypeUnspecified');
   static const PlatformType IOS = PlatformType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'IOS');
-  static const PlatformType ANDROID = PlatformType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ANDROID');
+  static const PlatformType Android = PlatformType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'Android');
 
   static const $core.List<PlatformType> values = <PlatformType> [
-    PLATFORM_TYPE_UNSPECIFIED,
+    PlatformTypeUnspecified,
     IOS,
-    ANDROID,
+    Android,
   ];
 
   static final $core.Map<$core.int, PlatformType> _byValue = $pb.ProtobufEnum.initByValue(values);
@@ -99,20 +99,75 @@ class PlatformType extends $pb.ProtobufEnum {
 }
 
 class AppType extends $pb.ProtobufEnum {
-  static const AppType APP_TYPE_UNSPECIFIED = AppType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'APP_TYPE_UNSPECIFIED');
-  static const AppType APP = AppType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'APP');
-  static const AppType BUSINESS_APP = AppType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'BUSINESS_APP');
+  static const AppType AppTypeUnspecified = AppType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'AppTypeUnspecified');
+  static const AppType App = AppType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'App');
+  static const AppType BusinessApp = AppType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'BusinessApp');
 
   static const $core.List<AppType> values = <AppType> [
-    APP_TYPE_UNSPECIFIED,
-    APP,
-    BUSINESS_APP,
+    AppTypeUnspecified,
+    App,
+    BusinessApp,
   ];
 
   static final $core.Map<$core.int, AppType> _byValue = $pb.ProtobufEnum.initByValue(values);
   static AppType? valueOf($core.int value) => _byValue[value];
 
   const AppType._($core.int v, $core.String n) : super(v, n);
+}
+
+class OrderStatusType extends $pb.ProtobufEnum {
+  static const OrderStatusType OrderStatusTypeUnspecified = OrderStatusType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'OrderStatusTypeUnspecified');
+  static const OrderStatusType Pending = OrderStatusType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'Pending');
+  static const OrderStatusType Approved = OrderStatusType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'Approved');
+  static const OrderStatusType Rejected = OrderStatusType._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'Rejected');
+  static const OrderStatusType Received = OrderStatusType._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'Received');
+
+  static const $core.List<OrderStatusType> values = <OrderStatusType> [
+    OrderStatusTypeUnspecified,
+    Pending,
+    Approved,
+    Rejected,
+    Received,
+  ];
+
+  static final $core.Map<$core.int, OrderStatusType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static OrderStatusType? valueOf($core.int value) => _byValue[value];
+
+  const OrderStatusType._($core.int v, $core.String n) : super(v, n);
+}
+
+class DeliveryType extends $pb.ProtobufEnum {
+  static const DeliveryType DeliveryTypeUnspecified = DeliveryType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'DeliveryTypeUnspecified');
+  static const DeliveryType ToPickUp = DeliveryType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ToPickUp');
+  static const DeliveryType HomeDelivery = DeliveryType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'HomeDelivery');
+
+  static const $core.List<DeliveryType> values = <DeliveryType> [
+    DeliveryTypeUnspecified,
+    ToPickUp,
+    HomeDelivery,
+  ];
+
+  static final $core.Map<$core.int, DeliveryType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static DeliveryType? valueOf($core.int value) => _byValue[value];
+
+  const DeliveryType._($core.int v, $core.String n) : super(v, n);
+}
+
+class ResidenceType extends $pb.ProtobufEnum {
+  static const ResidenceType ResidenceTypeUnspecified = ResidenceType._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ResidenceTypeUnspecified');
+  static const ResidenceType House = ResidenceType._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'House');
+  static const ResidenceType Apartment = ResidenceType._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'Apartment');
+
+  static const $core.List<ResidenceType> values = <ResidenceType> [
+    ResidenceTypeUnspecified,
+    House,
+    Apartment,
+  ];
+
+  static final $core.Map<$core.int, ResidenceType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static ResidenceType? valueOf($core.int value) => _byValue[value];
+
+  const ResidenceType._($core.int v, $core.String n) : super(v, n);
 }
 
 class HealthCheckResponse_ServingStatus extends $pb.ProtobufEnum {

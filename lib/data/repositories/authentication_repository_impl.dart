@@ -67,7 +67,7 @@ class AuthenticationImpl implements AuthenticationRepository {
           'code': data['code'],
           'email': data['email'],
           'deviceId': metadata.deviceId,
-          'type': 'SIGN_IN'
+          'type': 'SignIn'
         }, paths: [
           NormalAttribute(name: 'id'),
           NormalAttribute(name: 'type'),
@@ -363,7 +363,7 @@ class AuthenticationImpl implements AuthenticationRepository {
           'code': data['code'],
           'email': data['email'],
           'deviceId': metadata.deviceId,
-          'type': 'SIGN_UP'
+          'type': 'SignUp'
         }, paths: [
           NormalAttribute(name: 'id'),
           NormalAttribute(name: 'type'),
