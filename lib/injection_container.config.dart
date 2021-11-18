@@ -4,9 +4,11 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+// Package imports:
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
+// Project imports:
 import 'core/utils/json_web_token.dart' as _i11;
 import 'core/utils/username_generator.dart' as _i20;
 import 'data/database/database.dart' as _i3;
@@ -39,6 +41,7 @@ import 'domain/repositories/item_repository.dart' as _i9;
 import 'domain/repositories/object_storage_repository.dart' as _i14;
 import 'domain/repositories/order_repository.dart' as _i28;
 import 'domain/repositories/user_repository.dart' as _i30;
+
 import 'domain/repositories/verification_code_repository.dart'
     as _i32; // ignore_for_file: unnecessary_lambdas
 
