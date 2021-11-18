@@ -30,7 +30,6 @@ void main() {
   late MockOrderLocalDataSource mockOrderLocalDataSource;
   late MockAuthorizationTokenLocalDataSource
       mockAuthorizationTokenLocalDataSource;
-  late MockDatabase mockDatabase;
   late MockJsonWebToken mockJsonWebToken;
   late OrderRepositoryImpl orderRepositoryImpl;
   late PostgreSQLConnection connection;
@@ -67,7 +66,6 @@ void main() {
         model: '1',
         firebaseCloudMessagingId: '1');
     mockOrderLocalDataSource = MockOrderLocalDataSource();
-    mockDatabase = MockDatabase();
     mockAuthorizationTokenLocalDataSource =
         MockAuthorizationTokenLocalDataSource();
     mockJsonWebToken = MockJsonWebToken();
@@ -326,6 +324,104 @@ void main() {
         response,
         Left(GrpcError.internal('Internal server error')),
       );
+    });
+  });
+  group('testing GetOrder', () {
+    test('Returning data sucessfull when everything is ok', () async {
+      // setup
+      Map<String, dynamic> data = {
+        'id': '1',
+      };
+      grpc_model.Order order = grpc_model.Order(
+        id: '1',
+        appVersion: '1',
+        buildingNumber: '1',
+        businessFk: '1',
+        coordinates: grpc_model.Point(latitude: 0.0, longitude: 0.0),
+        createTime: '1',
+        deliveryDate: '1',
+        deliveryType: grpc_model.DeliveryType.HomeDelivery,
+        deviceFk: '1',
+        houseNumber: '1',
+        price: 123.3,
+        residenceType: grpc_model.ResidenceType.Apartment,
+        status: grpc_model.OrderStatusType.Approved,
+        updateTime: '1',
+        userFk: '1',
+      );
+      // side effects
+      when(mockOrderLocalDataSource.getOrder(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => order);
+      final result = await orderRepositoryImpl
+          .getOrder(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockOrderLocalDataSource.getOrder(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      expect(result, Right(order));
+    });
+    test('Return GrpcError.invalidArgument when the client not send the id',
+        () async {
+      // setup
+      Map<String, dynamic> data = {};
+      // side effects
+      final result = await orderRepositoryImpl
+          .getOrder(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verifyNever(mockOrderLocalDataSource.getOrder(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      expect(result, Left(GrpcError.invalidArgument('Input `id` invalid')));
+    });
+    test('Return GrpcError.notFound when the order not exists', () async {
+      // setup
+      Map<String, dynamic> data = {
+        'id': '1',
+      };
+      // side effects
+      when(mockOrderLocalDataSource.getOrder(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => null);
+      final result = await orderRepositoryImpl
+          .getOrder(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockOrderLocalDataSource.getOrder(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      expect(result, Left(GrpcError.notFound('Not found')));
+    });
+    test('Return GrpcError.internal when the code throw an Exception',
+        () async {
+      // setup
+      Map<String, dynamic> data = {
+        'id': '1',
+      };
+      // side effects
+      when(mockOrderLocalDataSource.getOrder(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenThrow(Exception());
+      final result = await orderRepositoryImpl
+          .getOrder(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockOrderLocalDataSource.getOrder(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });
 }

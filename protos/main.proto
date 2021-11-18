@@ -41,6 +41,7 @@ service UserService {
 
 service OrderService {
   rpc ListOrder (ListOrderRequest) returns (ListOrderResponse) {}
+  rpc GetOrder (GetOrderRequest) returns (GetOrderResponse) {}
 }
 
 service ObjectStorageService {
@@ -56,6 +57,15 @@ service Health {
 }
 
 // Request & Response Message
+
+message GetOrderRequest {
+  string id = 1;
+  google.protobuf.FieldMask fieldMask = 2;
+}
+
+message GetOrderResponse {
+  Order order = 1;
+}
 
 message ListOrderRequest {
   string nextPage = 1;

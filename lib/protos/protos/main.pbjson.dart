@@ -122,6 +122,27 @@ const ResidenceType$json = const {
 
 /// Descriptor for `ResidenceType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List residenceTypeDescriptor = $convert.base64Decode('Cg1SZXNpZGVuY2VUeXBlEhwKGFJlc2lkZW5jZVR5cGVVbnNwZWNpZmllZBAAEgkKBUhvdXNlEAESDQoJQXBhcnRtZW50EAI=');
+@$core.Deprecated('Use getOrderRequestDescriptor instead')
+const GetOrderRequest$json = const {
+  '1': 'GetOrderRequest',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'fieldMask', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+  ],
+};
+
+/// Descriptor for `GetOrderRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getOrderRequestDescriptor = $convert.base64Decode('Cg9HZXRPcmRlclJlcXVlc3QSDgoCaWQYASABKAlSAmlkEjgKCWZpZWxkTWFzaxgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5GaWVsZE1hc2tSCWZpZWxkTWFzaw==');
+@$core.Deprecated('Use getOrderResponseDescriptor instead')
+const GetOrderResponse$json = const {
+  '1': 'GetOrderResponse',
+  '2': const [
+    const {'1': 'order', '3': 1, '4': 1, '5': 11, '6': '.Order', '10': 'order'},
+  ],
+};
+
+/// Descriptor for `GetOrderResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getOrderResponseDescriptor = $convert.base64Decode('ChBHZXRPcmRlclJlc3BvbnNlEhwKBW9yZGVyGAEgASgLMgYuT3JkZXJSBW9yZGVy');
 @$core.Deprecated('Use listOrderRequestDescriptor instead')
 const ListOrderRequest$json = const {
   '1': 'ListOrderRequest',

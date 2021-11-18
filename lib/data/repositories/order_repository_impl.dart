@@ -31,9 +31,24 @@ class OrderRepositoryImpl implements OrderRepository {
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required HeadersMetadata metadata,
-      required List<Attribute> paths}) {
-    // TODO: implement getOrder
-    throw UnimplementedError();
+      required List<Attribute> paths}) async {
+    try {
+      if (data['id'] == null || data['id'] == '') {
+        return Left(GrpcError.invalidArgument('Input `id` invalid'));
+      } else {
+        final response = await orderLocalDataSource.getOrder(data: {
+          'id': data['id'],
+        }, paths: paths, context: context);
+        if (response != null) {
+          return Right(response);
+        }
+        return Left(GrpcError.notFound('Not found'));
+      }
+    } on GrpcError catch (error) {
+      return Left(error);
+    } on Exception {
+      return Left(GrpcError.internal('Internal server error'));
+    }
   }
 
   @override
