@@ -55,6 +55,40 @@ AppType parseAppTypeEnum(String? value) {
   }
 }
 
+DeliveryType parseDeliveryTypeEnum(String? value) {
+  if (value == 'ToPickUp') {
+    return DeliveryType.ToPickUp;
+  } else if (value == 'HomeDelivery') {
+    return DeliveryType.HomeDelivery;
+  } else {
+    return DeliveryType.DeliveryTypeUnspecified;
+  }
+}
+
+OrderStatusType parseOrderStatusTypeEnum(String? value) {
+  if (value == 'Pending') {
+    return OrderStatusType.Pending;
+  } else if (value == 'Approved') {
+    return OrderStatusType.Approved;
+  } else if (value == 'Rejected') {
+    return OrderStatusType.Rejected;
+  } else if (value == 'Received') {
+    return OrderStatusType.Received;
+  } else {
+    return OrderStatusType.OrderStatusTypeUnspecified;
+  }
+}
+
+ResidenceType parseResidenceTypeEnum(String? value) {
+  if (value == 'House') {
+    return ResidenceType.House;
+  } else if (value == 'Apartment') {
+    return ResidenceType.Apartment;
+  } else {
+    return ResidenceType.ResidenceTypeUnspecified;
+  }
+}
+
 List<Polygon> parsePolygon(List<dynamic> parameter) {
   List<Polygon> list = [];
   for (var item in parameter) {

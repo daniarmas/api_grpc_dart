@@ -5,29 +5,32 @@
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
-// Dart imports:
 import 'dart:core' as $core;
 
-// Package imports:
 import 'package:protobuf/protobuf.dart' as $pb;
 
-// Project imports:
 import '../google/protobuf/field_mask.pb.dart' as $2;
+
 import 'main.pbenum.dart';
 
 export 'main.pbenum.dart';
 
 class ListOrderRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListOrderRequest', createEmptyInstance: create)
-    ..aOM<$2.FieldMask>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
+    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
 
   ListOrderRequest._() : super();
   factory ListOrderRequest({
+    $core.String? nextPage,
     $2.FieldMask? fieldMask,
   }) {
     final _result = create();
+    if (nextPage != null) {
+      _result.nextPage = nextPage;
+    }
     if (fieldMask != null) {
       _result.fieldMask = fieldMask;
     }
@@ -55,30 +58,44 @@ class ListOrderRequest extends $pb.GeneratedMessage {
   static ListOrderRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $2.FieldMask get fieldMask => $_getN(0);
+  $core.String get nextPage => $_getSZ(0);
   @$pb.TagNumber(1)
-  set fieldMask($2.FieldMask v) { setField(1, v); }
+  set nextPage($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasFieldMask() => $_has(0);
+  $core.bool hasNextPage() => $_has(0);
   @$pb.TagNumber(1)
-  void clearFieldMask() => clearField(1);
-  @$pb.TagNumber(1)
-  $2.FieldMask ensureFieldMask() => $_ensure(0);
+  void clearNextPage() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $2.FieldMask get fieldMask => $_getN(1);
+  @$pb.TagNumber(2)
+  set fieldMask($2.FieldMask v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasFieldMask() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFieldMask() => clearField(2);
+  @$pb.TagNumber(2)
+  $2.FieldMask ensureFieldMask() => $_ensure(1);
 }
 
 class ListOrderResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListOrderResponse', createEmptyInstance: create)
     ..pc<Order>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'orders', $pb.PbFieldType.PM, subBuilder: Order.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
     ..hasRequiredFields = false
   ;
 
   ListOrderResponse._() : super();
   factory ListOrderResponse({
     $core.Iterable<Order>? orders,
+    $core.String? nextPage,
   }) {
     final _result = create();
     if (orders != null) {
       _result.orders.addAll(orders);
+    }
+    if (nextPage != null) {
+      _result.nextPage = nextPage;
     }
     return _result;
   }
@@ -105,6 +122,15 @@ class ListOrderResponse extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<Order> get orders => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.String get nextPage => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set nextPage($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasNextPage() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearNextPage() => clearField(2);
 }
 
 class UpdateUserRequest extends $pb.GeneratedMessage {
@@ -2843,6 +2869,8 @@ class Order extends $pb.GeneratedMessage {
     ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
     ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceFk', protoName: 'deviceFk')
     ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'appVersion', protoName: 'appVersion')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -2861,6 +2889,8 @@ class Order extends $pb.GeneratedMessage {
     $core.String? userFk,
     $core.String? deviceFk,
     $core.String? appVersion,
+    $core.String? createTime,
+    $core.String? updateTime,
   }) {
     final _result = create();
     if (id != null) {
@@ -2901,6 +2931,12 @@ class Order extends $pb.GeneratedMessage {
     }
     if (appVersion != null) {
       _result.appVersion = appVersion;
+    }
+    if (createTime != null) {
+      _result.createTime = createTime;
+    }
+    if (updateTime != null) {
+      _result.updateTime = updateTime;
     }
     return _result;
   }
@@ -3043,6 +3079,24 @@ class Order extends $pb.GeneratedMessage {
   $core.bool hasAppVersion() => $_has(12);
   @$pb.TagNumber(13)
   void clearAppVersion() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.String get createTime => $_getSZ(13);
+  @$pb.TagNumber(14)
+  set createTime($core.String v) { $_setString(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasCreateTime() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearCreateTime() => clearField(14);
+
+  @$pb.TagNumber(15)
+  $core.String get updateTime => $_getSZ(14);
+  @$pb.TagNumber(15)
+  set updateTime($core.String v) { $_setString(14, v); }
+  @$pb.TagNumber(15)
+  $core.bool hasUpdateTime() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearUpdateTime() => clearField(15);
 }
 
 class User extends $pb.GeneratedMessage {

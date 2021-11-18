@@ -58,11 +58,13 @@ service Health {
 // Request & Response Message
 
 message ListOrderRequest {
-  google.protobuf.FieldMask fieldMask = 1;
+  string nextPage = 1;
+  google.protobuf.FieldMask fieldMask = 2;
 }
 
 message ListOrderResponse {
   repeated Order orders = 1;
+  string nextPage = 2;
 }
 
 message UpdateUserRequest {
@@ -308,6 +310,8 @@ message Order {
   string userFk = 11;
   string deviceFk = 12;
   string appVersion = 13;
+  string createTime = 14;
+  string updateTime = 15;
 }
 
 message User {

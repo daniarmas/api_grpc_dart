@@ -38,7 +38,6 @@ void configureDependenciesManual() {
       databaseDatabase: env['DATABASE_DATABASE']!,
       databaseUsername: env['DATABASE_USERNAME']!,
       databasePassword: env['DATABASE_PASSWORD']!,
-      
     ));
   } catch (error) {
     if (error.toString() == 'Null check operator used on a null value') {

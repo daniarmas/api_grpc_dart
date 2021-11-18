@@ -18,6 +18,7 @@ import 'domain/services/authentication_service.dart';
 import 'domain/services/health_service.dart';
 import 'domain/services/hostname_service.dart';
 import 'domain/services/item_service.dart';
+import 'domain/services/order_service.dart';
 import 'environment.dart';
 
 class Server {
@@ -37,6 +38,7 @@ class Server {
           BusinessService(),
           ItemService(),
           UserService(),
+          OrderService(),
         ], [
           (ServiceCall call, ServiceMethod method) {
             var accessTokenValidResponse = accessTokenValid(call, method);
@@ -58,6 +60,7 @@ class Server {
               'SignOut',
               'ListSession',
               'UpdateUser',
+              'ListOrder',
             ]);
           }
         ]);
