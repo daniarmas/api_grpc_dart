@@ -44,4 +44,10 @@ class OrderService extends OrderServiceBase {
       }
     }
   }
+
+  @override
+  Future<grpc_model.GetOrderResponse> getOrder(ServiceCall call, grpc_model.GetOrderRequest request) {
+    // TODO: implement getOrder
+    throw UnimplementedError();
+  }
 }
