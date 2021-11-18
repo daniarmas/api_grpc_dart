@@ -592,6 +592,12 @@ class OrderServiceClient extends $grpc.Client {
           ($0.ListOrderRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.ListOrderResponse.fromBuffer(value));
+  static final _$getOrder =
+      $grpc.ClientMethod<$0.GetOrderRequest, $0.GetOrderResponse>(
+          '/OrderService/GetOrder',
+          ($0.GetOrderRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.GetOrderResponse.fromBuffer(value));
 
   OrderServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -602,6 +608,11 @@ class OrderServiceClient extends $grpc.Client {
       $0.ListOrderRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$listOrder, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetOrderResponse> getOrder($0.GetOrderRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getOrder, request, options: options);
   }
 }
 
@@ -616,6 +627,13 @@ abstract class OrderServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.ListOrderRequest.fromBuffer(value),
         ($0.ListOrderResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.GetOrderRequest, $0.GetOrderResponse>(
+        'GetOrder',
+        getOrder_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.GetOrderRequest.fromBuffer(value),
+        ($0.GetOrderResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.ListOrderResponse> listOrder_Pre($grpc.ServiceCall call,
@@ -623,8 +641,15 @@ abstract class OrderServiceBase extends $grpc.Service {
     return listOrder(call, await request);
   }
 
+  $async.Future<$0.GetOrderResponse> getOrder_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.GetOrderRequest> request) async {
+    return getOrder(call, await request);
+  }
+
   $async.Future<$0.ListOrderResponse> listOrder(
       $grpc.ServiceCall call, $0.ListOrderRequest request);
+  $async.Future<$0.GetOrderResponse> getOrder(
+      $grpc.ServiceCall call, $0.GetOrderRequest request);
 }
 
 class ObjectStorageServiceClient extends $grpc.Client {
