@@ -1,3 +1,13 @@
+// Package imports:
+import 'package:dartz/dartz.dart';
+import 'package:get_it/get_it.dart';
+import 'package:grpc/grpc.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:postgres/postgres.dart';
+import 'package:test/test.dart';
+
+// Project imports:
 import 'package:api_grpc_dart/core/error/exception.dart';
 import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
@@ -10,14 +20,6 @@ import 'package:api_grpc_dart/data/repositories/verification_code_repository_imp
 import 'package:api_grpc_dart/environment.dart';
 import 'package:api_grpc_dart/injection_container.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
-import 'package:dartz/dartz.dart';
-import 'package:get_it/get_it.dart';
-import 'package:grpc/grpc.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:postgres/postgres.dart';
-import 'package:test/test.dart';
-
 import './verification_code_repository_impl_test.mocks.dart';
 
 @GenerateMocks([
@@ -44,7 +46,7 @@ void main() {
       email: 'prueba1@corre.cup',
       createTime: DateTime.now().toString(),
       updateTime: DateTime.now().toString(),
-      type: VerificationCodeType.SIGN_IN);
+      type: VerificationCodeType.SignIn);
   late PostgreSQLExecutionContext ctx;
   late HeadersMetadata metadata;
 
@@ -65,14 +67,14 @@ void main() {
     metadata = HeadersMetadata(
         systemVersionSdk: '1',
         accesstoken: '1',
-        platform: PlatformType.ANDROID,
+        platform: PlatformType.Android,
         systemVersion: '1',
         appVersion: '1',
         ipv4: '192.168.1.3',
         ipv6: 'asdksajdhaskjdjklasdhjk',
         networkType: 'wifi',
         systemLanguage: 'en',
-        app: AppType.APP,
+        app: AppType.App,
         deviceId: '1',
         model: '1',
         firebaseCloudMessagingId: '1');
@@ -101,7 +103,7 @@ void main() {
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
-        'type': VerificationCodeType.SIGN_IN
+        'type': VerificationCodeType.SignIn
       };
       CreateVerificationCodeResponse createVerificationCodeResponse =
           CreateVerificationCodeResponse(verificationCode: verificationCode);
@@ -145,13 +147,13 @@ void main() {
                     deviceId: '1',
                     email: '1',
                     id: '1',
-                    type: VerificationCodeType.SIGN_IN),
+                    type: VerificationCodeType.SignIn),
                 VerificationCode(
                     code: '1',
                     deviceId: '1',
                     email: '1',
                     id: '1',
-                    type: VerificationCodeType.SIGN_IN)
+                    type: VerificationCodeType.SignIn)
               ]);
       when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
         data: anyNamed('data'),
@@ -211,7 +213,7 @@ void main() {
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
-        'type': VerificationCodeType.SIGN_IN
+        'type': VerificationCodeType.SignIn
       };
       CreateVerificationCodeResponse createVerificationCodeResponse =
           CreateVerificationCodeResponse(verificationCode: verificationCode);
@@ -298,7 +300,7 @@ void main() {
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel',
-        'type': VerificationCodeType.SIGN_IN
+        'type': VerificationCodeType.SignIn
       };
       // side effects
       late Either<GrpcError, CreateVerificationCodeResponse> result;
@@ -340,7 +342,7 @@ void main() {
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
-        'type': VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED
+        'type': VerificationCodeType.VerificationCodeTypeUnspecified
       };
       // side effects
       late Either<GrpcError, CreateVerificationCodeResponse> result;
@@ -384,7 +386,7 @@ void main() {
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
-        'type': VerificationCodeType.SIGN_IN
+        'type': VerificationCodeType.SignIn
       };
       late Either<GrpcError, CreateVerificationCodeResponse> result;
       // side effects
@@ -431,7 +433,7 @@ void main() {
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
-        'type': VerificationCodeType.SIGN_IN
+        'type': VerificationCodeType.SignIn
       };
       late Either<GrpcError, CreateVerificationCodeResponse> result;
       // side effects
@@ -483,7 +485,7 @@ void main() {
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
-        'type': VerificationCodeType.SIGN_IN
+        'type': VerificationCodeType.SignIn
       };
       late Either<GrpcError, CreateVerificationCodeResponse> result;
       // side effects
@@ -542,7 +544,7 @@ void main() {
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
-        'type': VerificationCodeType.SIGN_IN
+        'type': VerificationCodeType.SignIn
       };
       User user = User(
           id: '1',
@@ -615,7 +617,7 @@ void main() {
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
-        'type': VerificationCodeType.SIGN_IN
+        'type': VerificationCodeType.SignIn
       };
       User user = User(
           id: '1',
@@ -653,13 +655,13 @@ void main() {
                     deviceId: '1',
                     email: '1',
                     id: '1',
-                    type: VerificationCodeType.SIGN_IN),
+                    type: VerificationCodeType.SignIn),
                 VerificationCode(
                     code: '1',
                     deviceId: '1',
                     email: '1',
                     id: '1',
-                    type: VerificationCodeType.SIGN_IN)
+                    type: VerificationCodeType.SignIn)
               ]);
       when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
         data: anyNamed('data'),
@@ -705,7 +707,7 @@ void main() {
       Map<String, dynamic> map = {
         'deviceId': '1',
         'email': 'daniel@estudiantes.uci.cu',
-        'type': VerificationCodeType.SIGN_IN
+        'type': VerificationCodeType.SignIn
       };
       User user = User(
           id: '1',
@@ -743,13 +745,13 @@ void main() {
                     deviceId: '1',
                     email: '1',
                     id: '1',
-                    type: VerificationCodeType.SIGN_IN),
+                    type: VerificationCodeType.SignIn),
                 VerificationCode(
                     code: '1',
                     deviceId: '1',
                     email: '1',
                     id: '1',
-                    type: VerificationCodeType.SIGN_IN)
+                    type: VerificationCodeType.SignIn)
               ]);
       when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
         data: anyNamed('data'),
@@ -885,7 +887,7 @@ void main() {
           deviceId: '1',
           email: '1',
           id: '1',
-          type: VerificationCodeType.SIGN_IN);
+          type: VerificationCodeType.SignIn);
       GetVerificationCodeResponse getVerificationCodeResponse =
           GetVerificationCodeResponse(verificationCode: verificationCode);
       when(mockVerificationCodeLocalDataSource.getVerificationCode(

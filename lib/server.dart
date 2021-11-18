@@ -1,20 +1,24 @@
+// Dart imports:
 import 'dart:async';
 
-import 'package:api_grpc_dart/domain/services/business_service.dart';
-import 'package:api_grpc_dart/domain/services/object_storage_service.dart';
-import 'package:api_grpc_dart/domain/services/user_service.dart';
-import 'package:api_grpc_dart/interceptors.dart';
+// Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart' as grpc;
 import 'package:grpc/grpc.dart';
 import 'package:shutdown/shutdown.dart' as shutdown;
 
+// Project imports:
+import 'package:api_grpc_dart/domain/services/business_service.dart';
+import 'package:api_grpc_dart/domain/services/object_storage_service.dart';
+import 'package:api_grpc_dart/domain/services/user_service.dart';
+import 'package:api_grpc_dart/interceptors.dart';
 import 'data/database/database.dart';
 import 'data/email/emailer.dart';
 import 'domain/services/authentication_service.dart';
 import 'domain/services/health_service.dart';
 import 'domain/services/hostname_service.dart';
 import 'domain/services/item_service.dart';
+import 'domain/services/order_service.dart';
 import 'environment.dart';
 
 class Server {
@@ -34,6 +38,7 @@ class Server {
           BusinessService(),
           ItemService(),
           UserService(),
+          OrderService(),
         ], [
           (ServiceCall call, ServiceMethod method) {
             var accessTokenValidResponse = accessTokenValid(call, method);
@@ -55,6 +60,7 @@ class Server {
               'SignOut',
               'ListSession',
               'UpdateUser',
+              'ListOrder',
             ]);
           }
         ]);

@@ -1,10 +1,13 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:api_grpc_dart/injection_container.config.dart';
+// Package imports:
 import 'package:dotenv/dotenv.dart' show env, load;
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
+// Project imports:
+import 'package:api_grpc_dart/injection_container.config.dart';
 import 'environment.dart';
 
 final getIt = GetIt.instance;
@@ -35,7 +38,6 @@ void configureDependenciesManual() {
       databaseDatabase: env['DATABASE_DATABASE']!,
       databaseUsername: env['DATABASE_USERNAME']!,
       databasePassword: env['DATABASE_PASSWORD']!,
-      
     ));
   } catch (error) {
     if (error.toString() == 'Null check operator used on a null value') {

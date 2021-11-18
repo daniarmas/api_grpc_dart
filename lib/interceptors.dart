@@ -1,9 +1,13 @@
+// Dart imports:
 import 'dart:async';
 
-import 'package:api_grpc_dart/core/utils/json_web_token.dart';
+// Package imports:
+import 'package:dotenv/dotenv.dart' show env;
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
-import 'package:dotenv/dotenv.dart' show env;
+
+// Project imports:
+import 'package:api_grpc_dart/core/utils/json_web_token.dart';
 
 FutureOr<GrpcError?> accessTokenValid(ServiceCall call, ServiceMethod method) {
   if (env['DEBUG'] == 'true') {

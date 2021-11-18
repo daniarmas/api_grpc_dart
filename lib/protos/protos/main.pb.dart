@@ -5,15 +5,135 @@
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
+// Dart imports:
 import 'dart:core' as $core;
 
+// Package imports:
 import 'package:protobuf/protobuf.dart' as $pb;
 
+// Project imports:
 import '../google/protobuf/field_mask.pb.dart' as $2;
-
 import 'main.pbenum.dart';
 
 export 'main.pbenum.dart';
+
+class ListOrderRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListOrderRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
+    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..hasRequiredFields = false
+  ;
+
+  ListOrderRequest._() : super();
+  factory ListOrderRequest({
+    $core.String? nextPage,
+    $2.FieldMask? fieldMask,
+  }) {
+    final _result = create();
+    if (nextPage != null) {
+      _result.nextPage = nextPage;
+    }
+    if (fieldMask != null) {
+      _result.fieldMask = fieldMask;
+    }
+    return _result;
+  }
+  factory ListOrderRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListOrderRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListOrderRequest clone() => ListOrderRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListOrderRequest copyWith(void Function(ListOrderRequest) updates) => super.copyWith((message) => updates(message as ListOrderRequest)) as ListOrderRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListOrderRequest create() => ListOrderRequest._();
+  ListOrderRequest createEmptyInstance() => create();
+  static $pb.PbList<ListOrderRequest> createRepeated() => $pb.PbList<ListOrderRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ListOrderRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListOrderRequest>(create);
+  static ListOrderRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get nextPage => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set nextPage($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasNextPage() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearNextPage() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $2.FieldMask get fieldMask => $_getN(1);
+  @$pb.TagNumber(2)
+  set fieldMask($2.FieldMask v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasFieldMask() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFieldMask() => clearField(2);
+  @$pb.TagNumber(2)
+  $2.FieldMask ensureFieldMask() => $_ensure(1);
+}
+
+class ListOrderResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListOrderResponse', createEmptyInstance: create)
+    ..pc<Order>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'orders', $pb.PbFieldType.PM, subBuilder: Order.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
+    ..hasRequiredFields = false
+  ;
+
+  ListOrderResponse._() : super();
+  factory ListOrderResponse({
+    $core.Iterable<Order>? orders,
+    $core.String? nextPage,
+  }) {
+    final _result = create();
+    if (orders != null) {
+      _result.orders.addAll(orders);
+    }
+    if (nextPage != null) {
+      _result.nextPage = nextPage;
+    }
+    return _result;
+  }
+  factory ListOrderResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListOrderResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListOrderResponse clone() => ListOrderResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListOrderResponse copyWith(void Function(ListOrderResponse) updates) => super.copyWith((message) => updates(message as ListOrderResponse)) as ListOrderResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListOrderResponse create() => ListOrderResponse._();
+  ListOrderResponse createEmptyInstance() => create();
+  static $pb.PbList<ListOrderResponse> createRepeated() => $pb.PbList<ListOrderResponse>();
+  @$core.pragma('dart2js:noInline')
+  static ListOrderResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListOrderResponse>(create);
+  static ListOrderResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Order> get orders => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.String get nextPage => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set nextPage($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasNextPage() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearNextPage() => clearField(2);
+}
 
 class UpdateUserRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateUserRequest', createEmptyInstance: create)
@@ -564,7 +684,7 @@ class SearchItemRequest extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provinceFk', protoName: 'provinceFk')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'municipalityFk', protoName: 'municipalityFk')
-    ..e<SearchMunicipalityType>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
+    ..e<SearchMunicipalityType>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SearchMunicipalityTypeUnspecified, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
     ..aOM<Point>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'location', subBuilder: Point.create)
     ..aOM<$2.FieldMask>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
@@ -696,7 +816,7 @@ class SearchItemRequest extends $pb.GeneratedMessage {
 class SearchItemResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SearchItemResponse', createEmptyInstance: create)
     ..pc<SearchItem>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'items', $pb.PbFieldType.PM, subBuilder: SearchItem.create)
-    ..e<SearchMunicipalityType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
+    ..e<SearchMunicipalityType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SearchMunicipalityTypeUnspecified, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', $pb.PbFieldType.O3, protoName: 'nextPage')
     ..hasRequiredFields = false
   ;
@@ -1027,7 +1147,7 @@ class FeedRequest extends $pb.GeneratedMessage {
     ..aOM<Point>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'location', subBuilder: Point.create)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provinceFk', protoName: 'provinceFk')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'municipalityFk', protoName: 'municipalityFk')
-    ..e<SearchMunicipalityType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
+    ..e<SearchMunicipalityType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SearchMunicipalityTypeUnspecified, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
     ..aOM<$2.FieldMask>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
@@ -1146,7 +1266,7 @@ class FeedRequest extends $pb.GeneratedMessage {
 class FeedResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FeedResponse', createEmptyInstance: create)
     ..pc<Business>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businesses', $pb.PbFieldType.PM, subBuilder: Business.create)
-    ..e<SearchMunicipalityType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
+    ..e<SearchMunicipalityType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SearchMunicipalityTypeUnspecified, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', $pb.PbFieldType.O3, protoName: 'nextPage')
     ..hasRequiredFields = false
   ;
@@ -1858,7 +1978,7 @@ class CheckSessionRequest extends $pb.GeneratedMessage {
 class CreateVerificationCodeRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateVerificationCodeRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..e<VerificationCodeType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
+    ..e<VerificationCodeType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.VerificationCodeTypeUnspecified, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
     ..aOM<$2.FieldMask>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
@@ -2249,7 +2369,7 @@ class UpdateVerificationCodeRequest extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..e<VerificationCodeType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
+    ..e<VerificationCodeType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.VerificationCodeTypeUnspecified, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
     ..aOM<$2.FieldMask>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
@@ -2736,6 +2856,251 @@ class HealthCheckResponse extends $pb.GeneratedMessage {
   void clearStatus() => clearField(1);
 }
 
+class Order extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Order', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..e<OrderStatusType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: OrderStatusType.OrderStatusTypeUnspecified, valueOf: OrderStatusType.valueOf, enumValues: OrderStatusType.values)
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deliveryDate', protoName: 'deliveryDate')
+    ..e<DeliveryType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deliveryType', $pb.PbFieldType.OE, protoName: 'deliveryType', defaultOrMaker: DeliveryType.DeliveryTypeUnspecified, valueOf: DeliveryType.valueOf, enumValues: DeliveryType.values)
+    ..e<ResidenceType>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'residenceType', $pb.PbFieldType.OE, protoName: 'residenceType', defaultOrMaker: ResidenceType.ResidenceTypeUnspecified, valueOf: ResidenceType.valueOf, enumValues: ResidenceType.values)
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'buildingNumber', protoName: 'buildingNumber')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'houseNumber', protoName: 'houseNumber')
+    ..aOM<Point>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'coordinates', subBuilder: Point.create)
+    ..a<$core.double>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'price', $pb.PbFieldType.OD)
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessFk', protoName: 'businessFk')
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceFk', protoName: 'deviceFk')
+    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'appVersion', protoName: 'appVersion')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
+    ..hasRequiredFields = false
+  ;
+
+  Order._() : super();
+  factory Order({
+    $core.String? id,
+    OrderStatusType? status,
+    $core.String? deliveryDate,
+    DeliveryType? deliveryType,
+    ResidenceType? residenceType,
+    $core.String? buildingNumber,
+    $core.String? houseNumber,
+    Point? coordinates,
+    $core.double? price,
+    $core.String? businessFk,
+    $core.String? userFk,
+    $core.String? deviceFk,
+    $core.String? appVersion,
+    $core.String? createTime,
+    $core.String? updateTime,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    if (status != null) {
+      _result.status = status;
+    }
+    if (deliveryDate != null) {
+      _result.deliveryDate = deliveryDate;
+    }
+    if (deliveryType != null) {
+      _result.deliveryType = deliveryType;
+    }
+    if (residenceType != null) {
+      _result.residenceType = residenceType;
+    }
+    if (buildingNumber != null) {
+      _result.buildingNumber = buildingNumber;
+    }
+    if (houseNumber != null) {
+      _result.houseNumber = houseNumber;
+    }
+    if (coordinates != null) {
+      _result.coordinates = coordinates;
+    }
+    if (price != null) {
+      _result.price = price;
+    }
+    if (businessFk != null) {
+      _result.businessFk = businessFk;
+    }
+    if (userFk != null) {
+      _result.userFk = userFk;
+    }
+    if (deviceFk != null) {
+      _result.deviceFk = deviceFk;
+    }
+    if (appVersion != null) {
+      _result.appVersion = appVersion;
+    }
+    if (createTime != null) {
+      _result.createTime = createTime;
+    }
+    if (updateTime != null) {
+      _result.updateTime = updateTime;
+    }
+    return _result;
+  }
+  factory Order.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Order.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Order clone() => Order()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Order copyWith(void Function(Order) updates) => super.copyWith((message) => updates(message as Order)) as Order; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Order create() => Order._();
+  Order createEmptyInstance() => create();
+  static $pb.PbList<Order> createRepeated() => $pb.PbList<Order>();
+  @$core.pragma('dart2js:noInline')
+  static Order getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Order>(create);
+  static Order? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  OrderStatusType get status => $_getN(1);
+  @$pb.TagNumber(2)
+  set status(OrderStatusType v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasStatus() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearStatus() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get deliveryDate => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set deliveryDate($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasDeliveryDate() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDeliveryDate() => clearField(3);
+
+  @$pb.TagNumber(4)
+  DeliveryType get deliveryType => $_getN(3);
+  @$pb.TagNumber(4)
+  set deliveryType(DeliveryType v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasDeliveryType() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearDeliveryType() => clearField(4);
+
+  @$pb.TagNumber(5)
+  ResidenceType get residenceType => $_getN(4);
+  @$pb.TagNumber(5)
+  set residenceType(ResidenceType v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasResidenceType() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearResidenceType() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get buildingNumber => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set buildingNumber($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasBuildingNumber() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearBuildingNumber() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get houseNumber => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set houseNumber($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasHouseNumber() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearHouseNumber() => clearField(7);
+
+  @$pb.TagNumber(8)
+  Point get coordinates => $_getN(7);
+  @$pb.TagNumber(8)
+  set coordinates(Point v) { setField(8, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasCoordinates() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearCoordinates() => clearField(8);
+  @$pb.TagNumber(8)
+  Point ensureCoordinates() => $_ensure(7);
+
+  @$pb.TagNumber(9)
+  $core.double get price => $_getN(8);
+  @$pb.TagNumber(9)
+  set price($core.double v) { $_setDouble(8, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasPrice() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearPrice() => clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.String get businessFk => $_getSZ(9);
+  @$pb.TagNumber(10)
+  set businessFk($core.String v) { $_setString(9, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasBusinessFk() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearBusinessFk() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.String get userFk => $_getSZ(10);
+  @$pb.TagNumber(11)
+  set userFk($core.String v) { $_setString(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasUserFk() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearUserFk() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.String get deviceFk => $_getSZ(11);
+  @$pb.TagNumber(12)
+  set deviceFk($core.String v) { $_setString(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasDeviceFk() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearDeviceFk() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.String get appVersion => $_getSZ(12);
+  @$pb.TagNumber(13)
+  set appVersion($core.String v) { $_setString(12, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasAppVersion() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearAppVersion() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.String get createTime => $_getSZ(13);
+  @$pb.TagNumber(14)
+  set createTime($core.String v) { $_setString(13, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasCreateTime() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearCreateTime() => clearField(14);
+
+  @$pb.TagNumber(15)
+  $core.String get updateTime => $_getSZ(14);
+  @$pb.TagNumber(15)
+  set updateTime($core.String v) { $_setString(14, v); }
+  @$pb.TagNumber(15)
+  $core.bool hasUpdateTime() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearUpdateTime() => clearField(15);
+}
+
 class User extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'User', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
@@ -2994,7 +3359,7 @@ class Business extends $pb.GeneratedMessage {
     ..aOS(23, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provinceFk', protoName: 'provinceFk')
     ..aOS(24, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'municipalityFk', protoName: 'municipalityFk')
     ..a<$core.double>(25, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'distance', $pb.PbFieldType.OD)
-    ..e<BusinessStatusType>(26, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: BusinessStatusType.BUSINESS_STATUS_TYPE_UNSPECIFIED, valueOf: BusinessStatusType.valueOf, enumValues: BusinessStatusType.values)
+    ..e<BusinessStatusType>(26, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: BusinessStatusType.BusinessStatusTypeUnspecified, valueOf: BusinessStatusType.valueOf, enumValues: BusinessStatusType.values)
     ..a<$core.int>(27, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'cursor', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
@@ -3380,7 +3745,7 @@ class Item extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
     ..a<$core.double>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'price', $pb.PbFieldType.OD)
-    ..e<ItemStatusType>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: ItemStatusType.ITEM_STATUS_TYPE_UNSPECIFIED, valueOf: ItemStatusType.valueOf, enumValues: ItemStatusType.values)
+    ..e<ItemStatusType>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: ItemStatusType.ItemStatusTypeUnspecified, valueOf: ItemStatusType.valueOf, enumValues: ItemStatusType.values)
     ..a<$core.int>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'availability', $pb.PbFieldType.O3)
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessFk', protoName: 'businessFk')
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessItemCategoryFk', protoName: 'businessItemCategoryFk')
@@ -3658,7 +4023,7 @@ class SearchItem extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'price', $pb.PbFieldType.OD)
-    ..e<ItemStatusType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: ItemStatusType.ITEM_STATUS_TYPE_UNSPECIFIED, valueOf: ItemStatusType.valueOf, enumValues: ItemStatusType.values)
+    ..e<ItemStatusType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: ItemStatusType.ItemStatusTypeUnspecified, valueOf: ItemStatusType.valueOf, enumValues: ItemStatusType.values)
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnail')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnailBlurHash', protoName: 'thumbnailBlurHash')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessName', protoName: 'businessName')
@@ -4240,7 +4605,7 @@ class AuthorizationToken extends $pb.GeneratedMessage {
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceFk', protoName: 'deviceFk')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
     ..aOB(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'valid')
-    ..e<AppType>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'app', $pb.PbFieldType.OE, defaultOrMaker: AppType.APP_TYPE_UNSPECIFIED, valueOf: AppType.valueOf, enumValues: AppType.values)
+    ..e<AppType>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'app', $pb.PbFieldType.OE, defaultOrMaker: AppType.AppTypeUnspecified, valueOf: AppType.valueOf, enumValues: AppType.values)
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'appVersion', protoName: 'appVersion')
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
@@ -4395,10 +4760,10 @@ class AuthorizationToken extends $pb.GeneratedMessage {
 class Session extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Session', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..e<PlatformType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'platform', $pb.PbFieldType.OE, defaultOrMaker: PlatformType.PLATFORM_TYPE_UNSPECIFIED, valueOf: PlatformType.valueOf, enumValues: PlatformType.values)
+    ..e<PlatformType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'platform', $pb.PbFieldType.OE, defaultOrMaker: PlatformType.PlatformTypeUnspecified, valueOf: PlatformType.valueOf, enumValues: PlatformType.values)
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'systemVersion', protoName: 'systemVersion')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'model')
-    ..e<AppType>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'app', $pb.PbFieldType.OE, defaultOrMaker: AppType.APP_TYPE_UNSPECIFIED, valueOf: AppType.valueOf, enumValues: AppType.values)
+    ..e<AppType>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'app', $pb.PbFieldType.OE, defaultOrMaker: AppType.AppTypeUnspecified, valueOf: AppType.valueOf, enumValues: AppType.values)
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'appVersion', protoName: 'appVersion')
     ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'actual')
     ..hasRequiredFields = false
@@ -4657,7 +5022,7 @@ class RefreshToken extends $pb.GeneratedMessage {
 class Device extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Device', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..e<PlatformType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'platform', $pb.PbFieldType.OE, defaultOrMaker: PlatformType.PLATFORM_TYPE_UNSPECIFIED, valueOf: PlatformType.valueOf, enumValues: PlatformType.values)
+    ..e<PlatformType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'platform', $pb.PbFieldType.OE, defaultOrMaker: PlatformType.PlatformTypeUnspecified, valueOf: PlatformType.valueOf, enumValues: PlatformType.values)
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'systemVersion', protoName: 'systemVersion')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'firebaseCloudMessagingId', protoName: 'firebaseCloudMessagingId')
@@ -5179,7 +5544,7 @@ class VerificationCode extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..e<VerificationCodeType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
+    ..e<VerificationCodeType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: VerificationCodeType.VerificationCodeTypeUnspecified, valueOf: VerificationCodeType.valueOf, enumValues: VerificationCodeType.values)
     ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deviceId', protoName: 'deviceId')
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')

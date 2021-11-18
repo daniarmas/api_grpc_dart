@@ -1,6 +1,10 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:grpc/grpc.dart';
+
+// Project imports:
 import 'package:api_grpc_dart/protos/protos/main.pbgrpc.dart';
 
 void main(List<String> args) async {

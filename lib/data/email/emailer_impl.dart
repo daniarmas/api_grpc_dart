@@ -1,9 +1,11 @@
-import 'package:api_grpc_dart/core/utils/string_utils.dart';
+// Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
+// Project imports:
+import 'package:api_grpc_dart/core/utils/string_utils.dart';
 import '../../environment.dart';
 import '../../protos/protos/main.pb.dart';
 import 'emailer.dart';
@@ -50,12 +52,11 @@ class EmailerImpl implements Emailer {
       required DateTime time}) async {
     try {
       late String subject;
-      if (verificationCodeType == VerificationCodeType.SIGN_IN) {
+      if (verificationCodeType == VerificationCodeType.SignIn) {
         subject = 'Código de verificación para iniciar sesión';
-      } else if (verificationCodeType == VerificationCodeType.SIGN_UP) {
+      } else if (verificationCodeType == VerificationCodeType.SignUp) {
         subject = 'Código de verificación para registrarte';
-      } else if (verificationCodeType ==
-          VerificationCodeType.CHANGE_USER_EMAIL) {
+      } else if (verificationCodeType == VerificationCodeType.ChangeUserEmail) {
         subject = 'Código de verificación para verificar tú correo electrónico';
       }
       final message = Message()

@@ -1,3 +1,13 @@
+// Package imports:
+import 'package:dartz/dartz.dart';
+import 'package:get_it/get_it.dart';
+import 'package:grpc/grpc.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:postgres/postgres.dart';
+import 'package:test/test.dart';
+
+// Project imports:
 import 'package:api_grpc_dart/core/utils/json_web_token.dart';
 import 'package:api_grpc_dart/core/utils/metadata.dart';
 import 'package:api_grpc_dart/data/datasources/authorization_token_local_data_source.dart';
@@ -14,14 +24,6 @@ import 'package:api_grpc_dart/data/repositories/authentication_repository_impl.d
 import 'package:api_grpc_dart/environment.dart';
 import 'package:api_grpc_dart/injection_container.dart';
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
-import 'package:dartz/dartz.dart';
-import 'package:get_it/get_it.dart';
-import 'package:grpc/grpc.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:postgres/postgres.dart';
-import 'package:test/test.dart';
-
 import './authentication_repository_impl_test.mocks.dart';
 
 @GenerateMocks([
@@ -76,14 +78,14 @@ void main() {
         accesstoken: '1',
         authorization: '1',
         refreshToken: '1',
-        platform: PlatformType.ANDROID,
+        platform: PlatformType.Android,
         networkType: 'wifi',
         systemLanguage: 'en',
         systemVersion: '1',
         appVersion: '1',
         ipv4: '192.168.1.3',
         ipv6: 'asdksajdhaskjdjklasdhjk',
-        app: AppType.APP,
+        app: AppType.App,
         deviceId: '1',
         model: '1',
         firebaseCloudMessagingId: '1');
@@ -134,12 +136,12 @@ void main() {
           deviceId: '1',
           firebaseCloudMessagingId: '1',
           model: '1',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '1',
           updateTime: '1');
       AuthorizationToken authorizationToken = AuthorizationToken(
           id: '1',
-          app: AppType.APP,
+          app: AppType.App,
           appVersion: '1',
           createTime: '1',
           deviceFk: '1',
@@ -169,7 +171,7 @@ void main() {
           createTime: '1',
           deviceId: '1',
           email: 'prueba2@app.nat.cu',
-          type: VerificationCodeType.SIGN_IN,
+          type: VerificationCodeType.SignIn,
           updateTime: '1');
       late Either<GrpcError, SignInResponse> result;
       SignInResponse response = SignInResponse(
@@ -206,7 +208,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1'),
                 VerificationCode(
                     id: '1',
@@ -214,7 +216,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1')
               ]);
       when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
@@ -332,12 +334,12 @@ void main() {
           deviceId: '1',
           firebaseCloudMessagingId: '1',
           model: '1',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '1',
           updateTime: '1');
       AuthorizationToken authorizationToken = AuthorizationToken(
           id: '1',
-          app: AppType.APP,
+          app: AppType.App,
           appVersion: '1',
           createTime: '1',
           deviceFk: '1',
@@ -367,7 +369,7 @@ void main() {
           createTime: '1',
           deviceId: '1',
           email: 'prueba2@app.nat.cu',
-          type: VerificationCodeType.SIGN_IN,
+          type: VerificationCodeType.SignIn,
           updateTime: '1');
       late Either<GrpcError, SignInResponse> result;
       SignInResponse response = SignInResponse(
@@ -404,7 +406,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1'),
                 VerificationCode(
                     id: '1',
@@ -412,7 +414,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1')
               ]);
       when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
@@ -532,12 +534,12 @@ void main() {
           deviceId: '1',
           firebaseCloudMessagingId: '1',
           model: '1',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '1',
           updateTime: '1');
       AuthorizationToken authorizationToken = AuthorizationToken(
           id: '1',
-          app: AppType.APP,
+          app: AppType.App,
           appVersion: '1',
           createTime: '1',
           deviceFk: '1',
@@ -567,7 +569,7 @@ void main() {
           createTime: '1',
           deviceId: '1',
           email: 'prueba2@app.nat.cu',
-          type: VerificationCodeType.SIGN_IN,
+          type: VerificationCodeType.SignIn,
           updateTime: '1');
       late Either<GrpcError, SignInResponse> result;
       SignInResponse response = SignInResponse(
@@ -604,7 +606,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1'),
                 VerificationCode(
                     id: '1',
@@ -612,7 +614,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1')
               ]);
       when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
@@ -732,12 +734,12 @@ void main() {
           deviceId: '1',
           firebaseCloudMessagingId: '1',
           model: '1',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '1',
           updateTime: '1');
       AuthorizationToken authorizationToken = AuthorizationToken(
           id: '1',
-          app: AppType.APP,
+          app: AppType.App,
           appVersion: '1',
           createTime: '1',
           deviceFk: '1',
@@ -767,7 +769,7 @@ void main() {
           createTime: '1',
           deviceId: '1',
           email: 'prueba2@app.nat.cu',
-          type: VerificationCodeType.SIGN_IN,
+          type: VerificationCodeType.SignIn,
           updateTime: '1');
       late Either<GrpcError, SignInResponse> result;
       SignInResponse response = SignInResponse(
@@ -804,7 +806,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1'),
                 VerificationCode(
                     id: '1',
@@ -812,7 +814,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1')
               ]);
       when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
@@ -1221,7 +1223,7 @@ void main() {
               createTime: '1',
               deviceId: '1',
               email: 'prueba2@app.nat.cu',
-              type: VerificationCodeType.SIGN_IN,
+              type: VerificationCodeType.SignIn,
               updateTime: '1'));
       when(mockBannedUserLocalDataSource.getBannedUser(
               data: anyNamed('data'),
@@ -1315,7 +1317,7 @@ void main() {
               createTime: '1',
               deviceId: '1',
               email: 'prueba2@app.nat.cu',
-              type: VerificationCodeType.SIGN_IN,
+              type: VerificationCodeType.SignIn,
               updateTime: '1'));
       when(mockBannedUserLocalDataSource.getBannedUser(
               data: anyNamed('data'),
@@ -1413,7 +1415,7 @@ void main() {
               createTime: '1',
               deviceId: '1',
               email: 'prueba2@app.nat.cu',
-              type: VerificationCodeType.SIGN_IN,
+              type: VerificationCodeType.SignIn,
               updateTime: '1'));
       when(mockBannedUserLocalDataSource.getBannedUser(
               data: anyNamed('data'),
@@ -1509,12 +1511,12 @@ void main() {
             deviceId: '1',
             firebaseCloudMessagingId: '1',
             model: '1',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: '1',
             updateTime: '1');
         AuthorizationToken authorizationToken = AuthorizationToken(
             id: '1',
-            app: AppType.APP,
+            app: AppType.App,
             appVersion: '1',
             createTime: '1',
             deviceFk: '1',
@@ -1689,7 +1691,7 @@ void main() {
             deviceId: '1',
             firebaseCloudMessagingId: '1',
             model: '1',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: '1',
             updateTime: '1');
         BannedDevice bannedDevice = BannedDevice(
@@ -1770,7 +1772,7 @@ void main() {
             deviceId: '1',
             firebaseCloudMessagingId: '1',
             model: '1',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: '1',
             updateTime: '1');
         // side effects
@@ -1846,7 +1848,7 @@ void main() {
             deviceId: '1',
             firebaseCloudMessagingId: '1',
             model: '1',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: '1',
             updateTime: '1');
         // side effects
@@ -1933,12 +1935,12 @@ void main() {
             deviceId: '1',
             firebaseCloudMessagingId: '1',
             model: '1',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: '1',
             updateTime: '1');
         AuthorizationToken authorizationToken = AuthorizationToken(
             id: '1',
-            app: AppType.APP,
+            app: AppType.App,
             appVersion: '1',
             createTime: '1',
             deviceFk: '1',
@@ -2042,12 +2044,12 @@ void main() {
             deviceId: '1',
             firebaseCloudMessagingId: '1',
             model: '1',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: '1',
             updateTime: '1');
         AuthorizationToken authorizationToken = AuthorizationToken(
             id: '1',
-            app: AppType.APP,
+            app: AppType.App,
             appVersion: '1',
             createTime: '1',
             deviceFk: '1',
@@ -2173,12 +2175,12 @@ void main() {
             deviceId: '1',
             firebaseCloudMessagingId: '1',
             model: '1',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: '1',
             updateTime: '1');
         AuthorizationToken authorizationToken = AuthorizationToken(
             id: '1',
-            app: AppType.APP,
+            app: AppType.App,
             appVersion: '1',
             createTime: '1',
             deviceFk: '1',
@@ -2294,7 +2296,7 @@ void main() {
             deviceId: '1',
             firebaseCloudMessagingId: '1',
             model: '1',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: '1',
             updateTime: '1');
         // side effects
@@ -2421,7 +2423,7 @@ void main() {
             deviceId: '1',
             firebaseCloudMessagingId: '1',
             model: '1',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: '1',
             updateTime: '1');
         BannedDevice bannedDevice = BannedDevice(
@@ -2497,7 +2499,7 @@ void main() {
             deviceId: '1',
             firebaseCloudMessagingId: '1',
             model: '1',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: '1',
             updateTime: '1');
         // side effects
@@ -2574,12 +2576,12 @@ void main() {
           deviceId: '1',
           firebaseCloudMessagingId: '1',
           model: '1',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '1',
           updateTime: '1');
       AuthorizationToken authorizationToken = AuthorizationToken(
           id: '1',
-          app: AppType.APP,
+          app: AppType.App,
           appVersion: '1',
           createTime: '1',
           deviceFk: '1',
@@ -2609,7 +2611,7 @@ void main() {
           createTime: '1',
           deviceId: '1',
           email: 'prueba2@app.nat.cu',
-          type: VerificationCodeType.SIGN_IN,
+          type: VerificationCodeType.SignIn,
           updateTime: '1');
       late Either<GrpcError, SignUpResponse> result;
       SignUpResponse response = SignUpResponse(
@@ -2646,7 +2648,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1'),
                 VerificationCode(
                     id: '1',
@@ -2654,7 +2656,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1')
               ]);
       when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
@@ -2766,12 +2768,12 @@ void main() {
           deviceId: '1',
           firebaseCloudMessagingId: '1',
           model: '1',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '1',
           updateTime: '1');
       AuthorizationToken authorizationToken = AuthorizationToken(
           id: '1',
-          app: AppType.APP,
+          app: AppType.App,
           appVersion: '1',
           createTime: '1',
           deviceFk: '1',
@@ -2801,7 +2803,7 @@ void main() {
           createTime: '1',
           deviceId: '1',
           email: 'prueba2@app.nat.cu',
-          type: VerificationCodeType.SIGN_IN,
+          type: VerificationCodeType.SignIn,
           updateTime: '1');
       late Either<GrpcError, SignUpResponse> result;
       SignUpResponse response = SignUpResponse(
@@ -2838,7 +2840,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1'),
                 VerificationCode(
                     id: '1',
@@ -2846,7 +2848,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1')
               ]);
       when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
@@ -2959,12 +2961,12 @@ void main() {
           deviceId: '1',
           firebaseCloudMessagingId: '1',
           model: '1',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '1',
           updateTime: '1');
       AuthorizationToken authorizationToken = AuthorizationToken(
           id: '1',
-          app: AppType.APP,
+          app: AppType.App,
           appVersion: '1',
           createTime: '1',
           deviceFk: '1',
@@ -2994,7 +2996,7 @@ void main() {
           createTime: '1',
           deviceId: '1',
           email: 'prueba2@app.nat.cu',
-          type: VerificationCodeType.SIGN_IN,
+          type: VerificationCodeType.SignIn,
           updateTime: '1');
       late Either<GrpcError, SignUpResponse> result;
       // side effects
@@ -3029,7 +3031,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1'),
                 VerificationCode(
                     id: '1',
@@ -3037,7 +3039,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1')
               ]);
       when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
@@ -3149,7 +3151,7 @@ void main() {
           deviceId: '1',
           firebaseCloudMessagingId: '1',
           model: '1',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '1',
           updateTime: '1');
       RefreshToken refreshToken = RefreshToken(
@@ -3174,7 +3176,7 @@ void main() {
           createTime: '1',
           deviceId: '1',
           email: 'prueba2@app.nat.cu',
-          type: VerificationCodeType.SIGN_IN,
+          type: VerificationCodeType.SignIn,
           updateTime: '1');
       late Either<GrpcError, SignUpResponse> result;
       // side effects
@@ -3209,7 +3211,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1'),
                 VerificationCode(
                     id: '1',
@@ -3217,7 +3219,7 @@ void main() {
                     createTime: '1',
                     deviceId: '1',
                     email: 'prueba2@app.nat.cu',
-                    type: VerificationCodeType.SIGN_IN,
+                    type: VerificationCodeType.SignIn,
                     updateTime: '1')
               ]);
       when(mockVerificationCodeLocalDataSource.deleteVerificationCode(
@@ -3338,7 +3340,7 @@ void main() {
         updateTime: '',
         userFk: '',
         valid: true,
-        app: AppType.APP,
+        app: AppType.App,
         appVersion: '',
         refreshTokenFk: '',
       );
@@ -3348,7 +3350,7 @@ void main() {
           deviceId: '',
           firebaseCloudMessagingId: '',
           model: '',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '',
           updateTime: '');
       User user = User(
@@ -3494,7 +3496,7 @@ void main() {
         updateTime: '',
         userFk: '',
         valid: true,
-        app: AppType.APP,
+        app: AppType.App,
         appVersion: '',
         refreshTokenFk: '',
       );
@@ -3504,7 +3506,7 @@ void main() {
           deviceId: '',
           firebaseCloudMessagingId: '',
           model: '',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '',
           updateTime: '');
       User user = User(
@@ -3882,7 +3884,7 @@ void main() {
         updateTime: '',
         userFk: '',
         valid: true,
-        app: AppType.APP,
+        app: AppType.App,
         appVersion: '',
         refreshTokenFk: '',
       );
@@ -3892,7 +3894,7 @@ void main() {
           deviceId: '',
           firebaseCloudMessagingId: '',
           model: '',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '',
           updateTime: '');
       User user = User(
@@ -4034,7 +4036,7 @@ void main() {
         updateTime: '',
         userFk: '',
         valid: true,
-        app: AppType.APP,
+        app: AppType.App,
         appVersion: '',
         refreshTokenFk: '',
       );
@@ -4044,7 +4046,7 @@ void main() {
           deviceId: '',
           firebaseCloudMessagingId: '',
           model: '',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '',
           updateTime: '');
       User user = User(
@@ -4230,7 +4232,7 @@ void main() {
       Map<String, dynamic> jsonWebTokenVerify = {'authorizationTokenFk': ''};
       AuthorizationToken authorizationToken = AuthorizationToken(
           id: '',
-          app: AppType.APP,
+          app: AppType.App,
           appVersion: '',
           createTime: '',
           deviceFk: '',
@@ -4244,7 +4246,7 @@ void main() {
           deviceId: '',
           firebaseCloudMessagingId: '',
           model: '',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '',
           updateTime: '');
       // side effects
@@ -4323,7 +4325,7 @@ void main() {
       Map<String, dynamic> jsonWebTokenVerify = {'authorizationTokenFk': ''};
       AuthorizationToken authorizationToken = AuthorizationToken(
           id: '',
-          app: AppType.APP,
+          app: AppType.App,
           appVersion: '',
           createTime: '',
           deviceFk: '',
@@ -4375,7 +4377,7 @@ void main() {
       };
       AuthorizationToken authorizationToken = AuthorizationToken(
           id: '',
-          app: AppType.APP,
+          app: AppType.App,
           appVersion: '',
           createTime: '',
           deviceFk: '',
@@ -4480,7 +4482,7 @@ void main() {
       };
       AuthorizationToken authorizationToken = AuthorizationToken(
           id: '',
-          app: AppType.APP,
+          app: AppType.App,
           appVersion: '',
           createTime: '',
           deviceFk: '',
@@ -4494,7 +4496,7 @@ void main() {
           deviceId: '',
           firebaseCloudMessagingId: '',
           model: '',
-          platform: PlatformType.ANDROID,
+          platform: PlatformType.Android,
           systemVersion: '',
           updateTime: '');
       // side effects
@@ -4542,7 +4544,7 @@ void main() {
       };
       AuthorizationToken authorizationToken = AuthorizationToken(
         id: '',
-        app: AppType.APP,
+        app: AppType.App,
         appVersion: '',
         createTime: '',
         deviceFk: '',
@@ -4555,18 +4557,18 @@ void main() {
         Session(
             id: '',
             actual: true,
-            app: AppType.APP,
+            app: AppType.App,
             appVersion: '',
             model: '',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: ''),
         Session(
             id: '',
             actual: true,
-            app: AppType.APP,
+            app: AppType.App,
             appVersion: '',
             model: '',
-            platform: PlatformType.ANDROID,
+            platform: PlatformType.Android,
             systemVersion: ''),
       ];
       // side effects

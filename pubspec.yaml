@@ -1,6 +1,6 @@
 name: api_grpc_dart
 description: A simple command-line application.
-version: 0.0.1
+version: 0.1.0
 # homepage: https://www.example.com
 
 publish_to: "none"
@@ -36,3 +36,4 @@ dev_dependencies:
   lints: ^1.0.1
   mockito: ^5.0.10
   test: ^1.17.9
+  import_sorter: ^4.6.0

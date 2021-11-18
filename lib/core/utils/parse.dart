@@ -1,56 +1,91 @@
+// Project imports:
 import 'package:api_grpc_dart/protos/protos/main.pb.dart';
 
 VerificationCodeType parseVerificationCodeTypeEnum(String? value) {
-  if (value == 'CHANGE_USER_EMAIL') {
-    return VerificationCodeType.CHANGE_USER_EMAIL;
-  } else if (value == 'SIGN_IN') {
-    return VerificationCodeType.SIGN_IN;
-  } else if (value == 'SIGN_UP') {
-    return VerificationCodeType.SIGN_UP;
+  if (value == 'ChangeUserEmail') {
+    return VerificationCodeType.ChangeUserEmail;
+  } else if (value == 'SignIn') {
+    return VerificationCodeType.SignIn;
+  } else if (value == 'SignUp') {
+    return VerificationCodeType.SignUp;
   } else {
-    return VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED;
+    return VerificationCodeType.VerificationCodeTypeUnspecified;
   }
 }
 
 ItemStatusType parseItemStatusTypeEnum(String? value) {
-  if (value == 'AVAILABLE') {
-    return ItemStatusType.AVAILABLE;
-  } else if (value == 'UNAVAILABLE') {
-    return ItemStatusType.UNAVAILABLE;
-  } else if (value == 'DEPRECATED') {
-    return ItemStatusType.DEPRECATED;
+  if (value == 'Available') {
+    return ItemStatusType.Available;
+  } else if (value == 'Unavailable') {
+    return ItemStatusType.Unavailable;
+  } else if (value == 'Deprecated') {
+    return ItemStatusType.Deprecated;
   } else {
-    return ItemStatusType.ITEM_STATUS_TYPE_UNSPECIFIED;
+    return ItemStatusType.ItemStatusTypeUnspecified;
   }
 }
 
 BusinessStatusType parseBusinessStatusTypeEnum(String? value) {
-  if (value == 'AVAILABLE') {
-    return BusinessStatusType.BUSINESS_AVAILABLE;
-  } else if (value == 'UNAVAILABLE') {
-    return BusinessStatusType.BUSINESS_UNAVAILABLE;
+  if (value == 'Available') {
+    return BusinessStatusType.BusinessAvailable;
+  } else if (value == 'Unavailable') {
+    return BusinessStatusType.BusinessUnavailable;
   } else {
-    return BusinessStatusType.BUSINESS_STATUS_TYPE_UNSPECIFIED;
+    return BusinessStatusType.BusinessStatusTypeUnspecified;
   }
 }
 
 PlatformType parsePlatformTypeEnum(String? value) {
-  if (value == 'ANDROID') {
-    return PlatformType.ANDROID;
+  if (value == 'Android') {
+    return PlatformType.Android;
   } else if (value == 'IOS') {
     return PlatformType.IOS;
   } else {
-    return PlatformType.PLATFORM_TYPE_UNSPECIFIED;
+    return PlatformType.PlatformTypeUnspecified;
   }
 }
 
 AppType parseAppTypeEnum(String? value) {
-  if (value == 'APP') {
-    return AppType.APP;
-  } else if (value == 'BUSINESS_APP') {
-    return AppType.BUSINESS_APP;
+  if (value == 'App') {
+    return AppType.App;
+  } else if (value == 'BusinessApp') {
+    return AppType.BusinessApp;
   } else {
-    return AppType.APP_TYPE_UNSPECIFIED;
+    return AppType.AppTypeUnspecified;
+  }
+}
+
+DeliveryType parseDeliveryTypeEnum(String? value) {
+  if (value == 'ToPickUp') {
+    return DeliveryType.ToPickUp;
+  } else if (value == 'HomeDelivery') {
+    return DeliveryType.HomeDelivery;
+  } else {
+    return DeliveryType.DeliveryTypeUnspecified;
+  }
+}
+
+OrderStatusType parseOrderStatusTypeEnum(String? value) {
+  if (value == 'Pending') {
+    return OrderStatusType.Pending;
+  } else if (value == 'Approved') {
+    return OrderStatusType.Approved;
+  } else if (value == 'Rejected') {
+    return OrderStatusType.Rejected;
+  } else if (value == 'Received') {
+    return OrderStatusType.Received;
+  } else {
+    return OrderStatusType.OrderStatusTypeUnspecified;
+  }
+}
+
+ResidenceType parseResidenceTypeEnum(String? value) {
+  if (value == 'House') {
+    return ResidenceType.House;
+  } else if (value == 'Apartment') {
+    return ResidenceType.Apartment;
+  } else {
+    return ResidenceType.ResidenceTypeUnspecified;
   }
 }
 

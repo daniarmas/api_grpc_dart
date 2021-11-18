@@ -39,6 +39,10 @@ service UserService {
   rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse) {}
 }
 
+service OrderService {
+  rpc ListOrder (ListOrderRequest) returns (ListOrderResponse) {}
+}
+
 service ObjectStorageService {
   rpc GetPresignedPutObjectUserAvatar (GetPresignedPutUserAvatarRequest) returns (GetPresignedPutUserAvatarResponse) {}
 }
@@ -52,6 +56,16 @@ service Health {
 }
 
 // Request & Response Message
+
+message ListOrderRequest {
+  string nextPage = 1;
+  google.protobuf.FieldMask fieldMask = 2;
+}
+
+message ListOrderResponse {
+  repeated Order orders = 1;
+  string nextPage = 2;
+}
 
 message UpdateUserRequest {
   google.protobuf.FieldMask fieldMask = 1;
@@ -282,6 +296,24 @@ message HealthCheckResponse {
 
 // Entites Messages
 
+message Order {
+  string id = 1;
+  OrderStatusType status = 2;
+  string deliveryDate = 3;
+  DeliveryType deliveryType = 4;
+  ResidenceType residenceType = 5;
+  string buildingNumber = 6;
+  string houseNumber = 7;
+  Point coordinates = 8;
+  double price = 9;
+  string businessFk = 10;
+  string userFk = 11;
+  string deviceFk = 12;
+  string appVersion = 13;
+  string createTime = 14;
+  string updateTime = 15;
+}
+
 message User {
   string id = 1;
   string fullName = 2; 
@@ -485,41 +517,61 @@ message VerificationCode {
 // Enums
 
 enum SearchMunicipalityType {
-  SEARCH_MUNICIPALITY_TYPE_UNSPECIFIED = 0;
-  MORE = 1;
-  NO_MORE = 2;
+  SearchMunicipalityTypeUnspecified = 0;
+  More = 1;
+  NoMore = 2;
 }
 
 enum VerificationCodeType {
-  VERIFICATION_CODE_TYPE_UNSPECIFIED = 0;
-  SIGN_IN = 1;
-  SIGN_UP = 2;
-  CHANGE_USER_EMAIL = 3;
+  VerificationCodeTypeUnspecified = 0;
+  SignIn = 1;
+  SignUp = 2;
+  ChangeUserEmail = 3;
 }
 
 enum ItemStatusType {
-  ITEM_STATUS_TYPE_UNSPECIFIED = 0;
-  AVAILABLE = 1;
-  UNAVAILABLE = 2;
-  DEPRECATED = 3;
+  ItemStatusTypeUnspecified = 0;
+  Available = 1;
+  Unavailable = 2;
+  Deprecated = 3;
 }
 
 enum BusinessStatusType {
-  BUSINESS_STATUS_TYPE_UNSPECIFIED = 0;
-  BUSINESS_AVAILABLE = 1;
-  BUSINESS_UNAVAILABLE = 2;
+  BusinessStatusTypeUnspecified = 0;
+  BusinessAvailable = 1;
+  BusinessUnavailable = 2;
 }
 
 enum PlatformType {
-  PLATFORM_TYPE_UNSPECIFIED = 0;
+  PlatformTypeUnspecified = 0;
   IOS = 1;
-  ANDROID = 2;
+  Android = 2;
 }
 
 enum AppType  {
-  APP_TYPE_UNSPECIFIED = 0;
-  APP = 1;
-  BUSINESS_APP = 2;
+  AppTypeUnspecified = 0;
+  App = 1;
+  BusinessApp = 2;
+}
+
+enum OrderStatusType {
+  OrderStatusTypeUnspecified = 0; 
+  Pending = 1;
+  Approved = 2;
+  Rejected = 3;
+  Received = 4;
+}
+
+enum DeliveryType {
+  DeliveryTypeUnspecified = 0;
+  ToPickUp = 1; 
+  HomeDelivery = 2;
+}
+
+enum ResidenceType {
+  ResidenceTypeUnspecified = 0;
+  House = 1;
+  Apartment = 2;
 }
 
 // 'Sign_In', 'Sign_Up', 'Change_User_Email'

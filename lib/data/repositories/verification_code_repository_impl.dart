@@ -1,9 +1,4 @@
-import 'package:api_grpc_dart/core/utils/metadata.dart';
-import 'package:api_grpc_dart/core/utils/string_utils.dart';
-import 'package:api_grpc_dart/data/datasources/banned_device_local_data_source.dart';
-import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dart';
-import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
-import 'package:api_grpc_dart/data/email/emailer.dart';
+// Package imports:
 import 'package:dartz/dartz.dart';
 import 'package:grpc/grpc.dart';
 import 'package:injectable/injectable.dart';
@@ -11,6 +6,13 @@ import 'package:mailer/mailer.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_conector/postgres_conector.dart';
 
+// Project imports:
+import 'package:api_grpc_dart/core/utils/metadata.dart';
+import 'package:api_grpc_dart/core/utils/string_utils.dart';
+import 'package:api_grpc_dart/data/datasources/banned_device_local_data_source.dart';
+import 'package:api_grpc_dart/data/datasources/banned_user_local_data_source.dart';
+import 'package:api_grpc_dart/data/datasources/user_local_data_source.dart';
+import 'package:api_grpc_dart/data/email/emailer.dart';
 import '../../domain/repositories/verification_code_repository.dart';
 import '../../protos/protos/main.pb.dart';
 import '../datasources/verification_code_local_data_source.dart';
@@ -39,7 +41,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
           required List<Attribute> paths}) async {
     try {
       if (data['type'] ==
-          VerificationCodeType.VERIFICATION_CODE_TYPE_UNSPECIFIED) {
+          VerificationCodeType.VerificationCodeTypeUnspecified) {
         return Left(GrpcError.invalidArgument('Input `type` invalid'));
       } else if (!StringUtils.isEmail(data['email'])) {
         return Left(GrpcError.invalidArgument('Input `email` invalid'));
@@ -68,11 +70,11 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
         }, paths: [
           NormalAttribute(name: 'id'),
         ]);
-        if (data['type'] == VerificationCodeType.SIGN_IN &&
+        if (data['type'] == VerificationCodeType.SignIn &&
             getUserResponse == null) {
           return Left(GrpcError.invalidArgument('User Not found'));
-        } else if ((data['type'] == VerificationCodeType.SIGN_UP ||
-                data['type'] == VerificationCodeType.CHANGE_USER_EMAIL) &&
+        } else if ((data['type'] == VerificationCodeType.SignUp ||
+                data['type'] == VerificationCodeType.ChangeUserEmail) &&
             getUserResponse != null) {
           return Left(GrpcError.invalidArgument('User Already Exists'));
         }

@@ -6,22 +6,16 @@ import 'package:postgres_conector/postgres_conector.dart';
 
 // Project imports:
 import 'package:api_grpc_dart/core/utils/metadata.dart';
-import '../../protos/protos/main.pb.dart';
+import '../../protos/protos/main.pb.dart' as grpc_model;
 
-abstract class ItemRepository {
-  Future<Either<GrpcError, List<Item>>> listItem({
+abstract class OrderRepository {
+  Future<Either<GrpcError, grpc_model.ListOrderResponse>> listOrder({
     required PostgreSQLExecutionContext context,
     required Map<String, dynamic> data,
     required HeadersMetadata metadata,
     required List<Attribute> paths,
   });
-  Future<Either<GrpcError, SearchItemResponse>> searchItem({
-    required PostgreSQLExecutionContext context,
-    required Map<String, dynamic> data,
-    required HeadersMetadata metadata,
-    required List<Attribute> paths,
-  });
-  Future<Either<GrpcError, Item>> getItem({
+  Future<Either<GrpcError, grpc_model.Order>> getOrder({
     required PostgreSQLExecutionContext context,
     required Map<String, dynamic> data,
     required HeadersMetadata metadata,

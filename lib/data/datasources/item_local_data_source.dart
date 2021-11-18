@@ -1,9 +1,11 @@
-import 'package:api_grpc_dart/core/utils/parse.dart';
-import 'package:api_grpc_dart/data/database/database.dart';
+// Package imports:
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_conector/postgres_conector.dart';
 
+// Project imports:
+import 'package:api_grpc_dart/core/utils/parse.dart';
+import 'package:api_grpc_dart/data/database/database.dart';
 import '../../protos/protos/main.pb.dart';
 
 abstract class ItemLocalDataSource {
@@ -97,10 +99,10 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
           photos: listItemPhoto,
           businessItemCategoryFk: result[_table]['businessItemCategoryFk'],
           status: (parseItemStatusTypeEnum(result[_table]['status']) ==
-                      ItemStatusType.AVAILABLE &&
+                      ItemStatusType.Available &&
                   ((result['']['isInRange'] || result['Business']['toPickUp'])))
-              ? ItemStatusType.AVAILABLE
-              : ItemStatusType.UNAVAILABLE,
+              ? ItemStatusType.Available
+              : ItemStatusType.Unavailable,
           price: result[_table]['price'],
           createTime: (result[_table]['createTime'] != null)
               ? result[_table]['createTime'].toString()

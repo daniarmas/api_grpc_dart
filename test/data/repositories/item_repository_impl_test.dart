@@ -1,10 +1,4 @@
-import 'package:api_grpc_dart/core/utils/metadata.dart';
-import 'package:api_grpc_dart/data/database/database.dart';
-import 'package:api_grpc_dart/data/datasources/item_local_data_source.dart';
-import 'package:api_grpc_dart/data/repositories/item_repository_impl.dart';
-import 'package:api_grpc_dart/environment.dart';
-import 'package:api_grpc_dart/injection_container.dart';
-import 'package:api_grpc_dart/protos/protos/main.pb.dart';
+// Package imports:
 import 'package:dartz/dartz.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
@@ -13,6 +7,14 @@ import 'package:mockito/mockito.dart';
 import 'package:postgres/postgres.dart';
 import 'package:test/test.dart';
 
+// Project imports:
+import 'package:api_grpc_dart/core/utils/metadata.dart';
+import 'package:api_grpc_dart/data/database/database.dart';
+import 'package:api_grpc_dart/data/datasources/item_local_data_source.dart';
+import 'package:api_grpc_dart/data/repositories/item_repository_impl.dart';
+import 'package:api_grpc_dart/environment.dart';
+import 'package:api_grpc_dart/injection_container.dart';
+import 'package:api_grpc_dart/protos/protos/main.pb.dart';
 import 'item_repository_impl_test.mocks.dart';
 
 @GenerateMocks([ItemLocalDataSource, Database])
@@ -42,14 +44,14 @@ void main() {
     metadata = HeadersMetadata(
         systemVersionSdk: '1',
         accesstoken: '1',
-        platform: PlatformType.ANDROID,
+        platform: PlatformType.Android,
         systemVersion: '1',
         appVersion: '1',
         networkType: 'wifi',
         systemLanguage: 'en',
         ipv4: '192.168.1.3',
         ipv6: 'asdksajdhaskjdjklasdhjk',
-        app: AppType.APP,
+        app: AppType.App,
         deviceId: '1',
         model: '1',
         firebaseCloudMessagingId: '1');
@@ -72,7 +74,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -118,7 +120,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -139,7 +141,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -160,7 +162,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -181,7 +183,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -202,7 +204,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -223,7 +225,7 @@ void main() {
           businessFk: 'businessFk',
           businessItemCategoryFk: 'businessItemCategoryFk',
           description: 'description',
-          status: ItemStatusType.AVAILABLE,
+          status: ItemStatusType.Available,
           name: 'name',
           photos: [
             ItemPhoto(
@@ -288,7 +290,7 @@ void main() {
         businessFk: 'businessFk',
         businessItemCategoryFk: 'businessItemCategoryFk',
         description: 'description',
-        status: ItemStatusType.AVAILABLE,
+        status: ItemStatusType.Available,
         name: 'name',
         photos: [
           ItemPhoto(
