@@ -247,6 +247,124 @@ class ListOrderResponse extends $pb.GeneratedMessage {
   void clearNextPage() => clearField(2);
 }
 
+class ListCartItemRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListCartItemRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
+    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..hasRequiredFields = false
+  ;
+
+  ListCartItemRequest._() : super();
+  factory ListCartItemRequest({
+    $core.String? nextPage,
+    $2.FieldMask? fieldMask,
+  }) {
+    final _result = create();
+    if (nextPage != null) {
+      _result.nextPage = nextPage;
+    }
+    if (fieldMask != null) {
+      _result.fieldMask = fieldMask;
+    }
+    return _result;
+  }
+  factory ListCartItemRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListCartItemRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListCartItemRequest clone() => ListCartItemRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListCartItemRequest copyWith(void Function(ListCartItemRequest) updates) => super.copyWith((message) => updates(message as ListCartItemRequest)) as ListCartItemRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListCartItemRequest create() => ListCartItemRequest._();
+  ListCartItemRequest createEmptyInstance() => create();
+  static $pb.PbList<ListCartItemRequest> createRepeated() => $pb.PbList<ListCartItemRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ListCartItemRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListCartItemRequest>(create);
+  static ListCartItemRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get nextPage => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set nextPage($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasNextPage() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearNextPage() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $2.FieldMask get fieldMask => $_getN(1);
+  @$pb.TagNumber(2)
+  set fieldMask($2.FieldMask v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasFieldMask() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFieldMask() => clearField(2);
+  @$pb.TagNumber(2)
+  $2.FieldMask ensureFieldMask() => $_ensure(1);
+}
+
+class ListCartItemResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListCartItemResponse', createEmptyInstance: create)
+    ..pc<Item>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'items', $pb.PbFieldType.PM, subBuilder: Item.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
+    ..hasRequiredFields = false
+  ;
+
+  ListCartItemResponse._() : super();
+  factory ListCartItemResponse({
+    $core.Iterable<Item>? items,
+    $core.String? nextPage,
+  }) {
+    final _result = create();
+    if (items != null) {
+      _result.items.addAll(items);
+    }
+    if (nextPage != null) {
+      _result.nextPage = nextPage;
+    }
+    return _result;
+  }
+  factory ListCartItemResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ListCartItemResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ListCartItemResponse clone() => ListCartItemResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ListCartItemResponse copyWith(void Function(ListCartItemResponse) updates) => super.copyWith((message) => updates(message as ListCartItemResponse)) as ListCartItemResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ListCartItemResponse create() => ListCartItemResponse._();
+  ListCartItemResponse createEmptyInstance() => create();
+  static $pb.PbList<ListCartItemResponse> createRepeated() => $pb.PbList<ListCartItemResponse>();
+  @$core.pragma('dart2js:noInline')
+  static ListCartItemResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ListCartItemResponse>(create);
+  static ListCartItemResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Item> get items => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $core.String get nextPage => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set nextPage($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasNextPage() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearNextPage() => clearField(2);
+}
+
 class UpdateUserRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateUserRequest', createEmptyInstance: create)
     ..aOM<$2.FieldMask>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
@@ -3211,6 +3329,137 @@ class Order extends $pb.GeneratedMessage {
   $core.bool hasUpdateTime() => $_has(14);
   @$pb.TagNumber(15)
   void clearUpdateTime() => clearField(15);
+}
+
+class CartItem extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CartItem', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'itemFk', protoName: 'itemFk')
+    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'price', $pb.PbFieldType.OD)
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userFk', protoName: 'userFk')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'authorizationTokenFk', protoName: 'authorizationTokenFk')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTim', protoName: 'createTim')
+    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
+    ..hasRequiredFields = false
+  ;
+
+  CartItem._() : super();
+  factory CartItem({
+    $core.String? id,
+    $core.String? itemFk,
+    $core.double? price,
+    $core.String? userFk,
+    $core.String? authorizationTokenFk,
+    $core.String? createTim,
+    $core.String? updateTime,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    if (itemFk != null) {
+      _result.itemFk = itemFk;
+    }
+    if (price != null) {
+      _result.price = price;
+    }
+    if (userFk != null) {
+      _result.userFk = userFk;
+    }
+    if (authorizationTokenFk != null) {
+      _result.authorizationTokenFk = authorizationTokenFk;
+    }
+    if (createTim != null) {
+      _result.createTim = createTim;
+    }
+    if (updateTime != null) {
+      _result.updateTime = updateTime;
+    }
+    return _result;
+  }
+  factory CartItem.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CartItem.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CartItem clone() => CartItem()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CartItem copyWith(void Function(CartItem) updates) => super.copyWith((message) => updates(message as CartItem)) as CartItem; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CartItem create() => CartItem._();
+  CartItem createEmptyInstance() => create();
+  static $pb.PbList<CartItem> createRepeated() => $pb.PbList<CartItem>();
+  @$core.pragma('dart2js:noInline')
+  static CartItem getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CartItem>(create);
+  static CartItem? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get itemFk => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set itemFk($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasItemFk() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearItemFk() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.double get price => $_getN(2);
+  @$pb.TagNumber(3)
+  set price($core.double v) { $_setDouble(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasPrice() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPrice() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get userFk => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set userFk($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasUserFk() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearUserFk() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get authorizationTokenFk => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set authorizationTokenFk($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasAuthorizationTokenFk() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearAuthorizationTokenFk() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get createTim => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set createTim($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasCreateTim() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearCreateTim() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get updateTime => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set updateTime($core.String v) { $_setString(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasUpdateTime() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearUpdateTime() => clearField(7);
 }
 
 class User extends $pb.GeneratedMessage {

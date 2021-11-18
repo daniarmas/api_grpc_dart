@@ -652,6 +652,51 @@ abstract class OrderServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.GetOrderRequest request);
 }
 
+class CartItemServiceClient extends $grpc.Client {
+  static final _$listCartItem =
+      $grpc.ClientMethod<$0.ListCartItemRequest, $0.ListCartItemResponse>(
+          '/CartItemService/ListCartItem',
+          ($0.ListCartItemRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.ListCartItemResponse.fromBuffer(value));
+
+  CartItemServiceClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions? options,
+      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+      : super(channel, options: options, interceptors: interceptors);
+
+  $grpc.ResponseFuture<$0.ListCartItemResponse> listCartItem(
+      $0.ListCartItemRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$listCartItem, request, options: options);
+  }
+}
+
+abstract class CartItemServiceBase extends $grpc.Service {
+  $core.String get $name => 'CartItemService';
+
+  CartItemServiceBase() {
+    $addMethod(
+        $grpc.ServiceMethod<$0.ListCartItemRequest, $0.ListCartItemResponse>(
+            'ListCartItem',
+            listCartItem_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.ListCartItemRequest.fromBuffer(value),
+            ($0.ListCartItemResponse value) => value.writeToBuffer()));
+  }
+
+  $async.Future<$0.ListCartItemResponse> listCartItem_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.ListCartItemRequest> request) async {
+    return listCartItem(call, await request);
+  }
+
+  $async.Future<$0.ListCartItemResponse> listCartItem(
+      $grpc.ServiceCall call, $0.ListCartItemRequest request);
+}
+
 class ObjectStorageServiceClient extends $grpc.Client {
   static final _$getPresignedPutObjectUserAvatar = $grpc.ClientMethod<
           $0.GetPresignedPutUserAvatarRequest,

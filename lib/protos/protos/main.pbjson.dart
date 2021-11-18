@@ -165,6 +165,28 @@ const ListOrderResponse$json = const {
 
 /// Descriptor for `ListOrderResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List listOrderResponseDescriptor = $convert.base64Decode('ChFMaXN0T3JkZXJSZXNwb25zZRIeCgZvcmRlcnMYASADKAsyBi5PcmRlclIGb3JkZXJzEhoKCG5leHRQYWdlGAIgASgJUghuZXh0UGFnZQ==');
+@$core.Deprecated('Use listCartItemRequestDescriptor instead')
+const ListCartItemRequest$json = const {
+  '1': 'ListCartItemRequest',
+  '2': const [
+    const {'1': 'nextPage', '3': 1, '4': 1, '5': 9, '10': 'nextPage'},
+    const {'1': 'fieldMask', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+  ],
+};
+
+/// Descriptor for `ListCartItemRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List listCartItemRequestDescriptor = $convert.base64Decode('ChNMaXN0Q2FydEl0ZW1SZXF1ZXN0EhoKCG5leHRQYWdlGAEgASgJUghuZXh0UGFnZRI4CglmaWVsZE1hc2sYAiABKAsyGi5nb29nbGUucHJvdG9idWYuRmllbGRNYXNrUglmaWVsZE1hc2s=');
+@$core.Deprecated('Use listCartItemResponseDescriptor instead')
+const ListCartItemResponse$json = const {
+  '1': 'ListCartItemResponse',
+  '2': const [
+    const {'1': 'items', '3': 1, '4': 3, '5': 11, '6': '.Item', '10': 'items'},
+    const {'1': 'nextPage', '3': 2, '4': 1, '5': 9, '10': 'nextPage'},
+  ],
+};
+
+/// Descriptor for `ListCartItemResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List listCartItemResponseDescriptor = $convert.base64Decode('ChRMaXN0Q2FydEl0ZW1SZXNwb25zZRIbCgVpdGVtcxgBIAMoCzIFLkl0ZW1SBWl0ZW1zEhoKCG5leHRQYWdlGAIgASgJUghuZXh0UGFnZQ==');
 @$core.Deprecated('Use updateUserRequestDescriptor instead')
 const UpdateUserRequest$json = const {
   '1': 'UpdateUserRequest',
@@ -664,6 +686,22 @@ const Order$json = const {
 
 /// Descriptor for `Order`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List orderDescriptor = $convert.base64Decode('CgVPcmRlchIOCgJpZBgBIAEoCVICaWQSKAoGc3RhdHVzGAIgASgOMhAuT3JkZXJTdGF0dXNUeXBlUgZzdGF0dXMSIgoMZGVsaXZlcnlEYXRlGAMgASgJUgxkZWxpdmVyeURhdGUSMQoMZGVsaXZlcnlUeXBlGAQgASgOMg0uRGVsaXZlcnlUeXBlUgxkZWxpdmVyeVR5cGUSNAoNcmVzaWRlbmNlVHlwZRgFIAEoDjIOLlJlc2lkZW5jZVR5cGVSDXJlc2lkZW5jZVR5cGUSJgoOYnVpbGRpbmdOdW1iZXIYBiABKAlSDmJ1aWxkaW5nTnVtYmVyEiAKC2hvdXNlTnVtYmVyGAcgASgJUgtob3VzZU51bWJlchIoCgtjb29yZGluYXRlcxgIIAEoCzIGLlBvaW50Ugtjb29yZGluYXRlcxIUCgVwcmljZRgJIAEoAVIFcHJpY2USHgoKYnVzaW5lc3NGaxgKIAEoCVIKYnVzaW5lc3NGaxIWCgZ1c2VyRmsYCyABKAlSBnVzZXJGaxIaCghkZXZpY2VGaxgMIAEoCVIIZGV2aWNlRmsSHgoKYXBwVmVyc2lvbhgNIAEoCVIKYXBwVmVyc2lvbhIeCgpjcmVhdGVUaW1lGA4gASgJUgpjcmVhdGVUaW1lEh4KCnVwZGF0ZVRpbWUYDyABKAlSCnVwZGF0ZVRpbWU=');
+@$core.Deprecated('Use cartItemDescriptor instead')
+const CartItem$json = const {
+  '1': 'CartItem',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'itemFk', '3': 2, '4': 1, '5': 9, '10': 'itemFk'},
+    const {'1': 'price', '3': 3, '4': 1, '5': 1, '10': 'price'},
+    const {'1': 'userFk', '3': 4, '4': 1, '5': 9, '10': 'userFk'},
+    const {'1': 'authorizationTokenFk', '3': 5, '4': 1, '5': 9, '10': 'authorizationTokenFk'},
+    const {'1': 'createTim', '3': 6, '4': 1, '5': 9, '10': 'createTim'},
+    const {'1': 'updateTime', '3': 7, '4': 1, '5': 9, '10': 'updateTime'},
+  ],
+};
+
+/// Descriptor for `CartItem`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List cartItemDescriptor = $convert.base64Decode('CghDYXJ0SXRlbRIOCgJpZBgBIAEoCVICaWQSFgoGaXRlbUZrGAIgASgJUgZpdGVtRmsSFAoFcHJpY2UYAyABKAFSBXByaWNlEhYKBnVzZXJGaxgEIAEoCVIGdXNlckZrEjIKFGF1dGhvcml6YXRpb25Ub2tlbkZrGAUgASgJUhRhdXRob3JpemF0aW9uVG9rZW5GaxIcCgljcmVhdGVUaW0YBiABKAlSCWNyZWF0ZVRpbRIeCgp1cGRhdGVUaW1lGAcgASgJUgp1cGRhdGVUaW1l');
 @$core.Deprecated('Use userDescriptor instead')
 const User$json = const {
   '1': 'User',

@@ -44,6 +44,10 @@ service OrderService {
   rpc GetOrder (GetOrderRequest) returns (GetOrderResponse) {}
 }
 
+service CartItemService {
+  rpc ListCartItem (ListCartItemRequest) returns (ListCartItemResponse) {}
+}
+
 service ObjectStorageService {
   rpc GetPresignedPutObjectUserAvatar (GetPresignedPutUserAvatarRequest) returns (GetPresignedPutUserAvatarResponse) {}
 }
@@ -74,6 +78,16 @@ message ListOrderRequest {
 
 message ListOrderResponse {
   repeated Order orders = 1;
+  string nextPage = 2;
+}
+
+message ListCartItemRequest {
+  string nextPage = 1;
+  google.protobuf.FieldMask fieldMask = 2;
+}
+
+message ListCartItemResponse {
+  repeated Item items = 1;
   string nextPage = 2;
 }
 
@@ -322,6 +336,16 @@ message Order {
   string appVersion = 13;
   string createTime = 14;
   string updateTime = 15;
+}
+
+message CartItem {
+  string id = 1;
+  string itemFk = 2;
+  double price = 3;
+  string userFk = 4;
+  string authorizationTokenFk = 5;
+  string createTim = 6;
+  string updateTime = 7;
 }
 
 message User {
