@@ -82,17 +82,17 @@ class GetOrderRequest extends $pb.GeneratedMessage {
 
 class GetOrderResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetOrderResponse', createEmptyInstance: create)
-    ..pc<Order>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'order', $pb.PbFieldType.PM, subBuilder: Order.create)
+    ..aOM<Order>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'order', subBuilder: Order.create)
     ..hasRequiredFields = false
   ;
 
   GetOrderResponse._() : super();
   factory GetOrderResponse({
-    $core.Iterable<Order>? order,
+    Order? order,
   }) {
     final _result = create();
     if (order != null) {
-      _result.order.addAll(order);
+      _result.order = order;
     }
     return _result;
   }
@@ -118,7 +118,15 @@ class GetOrderResponse extends $pb.GeneratedMessage {
   static GetOrderResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<Order> get order => $_getList(0);
+  Order get order => $_getN(0);
+  @$pb.TagNumber(1)
+  set order(Order v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasOrder() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearOrder() => clearField(1);
+  @$pb.TagNumber(1)
+  Order ensureOrder() => $_ensure(0);
 }
 
 class ListOrderRequest extends $pb.GeneratedMessage {

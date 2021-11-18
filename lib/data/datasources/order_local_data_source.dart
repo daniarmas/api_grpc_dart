@@ -4,18 +4,18 @@ import 'package:postgres/postgres.dart';
 import 'package:postgres_conector/postgres_conector.dart';
 
 // Project imports:
-import 'package:api_grpc_dart/core/utils/json_web_token.dart';
 import 'package:api_grpc_dart/core/utils/parse.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
+import '../../protos/protos/main.pb.dart' as grpc_model;
 import '../../protos/protos/main.pb.dart';
 
 abstract class OrderLocalDataSource {
-  Future<List<Order>> listOrder(
+  Future<List<grpc_model.Order>> listOrder(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<Attribute> paths});
 
-  Future<Order?> getOrder(
+  Future<grpc_model.Order?> getOrder(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<Attribute> paths});
@@ -29,12 +29,52 @@ class OrderLocalDataSourceImpl implements OrderLocalDataSource {
   OrderLocalDataSourceImpl(this._database);
 
   @override
-  Future<Order?> getOrder(
+  Future<grpc_model.Order?> getOrder(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
-      required List<Attribute> paths}) {
-    // TODO: implement getOrder
-    throw UnimplementedError();
+      required List<Attribute> paths}) async {
+    try {
+      final result = await _database.get(
+          context: context,
+          table: _table,
+          where: getWhereNormalAttributeList(data),
+          agregationMethods: [
+            'ST_X("Order"."coordinates") AS longitude',
+            'ST_Y("Order"."coordinates") AS latitude',
+          ],
+          attributes: paths);
+      if (result != null) {
+        return grpc_model.Order(
+            id: result[_table]['id'],
+            businessFk: result[_table]['businessFk'],
+            appVersion: result[_table]['appVersion'],
+            buildingNumber: result[_table]['buildingNumber'],
+            coordinates: Point(
+              latitude: result['']['latitude'],
+              longitude: result['']['longitude'],
+            ),
+            deliveryDate: (result[_table]['deliveryDate'] != null)
+                ? result[_table]['deliveryDate'].toString()
+                : null,
+            deliveryType: parseDeliveryTypeEnum(result[_table]['deliveryType']),
+            deviceFk: result[_table]['deviceFk'],
+            houseNumber: result[_table]['houseNumber'],
+            residenceType:
+                parseResidenceTypeEnum(result[_table]['residenceType']),
+            status: parseOrderStatusTypeEnum(result[_table]['status']),
+            userFk: result[_table]['userFk'],
+            price: result[_table]['price'],
+            createTime: (result[_table]['createTime'] != null)
+                ? result[_table]['createTime'].toString()
+                : null,
+            updateTime: (result[_table]['updateTime'] != null)
+                ? result[_table]['updateTime'].toString()
+                : null);
+      }
+      return null;
+    } catch (error) {
+      rethrow;
+    }
   }
 
   @override
@@ -64,9 +104,9 @@ class OrderLocalDataSourceImpl implements OrderLocalDataSource {
           orderByAsc: 'createTime',
           where: where,
           limit: 5);
-      List<Order> response = [];
+      List<grpc_model.Order> response = [];
       for (var item in result) {
-        response.add(Order(
+        response.add(grpc_model.Order(
             id: item[_table]['id'],
             businessFk: item[_table]['businessFk'],
             appVersion: item[_table]['appVersion'],

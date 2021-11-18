@@ -137,12 +137,12 @@ final $typed_data.Uint8List getOrderRequestDescriptor = $convert.base64Decode('C
 const GetOrderResponse$json = const {
   '1': 'GetOrderResponse',
   '2': const [
-    const {'1': 'order', '3': 1, '4': 3, '5': 11, '6': '.Order', '10': 'order'},
+    const {'1': 'order', '3': 1, '4': 1, '5': 11, '6': '.Order', '10': 'order'},
   ],
 };
 
 /// Descriptor for `GetOrderResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getOrderResponseDescriptor = $convert.base64Decode('ChBHZXRPcmRlclJlc3BvbnNlEhwKBW9yZGVyGAEgAygLMgYuT3JkZXJSBW9yZGVy');
+final $typed_data.Uint8List getOrderResponseDescriptor = $convert.base64Decode('ChBHZXRPcmRlclJlc3BvbnNlEhwKBW9yZGVyGAEgASgLMgYuT3JkZXJSBW9yZGVy');
 @$core.Deprecated('Use listOrderRequestDescriptor instead')
 const ListOrderRequest$json = const {
   '1': 'ListOrderRequest',

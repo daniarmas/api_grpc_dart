@@ -46,8 +46,29 @@ class OrderService extends OrderServiceBase {
   }
 
   @override
-  Future<grpc_model.GetOrderResponse> getOrder(ServiceCall call, grpc_model.GetOrderRequest request) {
-    // TODO: implement getOrder
-    throw UnimplementedError();
+  Future<grpc_model.GetOrderResponse> getOrder(
+      ServiceCall call, grpc_model.GetOrderRequest request) async {
+    try {
+      late GetOrderResponse response;
+      OrderRepository orderRepository = GetIt.I<OrderRepository>();
+      late Either<GrpcError, grpc_model.Order> result;
+      var connection = await database.getConnection();
+      await connection.transaction((context) async {
+        result = await orderRepository.getOrder(
+            metadata: HeadersMetadata.fromServiceCall(call),
+            data: getRequestData(request),
+            paths: getPaths(request.fieldMask.paths),
+            context: context);
+      });
+      result.fold((left) => {throw left},
+          (right) => {response = GetOrderResponse(order: right)});
+      return response;
+    } catch (error) {
+      if (error is GrpcError) {
+        rethrow;
+      } else {
+        throw GrpcError.internal('Internal server error');
+      }
+    }
   }
 }
