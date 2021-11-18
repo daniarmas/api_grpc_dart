@@ -35,3 +35,6 @@ Makefile
 CHANGELOG.md
 analysis_options.yaml
 /test
+build/
+.github/
+.packages
