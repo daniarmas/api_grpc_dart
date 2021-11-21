@@ -380,7 +380,7 @@ class MockDatabase extends _i1.Mock implements _i11.Database {
           _i6.InnerJoin? innerJoin,
           List<String>? agregationMethods,
           int? limit,
-          String? orderByAsc}) =>
+          _i6.OrderBy? orderBy}) =>
       (super.noSuchMethod(
               Invocation.method(#list, [], {
                 #context: context,
@@ -390,7 +390,7 @@ class MockDatabase extends _i1.Mock implements _i11.Database {
                 #innerJoin: innerJoin,
                 #agregationMethods: agregationMethods,
                 #limit: limit,
-                #orderByAsc: orderByAsc
+                #orderBy: orderBy
               }),
               returnValue: Future<List<Map<String, dynamic>>>.value(
                   <Map<String, dynamic>>[]))
@@ -403,7 +403,7 @@ class MockDatabase extends _i1.Mock implements _i11.Database {
           List<_i6.Attribute>? attributes,
           _i6.InnerJoin? innerJoin,
           int? limit,
-          String? orderByAsc,
+          _i6.OrderBy? orderBy,
           List<String>? agregationMethods}) =>
       (super.noSuchMethod(
               Invocation.method(#search, [], {
@@ -413,7 +413,7 @@ class MockDatabase extends _i1.Mock implements _i11.Database {
                 #attributes: attributes,
                 #innerJoin: innerJoin,
                 #limit: limit,
-                #orderByAsc: orderByAsc,
+                #orderBy: orderBy,
                 #agregationMethods: agregationMethods
               }),
               returnValue: Future<List<Map<String, dynamic>>>.value(
