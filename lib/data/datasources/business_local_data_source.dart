@@ -113,7 +113,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
       if (data['searchMunicipalityType'] == SearchMunicipalityType.More) {
         itemsResult = await _database.list(
             context: context,
-            table: 'Business',
+            table: _table,
             attributes: paths,
             agregationMethods: [
               'ST_Contains("Business"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
@@ -125,7 +125,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
               WhereNormalAttributeEqual(
                   key: 'municipalityFk', value: data['municipalityFk']),
             ],
-            orderByAsc: 'cursor',
+            orderBy: OrderByAsc(name: 'cursor', table: _table),
             limit: 5);
         if (itemsResult.length > 5) {
           itemsResult.removeLast();
@@ -148,7 +148,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
                 WhereNormalAttributeNotEqual(
                     key: 'municipalityFk', value: data['municipalityFk']),
               ],
-              orderByAsc: 'cursor',
+              orderBy: OrderByAsc(name: 'cursor', table: _table),
               limit: len);
           if (completeItems.length > len) {
             completeItems.removeLast();
@@ -172,7 +172,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
                 WhereNormalAttributeNotEqual(
                     key: 'municipalityFk', value: data['municipalityFk']),
               ],
-              orderByAsc: 'cursor',
+              orderBy: OrderByAsc(name: 'cursor', table: _table),
               limit: 5);
           if (itemsResult.length > 5) {
             itemsResult.removeLast();
@@ -197,7 +197,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
               WhereNormalAttributeNotEqual(
                   key: 'municipalityFk', value: data['municipalityFk']),
             ],
-            orderByAsc: 'cursor',
+            orderBy: OrderByAsc(name: 'cursor', table: _table),
             limit: 5);
         if (itemsResult.length > 5) {
           itemsResult.removeLast();

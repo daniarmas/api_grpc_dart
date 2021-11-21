@@ -1,9 +1,9 @@
 version: "3.7"
 
 services:
-  db:
+  postgres:
     image: 192.168.1.2:5000/ownpostgis/ownpostgis:13-3.1-alpine
-    container_name: ownpostgis
+    container_name: postgres
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:
@@ -33,6 +33,18 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    volumes:
+      - pgadmin4:/var/lib/pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.net
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - 8080:80
 volumes:
   postgres:
   miniodata:
+  pgadmin4:

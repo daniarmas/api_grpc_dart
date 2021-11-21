@@ -8,32 +8,31 @@ import 'package:api_grpc_dart/core/utils/parse.dart';
 import 'package:api_grpc_dart/data/database/database.dart';
 import '../../protos/protos/main.pb.dart';
 
-abstract class ItemLocalDataSource {
-  Future<List<Item>> listItem(
+abstract class CartItemLocalDataSource {
+  Future<List<Item>> listCartItem(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<Attribute> paths});
 
-  Future<Item?> getItem(
+  Future<Item?> getCartItem(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<Attribute> paths});
 }
 
-@Injectable(as: ItemLocalDataSource)
-class ItemLocalDataSourceImpl implements ItemLocalDataSource {
+@Injectable(as: CartItemLocalDataSource)
+class CartItemLocalDataSourceImpl implements CartItemLocalDataSource {
   final Database _database;
-  static final String _table = 'Item';
+  static final String _table = 'CartItem';
 
-  ItemLocalDataSourceImpl(this._database);
+  CartItemLocalDataSourceImpl(this._database);
 
   @override
-  Future<Item?> getItem(
+  Future<Item?> getCartItem(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<Attribute> paths}) async {
     try {
-      var latLng = data['location'];
       List<Attribute> getPath = [];
       getPath.addAll(paths);
       getPath.removeWhere((element) => element.name == 'photos');
@@ -49,23 +48,24 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
           where: getWhereNormalAttributeList(data),
           innerJoin: InnerJoin(
               table: _table,
-              tableValue: 'businessFk',
+              tableValue: 'itemFk',
               relationValue: 'id',
-              relationTable: 'Business'),
-          agregationMethods: [
-            'ST_Contains("Item"."polygon", ST_GeomFromText(\'POINT(${latLng.longitude} ${latLng.latitude})\', 4326)) as "isInRange"',
-          ],
+              relationTable: 'Item'),
           attributes: getPath);
       if (result != null) {
         List<ItemPhoto> listItemPhoto = [];
         if (paths.isEmpty || paths.any((element) => element.name == 'photos')) {
-          final photos = await _database
-              .list(context: context, table: 'ItemPhoto', where: [
-            WhereNormalAttributeEqual(
-              key: 'itemFk',
-              value: result[_table]['id'],
-            )
-          ], attributes: []);
+          final photos = await _database.list(
+            context: context,
+            table: 'ItemPhoto',
+            where: [
+              WhereNormalAttributeEqual(
+                key: 'itemFk',
+                value: result[_table]['id'],
+              )
+            ],
+            attributes: [],
+          );
           for (var item in photos) {
             listItemPhoto.add(ItemPhoto(
               id: item['ItemPhoto']['id'],
@@ -86,23 +86,19 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
         return Item(
           id: result[_table]['id'],
           name: result[_table]['name'],
-          description: result[_table]['description'],
-          availability: result[_table]['availability'],
-          businessFk: result[_table]['businessFk'],
-          highQualityPhoto: result[_table]['highQualityPhoto'],
-          highQualityPhotoBlurHash: result[_table]['highQualityPhotoBlurHash'],
-          lowQualityPhoto: result[_table]['lowQualityPhoto'],
-          lowQualityPhotoBlurHash: result[_table]['lowQualityPhotoBlurHash'],
-          thumbnail: result[_table]['thumbnail'],
-          thumbnailBlurHash: result[_table]['thumbnailBlurHash'],
-          cursor: result[_table]['cursor'],
+          description: result['Item']['description'],
+          availability: result['Item']['availability'],
+          businessFk: result['Item']['businessFk'],
+          highQualityPhoto: result['Item']['highQualityPhoto'],
+          highQualityPhotoBlurHash: result['Item']['highQualityPhotoBlurHash'],
+          lowQualityPhoto: result['Item']['lowQualityPhoto'],
+          lowQualityPhotoBlurHash: result['Item']['lowQualityPhotoBlurHash'],
+          thumbnail: result['Item']['thumbnail'],
+          thumbnailBlurHash: result['Item']['thumbnailBlurHash'],
+          cursor: result['Item']['cursor'],
           photos: listItemPhoto,
-          businessItemCategoryFk: result[_table]['businessItemCategoryFk'],
-          status: (parseItemStatusTypeEnum(result[_table]['status']) ==
-                      ItemStatusType.Available &&
-                  ((result['']['isInRange'] || result['Business']['toPickUp'])))
-              ? ItemStatusType.Available
-              : ItemStatusType.Unavailable,
+          businessItemCategoryFk: null,
+          status: null,
           price: result[_table]['price'],
           createTime: (result[_table]['createTime'] != null)
               ? result[_table]['createTime'].toString()
@@ -119,7 +115,7 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
   }
 
   @override
-  Future<List<Item>> listItem(
+  Future<List<Item>> listCartItem(
       {required PostgreSQLExecutionContext context,
       required Map<String, dynamic> data,
       required List<Attribute> paths}) async {
@@ -142,10 +138,14 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
           table: _table,
           attributes: listPath,
           orderBy: OrderByAsc(name: 'name', table: _table),
+          innerJoin: InnerJoin(
+              table: _table,
+              tableValue: 'itemFk',
+              relationValue: 'id',
+              relationTable: 'Item'),
           where: [
             WhereNormalAttributeHigher(key: 'name', value: data['nextPage']),
-            WhereNormalAttributeNotEqual(key: 'status', value: 'Deprecated'),
-            WhereNormalAttributeHigher(key: 'availability', value: '-1'),
+            WhereNormalAttributeEqual(key: 'userFk', value: data['userFk']),
           ],
           limit: 5);
       List<Item> response = [];
@@ -153,21 +153,21 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
         ids.add(item[_table]['id']);
         response.add(Item(
             id: item[_table]['id'],
-            name: item[_table]['name'],
-            description: item[_table]['description'],
-            availability: item[_table]['availability'],
-            businessFk: item[_table]['businessFk'],
-            highQualityPhoto: item[_table]['highQualityPhoto'],
-            highQualityPhotoBlurHash: item[_table]['highQualityPhotoBlurHash'],
-            lowQualityPhoto: item[_table]['lowQualityPhoto'],
-            lowQualityPhotoBlurHash: item[_table]['lowQualityPhotoBlurHash'],
-            thumbnail: item[_table]['thumbnail'],
-            thumbnailBlurHash: item[_table]['thumbnailBlurHash'],
+            name: item[_table][_table],
+            description: item['Item']['description'],
+            availability: item['Item']['availability'],
+            businessFk: item['Item']['businessFk'],
+            highQualityPhoto: item['Item']['highQualityPhoto'],
+            highQualityPhotoBlurHash: item['Item']['highQualityPhotoBlurHash'],
+            lowQualityPhoto: item['Item']['lowQualityPhoto'],
+            lowQualityPhotoBlurHash: item['Item']['lowQualityPhotoBlurHash'],
+            thumbnail: item['Item']['thumbnail'],
+            thumbnailBlurHash: item['Item']['thumbnailBlurHash'],
             photos: null,
-            businessItemCategoryFk: item[_table]['businessItemCategoryFk'],
+            businessItemCategoryFk: item['Item']['businessItemCategoryFk'],
             price: item[_table]['price'],
-            cursor: item[_table]['cursor'],
-            status: parseItemStatusTypeEnum(item[_table]['status']),
+            cursor: item['Item']['cursor'],
+            status: parseItemStatusTypeEnum(item['Item']['status']),
             createTime: (item[_table]['createTime'] != null)
                 ? item[_table]['createTime'].toString()
                 : null,

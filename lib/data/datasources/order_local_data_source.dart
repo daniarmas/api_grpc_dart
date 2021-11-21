@@ -101,7 +101,7 @@ class OrderLocalDataSourceImpl implements OrderLocalDataSource {
             'ST_X("Order"."coordinates") AS longitude',
             'ST_Y("Order"."coordinates") AS latitude',
           ],
-          orderByAsc: 'createTime',
+          orderBy: OrderByDesc(name: 'createTime', table: _table),
           where: where,
           limit: 5);
       List<grpc_model.Order> response = [];

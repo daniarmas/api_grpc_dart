@@ -9,6 +9,7 @@ import 'package:shutdown/shutdown.dart' as shutdown;
 
 // Project imports:
 import 'package:api_grpc_dart/domain/services/business_service.dart';
+import 'package:api_grpc_dart/domain/services/cart_item_service.dart';
 import 'package:api_grpc_dart/domain/services/object_storage_service.dart';
 import 'package:api_grpc_dart/domain/services/user_service.dart';
 import 'package:api_grpc_dart/interceptors.dart';
@@ -39,6 +40,7 @@ class Server {
           ItemService(),
           UserService(),
           OrderService(),
+          CartItemService(),
         ], [
           (ServiceCall call, ServiceMethod method) {
             var accessTokenValidResponse = accessTokenValid(call, method);
@@ -61,6 +63,8 @@ class Server {
               'ListSession',
               'UpdateUser',
               'ListOrder',
+              'GetCartItem',
+              'ListCartItem',
             ]);
           }
         ]);
