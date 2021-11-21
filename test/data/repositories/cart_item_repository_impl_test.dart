@@ -288,4 +288,221 @@ void main() {
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });
+  group('testing getCartItem', () {
+    test('Return data sucessfull when everything is ok', () async {
+      // setup
+      AuthorizationToken authorizationToken = AuthorizationToken(
+        id: '1',
+        app: AppType.App,
+        appVersion: '1',
+        createTime: '1',
+        deviceFk: '1',
+        refreshTokenFk: '1',
+        updateTime: '1',
+        userFk: '1',
+        valid: true,
+      );
+      Map<String, dynamic> data = {
+        'id': '1',
+        'userFk': authorizationToken.userFk,
+      };
+      Item item = Item(
+        id: '1',
+        availability: 1,
+        businessFk: 'businessFk',
+        businessItemCategoryFk: 'businessItemCategoryFk',
+        description: 'description',
+        status: ItemStatusType.Available,
+        name: 'name',
+        photos: [
+          ItemPhoto(
+              createTime: 'createTime',
+              highQualityPhoto: 'highQualityPhoto',
+              id: 'id',
+              itemFk: 'itemFk',
+              lowQualityPhoto: 'lowQualityPhoto',
+              updateTime: 'updateTime')
+        ],
+        price: 20.0,
+        createTime: '1',
+        updateTime: '1',
+      );
+      // side effects
+      when(mockJsonWebToken.verify(
+              metadata.authorization!, 'AuthorizationToken'))
+          .thenAnswer((_) => {
+                'authorizationTokenFk': metadata.authorization!,
+              });
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => authorizationToken);
+      when(mockCartItemLocalDataSource.getCartItem(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenAnswer((_) async => item);
+      final result = await cartItemRepositoryImpl.getCartItem(
+        data: data,
+        paths: [],
+        context: ctx,
+        metadata: metadata,
+      );
+      // expectations
+      verify(mockJsonWebToken.verify(
+          metadata.authorization!, 'AuthorizationToken'));
+      verify(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockCartItemLocalDataSource.getCartItem(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      expect(result, Right(item));
+    });
+    test(
+        'Return GrpcError.unauthenticated when the AuthorizationToken not exists',
+        () async {
+      // setup
+      AuthorizationToken authorizationToken = AuthorizationToken(
+        id: '1',
+        app: AppType.App,
+        appVersion: '1',
+        createTime: '1',
+        deviceFk: '1',
+        refreshTokenFk: '1',
+        updateTime: '1',
+        userFk: '1',
+        valid: true,
+      );
+      Map<String, dynamic> data = {
+        'id': '1',
+        'userFk': authorizationToken.userFk,
+      };
+      // side effects
+      when(mockJsonWebToken.verify(
+              metadata.authorization!, 'AuthorizationToken'))
+          .thenAnswer((_) => {
+                'authorizationTokenFk': metadata.authorization!,
+              });
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => null);
+      final result = await cartItemRepositoryImpl
+          .getCartItem(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(
+          metadata.authorization!, 'AuthorizationToken'));
+      verify(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockCartItemLocalDataSource.getCartItem(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result, Left(GrpcError.unauthenticated('Unauthenticated')));
+    });
+    test(
+        'Return GrpcError.unauthenticated when the authorizationToken has expired',
+        () async {
+      // setup
+      AuthorizationToken authorizationToken = AuthorizationToken(
+        id: '1',
+        app: AppType.App,
+        appVersion: '1',
+        createTime: '1',
+        deviceFk: '1',
+        refreshTokenFk: '1',
+        updateTime: '1',
+        userFk: '1',
+        valid: true,
+      );
+      Map<String, dynamic> data = {
+        'id': '1',
+        'userFk': authorizationToken.userFk,
+      };
+      // side effects
+      when(mockJsonWebToken.verify(
+              metadata.authorization!, 'AuthorizationToken'))
+          .thenThrow(GrpcError.unauthenticated('AuthorizationToken expired'));
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => null);
+      final result = await cartItemRepositoryImpl
+          .getCartItem(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(
+          metadata.authorization!, 'AuthorizationToken'));
+      verifyNever(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verifyNever(mockCartItemLocalDataSource.getCartItem(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result,
+          Left(GrpcError.unauthenticated('AuthorizationToken expired')));
+    });
+    test('Return GrpcError.internal when the code throw a Exception', () async {
+      // setup
+      AuthorizationToken authorizationToken = AuthorizationToken(
+        id: '1',
+        app: AppType.App,
+        appVersion: '1',
+        createTime: '1',
+        deviceFk: '1',
+        refreshTokenFk: '1',
+        updateTime: '1',
+        userFk: '1',
+        valid: true,
+      );
+      Map<String, dynamic> data = {
+        'id': '1',
+        'userFk': authorizationToken.userFk,
+      };
+      // side effects
+      when(mockJsonWebToken.verify(
+              metadata.authorization!, 'AuthorizationToken'))
+          .thenAnswer((_) => {
+                'authorizationTokenFk': metadata.authorization!,
+              });
+      when(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      )).thenAnswer((_) async => authorizationToken);
+      when(mockCartItemLocalDataSource.getCartItem(
+              context: anyNamed('context'),
+              data: anyNamed('data'),
+              paths: anyNamed('paths')))
+          .thenThrow(Exception());
+      final result = await cartItemRepositoryImpl
+          .getCartItem(context: ctx, data: data, metadata: metadata, paths: []);
+      // expectations
+      verify(mockJsonWebToken.verify(
+          metadata.authorization!, 'AuthorizationToken'));
+      verify(mockAuthorizationTokenLocalDataSource.getAuthorizationToken(
+        context: anyNamed('context'),
+        data: anyNamed('data'),
+        paths: anyNamed('paths'),
+      ));
+      verify(mockCartItemLocalDataSource.getCartItem(
+          context: anyNamed('context'),
+          data: anyNamed('data'),
+          paths: anyNamed('paths')));
+      expect(result, Left(GrpcError.internal('Internal server error')));
+    });
+  });
 }
