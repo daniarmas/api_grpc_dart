@@ -14,7 +14,7 @@ import 'database.dart';
 class PostgresqlDatabase implements Database {
   static final EnvironmentApp _environment = GetIt.I<EnvironmentApp>();
   static final _connection = PostgresqlDao(
-      host: _environment.databaseHost,
+      masterHost: _environment.databaseHost,
       port: _environment.databasePort,
       database: _environment.databaseDatabase,
       username: _environment.databaseUsername,
@@ -119,25 +119,27 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> list(
-      {required PostgreSQLExecutionContext context,
-      required String table,
-      required List<Where> where,
-      required List<Attribute> attributes,
-      InnerJoin? innerJoin,
-      List<String>? agregationMethods,
-      int? limit,
-      String? orderByAsc}) async {
+  Future<List<Map<String, dynamic>>> list({
+    required PostgreSQLExecutionContext context,
+    required String table,
+    required List<Where> where,
+    required List<Attribute> attributes,
+    InnerJoin? innerJoin,
+    List<String>? agregationMethods,
+    int? limit,
+    OrderBy? orderBy,
+  }) async {
     try {
       return await _connection.list(
-          context: context,
-          limit: (limit != null) ? limit + 1 : limit,
-          where: where,
-          table: table,
-          attributes: attributes,
-          agregationAttributes: agregationMethods,
-          innerJoin: innerJoin,
-          orderByAsc: orderByAsc);
+        context: context,
+        limit: (limit != null) ? limit + 1 : limit,
+        where: where,
+        table: table,
+        attributes: attributes,
+        agregationAttributes: agregationMethods,
+        innerJoin: innerJoin,
+        orderBy: orderBy,
+      );
     } catch (error) {
       if (error.toString().contains(
           'Attempting to execute query, but connection is not open.')) {
@@ -188,25 +190,27 @@ class PostgresqlDatabase implements Database {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> search(
-      {required PostgreSQLExecutionContext context,
-      required String table,
-      required List<Where> where,
-      List<Attribute>? attributes,
-      InnerJoin? innerJoin,
-      List<String>? agregationMethods,
-      int? limit,
-      String? orderByAsc}) async {
+  Future<List<Map<String, dynamic>>> search({
+    required PostgreSQLExecutionContext context,
+    required String table,
+    required List<Where> where,
+    List<Attribute>? attributes,
+    InnerJoin? innerJoin,
+    List<String>? agregationMethods,
+    int? limit,
+    OrderBy? orderBy,
+  }) async {
     try {
       return await _connection.search(
-          context: context,
-          limit: (limit != null) ? limit + 1 : limit,
-          where: where,
-          table: table,
-          attributes: attributes,
-          innerJoin: innerJoin,
-          agregationAttributes: agregationMethods,
-          orderByAsc: orderByAsc);
+        context: context,
+        limit: (limit != null) ? limit + 1 : limit,
+        where: where,
+        table: table,
+        attributes: attributes,
+        innerJoin: innerJoin,
+        agregationAttributes: agregationMethods,
+        orderBy: orderBy,
+      );
     } catch (error) {
       if (error.toString().contains(
           'Attempting to execute query, but connection is not open.')) {

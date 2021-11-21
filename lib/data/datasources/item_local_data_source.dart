@@ -124,6 +124,11 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
       required Map<String, dynamic> data,
       required List<Attribute> paths}) async {
     try {
+      bool photos = false;
+      if (paths.isEmpty ||
+          !paths.any((element) => element.name == '"photos"')) {
+        photos = true;
+      }
       if (data['nextPage'] == null) {
         data['nextPage'] = '';
       }
@@ -135,11 +140,11 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
       result = await _database.list(
           context: context,
           table: _table,
-          attributes: paths,
-          orderByAsc: 'name',
+          attributes: listPath,
+          orderBy: OrderByAsc(name: 'name', table: _table),
           where: [
             WhereNormalAttributeHigher(key: 'name', value: data['nextPage']),
-            WhereNormalAttributeNotEqual(key: 'status', value: 'DEPRECATED'),
+            WhereNormalAttributeNotEqual(key: 'status', value: 'Deprecated'),
             WhereNormalAttributeHigher(key: 'availability', value: '-1'),
           ],
           limit: 5);
@@ -173,37 +178,39 @@ class ItemLocalDataSourceImpl implements ItemLocalDataSource {
       if (response.length > 5) {
         ids.removeLast();
       }
-      List<ItemPhoto> listItemPhoto = [];
-      if (paths.isEmpty || paths.any((element) => element.name == 'photos')) {
-        final photos =
-            await _database.list(context: context, table: 'ItemPhoto', where: [
-          WhereNormalAttributeIn(key: 'itemFk', value: ids),
-        ], attributes: []);
-        for (var item in photos) {
-          listItemPhoto.add(ItemPhoto(
-            id: item['ItemPhoto']['id'],
-            itemFk: item['ItemPhoto']['itemFk'],
-            highQualityPhoto: item['ItemPhoto']['highQualityPhoto'],
-            highQualityPhotoBlurHash: item['ItemPhoto']
-                ['highQualityPhotoBlurHash'],
-            lowQualityPhoto: item['ItemPhoto']['lowQualityPhoto'],
-            lowQualityPhotoBlurHash: item['ItemPhoto']
-                ['lowQualityPhotoBlurHash'],
-            thumbnail: item['ItemPhoto']['thumbnail'],
-            thumbnailBlurHash: item['ItemPhoto']['thumbnailBlurHash'],
-            createTime: item['ItemPhoto']['createTime'].toString(),
-            updateTime: item['ItemPhoto']['updateTime'].toString(),
-          ));
-        }
-      }
-      for (var item in response) {
-        List<ItemPhoto> listOfPhotos = [];
-        for (var itemPhoto in listItemPhoto) {
-          if (item.id == itemPhoto.itemFk) {
-            listOfPhotos.add(itemPhoto);
+      if (photos) {
+        List<ItemPhoto> listItemPhoto = [];
+        if (paths.isEmpty || paths.any((element) => element.name == 'photos')) {
+          final photos = await _database
+              .list(context: context, table: 'ItemPhoto', where: [
+            WhereNormalAttributeIn(key: 'itemFk', value: ids),
+          ], attributes: []);
+          for (var item in photos) {
+            listItemPhoto.add(ItemPhoto(
+              id: item['ItemPhoto']['id'],
+              itemFk: item['ItemPhoto']['itemFk'],
+              highQualityPhoto: item['ItemPhoto']['highQualityPhoto'],
+              highQualityPhotoBlurHash: item['ItemPhoto']
+                  ['highQualityPhotoBlurHash'],
+              lowQualityPhoto: item['ItemPhoto']['lowQualityPhoto'],
+              lowQualityPhotoBlurHash: item['ItemPhoto']
+                  ['lowQualityPhotoBlurHash'],
+              thumbnail: item['ItemPhoto']['thumbnail'],
+              thumbnailBlurHash: item['ItemPhoto']['thumbnailBlurHash'],
+              createTime: item['ItemPhoto']['createTime'].toString(),
+              updateTime: item['ItemPhoto']['updateTime'].toString(),
+            ));
           }
         }
-        item.photos.addAll(listOfPhotos);
+        for (var item in response) {
+          List<ItemPhoto> listOfPhotos = [];
+          for (var itemPhoto in listItemPhoto) {
+            if (item.id == itemPhoto.itemFk) {
+              listOfPhotos.add(itemPhoto);
+            }
+          }
+          item.photos.addAll(listOfPhotos);
+        }
       }
       return response;
     } catch (error) {

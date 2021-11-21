@@ -46,13 +46,18 @@ service OrderService {
 
 service CartItemService {
   rpc ListCartItem (ListCartItemRequest) returns (ListCartItemResponse) {}
+  rpc GetCartItem (GetCartItemRequest) returns (GetCartItemResponse) {}
 }
 
 service ObjectStorageService {
   rpc GetPresignedPutObjectUserAvatar (GetPresignedPutUserAvatarRequest) returns (GetPresignedPutUserAvatarResponse) {}
 }
 
+/**
+ * Service for get the hostname.
+ */
 service HostnameService {
+  /// Get the hostname.
   rpc hostname(HostnameRequest) returns (HostnameResponse) {}
 }
 
@@ -79,6 +84,15 @@ message ListOrderRequest {
 message ListOrderResponse {
   repeated Order orders = 1;
   string nextPage = 2;
+}
+
+message GetCartItemRequest {
+  string id = 1;
+  google.protobuf.FieldMask fieldMask = 2;
+}
+
+message GetCartItemResponse {
+  Item item = 1;
 }
 
 message ListCartItemRequest {

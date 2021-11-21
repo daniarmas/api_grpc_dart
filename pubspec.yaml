@@ -19,7 +19,7 @@ dependencies:
   stack_trace: ^1.10.0
   intl: ^0.17.0
   postgres: ^2.4.0
-  postgres_conector: ^1.0.0-dev.1
+  postgres_conector: ^0.2.0-dev.1
   dartz: ^0.10.0-nullsafety.2
   equatable: ^2.0.3
   dart_jsonwebtoken: ^2.3.2

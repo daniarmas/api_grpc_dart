@@ -8,15 +8,16 @@ abstract class Database {
 
   Future<PostgreSQLConnection> getConnection();
 
-  Future<List<Map<String, dynamic>>> list(
-      {required PostgreSQLExecutionContext context,
-      required String table,
-      required List<Attribute> attributes,
-      required List<Where> where,
-      InnerJoin? innerJoin,
-      List<String>? agregationMethods,
-      int? limit,
-      String? orderByAsc});
+  Future<List<Map<String, dynamic>>> list({
+    required PostgreSQLExecutionContext context,
+    required String table,
+    required List<Attribute> attributes,
+    required List<Where> where,
+    InnerJoin? innerJoin,
+    List<String>? agregationMethods,
+    int? limit,
+    OrderBy? orderBy,
+  });
 
   Future<List<Map<String, dynamic>>> search({
     required PostgreSQLExecutionContext context,
@@ -25,7 +26,7 @@ abstract class Database {
     List<Attribute>? attributes,
     InnerJoin? innerJoin,
     int? limit,
-    String? orderByAsc,
+    OrderBy? orderBy,
     List<String>? agregationMethods,
   });
 

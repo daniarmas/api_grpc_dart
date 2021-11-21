@@ -141,7 +141,7 @@ class ItemRepositoryImpl implements ItemRepository {
                 WhereNormalAttributeEqual(
                     key: 'municipalityFk', value: data['municipalityFk']),
               ],
-              orderByAsc: '"Item"."cursor"',
+              orderBy: OrderByAsc(name: 'cursor', table: 'Item'),
               limit: 5);
           if (itemsResult.length > 5) {
             itemsResult.removeLast();
@@ -184,7 +184,7 @@ class ItemRepositoryImpl implements ItemRepository {
                   WhereNormalAttributeNotEqual(
                       key: 'municipalityFk', value: data['municipalityFk']),
                 ],
-                orderByAsc: '"Item"."cursor"',
+                orderBy: OrderByAsc(name: 'cursor', table: 'Item'),
                 limit: len);
             if (completeItems.length > len) {
               completeItems.removeLast();
@@ -228,7 +228,7 @@ class ItemRepositoryImpl implements ItemRepository {
                   WhereNormalAttributeNotEqual(
                       key: 'municipalityFk', value: data['municipalityFk']),
                 ],
-                orderByAsc: '"Item"."cursor"',
+                orderBy: OrderByAsc(name: 'cursor', table: 'Item'),
                 limit: 5);
             if (itemsResult.length > 5) {
               itemsResult.removeLast();
@@ -273,7 +273,7 @@ class ItemRepositoryImpl implements ItemRepository {
                 WhereNormalAttributeNotEqual(
                     key: 'municipalityFk', value: data['municipalityFk']),
               ],
-              orderByAsc: '"Item"."cursor"',
+              orderBy: OrderByAsc(name: 'cursor', table: 'Item'),
               limit: 5);
           if (itemsResult.length > 5) {
             itemsResult.removeLast();

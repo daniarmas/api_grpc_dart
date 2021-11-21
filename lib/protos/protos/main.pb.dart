@@ -247,6 +247,118 @@ class ListOrderResponse extends $pb.GeneratedMessage {
   void clearNextPage() => clearField(2);
 }
 
+class GetCartItemRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetCartItemRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOM<$2.FieldMask>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetCartItemRequest._() : super();
+  factory GetCartItemRequest({
+    $core.String? id,
+    $2.FieldMask? fieldMask,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    if (fieldMask != null) {
+      _result.fieldMask = fieldMask;
+    }
+    return _result;
+  }
+  factory GetCartItemRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetCartItemRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetCartItemRequest clone() => GetCartItemRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetCartItemRequest copyWith(void Function(GetCartItemRequest) updates) => super.copyWith((message) => updates(message as GetCartItemRequest)) as GetCartItemRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetCartItemRequest create() => GetCartItemRequest._();
+  GetCartItemRequest createEmptyInstance() => create();
+  static $pb.PbList<GetCartItemRequest> createRepeated() => $pb.PbList<GetCartItemRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetCartItemRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetCartItemRequest>(create);
+  static GetCartItemRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $2.FieldMask get fieldMask => $_getN(1);
+  @$pb.TagNumber(2)
+  set fieldMask($2.FieldMask v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasFieldMask() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFieldMask() => clearField(2);
+  @$pb.TagNumber(2)
+  $2.FieldMask ensureFieldMask() => $_ensure(1);
+}
+
+class GetCartItemResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetCartItemResponse', createEmptyInstance: create)
+    ..aOM<Item>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'item', subBuilder: Item.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetCartItemResponse._() : super();
+  factory GetCartItemResponse({
+    Item? item,
+  }) {
+    final _result = create();
+    if (item != null) {
+      _result.item = item;
+    }
+    return _result;
+  }
+  factory GetCartItemResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetCartItemResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetCartItemResponse clone() => GetCartItemResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetCartItemResponse copyWith(void Function(GetCartItemResponse) updates) => super.copyWith((message) => updates(message as GetCartItemResponse)) as GetCartItemResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetCartItemResponse create() => GetCartItemResponse._();
+  GetCartItemResponse createEmptyInstance() => create();
+  static $pb.PbList<GetCartItemResponse> createRepeated() => $pb.PbList<GetCartItemResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetCartItemResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetCartItemResponse>(create);
+  static GetCartItemResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Item get item => $_getN(0);
+  @$pb.TagNumber(1)
+  set item(Item v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasItem() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearItem() => clearField(1);
+  @$pb.TagNumber(1)
+  Item ensureItem() => $_ensure(0);
+}
+
 class ListCartItemRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ListCartItemRequest', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')

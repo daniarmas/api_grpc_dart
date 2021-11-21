@@ -165,6 +165,27 @@ const ListOrderResponse$json = const {
 
 /// Descriptor for `ListOrderResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List listOrderResponseDescriptor = $convert.base64Decode('ChFMaXN0T3JkZXJSZXNwb25zZRIeCgZvcmRlcnMYASADKAsyBi5PcmRlclIGb3JkZXJzEhoKCG5leHRQYWdlGAIgASgJUghuZXh0UGFnZQ==');
+@$core.Deprecated('Use getCartItemRequestDescriptor instead')
+const GetCartItemRequest$json = const {
+  '1': 'GetCartItemRequest',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    const {'1': 'fieldMask', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
+  ],
+};
+
+/// Descriptor for `GetCartItemRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getCartItemRequestDescriptor = $convert.base64Decode('ChJHZXRDYXJ0SXRlbVJlcXVlc3QSDgoCaWQYASABKAlSAmlkEjgKCWZpZWxkTWFzaxgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5GaWVsZE1hc2tSCWZpZWxkTWFzaw==');
+@$core.Deprecated('Use getCartItemResponseDescriptor instead')
+const GetCartItemResponse$json = const {
+  '1': 'GetCartItemResponse',
+  '2': const [
+    const {'1': 'item', '3': 1, '4': 1, '5': 11, '6': '.Item', '10': 'item'},
+  ],
+};
+
+/// Descriptor for `GetCartItemResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getCartItemResponseDescriptor = $convert.base64Decode('ChNHZXRDYXJ0SXRlbVJlc3BvbnNlEhkKBGl0ZW0YASABKAsyBS5JdGVtUgRpdGVt');
 @$core.Deprecated('Use listCartItemRequestDescriptor instead')
 const ListCartItemRequest$json = const {
   '1': 'ListCartItemRequest',

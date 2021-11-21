@@ -659,6 +659,12 @@ class CartItemServiceClient extends $grpc.Client {
           ($0.ListCartItemRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.ListCartItemResponse.fromBuffer(value));
+  static final _$getCartItem =
+      $grpc.ClientMethod<$0.GetCartItemRequest, $0.GetCartItemResponse>(
+          '/CartItemService/GetCartItem',
+          ($0.GetCartItemRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.GetCartItemResponse.fromBuffer(value));
 
   CartItemServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -669,6 +675,12 @@ class CartItemServiceClient extends $grpc.Client {
       $0.ListCartItemRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$listCartItem, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetCartItemResponse> getCartItem(
+      $0.GetCartItemRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getCartItem, request, options: options);
   }
 }
 
@@ -685,6 +697,15 @@ abstract class CartItemServiceBase extends $grpc.Service {
             ($core.List<$core.int> value) =>
                 $0.ListCartItemRequest.fromBuffer(value),
             ($0.ListCartItemResponse value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.GetCartItemRequest, $0.GetCartItemResponse>(
+            'GetCartItem',
+            getCartItem_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.GetCartItemRequest.fromBuffer(value),
+            ($0.GetCartItemResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.ListCartItemResponse> listCartItem_Pre(
@@ -693,8 +714,15 @@ abstract class CartItemServiceBase extends $grpc.Service {
     return listCartItem(call, await request);
   }
 
+  $async.Future<$0.GetCartItemResponse> getCartItem_Pre($grpc.ServiceCall call,
+      $async.Future<$0.GetCartItemRequest> request) async {
+    return getCartItem(call, await request);
+  }
+
   $async.Future<$0.ListCartItemResponse> listCartItem(
       $grpc.ServiceCall call, $0.ListCartItemRequest request);
+  $async.Future<$0.GetCartItemResponse> getCartItem(
+      $grpc.ServiceCall call, $0.GetCartItemRequest request);
 }
 
 class ObjectStorageServiceClient extends $grpc.Client {

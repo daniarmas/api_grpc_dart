@@ -17,6 +17,7 @@ import 'data/datasources/authorization_token_local_data_source.dart' as _i22;
 import 'data/datasources/banned_device_local_data_source.dart' as _i23;
 import 'data/datasources/banned_user_local_data_source.dart' as _i24;
 import 'data/datasources/business_local_data_source.dart' as _i25;
+import 'data/datasources/cart_item_local_data_source.dart' as _i28;
 import 'data/datasources/device_local_data_source.dart' as _i5;
 import 'data/datasources/item_local_data_source.dart' as _i8;
 import 'data/datasources/kubernetes_data_source.dart' as _i12;
@@ -28,22 +29,24 @@ import 'data/datasources/user_local_data_source.dart' as _i19;
 import 'data/datasources/verification_code_local_data_source.dart' as _i21;
 import 'data/email/emailer.dart' as _i6;
 import 'data/email/emailer_impl.dart' as _i7;
-import 'data/repositories/authentication_repository_impl.dart' as _i35;
+import 'data/repositories/authentication_repository_impl.dart' as _i38;
 import 'data/repositories/business_repository_impl.dart' as _i27;
+import 'data/repositories/cart_item_repository_impl.dart' as _i30;
 import 'data/repositories/item_repository_impl.dart' as _i10;
 import 'data/repositories/object_storage_repository_impl.dart' as _i15;
-import 'data/repositories/order_repository_impl.dart' as _i29;
-import 'data/repositories/user_repository_impl.dart' as _i31;
-import 'data/repositories/verification_code_repository_impl.dart' as _i33;
-import 'domain/repositories/authentication_repository.dart' as _i34;
+import 'data/repositories/order_repository_impl.dart' as _i32;
+import 'data/repositories/user_repository_impl.dart' as _i34;
+import 'data/repositories/verification_code_repository_impl.dart' as _i36;
+import 'domain/repositories/authentication_repository.dart' as _i37;
 import 'domain/repositories/business_repository.dart' as _i26;
+import 'domain/repositories/cart_item_repository.dart' as _i29;
 import 'domain/repositories/item_repository.dart' as _i9;
 import 'domain/repositories/object_storage_repository.dart' as _i14;
-import 'domain/repositories/order_repository.dart' as _i28;
-import 'domain/repositories/user_repository.dart' as _i30;
+import 'domain/repositories/order_repository.dart' as _i31;
+import 'domain/repositories/user_repository.dart' as _i33;
 
 import 'domain/repositories/verification_code_repository.dart'
-    as _i32; // ignore_for_file: unnecessary_lambdas
+    as _i35; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -87,25 +90,33 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i25.BusinessLocalDataSourceImpl(get<_i3.Database>()));
   gh.factory<_i26.BusinessRepository>(() => _i27.BusinessRepositoryImpl(
       businessLocalDataSource: get<_i25.BusinessLocalDataSource>()));
-  gh.factory<_i28.OrderRepository>(() => _i29.OrderRepositoryImpl(
+  gh.factory<_i28.CartItemLocalDataSource>(
+      () => _i28.CartItemLocalDataSourceImpl(get<_i3.Database>()));
+  gh.factory<_i29.CartItemRepository>(() => _i30.CartItemRepositoryImpl(
+      cartItemLocalDataSource: get<_i28.CartItemLocalDataSource>(),
+      database: get<_i3.Database>(),
+      jsonWebToken: get<_i11.JsonWebToken>(),
+      authorizationTokenLocalDataSource:
+          get<_i22.AuthorizationTokenLocalDataSource>()));
+  gh.factory<_i31.OrderRepository>(() => _i32.OrderRepositoryImpl(
       orderLocalDataSource: get<_i16.OrderLocalDataSource>(),
       jsonWebToken: get<_i11.JsonWebToken>(),
       authorizationTokenLocalDataSource:
           get<_i22.AuthorizationTokenLocalDataSource>()));
-  gh.factory<_i30.UserRepository>(() => _i31.UserRepositoryImpl(
+  gh.factory<_i33.UserRepository>(() => _i34.UserRepositoryImpl(
       generator: get<_i20.UsernameGenerator>(),
       userLocalDataSource: get<_i19.UserLocalDataSource>(),
       verificationCodeLocalDataSource:
           get<_i21.VerificationCodeLocalDataSource>()));
-  gh.factory<_i32.VerificationCodeRepository>(() =>
-      _i33.VerificationCodeRepositoryImpl(
+  gh.factory<_i35.VerificationCodeRepository>(() =>
+      _i36.VerificationCodeRepositoryImpl(
           emailer: get<_i6.Emailer>(),
           bannedUserLocalDataSource: get<_i24.BannedUserLocalDataSource>(),
           bannedDeviceLocalDataSource: get<_i23.BannedDeviceLocalDataSource>(),
           userLocalDataSource: get<_i19.UserLocalDataSource>(),
           verificationCodeLocalDataSource:
               get<_i21.VerificationCodeLocalDataSource>()));
-  gh.factory<_i34.AuthenticationRepository>(() => _i35.AuthenticationImpl(
+  gh.factory<_i37.AuthenticationRepository>(() => _i38.AuthenticationImpl(
       emailer: get<_i6.Emailer>(),
       jsonWebToken: get<_i11.JsonWebToken>(),
       kubernetesDataSource: get<_i12.KubernetesDataSource>(),

@@ -6,6 +6,11 @@ on:
     branches: [main, develop]
 
 jobs:
+  # For a new job
+  # docker run --rm \
+  #-v $(pwd)/doc:/out \
+  #-v $(pwd)/protos:/protos \
+  #docker.uclv.cu/pseudomuto/protoc-gen-doc:1.5.0 --doc_opt=html,index.html protos/main.proto
   # Label of the runner job
   runner-job:
     # You must use a Linux environment when using service containers or container jobs
