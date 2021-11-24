@@ -164,14 +164,14 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => verificationCode);
-      when(mockEmailer.sendVerificationCodeMail(
-              code: anyNamed('code'),
-              device: anyNamed('device'),
-              ip: anyNamed('ip'),
-              recipient: anyNamed('recipient'),
-              time: anyNamed('time'),
-              verificationCodeType: anyNamed('verificationCodeType')))
-          .thenAnswer((_) async => null);
+      // when(mockEmailer.sendVerificationCodeMail(
+      //         code: anyNamed('code'),
+      //         device: anyNamed('device'),
+      //         ip: anyNamed('ip'),
+      //         recipient: anyNamed('recipient'),
+      //         time: anyNamed('time'),
+      //         verificationCodeType: anyNamed('verificationCodeType')))
+      //     .thenAnswer((_) async => null);
       // side effects
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx, metadata: metadata);
@@ -196,13 +196,13 @@ void main() {
           data: anyNamed('data'), context: anyNamed('context')));
       verify(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
-      verify(mockEmailer.sendVerificationCodeMail(
-          code: anyNamed('code'),
-          device: anyNamed('device'),
-          ip: anyNamed('ip'),
-          recipient: anyNamed('recipient'),
-          time: anyNamed('time'),
-          verificationCodeType: anyNamed('verificationCodeType')));
+      // verify(mockEmailer.sendVerificationCodeMail(
+      //     code: anyNamed('code'),
+      //     device: anyNamed('device'),
+      //     ip: anyNamed('ip'),
+      //     recipient: anyNamed('recipient'),
+      //     time: anyNamed('time'),
+      //     verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Right(createVerificationCodeResponse));
     });
 
@@ -252,14 +252,14 @@ void main() {
               context: anyNamed('context'),
               paths: anyNamed('paths')))
           .thenAnswer((_) async => verificationCode);
-      when(mockEmailer.sendVerificationCodeMail(
-              code: anyNamed('code'),
-              device: anyNamed('device'),
-              ip: anyNamed('ip'),
-              recipient: anyNamed('recipient'),
-              time: anyNamed('time'),
-              verificationCodeType: anyNamed('verificationCodeType')))
-          .thenAnswer((_) async => null);
+      // when(mockEmailer.sendVerificationCodeMail(
+      //         code: anyNamed('code'),
+      //         device: anyNamed('device'),
+      //         ip: anyNamed('ip'),
+      //         recipient: anyNamed('recipient'),
+      //         time: anyNamed('time'),
+      //         verificationCodeType: anyNamed('verificationCodeType')))
+      //     .thenAnswer((_) async => null);
       // side effects
       result = await verificationCodeRepositoryImpl.createVerificationCode(
           data: map, paths: [], context: ctx, metadata: metadata);
@@ -284,13 +284,13 @@ void main() {
           data: anyNamed('data'), context: anyNamed('context')));
       verify(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
-      verify(mockEmailer.sendVerificationCodeMail(
-          code: anyNamed('code'),
-          device: anyNamed('device'),
-          ip: anyNamed('ip'),
-          recipient: anyNamed('recipient'),
-          time: anyNamed('time'),
-          verificationCodeType: anyNamed('verificationCodeType')));
+      // verify(mockEmailer.sendVerificationCodeMail(
+      //     code: anyNamed('code'),
+      //     device: anyNamed('device'),
+      //     ip: anyNamed('ip'),
+      //     recipient: anyNamed('recipient'),
+      //     time: anyNamed('time'),
+      //     verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Right(createVerificationCodeResponse));
     });
 
@@ -325,13 +325,13 @@ void main() {
           data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
-      verifyNever(mockEmailer.sendVerificationCodeMail(
-          code: anyNamed('code'),
-          device: anyNamed('device'),
-          ip: anyNamed('ip'),
-          recipient: anyNamed('recipient'),
-          time: anyNamed('time'),
-          verificationCodeType: anyNamed('verificationCodeType')));
+      // verifyNever(mockEmailer.sendVerificationCodeMail(
+      //     code: anyNamed('code'),
+      //     device: anyNamed('device'),
+      //     ip: anyNamed('ip'),
+      //     recipient: anyNamed('recipient'),
+      //     time: anyNamed('time'),
+      //     verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.invalidArgument('Input `email` invalid')));
     });
 
@@ -367,13 +367,13 @@ void main() {
           data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
-      verifyNever(mockEmailer.sendVerificationCodeMail(
-          code: anyNamed('code'),
-          device: anyNamed('device'),
-          ip: anyNamed('ip'),
-          recipient: anyNamed('recipient'),
-          time: anyNamed('time'),
-          verificationCodeType: anyNamed('verificationCodeType')));
+      // verifyNever(mockEmailer.sendVerificationCodeMail(
+      //     code: anyNamed('code'),
+      //     device: anyNamed('device'),
+      //     ip: anyNamed('ip'),
+      //     recipient: anyNamed('recipient'),
+      //     time: anyNamed('time'),
+      //     verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.invalidArgument('Input `type` invalid')));
     });
 
@@ -416,13 +416,13 @@ void main() {
           data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
-      verifyNever(mockEmailer.sendVerificationCodeMail(
-          code: anyNamed('code'),
-          device: anyNamed('device'),
-          ip: anyNamed('ip'),
-          recipient: anyNamed('recipient'),
-          time: anyNamed('time'),
-          verificationCodeType: anyNamed('verificationCodeType')));
+      // verifyNever(mockEmailer.sendVerificationCodeMail(
+      //     code: anyNamed('code'),
+      //     device: anyNamed('device'),
+      //     ip: anyNamed('ip'),
+      //     recipient: anyNamed('recipient'),
+      //     time: anyNamed('time'),
+      //     verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -468,13 +468,13 @@ void main() {
           data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
-      verifyNever(mockEmailer.sendVerificationCodeMail(
-          code: anyNamed('code'),
-          device: anyNamed('device'),
-          ip: anyNamed('ip'),
-          recipient: anyNamed('recipient'),
-          time: anyNamed('time'),
-          verificationCodeType: anyNamed('verificationCodeType')));
+      // verifyNever(mockEmailer.sendVerificationCodeMail(
+      //     code: anyNamed('code'),
+      //     device: anyNamed('device'),
+      //     ip: anyNamed('ip'),
+      //     recipient: anyNamed('recipient'),
+      //     time: anyNamed('time'),
+      //     verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -525,13 +525,13 @@ void main() {
           data: anyNamed('data')));
       verifyNever(mockVerificationCodeLocalDataSource.createVerificationCode(
           data: anyNamed('data')));
-      verifyNever(mockEmailer.sendVerificationCodeMail(
-          code: anyNamed('code'),
-          device: anyNamed('device'),
-          ip: anyNamed('ip'),
-          recipient: anyNamed('recipient'),
-          time: anyNamed('time'),
-          verificationCodeType: anyNamed('verificationCodeType')));
+      // verifyNever(mockEmailer.sendVerificationCodeMail(
+      //     code: anyNamed('code'),
+      //     device: anyNamed('device'),
+      //     ip: anyNamed('ip'),
+      //     recipient: anyNamed('recipient'),
+      //     time: anyNamed('time'),
+      //     verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -600,13 +600,13 @@ void main() {
           data: map, context: ctx));
       verifyNever(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
-      verifyNever(mockEmailer.sendVerificationCodeMail(
-          code: anyNamed('code'),
-          device: anyNamed('device'),
-          ip: anyNamed('ip'),
-          recipient: anyNamed('recipient'),
-          time: anyNamed('time'),
-          verificationCodeType: anyNamed('verificationCodeType')));
+      // verifyNever(mockEmailer.sendVerificationCodeMail(
+      //     code: anyNamed('code'),
+      //     device: anyNamed('device'),
+      //     ip: anyNamed('ip'),
+      //     recipient: anyNamed('recipient'),
+      //     time: anyNamed('time'),
+      //     verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -690,13 +690,13 @@ void main() {
           data: map, context: ctx));
       verifyNever(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
-      verifyNever(mockEmailer.sendVerificationCodeMail(
-          code: anyNamed('code'),
-          device: anyNamed('device'),
-          ip: anyNamed('ip'),
-          recipient: anyNamed('recipient'),
-          time: anyNamed('time'),
-          verificationCodeType: anyNamed('verificationCodeType')));
+      // verifyNever(mockEmailer.sendVerificationCodeMail(
+      //     code: anyNamed('code'),
+      //     device: anyNamed('device'),
+      //     ip: anyNamed('ip'),
+      //     recipient: anyNamed('recipient'),
+      //     time: anyNamed('time'),
+      //     verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
 
@@ -785,13 +785,13 @@ void main() {
           data: map, context: ctx));
       verify(mockVerificationCodeLocalDataSource
           .createVerificationCode(data: map, context: ctx, paths: []));
-      verifyNever(mockEmailer.sendVerificationCodeMail(
-          code: anyNamed('code'),
-          device: anyNamed('device'),
-          ip: anyNamed('ip'),
-          recipient: anyNamed('recipient'),
-          time: anyNamed('time'),
-          verificationCodeType: anyNamed('verificationCodeType')));
+      // verifyNever(mockEmailer.sendVerificationCodeMail(
+      //     code: anyNamed('code'),
+      //     device: anyNamed('device'),
+      //     ip: anyNamed('ip'),
+      //     recipient: anyNamed('recipient'),
+      //     time: anyNamed('time'),
+      //     verificationCodeType: anyNamed('verificationCodeType')));
       expect(result, Left(GrpcError.internal('Internal server error')));
     });
   });
