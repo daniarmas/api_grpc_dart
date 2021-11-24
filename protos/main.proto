@@ -4,9 +4,9 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
 
 service AuthenticationService {
-  rpc CreateVerificationCode (CreateVerificationCodeRequest) returns (CreateVerificationCodeResponse) {}
+  rpc CreateVerificationCode (CreateVerificationCodeRequest) returns (google.protobuf.Empty) {}
   rpc ListVerificationCode (ListVerificationCodeRequest) returns (ListVerificationCodeResponse) {}
-  rpc GetVerificationCode (GetVerificationCodeRequest) returns (GetVerificationCodeResponse) {}
+  rpc GetVerificationCode (GetVerificationCodeRequest) returns (google.protobuf.Empty) {}
   rpc UpdateVerificationCode (UpdateVerificationCodeRequest) returns (UpdateVerificationCodeResponse) {}
   rpc DeleteVerificationCode (DeleteVerificationCodeRequest) returns (google.protobuf.Empty) {}
 

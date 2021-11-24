@@ -98,14 +98,14 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
         }
         final response = await verificationCodeLocalDataSource
             .createVerificationCode(data: data, paths: paths, context: context);
-        await emailer.sendVerificationCodeMail(
-            verificationCodeType: data['type'],
-            code: response.code,
-            recipient: response.email,
-            ip: metadata.ipv4,
-            device:
-                '${metadata.model} - ${metadata.platform} ${metadata.systemVersion}',
-            time: DateTime.parse(response.createTime));
+        // await emailer.sendVerificationCodeMail(
+        //     verificationCodeType: data['type'],
+        //     code: response.code,
+        //     recipient: response.email,
+        //     ip: metadata.ipv4,
+        //     device:
+        //         '${metadata.model} - ${metadata.platform} ${metadata.systemVersion}',
+        //     time: DateTime.parse(response.createTime));
         return Right(
             CreateVerificationCodeResponse(verificationCode: response));
       }

@@ -23,10 +23,10 @@ class AuthenticationService extends AuthenticationServiceBase {
   UserRepository userRepository = GetIt.I<UserRepository>();
 
   @override
-  Future<CreateVerificationCodeResponse> createVerificationCode(
+  Future<Empty> createVerificationCode(
       ServiceCall call, CreateVerificationCodeRequest request) async {
     try {
-      late CreateVerificationCodeResponse response;
+      late Empty response;
       late Either<GrpcError, CreateVerificationCodeResponse> result;
       var connection = await database.getConnection();
       HeadersMetadata metadata = HeadersMetadata.fromServiceCall(call);
@@ -37,7 +37,7 @@ class AuthenticationService extends AuthenticationServiceBase {
             paths: getPaths(request.fieldMask.paths),
             context: context);
       });
-      result.fold((left) => {throw left}, (right) => {response = right});
+      result.fold((left) => {throw left}, (right) => {response = Empty()});
       return response;
     } catch (error) {
       if (error is GrpcError) {
@@ -75,10 +75,10 @@ class AuthenticationService extends AuthenticationServiceBase {
   }
 
   @override
-  Future<GetVerificationCodeResponse> getVerificationCode(
+  Future<Empty> getVerificationCode(
       ServiceCall call, GetVerificationCodeRequest request) async {
     try {
-      late GetVerificationCodeResponse response;
+      late Empty response;
       late Either<GrpcError, GetVerificationCodeResponse> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
@@ -88,7 +88,7 @@ class AuthenticationService extends AuthenticationServiceBase {
             paths: getPaths(request.fieldMask.paths),
             context: context);
       });
-      result.fold((left) => {throw left}, (right) => {response = right});
+      result.fold((left) => {throw left}, (right) => {response = Empty()});
       return response;
     } catch (error) {
       if (error is GrpcError) {
