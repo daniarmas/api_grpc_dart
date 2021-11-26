@@ -11,7 +11,7 @@ class HeadersMetadata {
   final String? refreshToken;
   final PlatformType platform;
   final String ipv4;
-  final String ipv6;
+  final String? ipv6;
   final String networkType;
   final String systemVersion;
   final String systemVersionSdk;
@@ -32,11 +32,11 @@ class HeadersMetadata {
       required this.systemLanguage,
       required this.networkType,
       required this.ipv4,
-      required this.ipv6,
       required this.deviceId,
       required this.model,
       required this.firebaseCloudMessagingId,
       this.authorization,
+      this.ipv6,
       this.refreshToken});
 
   HeadersMetadata.fromServiceCall(ServiceCall call)
@@ -47,7 +47,7 @@ class HeadersMetadata {
         deviceId = call.clientMetadata!['deviceid']!,
         systemVersionSdk = call.clientMetadata!['systemversionsdk']!,
         ipv4 = call.clientMetadata!['ipv4']!,
-        ipv6 = call.clientMetadata!['ipv6']!,
+        ipv6 = call.clientMetadata!['ipv6'],
         systemLanguage = call.clientMetadata!['systemlanguage']!,
         networkType = call.clientMetadata!['networktype']!,
         firebaseCloudMessagingId =
