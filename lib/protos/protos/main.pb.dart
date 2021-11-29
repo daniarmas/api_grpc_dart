@@ -1490,7 +1490,7 @@ class FeedRequest extends $pb.GeneratedMessage {
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'provinceFk', protoName: 'provinceFk')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'municipalityFk', protoName: 'municipalityFk')
     ..e<SearchMunicipalityType>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SearchMunicipalityTypeUnspecified, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', protoName: 'nextPage')
+    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', $pb.PbFieldType.O3, protoName: 'nextPage')
     ..aOM<$2.FieldMask>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fieldMask', protoName: 'fieldMask', subBuilder: $2.FieldMask.create)
     ..hasRequiredFields = false
   ;
@@ -1501,7 +1501,7 @@ class FeedRequest extends $pb.GeneratedMessage {
     $core.String? provinceFk,
     $core.String? municipalityFk,
     SearchMunicipalityType? searchMunicipalityType,
-    $core.String? nextPage,
+    $core.int? nextPage,
     $2.FieldMask? fieldMask,
   }) {
     final _result = create();
@@ -1585,9 +1585,9 @@ class FeedRequest extends $pb.GeneratedMessage {
   void clearSearchMunicipalityType() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get nextPage => $_getSZ(4);
+  $core.int get nextPage => $_getIZ(4);
   @$pb.TagNumber(5)
-  set nextPage($core.String v) { $_setString(4, v); }
+  set nextPage($core.int v) { $_setSignedInt32(4, v); }
   @$pb.TagNumber(5)
   $core.bool hasNextPage() => $_has(4);
   @$pb.TagNumber(5)
@@ -1608,20 +1608,25 @@ class FeedRequest extends $pb.GeneratedMessage {
 class FeedResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FeedResponse', createEmptyInstance: create)
     ..pc<Business>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businesses', $pb.PbFieldType.PM, subBuilder: Business.create)
-    ..e<SearchMunicipalityType>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SearchMunicipalityTypeUnspecified, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', $pb.PbFieldType.O3, protoName: 'nextPage')
+    ..aOB(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isCache', protoName: 'isCache')
+    ..e<SearchMunicipalityType>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'searchMunicipalityType', $pb.PbFieldType.OE, protoName: 'searchMunicipalityType', defaultOrMaker: SearchMunicipalityType.SearchMunicipalityTypeUnspecified, valueOf: SearchMunicipalityType.valueOf, enumValues: SearchMunicipalityType.values)
+    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextPage', $pb.PbFieldType.O3, protoName: 'nextPage')
     ..hasRequiredFields = false
   ;
 
   FeedResponse._() : super();
   factory FeedResponse({
     $core.Iterable<Business>? businesses,
+    $core.bool? isCache,
     SearchMunicipalityType? searchMunicipalityType,
     $core.int? nextPage,
   }) {
     final _result = create();
     if (businesses != null) {
       _result.businesses.addAll(businesses);
+    }
+    if (isCache != null) {
+      _result.isCache = isCache;
     }
     if (searchMunicipalityType != null) {
       _result.searchMunicipalityType = searchMunicipalityType;
@@ -1656,22 +1661,31 @@ class FeedResponse extends $pb.GeneratedMessage {
   $core.List<Business> get businesses => $_getList(0);
 
   @$pb.TagNumber(2)
-  SearchMunicipalityType get searchMunicipalityType => $_getN(1);
+  $core.bool get isCache => $_getBF(1);
   @$pb.TagNumber(2)
-  set searchMunicipalityType(SearchMunicipalityType v) { setField(2, v); }
+  set isCache($core.bool v) { $_setBool(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasSearchMunicipalityType() => $_has(1);
+  $core.bool hasIsCache() => $_has(1);
   @$pb.TagNumber(2)
-  void clearSearchMunicipalityType() => clearField(2);
+  void clearIsCache() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.int get nextPage => $_getIZ(2);
+  SearchMunicipalityType get searchMunicipalityType => $_getN(2);
   @$pb.TagNumber(3)
-  set nextPage($core.int v) { $_setSignedInt32(2, v); }
+  set searchMunicipalityType(SearchMunicipalityType v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasNextPage() => $_has(2);
+  $core.bool hasSearchMunicipalityType() => $_has(2);
   @$pb.TagNumber(3)
-  void clearNextPage() => clearField(3);
+  void clearSearchMunicipalityType() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.int get nextPage => $_getIZ(3);
+  @$pb.TagNumber(4)
+  set nextPage($core.int v) { $_setSignedInt32(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasNextPage() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearNextPage() => clearField(4);
 }
 
 class GetBusinessRequest extends $pb.GeneratedMessage {

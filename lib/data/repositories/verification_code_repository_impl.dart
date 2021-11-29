@@ -53,7 +53,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
           NormalAttribute(name: 'id'),
         ]);
         if (getBannedUserResponse != null) {
-          return Left(GrpcError.invalidArgument('User Banned'));
+          return Left(GrpcError.invalidArgument('User banned'));
         }
         final getBannedDeviceResponse = await bannedDeviceLocalDataSource
             .getBannedDevice(context: context, data: {
@@ -62,7 +62,7 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
           NormalAttribute(name: 'id'),
         ]);
         if (getBannedDeviceResponse != null) {
-          return Left(GrpcError.invalidArgument('Device Banned'));
+          return Left(GrpcError.invalidArgument('Device banned'));
         }
         final getUserResponse =
             await userLocalDataSource.getUser(context: context, data: {
@@ -72,11 +72,11 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
         ]);
         if (data['type'] == VerificationCodeType.SignIn &&
             getUserResponse == null) {
-          return Left(GrpcError.invalidArgument('User Not found'));
+          return Left(GrpcError.invalidArgument('User not found'));
         } else if ((data['type'] == VerificationCodeType.SignUp ||
                 data['type'] == VerificationCodeType.ChangeUserEmail) &&
             getUserResponse != null) {
-          return Left(GrpcError.invalidArgument('User Already Exists'));
+          return Left(GrpcError.invalidArgument('User already exists'));
         }
         final verificationCodeListResponse =
             await verificationCodeLocalDataSource.listVerificationCode(

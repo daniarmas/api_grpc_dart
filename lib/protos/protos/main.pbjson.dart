@@ -374,25 +374,26 @@ const FeedRequest$json = const {
     const {'1': 'provinceFk', '3': 2, '4': 1, '5': 9, '10': 'provinceFk'},
     const {'1': 'municipalityFk', '3': 3, '4': 1, '5': 9, '10': 'municipalityFk'},
     const {'1': 'searchMunicipalityType', '3': 4, '4': 1, '5': 14, '6': '.SearchMunicipalityType', '10': 'searchMunicipalityType'},
-    const {'1': 'nextPage', '3': 5, '4': 1, '5': 9, '10': 'nextPage'},
+    const {'1': 'nextPage', '3': 5, '4': 1, '5': 5, '10': 'nextPage'},
     const {'1': 'fieldMask', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.FieldMask', '10': 'fieldMask'},
   ],
 };
 
 /// Descriptor for `FeedRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List feedRequestDescriptor = $convert.base64Decode('CgtGZWVkUmVxdWVzdBIiCghsb2NhdGlvbhgBIAEoCzIGLlBvaW50Ughsb2NhdGlvbhIeCgpwcm92aW5jZUZrGAIgASgJUgpwcm92aW5jZUZrEiYKDm11bmljaXBhbGl0eUZrGAMgASgJUg5tdW5pY2lwYWxpdHlGaxJPChZzZWFyY2hNdW5pY2lwYWxpdHlUeXBlGAQgASgOMhcuU2VhcmNoTXVuaWNpcGFsaXR5VHlwZVIWc2VhcmNoTXVuaWNpcGFsaXR5VHlwZRIaCghuZXh0UGFnZRgFIAEoCVIIbmV4dFBhZ2USOAoJZmllbGRNYXNrGAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLkZpZWxkTWFza1IJZmllbGRNYXNr');
+final $typed_data.Uint8List feedRequestDescriptor = $convert.base64Decode('CgtGZWVkUmVxdWVzdBIiCghsb2NhdGlvbhgBIAEoCzIGLlBvaW50Ughsb2NhdGlvbhIeCgpwcm92aW5jZUZrGAIgASgJUgpwcm92aW5jZUZrEiYKDm11bmljaXBhbGl0eUZrGAMgASgJUg5tdW5pY2lwYWxpdHlGaxJPChZzZWFyY2hNdW5pY2lwYWxpdHlUeXBlGAQgASgOMhcuU2VhcmNoTXVuaWNpcGFsaXR5VHlwZVIWc2VhcmNoTXVuaWNpcGFsaXR5VHlwZRIaCghuZXh0UGFnZRgFIAEoBVIIbmV4dFBhZ2USOAoJZmllbGRNYXNrGAYgASgLMhouZ29vZ2xlLnByb3RvYnVmLkZpZWxkTWFza1IJZmllbGRNYXNr');
 @$core.Deprecated('Use feedResponseDescriptor instead')
 const FeedResponse$json = const {
   '1': 'FeedResponse',
   '2': const [
     const {'1': 'businesses', '3': 1, '4': 3, '5': 11, '6': '.Business', '10': 'businesses'},
-    const {'1': 'searchMunicipalityType', '3': 2, '4': 1, '5': 14, '6': '.SearchMunicipalityType', '10': 'searchMunicipalityType'},
-    const {'1': 'nextPage', '3': 3, '4': 1, '5': 5, '10': 'nextPage'},
+    const {'1': 'isCache', '3': 2, '4': 1, '5': 8, '10': 'isCache'},
+    const {'1': 'searchMunicipalityType', '3': 3, '4': 1, '5': 14, '6': '.SearchMunicipalityType', '10': 'searchMunicipalityType'},
+    const {'1': 'nextPage', '3': 4, '4': 1, '5': 5, '10': 'nextPage'},
   ],
 };
 
 /// Descriptor for `FeedResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List feedResponseDescriptor = $convert.base64Decode('CgxGZWVkUmVzcG9uc2USKQoKYnVzaW5lc3NlcxgBIAMoCzIJLkJ1c2luZXNzUgpidXNpbmVzc2VzEk8KFnNlYXJjaE11bmljaXBhbGl0eVR5cGUYAiABKA4yFy5TZWFyY2hNdW5pY2lwYWxpdHlUeXBlUhZzZWFyY2hNdW5pY2lwYWxpdHlUeXBlEhoKCG5leHRQYWdlGAMgASgFUghuZXh0UGFnZQ==');
+final $typed_data.Uint8List feedResponseDescriptor = $convert.base64Decode('CgxGZWVkUmVzcG9uc2USKQoKYnVzaW5lc3NlcxgBIAMoCzIJLkJ1c2luZXNzUgpidXNpbmVzc2VzEhgKB2lzQ2FjaGUYAiABKAhSB2lzQ2FjaGUSTwoWc2VhcmNoTXVuaWNpcGFsaXR5VHlwZRgDIAEoDjIXLlNlYXJjaE11bmljaXBhbGl0eVR5cGVSFnNlYXJjaE11bmljaXBhbGl0eVR5cGUSGgoIbmV4dFBhZ2UYBCABKAVSCG5leHRQYWdl');
 @$core.Deprecated('Use getBusinessRequestDescriptor instead')
 const GetBusinessRequest$json = const {
   '1': 'GetBusinessRequest',

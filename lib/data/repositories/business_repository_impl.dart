@@ -53,7 +53,12 @@ class BusinessRepositoryImpl implements BusinessRepository {
               data['location'].longitude == 0.0) {
         return Left(GrpcError.invalidArgument('Input `location` invalid'));
       } else if (data['nextPage'] == null) {
-        return Left(GrpcError.invalidArgument('Input `nextPage` invalid'));
+        data.addAll({
+          'nextPage': 0,
+        });
+        final response = await businessLocalDataSource.feed(
+            paths: paths, context: context, data: data);
+        return Right(response);
       } else if (data['provinceFk'] == null || data['provinceFk'] == '') {
         return Left(GrpcError.invalidArgument('Input `provinceFk` invalid'));
       } else if (data['municipalityFk'] == null ||

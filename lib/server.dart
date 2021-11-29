@@ -53,20 +53,20 @@ class Server {
               return null;
             }
           },
-          (ServiceCall call, ServiceMethod method) {
-            return authorizationTokenValid(call, method, [
-              'ListBusiness',
-              'GetBusiness',
-              'ListItem',
-              'GetItem',
-              'SignOut',
-              'ListSession',
-              'UpdateUser',
-              'ListOrder',
-              'GetCartItem',
-              'ListCartItem',
-            ]);
-          }
+          // (ServiceCall call, ServiceMethod method) {
+          //   return authorizationTokenValid(call, method, [
+          //     'ListBusiness',
+          //     'GetBusiness',
+          //     'ListItem',
+          //     'GetItem',
+          //     'SignOut',
+          //     'ListSession',
+          //     'UpdateUser',
+          //     'ListOrder',
+          //     'GetCartItem',
+          //     'ListCartItem',
+          //   ]);
+          // }
         ]);
         await server.serve(port: _environment.port);
         print('🚀 Server listening at port ${server.port}...');
