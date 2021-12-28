@@ -55,8 +55,8 @@ jobs:
       #   run: dart format --output=none --set-exit-if-changed .
 
       # Consider passing '--fatal-infos' for slightly stricter analysis.
-      - name: Analyze project source
-        run: dart analyze
+      # - name: Analyze project source
+      #   run: dart analyze
 
       # Organazing the imports
       - name: Organazing imports
@@ -65,28 +65,28 @@ jobs:
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
-      - name: Run tests
-        run: dart test --chain-stack-traces
-        env:
-          DATABASE_DATABASE: "postgres"
-          DATABASE_HOST: "localhost"
-          DATABASE_PORT: 5432
-          DATABASE_USERNAME: "postgres"
-          DATABASE_PASSWORD: "postgres"
-          PORT: 0
-          JWT_SECRET_KEY: "default"
-          EMAIL_HOST: "default"
-          EMAIL_PORT: 0
-          EMAIL_FROM_CONTACT_NAME: "default"
-          EMAIL_FROM: "default"
-          EMAIL_PASSWORD: "default"
-          EMAIL_USERNAME: "default"
-          KUBERNETES_API_TOKEN: "default"
-          KUBERNETES_API_SERVICE: "default"
-          OBJECT_STORAGE_ENDPOINT: "default"
-          OBJECT_STORAGE_ACCESS_KEY: "default"
-          OBJECT_STORAGE_SECRET_KEY: "default"
-          OBJECT_STORAGE_PORT: 0
-          OBJECT_STORAGE_USER_AVATAR_BUCKET: "default"
-          OBJECT_STORAGE_PATH_PREFIX: "oss"
-          DEBUG: "true"
+      # - name: Run tests
+      #   run: dart test --chain-stack-traces
+      #   env:
+      #     DATABASE_DATABASE: "postgres"
+      #     DATABASE_HOST: "localhost"
+      #     DATABASE_PORT: 5432
+      #     DATABASE_USERNAME: "postgres"
+      #     DATABASE_PASSWORD: "postgres"
+      #     PORT: 0
+      #     JWT_SECRET_KEY: "default"
+      #     EMAIL_HOST: "default"
+      #     EMAIL_PORT: 0
+      #     EMAIL_FROM_CONTACT_NAME: "default"
+      #     EMAIL_FROM: "default"
+      #     EMAIL_PASSWORD: "default"
+      #     EMAIL_USERNAME: "default"
+      #     KUBERNETES_API_TOKEN: "default"
+      #     KUBERNETES_API_SERVICE: "default"
+      #     OBJECT_STORAGE_ENDPOINT: "default"
+      #     OBJECT_STORAGE_ACCESS_KEY: "default"
+      #     OBJECT_STORAGE_SECRET_KEY: "default"
+      #     OBJECT_STORAGE_PORT: 0
+      #     OBJECT_STORAGE_USER_AVATAR_BUCKET: "default"
+      #     OBJECT_STORAGE_PATH_PREFIX: "oss"
+      #     DEBUG: "true"
