@@ -32,8 +32,8 @@ FutureOr<GrpcError?> authorizationTokenValid(
     if (methods.contains(method.name)) {
       if (call.clientMetadata!['authorization'] != null &&
           call.clientMetadata!['authorization'] != '') {
-        jsonWebToken.verify(
-            call.clientMetadata!['authorization']!, 'AuthorizationToken');
+        var strings = call.clientMetadata!['authorization']!.split(' ');
+        jsonWebToken.verify(strings[1], 'AuthorizationToken');
         return null;
       }
       return GrpcError.unauthenticated('Unauthenticated');
@@ -51,7 +51,6 @@ FutureOr<GrpcError?> authorizationTokenValid(
 
 FutureOr<GrpcError?> checkClientMetadata(
     ServiceCall call, ServiceMethod method) {
-  
   final metadata = call.clientMetadata;
   if (metadata!['platform'] == null ||
       metadata['platform'] == 'PLATFORM_TYPE_UNSPECIFIED') {

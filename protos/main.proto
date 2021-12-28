@@ -215,16 +215,19 @@ message GetPresignedPutUserAvatarRequest {
 }
 
 message GetPresignedPutUserAvatarResponse {
-  string objectUrl = 1;
+  string highQualityPhoto = 1;
+  string lowQualityPhoto = 2;
+  string thumbnailPhoto = 3;
+  string highQualityPhotoName = 4;
+  string lowQualityPhotoName = 5;
+  string thumbnailPhotoName = 6;
 }
 
 message SignUpRequest {
   string email = 1;
   string alias = 2;
   string fullName = 3;
-  string birthday = 4;
-  string photo = 5;
-  string code = 6;
+  string code = 5;
 }
 
 message SignUpResponse {
@@ -242,7 +245,7 @@ message UserExistsStreamResponse {
 }
 
 message UserExistsRequest {
-  string email = 1;
+  string alias = 1;
 }
 
 message CheckSessionResponse {
@@ -374,11 +377,10 @@ message User {
   string thumbnail = 8;
   string thumbnailBlurHash = 9;
   repeated UserAddress userAddress = 10;
-  bool isLegalAge = 11;
-  string email = 12; 
-  repeated UserPermission permissions = 13;
-  string createTime = 14;
-  string updateTime = 15;
+  string email = 11; 
+  repeated UserPermission permissions = 12;
+  string createTime = 13;
+  string updateTime = 14;
 }
 
 message Business {

@@ -8,7 +8,7 @@ import '../../environment.dart';
 
 // ignore: one_member_abstracts
 abstract class ObjectStorageDataSource {
-  Future<String> presignedPutObject(String bucket, String object,
+  Future<List<String>> presignedPutObject(String bucket, String object,
       {int? expires});
 }
 
@@ -23,15 +23,42 @@ class MinioObjectStorageDataSource implements ObjectStorageDataSource {
       useSSL: !_environment.debug);
 
   @override
-  Future<String> presignedPutObject(String bucket, String object,
+  Future<List<String>> presignedPutObject(String bucket, String object,
       {int? expires}) async {
     try {
-      final url = await minio.presignedPutObject(bucket, object);
-      if (!_environment.debug) {
-        List<String> strings = url.split('/');
-        return '${strings[0]}//${strings[2]}/${_environment.objectStoragePathPrefix}/${strings[3]}/${strings[4]}';
-      }
-      return url;
+      List<String> response = [];
+      // High Photo
+      await Future.delayed(Duration(milliseconds: 10));
+      List<String> highPhotoStringsName = object.split('.');
+      String highPhotoStringsFinalName =
+          highPhotoStringsName.first + '_high.' + highPhotoStringsName.last;
+      final highPhotoUrl =
+          await minio.presignedPutObject(bucket, highPhotoStringsFinalName);
+      List<String> highPhotoStrings = highPhotoUrl.split('/');
+      response.add('${highPhotoStrings[3]}/${highPhotoStrings[4]}');
+      // Low Photo
+      await Future.delayed(Duration(milliseconds: 10));
+      List<String> lowPhotoStringsName = object.split('.');
+      String lowPhotoStringsFinalName =
+          lowPhotoStringsName.first + '_low.' + lowPhotoStringsName.last;
+      final lowPhotoUrl =
+          await minio.presignedPutObject(bucket, lowPhotoStringsFinalName);
+      List<String> lowPhotoStrings = lowPhotoUrl.split('/');
+      response.add('${lowPhotoStrings[3]}/${lowPhotoStrings[4]}');
+      // Thumbnail Photo
+      await Future.delayed(Duration(milliseconds: 10));
+      List<String> thumbnailPhotoStringsName = object.split('.');
+      String thumbnailPhotoStringsFinalName = thumbnailPhotoStringsName.first +
+          '_thumbnail.' +
+          thumbnailPhotoStringsName.last;
+      final thumbnailPhotoUrl = await minio.presignedPutObject(
+          bucket, thumbnailPhotoStringsFinalName);
+      List<String> thumbnailPhotoStrings = thumbnailPhotoUrl.split('/');
+      response.add('${thumbnailPhotoStrings[3]}/${thumbnailPhotoStrings[4]}');
+      response.add(highPhotoStringsFinalName);
+      response.add(lowPhotoStringsFinalName);
+      response.add(thumbnailPhotoStringsFinalName);
+      return response;
     } catch (error) {
       rethrow;
     }

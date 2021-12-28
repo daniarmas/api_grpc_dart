@@ -39,11 +39,19 @@ class HeadersMetadata {
       this.ipv6,
       this.refreshToken});
 
+  static String decodeToken(String? token) {
+    if (token == null || token == '') {
+      return '';
+    } else {
+      return token.split(' ')[1];
+    }
+  }
+
   HeadersMetadata.fromServiceCall(ServiceCall call)
       : accesstoken = call.clientMetadata!['accesstoken']!,
         app = parseAppTypeEnum(call.clientMetadata!['app']!),
         appVersion = call.clientMetadata!['appversion']!,
-        authorization = call.clientMetadata!['authorization'],
+        authorization = decodeToken(call.clientMetadata!['authorization']),
         deviceId = call.clientMetadata!['deviceid']!,
         systemVersionSdk = call.clientMetadata!['systemversionsdk']!,
         ipv4 = call.clientMetadata!['ipv4']!,

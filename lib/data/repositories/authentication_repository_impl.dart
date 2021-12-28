@@ -75,7 +75,7 @@ class AuthenticationImpl implements AuthenticationRepository {
           NormalAttribute(name: 'type'),
         ]);
         if (getVerificationCodeResponse == null) {
-          return Left(GrpcError.invalidArgument('VerificationCode Not found'));
+          return Left(GrpcError.notFound('VerificationCode Not found'));
         }
         final getBannedUserResponse = await bannedUserLocalDataSource
             .getBannedUser(context: context, data: {
@@ -171,12 +171,12 @@ class AuthenticationImpl implements AuthenticationRepository {
           'app': metadata.app.toString(),
           'appVersion': metadata.appVersion
         }, paths: [], context: context);
-        await emailer.sendSignInMail(
-            recipient: getUserResponse.email,
-            ip: metadata.ipv4,
-            device:
-                '${metadata.model} - ${metadata.platform} ${metadata.systemVersion}',
-            time: DateTime.now());
+        // await emailer.sendSignInMail(
+        //     recipient: getUserResponse.email,
+        //     ip: metadata.ipv4,
+        //     device:
+        //         '${metadata.model} - ${metadata.platform} ${metadata.systemVersion}',
+        //     time: DateTime.now());
         var newRefreshToken = jsonWebToken
             .generateRefreshToken(payload: {'refreshTokenFk': refreshToken.id});
         var newAuthorizationToken =
@@ -318,9 +318,6 @@ class AuthenticationImpl implements AuthenticationRepository {
           !Validation.name(data['fullName'])) {
         return Left(GrpcError.invalidArgument('Input `fullName` invalid'));
       }
-      if (data['birthday'] == '') {
-        return Left(GrpcError.invalidArgument('Input `birthday` invalid'));
-      }
       if (data['photo'] == '') {
         return Left(GrpcError.invalidArgument('Input `photo` invalid'));
       }
@@ -371,7 +368,7 @@ class AuthenticationImpl implements AuthenticationRepository {
           NormalAttribute(name: 'type'),
         ]);
         if (getVerificationCodeResponse == null) {
-          return Left(GrpcError.invalidArgument('VerificationCode incorrect'));
+          return Left(GrpcError.notFound('VerificationCode not found'));
         }
         final getUserResponse = await userLocalDataSource.getUser(
             context: context, data: {'email': data['email']}, paths: []);
@@ -416,14 +413,12 @@ class AuthenticationImpl implements AuthenticationRepository {
         }
         late RefreshToken refreshToken;
         late AuthorizationToken authorizationToken;
-        User user =
-            await userLocalDataSource.createUser(context: context, data: {
-          'email': data['email'],
-          'alias': data['alias'],
-          'fullName': data['fullName'],
-          'birthday': DateTime.parse(data['birthday']),
-          'photo': data['photo']
-        }, paths: []);
+        Map<String, dynamic> createUserData = {};
+        createUserData.addAll({'email': data['email']});
+        createUserData.addAll({'alias': data['alias']});
+        createUserData.addAll({'fullName': data['fullname']});
+        User user = await userLocalDataSource
+            .createUser(context: context, data: createUserData, paths: []);
         refreshToken =
             await refreshTokenLocalDataSource.createRefreshToken(data: {
           'userFk': user.id,
@@ -431,7 +426,7 @@ class AuthenticationImpl implements AuthenticationRepository {
           'expirationTime': DateTime.now().add(Duration(hours: 24)),
         }, paths: [
           NormalAttribute(name: 'id'),
-          NormalAttribute(name: 'refreshToken'),
+          // NormalAttribute(name: 'refreshToken'),
         ], context: context);
         authorizationToken = await authorizationTokenLocalDataSource
             .createAuthorizationToken(data: {
@@ -565,8 +560,8 @@ class AuthenticationImpl implements AuthenticationRepository {
       required List<Attribute> paths}) async {
     try {
       if (data['all']) {
-        final authorizationTokenPayload = jsonWebToken.verify(
-            metadata.authorization!, 'AuthorizationToken');
+        final authorizationTokenPayload =
+            jsonWebToken.verify(metadata.authorization!, 'AuthorizationToken');
         final authorizationToken = await authorizationTokenLocalDataSource
             .getAuthorizationToken(
                 context: context,
@@ -592,9 +587,9 @@ class AuthenticationImpl implements AuthenticationRepository {
           ],
         );
         return Right(null);
-      } else if (data['authorizationTokenFk'] != '') {
-        final authorizationTokenPayload = jsonWebToken.verify(
-            metadata.authorization!, 'AuthorizationToken');
+      } else if (data['authorizationTokenFk'] != '' && data['authorizationTokenFk'] != null) {
+        final authorizationTokenPayload =
+            jsonWebToken.verify(metadata.authorization!, 'AuthorizationToken');
         final authorizationTokenByMetadata =
             await authorizationTokenLocalDataSource.getAuthorizationToken(
                 context: context,
@@ -622,8 +617,8 @@ class AuthenticationImpl implements AuthenticationRepository {
         );
         return Right(null);
       } else {
-        final authorizationTokenPayload = jsonWebToken.verify(
-            metadata.authorization!, 'AuthorizationToken');
+        final authorizationTokenPayload =
+            jsonWebToken.verify(metadata.authorization!, 'AuthorizationToken');
         final authorizationTokenByMetadata =
             await authorizationTokenLocalDataSource
                 .getAuthorizationToken(context: context, data: {
@@ -658,8 +653,8 @@ class AuthenticationImpl implements AuthenticationRepository {
       required HeadersMetadata metadata,
       required List<Attribute> paths}) async {
     try {
-      final authorizationTokenPayload = jsonWebToken.verify(
-          metadata.authorization!, 'AuthorizationToken');
+      final authorizationTokenPayload =
+          jsonWebToken.verify(metadata.authorization!, 'AuthorizationToken');
       final authorizationToken = await authorizationTokenLocalDataSource
           .getAuthorizationToken(context: context, data: {
         'id': authorizationTokenPayload['authorizationTokenFk'],

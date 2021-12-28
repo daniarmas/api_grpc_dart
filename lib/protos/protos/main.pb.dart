@@ -5,14 +5,12 @@
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
-// Dart imports:
 import 'dart:core' as $core;
 
-// Package imports:
 import 'package:protobuf/protobuf.dart' as $pb;
 
-// Project imports:
 import '../google/protobuf/field_mask.pb.dart' as $2;
+
 import 'main.pbenum.dart';
 
 export 'main.pbenum.dart';
@@ -1849,17 +1847,42 @@ class GetPresignedPutUserAvatarRequest extends $pb.GeneratedMessage {
 
 class GetPresignedPutUserAvatarResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPresignedPutUserAvatarResponse', createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'objectUrl', protoName: 'objectUrl')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhoto', protoName: 'highQualityPhoto')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhoto', protoName: 'lowQualityPhoto')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnailPhoto', protoName: 'thumbnailPhoto')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'highQualityPhotoName', protoName: 'highQualityPhotoName')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lowQualityPhotoName', protoName: 'lowQualityPhotoName')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnailPhotoName', protoName: 'thumbnailPhotoName')
     ..hasRequiredFields = false
   ;
 
   GetPresignedPutUserAvatarResponse._() : super();
   factory GetPresignedPutUserAvatarResponse({
-    $core.String? objectUrl,
+    $core.String? highQualityPhoto,
+    $core.String? lowQualityPhoto,
+    $core.String? thumbnailPhoto,
+    $core.String? highQualityPhotoName,
+    $core.String? lowQualityPhotoName,
+    $core.String? thumbnailPhotoName,
   }) {
     final _result = create();
-    if (objectUrl != null) {
-      _result.objectUrl = objectUrl;
+    if (highQualityPhoto != null) {
+      _result.highQualityPhoto = highQualityPhoto;
+    }
+    if (lowQualityPhoto != null) {
+      _result.lowQualityPhoto = lowQualityPhoto;
+    }
+    if (thumbnailPhoto != null) {
+      _result.thumbnailPhoto = thumbnailPhoto;
+    }
+    if (highQualityPhotoName != null) {
+      _result.highQualityPhotoName = highQualityPhotoName;
+    }
+    if (lowQualityPhotoName != null) {
+      _result.lowQualityPhotoName = lowQualityPhotoName;
+    }
+    if (thumbnailPhotoName != null) {
+      _result.thumbnailPhotoName = thumbnailPhotoName;
     }
     return _result;
   }
@@ -1885,13 +1908,58 @@ class GetPresignedPutUserAvatarResponse extends $pb.GeneratedMessage {
   static GetPresignedPutUserAvatarResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get objectUrl => $_getSZ(0);
+  $core.String get highQualityPhoto => $_getSZ(0);
   @$pb.TagNumber(1)
-  set objectUrl($core.String v) { $_setString(0, v); }
+  set highQualityPhoto($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasObjectUrl() => $_has(0);
+  $core.bool hasHighQualityPhoto() => $_has(0);
   @$pb.TagNumber(1)
-  void clearObjectUrl() => clearField(1);
+  void clearHighQualityPhoto() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get lowQualityPhoto => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set lowQualityPhoto($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasLowQualityPhoto() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearLowQualityPhoto() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get thumbnailPhoto => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set thumbnailPhoto($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasThumbnailPhoto() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearThumbnailPhoto() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get highQualityPhotoName => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set highQualityPhotoName($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasHighQualityPhotoName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearHighQualityPhotoName() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get lowQualityPhotoName => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set lowQualityPhotoName($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasLowQualityPhotoName() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearLowQualityPhotoName() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get thumbnailPhotoName => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set thumbnailPhotoName($core.String v) { $_setString(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasThumbnailPhotoName() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearThumbnailPhotoName() => clearField(6);
 }
 
 class SignUpRequest extends $pb.GeneratedMessage {
@@ -1899,9 +1967,7 @@ class SignUpRequest extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alias')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fullName', protoName: 'fullName')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'birthday')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'photo')
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'code')
     ..hasRequiredFields = false
   ;
 
@@ -1910,8 +1976,6 @@ class SignUpRequest extends $pb.GeneratedMessage {
     $core.String? email,
     $core.String? alias,
     $core.String? fullName,
-    $core.String? birthday,
-    $core.String? photo,
     $core.String? code,
   }) {
     final _result = create();
@@ -1923,12 +1987,6 @@ class SignUpRequest extends $pb.GeneratedMessage {
     }
     if (fullName != null) {
       _result.fullName = fullName;
-    }
-    if (birthday != null) {
-      _result.birthday = birthday;
-    }
-    if (photo != null) {
-      _result.photo = photo;
     }
     if (code != null) {
       _result.code = code;
@@ -1983,32 +2041,14 @@ class SignUpRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   void clearFullName() => clearField(3);
 
-  @$pb.TagNumber(4)
-  $core.String get birthday => $_getSZ(3);
-  @$pb.TagNumber(4)
-  set birthday($core.String v) { $_setString(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasBirthday() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearBirthday() => clearField(4);
-
   @$pb.TagNumber(5)
-  $core.String get photo => $_getSZ(4);
+  $core.String get code => $_getSZ(3);
   @$pb.TagNumber(5)
-  set photo($core.String v) { $_setString(4, v); }
+  set code($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(5)
-  $core.bool hasPhoto() => $_has(4);
+  $core.bool hasCode() => $_has(3);
   @$pb.TagNumber(5)
-  void clearPhoto() => clearField(5);
-
-  @$pb.TagNumber(6)
-  $core.String get code => $_getSZ(5);
-  @$pb.TagNumber(6)
-  set code($core.String v) { $_setString(5, v); }
-  @$pb.TagNumber(6)
-  $core.bool hasCode() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearCode() => clearField(6);
+  void clearCode() => clearField(5);
 }
 
 class SignUpResponse extends $pb.GeneratedMessage {
@@ -2184,17 +2224,17 @@ class UserExistsStreamResponse extends $pb.GeneratedMessage {
 
 class UserExistsRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserExistsRequest', createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'alias')
     ..hasRequiredFields = false
   ;
 
   UserExistsRequest._() : super();
   factory UserExistsRequest({
-    $core.String? email,
+    $core.String? alias,
   }) {
     final _result = create();
-    if (email != null) {
-      _result.email = email;
+    if (alias != null) {
+      _result.alias = alias;
     }
     return _result;
   }
@@ -2220,13 +2260,13 @@ class UserExistsRequest extends $pb.GeneratedMessage {
   static UserExistsRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get email => $_getSZ(0);
+  $core.String get alias => $_getSZ(0);
   @$pb.TagNumber(1)
-  set email($core.String v) { $_setString(0, v); }
+  set alias($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasEmail() => $_has(0);
+  $core.bool hasAlias() => $_has(0);
   @$pb.TagNumber(1)
-  void clearEmail() => clearField(1);
+  void clearAlias() => clearField(1);
 }
 
 class CheckSessionResponse extends $pb.GeneratedMessage {
@@ -3600,11 +3640,10 @@ class User extends $pb.GeneratedMessage {
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnail')
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'thumbnailBlurHash', protoName: 'thumbnailBlurHash')
     ..pc<UserAddress>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userAddress', $pb.PbFieldType.PM, protoName: 'userAddress', subBuilder: UserAddress.create)
-    ..aOB(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isLegalAge', protoName: 'isLegalAge')
-    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..pc<UserPermission>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'permissions', $pb.PbFieldType.PM, subBuilder: UserPermission.create)
-    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
-    ..aOS(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..pc<UserPermission>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'permissions', $pb.PbFieldType.PM, subBuilder: UserPermission.create)
+    ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'createTime', protoName: 'createTime')
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'updateTime', protoName: 'updateTime')
     ..hasRequiredFields = false
   ;
 
@@ -3620,7 +3659,6 @@ class User extends $pb.GeneratedMessage {
     $core.String? thumbnail,
     $core.String? thumbnailBlurHash,
     $core.Iterable<UserAddress>? userAddress,
-    $core.bool? isLegalAge,
     $core.String? email,
     $core.Iterable<UserPermission>? permissions,
     $core.String? createTime,
@@ -3656,9 +3694,6 @@ class User extends $pb.GeneratedMessage {
     }
     if (userAddress != null) {
       _result.userAddress.addAll(userAddress);
-    }
-    if (isLegalAge != null) {
-      _result.isLegalAge = isLegalAge;
     }
     if (email != null) {
       _result.email = email;
@@ -3780,43 +3815,34 @@ class User extends $pb.GeneratedMessage {
   $core.List<UserAddress> get userAddress => $_getList(9);
 
   @$pb.TagNumber(11)
-  $core.bool get isLegalAge => $_getBF(10);
+  $core.String get email => $_getSZ(10);
   @$pb.TagNumber(11)
-  set isLegalAge($core.bool v) { $_setBool(10, v); }
+  set email($core.String v) { $_setString(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasIsLegalAge() => $_has(10);
+  $core.bool hasEmail() => $_has(10);
   @$pb.TagNumber(11)
-  void clearIsLegalAge() => clearField(11);
+  void clearEmail() => clearField(11);
 
   @$pb.TagNumber(12)
-  $core.String get email => $_getSZ(11);
-  @$pb.TagNumber(12)
-  set email($core.String v) { $_setString(11, v); }
-  @$pb.TagNumber(12)
-  $core.bool hasEmail() => $_has(11);
-  @$pb.TagNumber(12)
-  void clearEmail() => clearField(12);
+  $core.List<UserPermission> get permissions => $_getList(11);
 
   @$pb.TagNumber(13)
-  $core.List<UserPermission> get permissions => $_getList(12);
+  $core.String get createTime => $_getSZ(12);
+  @$pb.TagNumber(13)
+  set createTime($core.String v) { $_setString(12, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasCreateTime() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearCreateTime() => clearField(13);
 
   @$pb.TagNumber(14)
-  $core.String get createTime => $_getSZ(13);
+  $core.String get updateTime => $_getSZ(13);
   @$pb.TagNumber(14)
-  set createTime($core.String v) { $_setString(13, v); }
+  set updateTime($core.String v) { $_setString(13, v); }
   @$pb.TagNumber(14)
-  $core.bool hasCreateTime() => $_has(13);
+  $core.bool hasUpdateTime() => $_has(13);
   @$pb.TagNumber(14)
-  void clearCreateTime() => clearField(14);
-
-  @$pb.TagNumber(15)
-  $core.String get updateTime => $_getSZ(14);
-  @$pb.TagNumber(15)
-  set updateTime($core.String v) { $_setString(14, v); }
-  @$pb.TagNumber(15)
-  $core.bool hasUpdateTime() => $_has(14);
-  @$pb.TagNumber(15)
-  void clearUpdateTime() => clearField(15);
+  void clearUpdateTime() => clearField(14);
 }
 
 class Business extends $pb.GeneratedMessage {

@@ -5,10 +5,11 @@ import 'package:postgres_conector/postgres_conector.dart';
 
 // Project imports:
 import 'package:api_grpc_dart/core/utils/metadata.dart';
+import '../../protos/protos/main.pb.dart';
 
 // ignore: one_member_abstracts
 abstract class ObjectStorageRepository {
-  Future<Either<GrpcError, String>> presignedPutObject(
+  Future<Either<GrpcError, GetPresignedPutUserAvatarResponse>> presignedPutObject(
       {required String bucket,
       required String object,
       required HeadersMetadata metadata,

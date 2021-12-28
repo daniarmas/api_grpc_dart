@@ -72,11 +72,11 @@ class VerificationCodeRepositoryImpl implements VerificationCodeRepository {
         ]);
         if (data['type'] == VerificationCodeType.SignIn &&
             getUserResponse == null) {
-          return Left(GrpcError.invalidArgument('User not found'));
+          return Left(GrpcError.notFound('User not found'));
         } else if ((data['type'] == VerificationCodeType.SignUp ||
                 data['type'] == VerificationCodeType.ChangeUserEmail) &&
             getUserResponse != null) {
-          return Left(GrpcError.invalidArgument('User already exists'));
+          return Left(GrpcError.alreadyExists('User already exists'));
         }
         final verificationCodeListResponse =
             await verificationCodeLocalDataSource.listVerificationCode(

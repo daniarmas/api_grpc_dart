@@ -199,10 +199,10 @@ class AuthenticationService extends AuthenticationServiceBase {
   Future<Empty> userExists(ServiceCall call, UserExistsRequest request) async {
     try {
       late Empty response;
-      late Either<GrpcError, User> result;
+      late Either<GrpcError, Empty> result;
       var connection = await database.getConnection();
       await connection.transaction((context) async {
-        result = await userRepository.getUser(
+        result = await userRepository.userExists(
             metadata: HeadersMetadata.fromServiceCall(call),
             data: getRequestData(request),
             paths: [NormalAttribute(name: 'id')],

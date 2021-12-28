@@ -7,6 +7,7 @@ import 'package:postgres_conector/postgres_conector.dart';
 // Project imports:
 import 'package:api_grpc_dart/core/utils/metadata.dart';
 import '../../protos/protos/main.pb.dart';
+import '../../protos/google/protobuf/empty.pb.dart';
 
 // ignore: one_member_abstracts
 abstract class UserRepository {
@@ -27,6 +28,12 @@ abstract class UserRepository {
     required List<Attribute> paths,
   });
   Future<Either<GrpcError, UpdateUserResponse>> updateUser({
+    required PostgreSQLExecutionContext context,
+    required Map<String, dynamic> data,
+    required HeadersMetadata metadata,
+    required List<Attribute> paths,
+  });
+  Future<Either<GrpcError, Empty>> userExists({
     required PostgreSQLExecutionContext context,
     required Map<String, dynamic> data,
     required HeadersMetadata metadata,

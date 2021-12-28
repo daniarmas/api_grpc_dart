@@ -1,4 +1,5 @@
 // Package imports:
+import 'package:api_grpc_dart/core/utils/parse.dart';
 import 'package:injectable/injectable.dart';
 import 'package:postgres/postgres.dart';
 import 'package:postgres_conector/postgres_conector.dart';
@@ -78,7 +79,7 @@ class BusinessLocalDataSourceImpl implements BusinessLocalDataSource {
                     result[_table]['homeDelivery'] == true)
                 ? BusinessStatusType.BusinessUnavailable
                 : BusinessStatusType.BusinessAvailable,
-            // polygon: parsePolygon(result['']['polygon'][0]),
+            polygon: parsePolygon(result['']['polygon'][0]),
             distance: result['']['distance'],
             coordinates: Point(
                 latitude: result['']['latitude'],

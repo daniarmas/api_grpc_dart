@@ -21,16 +21,13 @@ class ObjectStorageService extends ObjectStorageServiceBase {
       late GetPresignedPutUserAvatarResponse response;
       ObjectStorageRepository objectStorageRepository =
           GetIt.I<ObjectStorageRepository>();
-      late Either<GrpcError, String> result;
+      late Either<GrpcError, GetPresignedPutUserAvatarResponse> result;
       result = await objectStorageRepository.presignedPutObject(
           bucket: _environment.objectStorageUserAvatarBucket,
           metadata: HeadersMetadata.fromServiceCall(call),
           object: request.objectName,
           paths: []);
-      result.fold(
-          (left) => {throw left},
-          (right) =>
-              {response = GetPresignedPutUserAvatarResponse(objectUrl: right)});
+      result.fold((left) => {throw left}, (right) => {response = right});
       return response;
     } catch (error) {
       if (error is GrpcError) {
